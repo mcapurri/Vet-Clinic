@@ -1,0 +1,13 @@
+
+{{#each users}}
+
+     <div class="result-card">
+
+          <span><a href="/users/{{_id}}"> {{lastName}}, {{name}}</a></span>
+          <span>{{role}}</span>
+            
+     </div>
+ 
+{{/each}}
+
+     <h4><a href="/users/add" id="add-btn">Add user</a></h4>

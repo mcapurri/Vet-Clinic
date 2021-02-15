@@ -1,0 +1,45 @@
+{{#with user}}
+    <div class="result-card highlight">
+
+            <h3 href="/users/{{_id}}"> {{name}} {{lastName}}</h3>
+                <div id="infos">
+                    <p>Address: </p>
+                      <p>&nbsp;Street: {{address.street}} </p>
+                      <p>&nbsp;Zip Code: {{address.zip}}</p>
+                      <p>&nbsp;City: {{address.city}}</p>
+                      <p>&nbsp;State: {{address.state}}</p>
+                      <p>Phone number: {{phoneNumber}}</p>
+                      <hr>
+                      <p>Pets:</p>
+                            {{#each pets}}
+                                <div>
+                                    <span>{{this.name}}</span>
+                                    <span>{{this.type}}</span>
+                                    <p>Age: {{this.age}}</p>
+                                    <p>Diagnosis: {{this.diagnosis}}</p>
+                                    <p>Treatment: {{this.treatment}}</p>
+                                </div>
+                            {{/each}}
+                        <hr>
+                      <p>Client since: {{createdAt}}</p>
+
+                </div>
+          
+                <div class="buttons">
+                    <a href="/users/{{_id}}/edit">Edit</a>
+
+                    <form action="/users/{{_id}}/delete" method="POST">
+                    <button type="submit" id="delete-btn">Delete</button>
+                    </form>
+                </div>
+    </div>
+
+            
+    
+
+
+
+ 
+{{/with}}
+
+     <h4><a href="/rooms/add" id="add-btn">Add room</a></h4>

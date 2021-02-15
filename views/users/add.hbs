@@ -1,0 +1,54 @@
+<h2>Enter new user</h2>
+ <div class="result-card highlight">
+    <form action="/users/add" method="POST" class="form" >
+
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" value= "" required>
+      
+      <label for="lastName">Last name</label>
+      <input type="text" name="lastName" id="lastName" value= "" required>
+
+      <label for="street">Street</label>
+      <input type="text" name="street" id="street" value="" required>
+
+      <label for="zip">Zip Code</label>
+      <input type="text" name= "zip" value="" required>
+
+      <label for="city">City</label>
+      <input type="text" name= "city" value="" required>
+
+      <label for="state">State</label>
+      <input type="text" name= "state" value="" required>
+
+
+      <label for="email">Email</label>
+      <input type="email" name= "email" value="" required unique>
+
+      <label for="phoneNumber">Phone number</label>
+      <input type="text" name= "phoneNumber" value="" required unique>
+
+
+      <label for="userType">User type</label>
+      <select name="userType" id="user-type">
+         <option value="client">Client</option>
+         <option value="employee">Employee</option>
+      </select>
+
+      {{!-- <label for="petName">Pet name</label>
+      <input type="text" name= "petName" value=""> --}}
+      
+      {{!-- <label for="petType">Pet type</label>
+      <select name="petType" id="pet-type">
+         <option value="dog">Dog</option>
+         <option value="cat">Cat</option>
+         <option value="bird">Bird</option>
+         <option value="reptile">Reptile</option>
+         <option value="other">Other</option>
+      </select> --}}
+
+
+
+      
+       <button type="submit" >Add</button>
+    </form>
+</div>

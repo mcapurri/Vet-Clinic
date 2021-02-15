@@ -1,0 +1,12 @@
+<h1>Home page</h1>
+
+<h4>Hello {{#if user}} {{user.name}}  {{/if}} </h4>
+
+{{#if user}}
+<a href="/private">Private</a>
+<a href="/logout">Logout</a>
+<a href="/users">All clients</a>
+{{else}}
+<a href="/signup">Sign Up</a>
+<a href="/login">Log In</a>
+{{/if}}

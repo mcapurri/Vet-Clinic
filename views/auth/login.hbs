@@ -1,0 +1,21 @@
+<h2>Log in</h2>
+
+<form action="/login" method="POST" class="result-card login">
+    <label for="email">Email</label>
+    <input type="text" name="email" required>
+    <label for="username">Password</label>
+    <input type="password" name="password" required>
+
+    {{#if message}}
+      <p style='color: red'>{{message}}</p>
+    {{/if}}
+    <div class="buttons">
+      <button type="submit">Log In</button>
+
+    </div>
+
+    <p class="account-message">
+  Haven't you registered yet'?
+  <a href="/signup">Sign up</a>
+ </p>
+</form>
