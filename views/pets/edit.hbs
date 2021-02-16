@@ -1,9 +1,9 @@
-<h2>Enter new pet</h2>
+<h2>Edit pet</h2>
  <div class="result-card highlight">
-    <form action="/pets/add" method="POST" class="form" >
+    <form action="/pets/{{_id}}/edit" method="POST" class="form" >
 
       <label for="name">Name</label>
-      <input type="text" name="name" id="name" value= "" required>
+      <input type="text" name="name" id="name" value= "{{name}}" required>
       
       <label for="petType">Pet type</label>
       <select name="petType" id="pet-type">
@@ -15,13 +15,13 @@
       </select>
 
       <label for="age">Age</label>
-      <input type="text" name="age" id="age" value= "" required>
+      <input type="text" name="age" id="age" value= "{{age}}" required>
 
       <label for="diagnosis">Diagnosis</label>
-      <input type="text" name="diagnosis" id="diagnosis" value= "" required>
+      <input type="text" name="diagnosis" id="diagnosis" value= "{{diagnosis}}" required>
 
       <label for="treatment">Treatment</label>
-      <input type="text" name="treatment" id="treatment" value= "" required> <br>
+      <input type="text" name="treatment" id="treatment" value= "{{treatment}}" required> <br>
 
       <label for="owner">Owner</label>
       <select name="owner" id='owner-select'>
@@ -34,6 +34,6 @@
   
       
   
-       <button type="submit" >Add</button>
+       <button type="submit" >Save</button>
     </form>
 </div>

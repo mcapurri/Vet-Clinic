@@ -3,11 +3,11 @@
       {{#with pet}}  
           <div class="result-card pet-highlight">
               
-                    <span>{{this.name}}</span>
-                    <span>{{this.type}}</span>
+                    <span>Name: {{this.name}}</span>
+                    <span>Type: {{this.type}}</span>
                     <p>Age: {{this.age}}</p>
                     <p>Diagnosis: {{this.diagnosis}}</p>
                     <p>Treatment: {{this.treatment}}</p>
+      {{/with}}
                     <p>Owner: {{owner.name}} {{owner.lastName}}</p>
           </div>
-      {{/with}}

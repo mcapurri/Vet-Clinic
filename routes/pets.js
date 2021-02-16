@@ -28,8 +28,7 @@ router.get('/pets/add', (req, res) => {
     User.find()
         .populate('owner')
         .then((owners) => {
-            console.log('owners', owners);
-            res.render('pets/add', owners);
+            res.render('pets/add', { owners });
         });
 });
 
@@ -38,17 +37,19 @@ router.get('/pets/add', (req, res) => {
 // @access    Private
 router.get('/pets/:id', (req, res, next) => {
     console.log('req.params', req.params.id);
-    User.find()
-        .populate('owner')
-        .then((owner) => {
-            Pet.findById(req.params.id)
-                .then((pet) => {
-                    res.render('pets/show', { pet, owner });
-                })
-                .catch((err) => {
-                    next(err);
-                });
-        });
+
+    Pet.findById(req.params.id).then((pet) => {
+        console.log('pet', pet);
+        User.find(pet.owner)
+            .populate('owner')
+            .then((owner) => {
+                console.log('owner of the pet', owner[0]);
+                res.render('pets/show', { pet, owner: owner[0] });
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 });
 
 // @desc      Add pet
@@ -61,13 +62,23 @@ router.post(
     (req, res, next) => {
         const { name, type, age, diagnosis, treatment, owner } = req.body;
 
+        const query = { _id: req.params.id };
+        console.log('req.params', req.params);
+
+        if (req.user.role !== 'employee') {
+            query.owner = req.user._id;
+        } else {
+            query.owner = owner._id;
+        }
+        console.log('query', query);
+
         Pet.create({
             name,
             type,
             age,
             diagnosis,
             treatment,
-            owner,
+            owner: query.owner,
         })
             .then((pet) => {
                 console.log('pet added', pet);

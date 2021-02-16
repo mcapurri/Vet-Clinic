@@ -121,6 +121,7 @@ router.post(
             email,
             phoneNumber,
             position,
+            role,
         } = req.body;
 
         User.create({
@@ -134,6 +135,7 @@ router.post(
             email,
             phoneNumber,
             position,
+            role,
         })
             .then((user) => {
                 console.log('user added', user);

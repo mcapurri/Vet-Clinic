@@ -57,7 +57,7 @@ button {
     border-radius: 5px;
 }
 #add-btn {
-    padding-left: -5%;
+    /* padding-left: -5%; */
 }
 .result-card {
     display: flex;
