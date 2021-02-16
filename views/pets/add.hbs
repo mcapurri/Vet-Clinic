@@ -7,6 +7,7 @@
       
       <label for="petType">Pet type</label>
       <select name="petType" id="pet-type">
+         <option value="" selected>--Please choose an option--</option>
          <option value="dog">Dog</option>
          <option value="cat">Cat</option>
          <option value="bird">Bird</option>
@@ -17,21 +18,25 @@
       <label for="age">Age</label>
       <input type="text" name="age" id="age" value= "" required>
 
+   {{#ifEqual req.user.role 'employee'}}
+
       <label for="diagnosis">Diagnosis</label>
       <input type="text" name="diagnosis" id="diagnosis" value= "" required>
 
       <label for="treatment">Treatment</label>
       <input type="text" name="treatment" id="treatment" value= "" required> <br>
-
       <label for="owner">Owner</label>
       <select name="owner" id='owner-select'>
+
+      <option value="" selected>--Please choose an option--</option>
+
          {{#each owners}}
                      
-               <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
+      <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
          
          {{/each}}
       </select> <br>
-  
+  {{/ifEqual}}
       
   
        <button type="submit" >Add</button>

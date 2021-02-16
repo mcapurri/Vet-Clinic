@@ -60,17 +60,11 @@ router.post(
     // loginCheck,
 
     (req, res, next) => {
-        const { name, type, age, diagnosis, treatment, owner } = req.body;
+        let { name, type, age, diagnosis, treatment, owner } = req.body;
 
-        const query = { _id: req.params.id };
-        console.log('req.params', req.params);
-
-        if (req.user.role !== 'employee') {
-            query.owner = req.user._id;
-        } else {
-            query.owner = owner._id;
+        if (req.user.role == 'client') {
+            owner = req.user.id;
         }
-        console.log('query', query);
 
         Pet.create({
             name,
@@ -78,7 +72,7 @@ router.post(
             age,
             diagnosis,
             treatment,
-            owner: query.owner,
+            owner,
         })
             .then((pet) => {
                 console.log('pet added', pet);

@@ -29,10 +29,10 @@
           <label for="phoneNumber">Phone number</label>
           <input type="text" name= "phoneNumber" value="{{phoneNumber}}" required unique>
 
-{{!-- {{#xif role 'employee'}} --}}
+{{#ifEqual req.user.role 'employee'}}
           <label for="position">Position</label>
           <input type="text" name= "position" value="{{position}}">
-{{!-- {{/xif}} --}}
+{{/ifEqual}}
           <button type="submit" >Save</button>
         </form>
       </div>

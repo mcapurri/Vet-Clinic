@@ -11,10 +11,10 @@
                       <hr>
                       <p>Phone number: {{phoneNumber}}</p>
                       <hr>
-                      {{!-- {{#ifEqual role 'employee'}} --}}
-                    <p>Position: {{position}}</p>
-                    {{!-- {{/ifEqual}} --}}
-                    <p>Employee since: {{createdAt}}</p>
+                      {{#ifEqual req.user.role "employee"}}
+                        <p>Position: {{position}}</p>
+                      {{/ifEqual}}
+                        <p>Employee since: {{createdAt}}</p>
 
                 </div>
           

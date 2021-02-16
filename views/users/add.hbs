@@ -27,27 +27,14 @@
       <label for="phoneNumber">Phone number</label>
       <input type="text" name= "phoneNumber" value="" required unique>
 
-
+      {{#ifEqual role 'employee'}}
       <label for="role">User type</label>
       <select name="role" id="role">
          <option value="client">Client</option>
          <option value="employee">Employee</option>
       </select>
-
-      {{!-- <label for="petName">Pet name</label>
-      <input type="text" name= "petName" value=""> --}}
-      
-      {{!-- <label for="petType">Pet type</label>
-      <select name="petType" id="pet-type">
-         <option value="dog">Dog</option>
-         <option value="cat">Cat</option>
-         <option value="bird">Bird</option>
-         <option value="reptile">Reptile</option>
-         <option value="other">Other</option>
-      </select> --}}
-
-
-
+      {{/ifEqual}}
+    
       
        <button type="submit" >Add</button>
     </form>

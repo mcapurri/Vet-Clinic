@@ -4,8 +4,11 @@
 
 {{#if user}}
 <a href="/logout">Logout</a>
+<a href="/users/{{user._id}}">Profile</a>
+  {{#ifEqual user.role 'employee'}}
 <a href="/users">All users</a>
 <a href="/pets">All pets</a>
+  {{/ifEqual}}
 {{else}}
 <a href="/signup">Sign Up</a>
 <a href="/login">Log In</a>

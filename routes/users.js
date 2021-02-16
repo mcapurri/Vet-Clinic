@@ -6,7 +6,7 @@ const Pet = require('../models/Pet');
 /// @desc     Get all users
 // @route     GET /users
 // @access    Private
-router.get('/users', (req, res, next) => {
+router.get('/users', loginCheck(), (req, res, next) => {
     Pet.find()
         .populate('pets')
         .then((pets) => {
@@ -24,7 +24,7 @@ router.get('/users', (req, res, next) => {
 /// @desc     Get all clients
 // @route     GET /users/clients
 // @access    Private
-router.get('/users/clients', (req, res, next) => {
+router.get('/users/clients', loginCheck(), (req, res, next) => {
     Pet.find()
         .populate('pets')
         .then((pets) => {
@@ -42,7 +42,7 @@ router.get('/users/clients', (req, res, next) => {
 // @desc      Get all employees
 // @route     GET /users/employees
 // @access    Private
-router.get('/users/employees', (req, res, next) => {
+router.get('/users/employees', loginCheck(), (req, res, next) => {
     User.find({ role: 'employee' })
         .then((users) => {
             res.render('users/index', { users });
@@ -56,52 +56,41 @@ router.get('/users/employees', (req, res, next) => {
 // @desc      Show add user
 // @route     GET /users/add
 // @access    Private
-router.get('/users/add', (req, res) => {
+router.get('/users/add', loginCheck(), (req, res) => {
     res.render('users/add');
 });
 
 // @desc      Show edit form
 // @route     GET /users/:id/edit
 // @access    Private
-router.get('/users/:id/edit', (req, res, next) => {
-    Pet.find()
-        .populate('pets')
-        .then((pets) => {
-            User.findById(req.params.id).then((user) => {
-                console.log('user to edit', user);
-                console.log('user pets', pets);
-                res.render('users/edit', { pets, user });
-            });
+router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
+    User.findById(req.params.id)
+        .then((user) => {
+            console.log('user to edit', user);
+            console.log('req.user', req.user);
+            console.log('req.session', req.session);
+            res.render('users/edit', { user });
         })
         .catch((err) => {
             console.log(err);
             next(err);
         });
-    // });
 });
 
 // @desc      Get user details
 // @route     GET /users/:id
 // @access    Private
-router.get('/users/:id', (req, res, next) => {
+router.get('/users/:id', loginCheck(), (req, res, next) => {
     console.log('req.params', req.params.id);
-    Pet.find()
-        .populate('pets')
-        .then((pets) => {
-            User.findById(req.params.id)
-                .then((user) => {
-                    res.render(`users/${user.role}s/show`, { user, pets });
 
-                    // if (user.role == 'client') {
-                    //     res.render('users/clients/show', { user, pets });
-                    // } else {
-                    //     res.render('users/employees/show', { user });
-                    // }
-                })
-                .catch((err) => {
-                    next(err);
-                });
+    User.findById(req.params.id)
+        .then((user) => {
+            res.render('users/show', { user });
+        })
+        .catch((err) => {
+            next(err);
         });
+    // });
 });
 
 // @desc      Add user
@@ -109,7 +98,7 @@ router.get('/users/:id', (req, res, next) => {
 // @access    Private
 router.post(
     '/users/add',
-    // loginCheck,
+    loginCheck(),
 
     (req, res, next) => {
         const {
@@ -152,7 +141,7 @@ router.post(
 // @access    Private
 router.post(
     '/users/:id/edit',
-    // loginCheck,
+    loginCheck(),
 
     (req, res, next) => {
         // const query = { _id: req.params.id };
@@ -199,7 +188,7 @@ router.post(
 // @desc      Delete user
 // @route     POST /users/:id/delete
 // @access    Private
-router.post('/users/:id/delete', (req, res) => {
+router.post('/users/:id/delete', loginCheck(), (req, res) => {
     console.log('req.params', req.params);
     const query = { _id: req.params.id };
 
