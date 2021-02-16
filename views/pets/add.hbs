@@ -1,0 +1,39 @@
+<h2>Enter new pet</h2>
+ <div class="result-card highlight">
+    <form action="/pets/add" method="POST" class="form" >
+
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" value= "" required>
+      
+      <label for="petType">Pet type</label>
+      <select name="petType" id="pet-type">
+         <option value="dog">Dog</option>
+         <option value="cat">Cat</option>
+         <option value="bird">Bird</option>
+         <option value="reptile">Reptile</option>
+         <option value="other">Other</option>
+      </select>
+
+      <label for="age">Age</label>
+      <input type="text" name="age" id="age" value= "" required>
+
+      <label for="diagnosis">Diagnosis</label>
+      <input type="text" name="diagnosis" id="diagnosis" value= "" required>
+
+      <label for="treatment">Treatment</Tabel>
+      <input type="text" name="treatment" Td="treatment" Talue= "" required> <br>
+
+      <label for="owner">Owner</label>
+      <select name="owner" id='owner-select'>
+         {{#each owners}}
+               
+               <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
+   
+         {{/each}}
+      </select> <br>
+  
+      
+  
+       <button type="submit" >Add</button>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+<h2>Edit</h2>
+
+  {{#with user}}
+      <div class="result-card highlight">
+        <form action="/users/{{_id}}/edit" method="POST" class="form" >
+
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" value= "{{name}}" required>
+          
+          <label for="lastName">Last name</label>
+          <input type="text" name="lastName" id="lastName" value= "{{lastName}}" required>
+
+          <label for="email">Email</label>
+          <input type="email" name= "email" value="{{email}}" required unique>
+
+          <label for="street">Street</label>
+          <input type="text" name="street" id="street" value="{{address.street}}" required>
+
+          <label for="zip">Zip Code</label>
+          <input type="text" name= "zip" value="{{address.zip}}" required>
+
+          <label for="city">City</label>
+          <input type="text" name= "city" value="{{address.city}}" required>
+
+          <label for="state">State</label>
+          <input type="text" name= "state" value="{{address.state}}" required>
+
+
+          <label for="phoneNumber">Phone number</label>
+          <input type="text" name= "phoneNumber" value="{{phoneNumber}}" required unique>
+
+{{!-- {{#xif role 'employee'}} --}}
+          <label for="position">Position</label>
+          <input type="text" name= "position" value="{{position}}">
+{{!-- {{/xif}} --}}
+          <button type="submit" >Save</button>
+        </form>
+      </div>
+{{/with}}

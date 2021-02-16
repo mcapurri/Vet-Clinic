@@ -58,9 +58,9 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(
-    new LocalStrategy((username, password, done) => {
+    new LocalStrategy((email, password, done) => {
         // login
-        User.findOne({ username: username })
+        User.findOne({ email })
             .then((userFromDB) => {
                 if (!userFromDB) {
                     // there is no user with this username
@@ -97,6 +97,9 @@ app.use('/', index);
 
 const auth = require('./routes/auth');
 app.use('/', auth);
+
+const pets = require('./routes/pets');
+app.use('/', pets);
 
 const users = require('./routes/users');
 app.use('/', users);

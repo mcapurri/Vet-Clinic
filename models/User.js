@@ -16,8 +16,9 @@ const userSchema = new Schema(
         role: {
             type: String,
             enum: ['client', 'employee'],
-            default: 'client',
+            // default: 'client',
         },
+        position: String,
         pets: [
             {
                 type: Schema.Types.ObjectId,

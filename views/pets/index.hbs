@@ -1,0 +1,12 @@
+{{#each pets}}
+  {{!-- {{#with owners}} --}}
+     <div class="result-card">
+
+          <span><a href="/pets/{{_id}}"> {{name}}, {{type}}</a></span>
+          <span>{{owner}}</span>
+            
+     </div>
+  {{!-- {{/with}} --}}
+{{/each}}
+
+     <h4><a href="/pets/add" id="add-btn">Add pet</a></h4>

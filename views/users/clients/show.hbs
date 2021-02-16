@@ -25,21 +25,20 @@
 
                 </div>
           
-                <div class="buttons">
-                    <a href="/users/{{_id}}/edit">Edit</a>
-
-                    <form action="/users/{{_id}}/delete" method="POST">
-                    <button type="submit" id="delete-btn">Delete</button>
-                    </form>
-                </div>
+               
     </div>
 
-            
-    
+           {{!-- <h4><a href="/rooms/add" id="add-btn">Add room</a></h4> --}}
+           <div class="buttons">
+                    
+                    <a href="/pets/add">Add pet</a>
+                    <div id='ctl-btn'>
+                        <a href="/users/{{_id}}/edit">Edit</a>
 
-
-
- 
+                        <form action="/users/{{_id}}/delete" method="POST">
+                        <button type="submit" id="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                    
+                </div>
 {{/with}}
-
-     <h4><a href="/rooms/add" id="add-btn">Add room</a></h4>
