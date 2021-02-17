@@ -1,12 +1,13 @@
 <h2>Edit pet</h2>
+{{#with pet}}
  <div class="result-card highlight">
     <form action="/pets/{{_id}}/edit" method="POST" class="form" >
 
       <label for="name">Name</label>
       <input type="text" name="name" id="name" value= "{{name}}" required>
       
-      <label for="petType">Pet type</label>
-      <select name="petType" id="pet-type">
+      <label for="specie">Pet type</label>
+      <select name="specie" id="specie">
           <option value="">--</option>
          <option value="dog">Dog</option>
          <option value="cat">Cat</option>
@@ -18,23 +19,18 @@
       <label for="age">Age</label>
       <input type="text" name="age" id="age" value= "{{age}}" required>
 
-      <label for="diagnosis">Diagnosis</label>
-      <input type="text" name="diagnosis" id="diagnosis" value= "{{diagnosis}}" required>
+{{/with}}
+{{#if isEmployee}}
 
-      <label for="treatment">Treatment</label>
-      <input type="text" name="treatment" id="treatment" value= "{{treatment}}" required> <br>
+         <label for="diagnosis">Diagnosis</label>
+         <input type="text" name="diagnosis" id="diagnosis" value= "{{diagnosis}}" required>
 
-      <label for="owner">Owner</label>
-      <select name="owner" id='owner-select'>
-         {{#each owners}}
-                     
-               <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
-         
-         {{/each}}
-      </select> <br>
-  
-      
-  
+         <label for="treatment">Treatment</label>
+         <input type="text" name="treatment" id="treatment" value= "{{treatment}}" required> <br>
+
+
+{{/if}}
+                       
        <button type="submit" >Save</button>
     </form>
 </div>

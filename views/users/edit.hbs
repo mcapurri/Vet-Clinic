@@ -29,11 +29,19 @@
           <label for="phoneNumber">Phone number</label>
           <input type="text" name= "phoneNumber" value="{{phoneNumber}}" required unique>
 
-{{#ifEqual req.user.role 'employee'}}
+{{/with}}
+
+    {{#if isEmployee}}
+          {{#if userDbIsEmployee}}
+
           <label for="position">Position</label>
           <input type="text" name= "position" value="{{position}}">
-{{/ifEqual}}
+          {{/if}}
+    {{/if}}
+
           <button type="submit" >Save</button>
         </form>
       </div>
-{{/with}}
+
+
+

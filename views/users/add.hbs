@@ -27,13 +27,13 @@
       <label for="phoneNumber">Phone number</label>
       <input type="text" name= "phoneNumber" value="" required unique>
 
-      {{#ifEqual role 'employee'}}
-      <label for="role">User type</label>
-      <select name="role" id="role">
-         <option value="client">Client</option>
-         <option value="employee">Employee</option>
-      </select>
-      {{/ifEqual}}
+      {{#if isEmployee}}
+         <label for="role">User type</label>
+         <select name="role" id="role">
+            <option value="client">Client</option>
+            <option value="employee">Employee</option>
+         </select>
+      {{/if}}
     
       
        <button type="submit" >Add</button>

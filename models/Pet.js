@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const petSchema = new Schema(
     {
         name: String,
-        type: {
+        specie: {
             type: String,
             enum: ['dog', 'cat', 'bird', 'reptile', 'other'],
         },

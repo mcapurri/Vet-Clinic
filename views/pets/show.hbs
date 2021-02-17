@@ -4,10 +4,18 @@
           <div class="result-card pet-highlight">
               
                     <span>Name: {{this.name}}</span>
-                    <span>Type: {{this.type}}</span>
+                    <span>Specie: {{this.specie}}</span>
                     <p>Age: {{this.age}}</p>
                     <p>Diagnosis: {{this.diagnosis}}</p>
                     <p>Treatment: {{this.treatment}}</p>
-      {{/with}}
                     <p>Owner: {{owner.name}} {{owner.lastName}}</p>
+
+                    <div class="buttons">
+                    <a href="/pets/{{_id}}/edit">Edit</a>
+
+                    <form action="/pets/{{_id}}/delete" method="POST">
+                    <button type="submit" id="delete-btn">Delete</button>
+                    </form>
+                </div>
           </div>
+      {{/with}}

@@ -57,7 +57,11 @@ router.get('/users/employees', loginCheck(), (req, res, next) => {
 // @route     GET /users/add
 // @access    Private
 router.get('/users/add', loginCheck(), (req, res) => {
-    res.render('users/add');
+    let isEmployee = false;
+    if (req.user.role == 'employee') {
+        isEmployee = true;
+    }
+    res.render('users/add', { isEmployee });
 });
 
 // @desc      Show edit form
@@ -66,10 +70,17 @@ router.get('/users/add', loginCheck(), (req, res) => {
 router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
     User.findById(req.params.id)
         .then((user) => {
+            let isEmployee = false;
+            let userDbIsEmployee = false;
+            if (req.user.role == 'employee') {
+                isEmployee = true;
+            }
+            if (user.role == 'employee') {
+                userDbIsEmployee = true;
+            }
             console.log('user to edit', user);
             console.log('req.user', req.user);
-            console.log('req.session', req.session);
-            res.render('users/edit', { user });
+            res.render('users/edit', { user, isEmployee, userDbIsEmployee });
         })
         .catch((err) => {
             console.log(err);
@@ -85,12 +96,35 @@ router.get('/users/:id', loginCheck(), (req, res, next) => {
 
     User.findById(req.params.id)
         .then((user) => {
-            res.render('users/show', { user });
+            let isEmployee = false;
+            let userDbIsEmployee = false;
+            if (req.user.role == 'employee') {
+                isEmployee = true;
+            }
+            if (user.role == 'employee') {
+                userDbIsEmployee = true;
+            }
+            res.render('users/show', { user, isEmployee, userDbIsEmployee });
         })
         .catch((err) => {
             next(err);
         });
     // });
+});
+
+// @desc      Show add pet
+// @route     GET /users/:id/pet
+// @access    Private
+router.get('/users/:id/pet', (req, res, next) => {
+    User.find({ _id: req.params.id })
+        .populate('owner')
+        .then((owner) => {
+            res.render('pets/add', { owner });
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
 });
 
 // @desc      Add user
@@ -147,9 +181,10 @@ router.post(
         // const query = { _id: req.params.id };
 
         // if user is not admin they have to be the owner
-        // if (req.user.role !== 'employee') {
-        //     query. = req.user._id;
-        // }
+        if (req.user.role !== 'employee') {
+            query.owner = req.user._id;
+        }
+
         const {
             name,
             lastName,
@@ -160,7 +195,7 @@ router.post(
             email,
             phoneNumber,
             position,
-        } = req.params;
+        } = req.body;
 
         User.findByIdAndUpdate(req.params.id, {
             name,
@@ -185,6 +220,25 @@ router.post(
     }
 );
 
+// @desc      Add pet to user
+// @route     POST /users/:id/pet
+// @access    Private
+router.post('/users/:id/pet', (req, res) => {
+    const { name, specie, age, diagnosis, treatment, owner } = req.body;
+
+    Book.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+            $push: { pets: { name, specie, age, diagnosis, treatment, owner } },
+        }
+    )
+        .then(() => {
+            res.redirect(`/users/${_id}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 // @desc      Delete user
 // @route     POST /users/:id/delete
 // @access    Private

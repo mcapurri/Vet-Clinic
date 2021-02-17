@@ -7,28 +7,43 @@ const Pet = require('../models/Pet');
 // @route     GET /pets
 // @access    Private
 router.get('/pets', (req, res, next) => {
-    User.find()
-        .populate('owner')
-        .then((owners) => {
-            Pet.find()
-                .then((pets) => {
-                    res.render('pets/index', { pets, owners });
+    Pet.find()
+        .then((pets) => {
+            // pets.forEach((pet) => {
+            User.find()
+                .populate('owner')
+                .then((owner) => {
+                    console.log('pet owner', owner);
+                    res.render('pets/index', { pets, owner: owner[0] });
                 })
                 .catch((err) => {
                     console.log(err);
                     next(err);
                 });
+            // });
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
         });
 });
 
 // @desc      Show add pet
 // @route     GET /users/add
 // @access    Private
-router.get('/pets/add', (req, res) => {
+router.get('/pets/add', (req, res, next) => {
     User.find()
         .populate('owner')
         .then((owners) => {
-            res.render('pets/add', { owners });
+            let isEmployee = false;
+            if (req.user.role == 'employee') {
+                isEmployee = true;
+            }
+            res.render('pets/add', { owners, isEmployee });
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
         });
 });
 
@@ -52,6 +67,36 @@ router.get('/pets/:id', (req, res, next) => {
     });
 });
 
+// @desc      Show edit form
+// @route     GET /pets/:id/edit
+// @access    Private
+router.get('/pets/:id/edit', loginCheck(), (req, res, next) => {
+    Pet.findById(req.params.id)
+        .then((pet) => {
+            console.log(' editing pet', pet);
+            User.find(pet.owner)
+                .populate('owner')
+                .then((owner) => {
+                    console.log('owner pet', owner);
+                    let options = '';
+                    let isEmployee = false;
+                    if (req.user.role == 'employee') {
+                        isEmployee = true;
+                    }
+                    console.log('pet to edit', pet);
+                    console.log('req.user', req.user);
+                    res.render('pets/edit', { pet, isEmployee, owner });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    next(err);
+                });
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
+});
 // @desc      Add pet
 // @route     POST /pets/add
 // @access    Private
@@ -60,7 +105,7 @@ router.post(
     // loginCheck,
 
     (req, res, next) => {
-        let { name, type, age, diagnosis, treatment, owner } = req.body;
+        let { name, specie, age, diagnosis, treatment, owner } = req.body;
 
         if (req.user.role == 'client') {
             owner = req.user.id;
@@ -68,7 +113,7 @@ router.post(
 
         Pet.create({
             name,
-            type,
+            specie,
             age,
             diagnosis,
             treatment,
@@ -83,5 +128,53 @@ router.post(
             });
     }
 );
+
+// @desc      Edit pet
+// @route     POST /pets/:id/edit
+// @access    Private
+router.post(
+    '/pets/:id/edit',
+    loginCheck(),
+
+    (req, res, next) => {
+        const { name, specie, age, diagnosis, treatment } = req.body;
+
+        User.findByIdAndUpdate(req.params.id, {
+            name,
+            specie,
+            age,
+            diagnosis,
+            treatment,
+        })
+            .then((user) => {
+                console.log('user was updated', user);
+                res.redirect(`/pets/${user.id}`);
+            })
+            .catch((err) => {
+                next(err);
+            });
+    }
+);
+// @desc      Delete pet
+// @route     POST /pets/:id/delete
+// @access    Private
+router.post('/pets/:id/delete', loginCheck(), (req, res) => {
+    console.log('req.params', req.params);
+    const query = { _id: req.params.id };
+
+    // if user is not admin they have to be the owner
+    if (req.user.role !== 'employee') {
+        query.owner = req.user._id;
+    }
+    console.log('query', query);
+    Pet.findByIdAndDelete(req.params.id)
+        .then((pet) => {
+            console.log('This pet was removed', pet);
+            res.redirect('/pets');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 
 module.exports = router;

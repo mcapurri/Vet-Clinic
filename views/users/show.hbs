@@ -11,26 +11,25 @@
                       <hr>
                       <p>Phone number: {{phoneNumber}}</p>
                       <hr>
-                      {{#ifEqual req.user.role "employee"}}
+                      <p>Pets: {{pets}}</p>
+                      <p>{{role}} since: {{createdAt}}</p>
+{{/with}}
+                      {{#if isEmployee}}
+                        {{#if userDbIsEmployee}}
                         <p>Position: {{position}}</p>
-                      {{/ifEqual}}
-                        <p>Employee since: {{createdAt}}</p>
+                        {{/if}}
+                      {{/if}}
 
                 </div>
-          
+     
                 <div class="buttons">
-                    <a href="/users/{{_id}}/edit">Edit</a>
+                    <a href="/users/{{user._id}}/edit">Edit</a>
 
-                    <form action="/users/{{_id}}/delete" method="POST">
+                    <form action="/users/{{user._id}}/delete" method="POST">
                     <button type="submit" id="delete-btn">Delete</button>
                     </form>
                 </div>
     </div>
-
-            
-    
-
-
+                <a href="/users/{{user._id}}/pet">Add pet</a>
 
  
-{{/with}}

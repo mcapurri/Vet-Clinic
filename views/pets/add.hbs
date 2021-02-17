@@ -18,7 +18,7 @@
       <label for="age">Age</label>
       <input type="text" name="age" id="age" value= "" required>
 
-   {{#ifEqual req.user.role 'employee'}}
+   {{#if isEmployee}}
 
       <label for="diagnosis">Diagnosis</label>
       <input type="text" name="diagnosis" id="diagnosis" value= "" required>
@@ -36,7 +36,7 @@
          
          {{/each}}
       </select> <br>
-  {{/ifEqual}}
+  {{/if}}
       
   
        <button type="submit" >Add</button>
