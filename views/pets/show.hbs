@@ -8,14 +8,16 @@
                     <p>Age: {{this.age}}</p>
                     <p>Diagnosis: {{this.diagnosis}}</p>
                     <p>Treatment: {{this.treatment}}</p>
+      {{/with}}
                     <p>Owner: {{owner.name}} {{owner.lastName}}</p>
-
+      {{#with pet}}  
+    
                     <div class="buttons">
                     <a href="/pets/{{_id}}/edit">Edit</a>
 
                     <form action="/pets/{{_id}}/delete" method="POST">
                     <button type="submit" id="delete-btn">Delete</button>
+    {{/with}}
                     </form>
                 </div>
           </div>
-      {{/with}}

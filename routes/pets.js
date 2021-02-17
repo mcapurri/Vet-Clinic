@@ -51,8 +51,6 @@ router.get('/pets/add', (req, res, next) => {
 // @route     GET /pets/:id
 // @access    Private
 router.get('/pets/:id', (req, res, next) => {
-    console.log('req.params', req.params.id);
-
     Pet.findById(req.params.id).then((pet) => {
         console.log('pet', pet);
         User.find(pet.owner)

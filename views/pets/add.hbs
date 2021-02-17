@@ -5,8 +5,8 @@
       <label for="name">Name</label>
       <input type="text" name="name" id="name" value= "" required>
       
-      <label for="petType">Pet type</label>
-      <select name="petType" id="pet-type">
+      <label for="specie">Pet type</label>
+      <select name="specie" id="specie">
          <option value="" selected>--Please choose an option--</option>
          <option value="dog">Dog</option>
          <option value="cat">Cat</option>
@@ -32,7 +32,7 @@
 
          {{#each owners}}
                      
-      <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
+            <option value="{{this._id}}">{{this.name}} {{this.lastName}} </option>
          
          {{/each}}
       </select> <br>

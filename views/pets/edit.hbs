@@ -7,7 +7,7 @@
       <input type="text" name="name" id="name" value= "{{name}}" required>
       
       <label for="specie">Pet type</label>
-      <select name="specie" id="specie">
+      <select name="specie" id="specie" value= "{{specie}}" required>
           <option value="">--</option>
          <option value="dog">Dog</option>
          <option value="cat">Cat</option>
@@ -23,10 +23,10 @@
 {{#if isEmployee}}
 
          <label for="diagnosis">Diagnosis</label>
-         <input type="text" name="diagnosis" id="diagnosis" value= "{{diagnosis}}" required>
+         <input type="text" name="diagnosis" id="diagnosis" value= "{{pet.diagnosis}}" required>
 
          <label for="treatment">Treatment</label>
-         <input type="text" name="treatment" id="treatment" value= "{{treatment}}" required> <br>
+         <input type="text" name="treatment" id="treatment" value= "{{pet.treatment}}" required> <br>
 
 
 {{/if}}

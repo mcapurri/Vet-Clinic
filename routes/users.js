@@ -93,8 +93,8 @@ router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
 // @access    Private
 router.get('/users/:id', loginCheck(), (req, res, next) => {
     console.log('req.params', req.params.id);
-
     User.findById(req.params.id)
+        .populate('pets')
         .then((user) => {
             let isEmployee = false;
             let userDbIsEmployee = false;
@@ -226,7 +226,7 @@ router.post(
 router.post('/users/:id/pet', (req, res) => {
     const { name, specie, age, diagnosis, treatment, owner } = req.body;
 
-    Book.findOneAndUpdate(
+    User.findOneAndUpdate(
         { _id: req.params.id },
         {
             $push: { pets: { name, specie, age, diagnosis, treatment, owner } },
