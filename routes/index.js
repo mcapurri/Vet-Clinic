@@ -4,8 +4,12 @@ const router = require('express').Router();
 // @route     GET /
 // @access    Public
 router.get('/', (req, res, next) => {
+    let isEmployee = false;
+    if (req.user && req.user.role == 'employee') {
+        isEmployee = true;
+    }
     console.log('user', req.user);
-    res.render('index', { user: req.user });
+    res.render('index', { user: req.user, isEmployee });
 });
 
 module.exports = router;

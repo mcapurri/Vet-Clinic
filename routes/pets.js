@@ -7,14 +7,15 @@ const Pet = require('../models/Pet');
 // @route     GET /pets
 // @access    Private
 router.get('/pets', (req, res, next) => {
-    Pet.find()
-        .then((pets) => {
-            // pets.forEach((pet) => {
-            User.find()
+    User.find()
+        .then((owners) => {
+            Pet.find()
                 .populate('owner')
-                .then((owner) => {
-                    console.log('pet owner', owner);
-                    res.render('pets/index', { pets, owner: owner[0] });
+                .then((pets) => {
+                    console.log('pets from index', pets);
+                    // pets.forEach((pet) => {
+                    console.log('pet owner', owners);
+                    res.render('pets/index', { pets, owners: owners[0] });
                 })
                 .catch((err) => {
                     console.log(err);

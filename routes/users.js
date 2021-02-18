@@ -93,22 +93,35 @@ router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
 // @access    Private
 router.get('/users/:id', loginCheck(), (req, res, next) => {
     console.log('req.params', req.params.id);
+
     User.findById(req.params.id)
         .populate('pets')
+
         .then((user) => {
-            let isEmployee = false;
-            let userDbIsEmployee = false;
-            if (req.user.role == 'employee') {
-                isEmployee = true;
-            }
-            if (user.role == 'employee') {
-                userDbIsEmployee = true;
-            }
-            res.render('users/show', { user, isEmployee, userDbIsEmployee });
+            Pet.find()
+                .then((pets) => {
+                    let isEmployee = false;
+                    let userDbIsEmployee = false;
+                    if (req.user.role == 'employee') {
+                        isEmployee = true;
+                    }
+                    if (user.role == 'employee') {
+                        userDbIsEmployee = true;
+                    }
+                    res.render('users/show', {
+                        user,
+                        isEmployee,
+                        userDbIsEmployee,
+                    });
+                })
+                .catch((err) => {
+                    next(err);
+                });
         })
         .catch((err) => {
             next(err);
         });
+
     // });
 });
 

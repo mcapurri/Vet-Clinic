@@ -2,9 +2,7 @@
      <div class="result-card">
 
           <span><a href="/pets/{{_id}}"> {{name}}, {{specie}}</a></span>
-          <span>{{owner.lastName}}</span>
-          <span>{{owner}}</span>
+          <span>{{owner.lastName}}, {{owner.name}}</span>
      </div>
 {{/each}}
-{{!-- {{/with}} --}}
      <h4><a href="/pets/add" id="add-btn">Add pet</a></h4>

@@ -1,15 +1,69 @@
-<h1>Home page</h1>
+    <nav class='nav-bar'>
+            {{#if user}}
+      <span>Hello {{#if user}} {{user.name}}  {{/if}} </span>
+        <ul>
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/users/{{user._id}}">Profile</a></li>
+                    {{#if isEmployee}}
+                        <li><a href="/users">All users</a></li>
+                        <li><a href="/pets">All pets</a></li>
+                    {{else}}
+                        <li><a href="#emergencyForm">Book an appointment</a></li>
+                    {{/if}}
 
-<h4>Hello {{#if user}} {{user.name}}  {{/if}} </h4>
+            {{else}}
+                        {{> auth/login this}}
+                  {{!-- <li><a href="/signup">Sign Up</a></li>
+                  <li><a href="/login">Log In</a></li> --}}
+            {{/if}}
+        </ul>
+        
+    </nav>
+<header class='header'></header>
 
-{{#if user}}
-<a href="/logout">Logout</a>
-<a href="/users/{{user._id}}">Profile</a>
-  {{#ifEqual user.role 'employee'}}
-<a href="/users">All users</a>
-<a href="/pets">All pets</a>
-  {{/ifEqual}}
-{{else}}
-<a href="/signup">Sign Up</a>
-<a href="/login">Log In</a>
-{{/if}}
+
+<section id="carousel">
+    <img src="" alt="">
+</section>
+
+<section id="general-information">
+      <article class="container">
+        <h3> Services </h3>
+        <p class="text"> Check out our at home sevices </p>
+        <a class="link-btn" href="#"> More </a>
+      </article>
+
+      <article class="container">
+        <h3> Team </h3>
+        <p class="text"> Find out more about our specialized team. </p>
+        <a class="link-btn" href="#"> More </a>
+      </article>
+
+      <article class="container">
+        <h3> News </h3>
+        <p class="text"> All the news about pets. </p>
+        <a class="link-btn" href="#"> More </a>
+      </article>
+    </section>
+<section id='emergencyForm'>
+
+</section>
+
+<section id='mapSection'>
+      <h3>Choose the clinic in your nearest! </h3>
+      <div id='map' style='width: 80vw; height: 40vh;'></div>
+
+</section>
+
+   <footer class="footer"
+      <section id='footer'>
+        <h5> Contact Information </h5>
+        <address class="address">Animal Clinic <br /> Buschkrug Allee 206,  <br /> 12359 Berlin <br /> Germany <br /> +49 157 00 00 00</address>
+        <h5> Follow uUs </h5>
+        <ul>
+          <li> <a href="#"> Twitter </a> </li>
+          <li> <a href="#"> Facebook </a> </li>
+          <li> <a href="#"> Instagram </a> </li>
+        </ul>
+      </section>
+    </footer>
