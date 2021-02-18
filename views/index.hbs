@@ -20,7 +20,13 @@
         
     </nav>
 
-<header id="header"></header>
+<header id="header">
+  {{#if signUp}}
+      {{> auth/signup this}}
+  {{else}}
+      <img src="../images/pets.png" alt="pets">
+  {{/if}}
+</header>
 
 
 <section id="general-information">

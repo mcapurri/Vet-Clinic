@@ -86,11 +86,11 @@ button {
     justify-content: space-evenly;
     height: 25rem;
 }
-.result-card.login {
+/* .result-card.login {
     width: 120%;
     height: 3rem;
     line-height: 0.7rem;
-}
+} */
 .result-card p {
     margin-top: -1%;
 }
@@ -169,12 +169,16 @@ button {
     display: flex;
     flex-direction: column;
 }
+#login-input {
+    display: flex;
+    flex-wrap: nowrap;
+}
 #header {
-    background-image: url('../images/pets.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
     height: 80vh;
     margin: 10% 0 10% 0;
+}
+#header img {
+    width: 100%;
 }
 #general-information {
     display: flex;

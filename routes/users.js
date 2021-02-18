@@ -115,33 +115,34 @@ router.get('/users/:id', loginCheck(), async (req, res, next) => {
     // console.log('userDEtails', user);
     // console.log('pet', pet);
 
-    Pet.find()
+    // Pet.find()
+    //     .populate('pets')
+    //     .then((pets) => {
+    User.findById(req.params.id)
         .populate('pets')
-        .then((pets) => {
-            User.findById(req.params.id)
-
-                .then((user) => {
-                    let isEmployee = false;
-                    let userDbIsEmployee = false;
-                    if (req.user.role == 'employee') {
-                        isEmployee = true;
-                    }
-                    if (user.role == 'employee') {
-                        userDbIsEmployee = true;
-                    }
-                    res.render('users/show', {
-                        user,
-                        isEmployee,
-                        userDbIsEmployee,
-                    });
-                })
-                .catch((err) => {
-                    next(err);
-                });
+        .then((user) => {
+            console.log('userDb', user);
+            let isEmployee = false;
+            let userDbIsEmployee = false;
+            if (req.user.role == 'employee') {
+                isEmployee = true;
+            }
+            if (user.role == 'employee') {
+                userDbIsEmployee = true;
+            }
+            res.render('users/show', {
+                user,
+                isEmployee,
+                userDbIsEmployee,
+            });
         })
         .catch((err) => {
             next(err);
         });
+    // })
+    // .catch((err) => {
+    //     next(err);
+    // });
 });
 
 // @desc      Show add pet
@@ -151,7 +152,8 @@ router.get('/users/:id/pet', (req, res, next) => {
     User.find({ _id: req.params.id })
         .populate('owner')
         .then((owner) => {
-            res.render('pets/add', { owner });
+            console.log('owner Addpet', owner);
+            res.render('pets/addByClient', { owner: owner[0] });
         })
         .catch((err) => {
             console.log(err);
@@ -256,20 +258,38 @@ router.post(
 // @route     POST /users/:id/pet
 // @access    Private
 router.post('/users/:id/pet', (req, res) => {
-    const { name, specie, age, diagnosis, treatment, owner } = req.body;
-
-    User.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-            $push: { pets: { name, specie, age, diagnosis, treatment, owner } },
-        }
-    )
-        .then(() => {
-            res.redirect(`/users/${_id}`);
+    const { name, specie, age } = req.body;
+    console.log('req.user.id', req.user.id);
+    Pet.create({
+        name,
+        specie,
+        age,
+        // diagnosis,
+        // treatment,
+        owner: req.user._id,
+    })
+        .then((pet) => {
+            User.findByIdAndUpdate(req.user.id, {
+                $push: { pets: pet._id },
+            }).then(() => {
+                res.redirect(`/users/${req.params.id}`);
+            });
         })
         .catch((err) => {
-            console.log(err);
+            next(err);
         });
+    // User.findOneAndUpdate(
+    //     { _id: req.params.id },
+    //     {
+    //         $push: { pets: { name, specie, age, diagnosis, treatment, owner } },
+    //     }
+    // )
+    //     .then(() => {
+    //         res.redirect(`/users/${_id}`);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
 });
 // @desc      Delete user
 // @route     POST /users/:id/delete

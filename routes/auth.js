@@ -7,15 +7,17 @@ const passport = require('passport');
 // @route     GET /signup
 // @access    Public
 router.get('/signup', (req, res, next) => {
-    res.render('auth/signup');
+    let signUp = true;
+    console.log('signUp', signUp);
+    res.render('index', { signUp });
 });
 
 // @desc      Log in
 // @route     GET /login
 // @access    Public
-router.get('/login', (req, res, next) => {
-    res.render('auth/login');
-});
+// router.get('/login', (req, res, next) => {
+//     res.render('auth/login');
+// });
 
 // @desc      Log in
 // @route     POST /login

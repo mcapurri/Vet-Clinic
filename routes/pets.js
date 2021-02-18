@@ -12,9 +12,6 @@ router.get('/pets', (req, res, next) => {
             Pet.find()
                 .populate('owner')
                 .then((pets) => {
-                    console.log('pets from index', pets);
-                    // pets.forEach((pet) => {
-                    console.log('pet owner', owners);
                     res.render('pets/index', { pets, owners: owners[0] });
                 })
                 .catch((err) => {
@@ -30,17 +27,17 @@ router.get('/pets', (req, res, next) => {
 });
 
 // @desc      Show add pet
-// @route     GET /users/add
+// @route     GET /pets/add
 // @access    Private
 router.get('/pets/add', (req, res, next) => {
     User.find()
         .populate('owner')
         .then((owners) => {
-            let isEmployee = false;
-            if (req.user.role == 'employee') {
-                isEmployee = true;
-            }
-            res.render('pets/add', { owners, isEmployee });
+            // let isEmployee = false;
+            // if (req.user.role == 'employee') {
+            //     isEmployee = true;
+            // }
+            res.render('pets/addByEmployee', { owners });
         })
         .catch((err) => {
             console.log(err);
@@ -106,9 +103,9 @@ router.post(
     (req, res, next) => {
         let { name, specie, age, diagnosis, treatment, owner } = req.body;
 
-        if (req.user.role == 'client') {
-            owner = req.user.id;
-        }
+        // if (req.user.role == 'client') {
+        //     owner = req.user.id;
+        // }
 
         Pet.create({
             name,
@@ -119,8 +116,11 @@ router.post(
             owner,
         })
             .then((pet) => {
-                console.log('pet added', pet);
-                res.redirect('/pets');
+                User.findByIdAndUpdate(owner, {
+                    $push: { pets: pet._id },
+                }).then(() => {
+                    res.redirect('/pets');
+                });
             })
             .catch((err) => {
                 next(err);
@@ -147,7 +147,7 @@ router.post(
         })
             .then((user) => {
                 console.log('user was updated', user);
-                res.redirect(`/pets/${user.id}`);
+                res.redirect(`/pets/${req.params.id}`);
             })
             .catch((err) => {
                 next(err);

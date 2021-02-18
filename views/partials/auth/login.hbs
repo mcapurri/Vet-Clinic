@@ -1,19 +1,22 @@
 <div id='login'>
  
-<div>
-  <form action="/login" method="POST" class="result-card login">
+  <form action="/login" method="POST" id='login-input' >
+  <div >
+
     <label for="email">Email</label>
     <input type="text" name="email" required>
     <label for="password">Password</label>
     <input type="password" name="password" required>
 
+    <div class="buttons">
+      <button type="submit">Log In</button>
+    </div>
+  </div> 
+
     {{#if message}}
       <p style='color: red'>{{message}}</p>
     {{/if}}
-    <div class="buttons">
-      <button type="submit">Log In</button>
 
-    </div>
 
   </form>
 </div>

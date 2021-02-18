@@ -11,7 +11,11 @@
                       <hr>
                       <p>Phone number: {{phoneNumber}}</p>
                       <hr>
-                      <p>Pets: {{pets}}</p>
+                      <p>Pets: </p>
+                      {{#each pets}}
+                       {{name}} {{ age}}
+                      {{/each}}
+                      <hr>
                       <p>{{role}} since: {{createdAt}}</p>
 {{/with}}
                       {{#if isEmployee}}
@@ -19,7 +23,6 @@
                         <p>Position: {{position}}</p>
                         {{/if}}
                       {{/if}}
-
                 </div>
      
                 <div class="buttons">
