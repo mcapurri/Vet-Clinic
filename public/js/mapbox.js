@@ -43,7 +43,7 @@ const popup = new mapboxgl.Popup({
 });
 popup
     .setLngLat([13.455, 52.45])
-    .setHTML('<h1>Flidais Vet</h1>')
+    .setHTML('<h1>Animal Clinic</h1>')
     .setMaxWidth('400px')
     .addTo(map);
 
@@ -55,22 +55,19 @@ map.addControl(
     })
 );
 
-let coords = [
-    [13.405, 52.52],
-    [13.6, 52.6],
-];
+let coords = [demmler_whehming, tierMedizinZentrum, lenkTierPraxis];
 
 coords.forEach((coord) => {
     new mapboxgl.Marker({
         scale: 1,
         color: 'red',
-        draggable: true,
+        draggable: false,
     })
         .setLngLat(coord)
-        .addTo(map)
-        .on('dragend', (data) => {
-            console.log(data);
-        });
+        .addTo(map);
+    // .on('dragend', (data) => {
+    //     console.log(data);
+    // });
 });
 
 const addMarker = (event) => {
