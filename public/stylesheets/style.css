@@ -1,12 +1,11 @@
 body {
     font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
-    /* background-color: #b0c4a3; */
-    background-color: rgb(183, 228, 217);
+    background-color: rgb(101, 157, 241);
     padding: 0 5% 0 5%;
 }
 
 a {
-    color: #00b7ff;
+    color: #00ff88;
     text-decoration: none;
     margin-top: 2%;
     border: none;
