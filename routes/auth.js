@@ -35,6 +35,7 @@ router.post(
 // @route     POST /signup
 // @access    Public
 router.post('/signup', (req, res, next) => {
+    let signUp = true;
     const {
         name,
         lastName,
@@ -48,22 +49,25 @@ router.post('/signup', (req, res, next) => {
         phoneNumber,
     } = req.body;
     if (password.length < 3) {
-        res.render('auth/signup', {
-            message: 'Your password must be 8 characters minimum.',
+        res.render('index', {
+            message: 'Your password must be 3 characters minimum.',
+            signUp,
         });
         return;
     }
     if (password !== confirm) {
-        res.render('auth/login', {
+        res.render('index', {
             message: "Passwords don't match.",
+            signUp,
         });
         return;
     }
 
     User.findOne({ email }).then((found) => {
         if (found) {
-            res.render('auth/signup', {
+            res.render('index', {
                 message: 'This username is already taken',
+                signUp,
             });
         } else {
             // we can create a user with the username and password pair

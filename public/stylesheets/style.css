@@ -13,20 +13,15 @@ a {
     outline: none;
 }
 
-/* h1 {
-    color: 15px;
-} */
 h2 {
     margin-left: 5%;
 }
 
-/*# sourceMappingURL=style.css.map */
 .results-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    /* flex-direction: column; */
 }
 button {
     width: 24%;
@@ -78,6 +73,12 @@ button {
     align-items: center;
     height: 30rem;
     width: 90%;
+    height: 100%;
+    background-color: rgb(5, 58, 32);
+    color: #c0c0c0;
+}
+.result-card input {
+    width: 60%;
 }
 .result-card.pet-highlight {
     display: flex;
@@ -122,6 +123,7 @@ button {
 }
 #infos {
     padding: 0 10% 0 5%;
+    font-size: 1rem;
 }
 #map {
     width: 55vw;
@@ -183,6 +185,7 @@ ul li {
     height: 1rem;
 }
 .account-message {
+    padding-top: 1rem;
     color: #c0c0c0;
 }
 #header {
