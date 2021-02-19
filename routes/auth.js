@@ -15,9 +15,9 @@ router.get('/signup', (req, res, next) => {
 // @desc      Log in
 // @route     GET /login
 // @access    Public
-// router.get('/login', (req, res, next) => {
-//     res.render('auth/login');
-// });
+router.get('/login', (req, res, next) => {
+    res.render('index');
+});
 
 // @desc      Log in
 // @route     POST /login

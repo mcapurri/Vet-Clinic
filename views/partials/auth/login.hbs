@@ -1,28 +1,26 @@
 <div id='login'>
- 
-  <form action="/login" method="POST" id='login-input' >
-  <div >
+  <div>
+    <form action="/login" method="POST" id='login-input' >
+          <div id='login-input'>
 
-    <label for="email">Email</label>
-    <input type="text" name="email" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" required>
+              <label for="email">Email </label>
+              <input type="text" name="email" required>
+              <label for="password">Password </label>
+              <input type="password" name="password" required>
 
-    <div class="buttons">
-      <button type="submit">Log In</button>
+             <button type="submit">Log In</button>
+
+          </div> 
+
+        {{#if message}}
+          <p style='color: red'>{{message}}</p>
+        {{/if}}
+
+
+    </form>
     </div>
-  </div> 
+    <div>
 
-    {{#if message}}
-      <p style='color: red'>{{message}}</p>
-    {{/if}}
-
-
-  </form>
-</div>
-
-    <p class="account-message">
-  Haven't you registered yet'?
-  <a href="/signup">Sign up</a>
- </p>
+        <p class="account-message">Haven't you registered yet'? <a href="/signup">Sign up</a></p>
+    </div>
 </div>
