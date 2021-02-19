@@ -2,11 +2,11 @@
             {{#if user}}
                 <span>Hello {{#if user}} {{user.name}}  {{/if}} </span>
                 <ul>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/users/{{user._id}}">Profile</a></li>
                         {{#if isEmployee}}
-                                    <li><a href="/users">All users</a></li>
-                                    <li><a href="/pets">All pets</a></li>
+                                    {{!-- <li><a href="/users">All users</a></li> --}}
+                                    <li><a href="/users/clients">Clients</a></li>
+                                    <li><a href="/users/employees">Employees</a></li>
+                                    <li><a href="/pets">Patients</a></li>
                                 {{else}}
                                     <li><a href="#emergencyForm">Book an appointment</a></li>
                                 {{/if}}
@@ -16,6 +16,8 @@
                              {{> auth/login this}}
                 
                         {{/if}}
+                    <li><a href="/users/{{user._id}}">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
             </ul>
         
     </nav>

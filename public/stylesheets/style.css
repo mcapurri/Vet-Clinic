@@ -106,6 +106,7 @@ button {
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
+    margin-top: 10%;
 }
 #ctl-btn {
     display: flex;

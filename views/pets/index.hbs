@@ -5,9 +5,14 @@
           <span>{{owner.lastName}}, {{owner.name}}</span>
      </div>
 {{/each}}
-       {{#if isEmployee}}
-                <a href="/pets/add">Add pet</a>
+          <div class="buttons">
 
-          {{else}}
-                <a href="/users/{{user._id}}/pet">Add pet</a>
-          {{/if }}
+               {{#if isEmployee}}
+                        <h4><a href="/pets/add">Add pet</a></h4> 
+
+                    {{else}}
+                         <h4><a href="/users/{{user._id}}/pet">Add pet</a></h4>
+                    {{/if }}
+
+                    <h4><a href="/">Home</a></h4>
+          </div>

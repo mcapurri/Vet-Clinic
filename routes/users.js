@@ -43,13 +43,17 @@ router.get('/users/clients', loginCheck(), (req, res, next) => {
 // @route     GET /users/employees
 // @access    Private
 router.get('/users/employees', loginCheck(), (req, res, next) => {
-    User.find({ role: 'employee' })
-        .then((users) => {
-            res.render('users/index', { users });
-        })
-        .catch((err) => {
-            console.log(err);
-            next(err);
+    Pet.find()
+        .populate('pets')
+        .then((pets) => {
+            User.find({ role: 'employee' })
+                .then((users) => {
+                    res.render('users/index', { users });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    next(err);
+                });
         });
 });
 
