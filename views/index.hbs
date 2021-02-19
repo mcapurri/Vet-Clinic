@@ -11,13 +11,13 @@
                                     <li><a href="#emergencyForm">Book an appointment</a></li>
                                 {{/if}}
 
+                                  <li><a href="/users/{{user._id}}">Profile</a></li>
+                                  <li><a href="/logout">Logout</a></li>
                         {{else}}
 
                              {{> auth/login this}}
                 
                         {{/if}}
-                    <li><a href="/users/{{user._id}}">Profile</a></li>
-                    <li><a href="/logout">Logout</a></li>
             </ul>
         
     </nav>
