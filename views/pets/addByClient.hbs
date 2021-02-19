@@ -2,7 +2,7 @@
  <div class="result-card highlight">
    {{#with owner}}
     <form action="/users/{{_id}}/pet" method="POST" class="form" >
-
+   {{/with}}
       <label for="name">Name</label>
       <input type="text" name="name" id="name" value= "" required>
       
