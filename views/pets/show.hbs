@@ -5,12 +5,14 @@
               
                     <span>Name: {{this.name}}</span>
                     <span>Specie: {{this.specie}}</span>
+                    <span>Breed: {{this.breed}}</span>
                     <p>Age: {{this.age}}</p>
                     <p>Diagnosis: {{this.diagnosis}}</p>
                     <p>Treatment: {{this.treatment}}</p>
       {{/with}}
                     <p>Owner: {{owner.name}} {{owner.lastName}}</p>
       {{#with pet}}  
+                    <p>Last recovery: {{this.updatedAt}}</p>
     
                     <div class="buttons">
                     <a href="/pets/{{_id}}/edit">Edit</a>

@@ -7,6 +7,7 @@ const petSchema = new Schema(
             type: String,
             enum: ['dog', 'cat', 'bird', 'reptile', 'other'],
         },
+        breed: String,
         age: String,
         diagnosis: String,
         treatment: [

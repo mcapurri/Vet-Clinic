@@ -12,7 +12,15 @@ router.get('/pets', (req, res, next) => {
             Pet.find()
                 .populate('owner')
                 .then((pets) => {
-                    res.render('pets/index', { pets, owners: owners[0] });
+                    let isEmployee = false;
+                    if (req.user.role == 'employee') {
+                        isEmployee = true;
+                    }
+                    res.render('pets/index', {
+                        pets,
+                        owners: owners[0],
+                        isEmployee,
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
@@ -101,7 +109,15 @@ router.post(
     // loginCheck,
 
     (req, res, next) => {
-        let { name, specie, age, diagnosis, treatment, owner } = req.body;
+        let {
+            name,
+            specie,
+            breed,
+            age,
+            diagnosis,
+            treatment,
+            owner,
+        } = req.body;
 
         // if (req.user.role == 'client') {
         //     owner = req.user.id;
@@ -110,6 +126,7 @@ router.post(
         Pet.create({
             name,
             specie,
+            breed,
             age,
             diagnosis,
             treatment,
@@ -136,11 +153,12 @@ router.post(
     loginCheck(),
 
     (req, res, next) => {
-        const { name, specie, age, diagnosis, treatment } = req.body;
+        const { name, specie, breed, age, diagnosis, treatment } = req.body;
 
         User.findByIdAndUpdate(req.params.id, {
             name,
             specie,
+            breed,
             age,
             diagnosis,
             treatment,

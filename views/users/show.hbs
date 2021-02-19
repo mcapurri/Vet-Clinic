@@ -11,10 +11,14 @@
                       <hr>
                       <p>Phone number: {{phoneNumber}}</p>
                       <hr>
-                      <p>Pets: </p>
-                      {{#each pets}}
-                       {{name}} {{ age}}
-                      {{/each}}
+                      
+                      <span>Pets: </span>
+                      <ul>
+
+                        {{#each pets}}
+                        <li>Name: {{name}}&nbsp; Specie: {{specie}}&nbsp; Breed: {{breed}}&nbsp; Age: {{ age}}</li>   
+                        {{/each}}
+                      </ul>
                       <hr>
                       <p>{{role}} since: {{createdAt}}</p>
 {{/with}}
@@ -33,6 +37,11 @@
                     </form>
                 </div>
     </div>
+          {{#if isEmployee}}
+                <a href="/pets/add">Add pet</a>
+
+          {{else}}
                 <a href="/users/{{user._id}}/pet">Add pet</a>
+          {{/if }}
 
  

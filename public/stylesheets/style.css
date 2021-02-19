@@ -156,9 +156,8 @@ button {
     justify-content: space-evenly;
 }
 
-.nav-bar ul li {
+ul li {
     list-style-type: none;
-    text-align: center;
 }
 .nav-bar span {
     margin-left: 5%;
@@ -175,7 +174,7 @@ button {
 }
 #header {
     height: 80vh;
-    margin: 10% 0 10% 0;
+    margin: 10% 0 20% 0;
 }
 #header img {
     width: 100%;

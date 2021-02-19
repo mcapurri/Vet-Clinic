@@ -94,30 +94,6 @@ router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
 router.get('/users/:id', loginCheck(), async (req, res, next) => {
     console.log('req.params', req.params.id);
 
-    // const user = await User.findById(req.params.id)
-    //     .then((userDb) => {
-    //         console.log('userDb', userDb);
-    //         return userDb;
-    //         // let isEmployee = false;
-    //         // let userDbIsEmployee = false;
-    //         // if (req.user.role == 'employee') {
-    //         //     isEmployee = true;
-    //         // }
-    //         // if (userDb.role == 'employee') {
-    //         //     userDbIsEmployee = true;
-    //         // }
-    //     })
-    //     .catch((err) => {
-    //         console.log('', err);
-    //     });
-
-    // const pet = await Pet.find({ owner: [req.params.id] });
-    // console.log('userDEtails', user);
-    // console.log('pet', pet);
-
-    // Pet.find()
-    //     .populate('pets')
-    //     .then((pets) => {
     User.findById(req.params.id)
         .populate('pets')
         .then((user) => {
@@ -258,14 +234,14 @@ router.post(
 // @route     POST /users/:id/pet
 // @access    Private
 router.post('/users/:id/pet', (req, res) => {
-    const { name, specie, age } = req.body;
+    const { name, specie, breed, age } = req.body;
     console.log('req.user.id', req.user.id);
     Pet.create({
         name,
         specie,
+        breed,
         age,
-        // diagnosis,
-        // treatment,
+
         owner: req.user._id,
     })
         .then((pet) => {

@@ -1,6 +1,7 @@
 <h2>Enter new pet</h2>
  <div class="result-card highlight">
-    <form action="/users/{{owner._id}}/pet" method="POST" class="form" >
+   {{#with owner}}
+    <form action="/users/{{_id}}/pet" method="POST" class="form" >
 
       <label for="name">Name</label>
       <input type="text" name="name" id="name" value= "" required>
@@ -14,6 +15,9 @@
          <option value="reptile">Reptile</option>
          <option value="other">Other</option>
       </select>
+
+      <label for="breed">Breed</label>
+      <input type="text" name="breed" id="breed" value= "" required>
 
       <label for="age">Age</label>
       <input type="text" name="age" id="age" value= "" required>
