@@ -21,13 +21,13 @@
                       </ul>
                       <hr>
                       <p>{{role}} since: {{createdAt}}</p>
-{{/with}}
                       {{#if isEmployee}}
                         {{#if userDbIsEmployee}}
                         <p>Position: {{position}}</p>
                         {{/if}}
                       {{/if}}
                 </div>
+{{/with}}
      
                 <div class="buttons">
                     <a href="/users/{{user._id}}/edit">Edit</a>
