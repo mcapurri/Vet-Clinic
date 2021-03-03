@@ -9,7 +9,8 @@ router.get('/', (req, res, next) => {
         isEmployee = true;
     }
     console.log('user', req.user);
-    res.render('index', { user: req.user, isEmployee });
+    // res.render('index', { user: req.user, isEmployee });
+    res.status(200).json();
 });
 
 module.exports = router;

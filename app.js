@@ -4,15 +4,10 @@ require('./db');
 
 const express = require('express');
 
-const hbs = require('hbs');
-
 const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require('./config')(app);
-
-// Register parltials view
-hbs.registerPartials(__dirname + '/views/partials');
 
 // session configuration
 const session = require('express-session');
