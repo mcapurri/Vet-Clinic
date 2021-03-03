@@ -3,33 +3,29 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
-/// @desc     Sign up
-// @route     GET /signup
-// @access    Public
-router.get('/signup', (req, res, next) => {
-    let signUp = true;
-    console.log('signUp', signUp);
-    res.render('index', { signUp });
-});
-
-// @desc      Log in
-// @route     GET /login
-// @access    Public
-router.get('/login', (req, res, next) => {
-    res.render('index');
-});
-
 // @desc      Log in
 // @route     POST /login
 // @access    Public
-router.post(
-    '/login',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        passReqToCallback: true,
-    })
-);
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({ message: 'Error while attempting to login' });
+        }
+        if (!user) {
+            return res.status(400).json({ message: 'Wrong credentials' });
+        }
+        req.login(user, (err) => {
+            if (err) {
+                return res
+                    .status(500)
+                    .json({ message: 'Error while attempting to login' });
+            }
+            return res.status(200).json(user);
+        });
+    });
+});
 
 // @desc      Sign up
 // @route     POST /signup
@@ -49,26 +45,17 @@ router.post('/signup', (req, res, next) => {
         phoneNumber,
     } = req.body;
     if (password.length < 3) {
-        res.render('index', {
-            message: 'Your password must be 3 characters minimum.',
-            signUp,
-        });
-        return;
+        return res
+            .status(400)
+            .json({ message: 'Your password must be 8 chars minimum' });
     }
     if (password !== confirm) {
-        res.render('index', {
-            message: "Passwords don't match.",
-            signUp,
-        });
-        return;
+        return res.status(400).json({ message: "Passwords don't match" });
     }
 
     User.findOne({ email }).then((found) => {
         if (found) {
-            res.render('index', {
-                message: 'This username is already taken',
-                signUp,
-            });
+            return res.status(400).json({ message: 'This user already exist' });
         } else {
             // we can create a user with the username and password pair
             const salt = bcrypt.genSaltSync();
@@ -83,27 +70,39 @@ router.post('/signup', (req, res, next) => {
                 phoneNumber,
             })
                 .then((dbUser) => {
-                    // login with passport
+                    // login with passport:
                     req.login(dbUser, (err) => {
                         if (err) {
-                            next(err);
-                        } else {
-                            res.redirect('/');
+                            return res.status(500).json({
+                                message: 'Error while attempting to login',
+                            });
                         }
+                        return res.status(200).json(dbUser);
                     });
                 })
                 .catch((err) => {
-                    next(err);
+                    res.json(err);
                 });
         }
     });
 });
 
 // @desc      Log out
-// @route     GET /logout
+// @route     DELETE /logout
 // @access    Private
-router.get('/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
+    // passport method to log out
     req.logout();
-    res.redirect('/');
+    res.status(200).json({ message: 'Logout was successful' });
 });
+
+// @desc      Check logged in user
+// @route     GET /loggedin
+// @access    Public
+router.get('/loggedin', (req, res, next) => {
+    console.log('req.user', req.user);
+    // this is where passport stores the logged in user
+    res.json(req.user);
+});
+
 module.exports = router;

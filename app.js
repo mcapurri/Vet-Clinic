@@ -104,16 +104,16 @@ app.locals.title = `${capitalized(projectName)}`;
 
 // Routes
 const index = require('./routes/index');
-app.use('/', index);
+app.use('/api', index);
 
 const auth = require('./routes/auth');
-app.use('/', auth);
+app.use('/api', auth);
 
 const pets = require('./routes/pets');
-app.use('/', pets);
+app.use('/api', pets);
 
 const users = require('./routes/users');
-app.use('/', users);
+app.use('/api', users);
 
 // Error handling
 require('./error-handling')(app);
