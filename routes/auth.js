@@ -3,6 +3,15 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
+// @desc      Check logged in user
+// @route     GET /loggedin
+// @access    Public
+router.get('/loggedin', (req, res, next) => {
+    console.log('req.user', req.user);
+    // this is where passport stores the logged in user
+    res.json(req.user);
+});
+
 // @desc      Log in
 // @route     POST /login
 // @access    Public
@@ -31,6 +40,7 @@ router.post('/login', (req, res, next) => {
 // @route     POST /signup
 // @access    Public
 router.post('/signup', (req, res, next) => {
+    console.log('signup route');
     let signUp = true;
     const {
         name,
@@ -94,15 +104,6 @@ router.delete('/logout', (req, res) => {
     // passport method to log out
     req.logout();
     res.status(200).json({ message: 'Logout was successful' });
-});
-
-// @desc      Check logged in user
-// @route     GET /loggedin
-// @access    Public
-router.get('/loggedin', (req, res, next) => {
-    console.log('req.user', req.user);
-    // this is where passport stores the logged in user
-    res.json(req.user);
 });
 
 module.exports = router;

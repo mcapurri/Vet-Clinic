@@ -102,7 +102,7 @@ const index = require('./routes/index');
 app.use('/api', index);
 
 const auth = require('./routes/auth');
-app.use('/api', auth);
+app.use('/api/auth', auth);
 
 const pets = require('./routes/pets');
 app.use('/api', pets);

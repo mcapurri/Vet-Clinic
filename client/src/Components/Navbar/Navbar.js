@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 
 const Navbar = (props) => {
+    console.log('props from Nav', props);
     console.log('user from Nav', props.user);
     const [showForm, setShowForm] = useState(false);
 

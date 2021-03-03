@@ -7,7 +7,7 @@ import Navbar from './Components/Navbar/Navbar';
 // import UserDetails from './Components/UserDetails/UserDetails';
 
 function App(props) {
-    const [user, setUser] = useState(props.user);
+    const [user, setUser] = useState(props.user || '');
     console.log('user', user);
     return (
         <div className="App">
