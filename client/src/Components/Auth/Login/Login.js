@@ -28,11 +28,20 @@ const Login = (props) => {
         props.setShowForm(() => !props.showForm);
     };
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setControls({
-            [name]: value,
+    const updateObject = (oldObject, updatedProperties) => {
+        return {
+            ...oldObject,
+            ...updatedProperties,
+        };
+    };
+    const handleChange = (event, controlName) => {
+        const updatedControls = updateObject(controls, {
+            [controlName]: updateObject(controls[controlName], {
+                value: event.target.value,
+            }),
         });
+
+        setControls(updatedControls);
     };
 
     const handleSubmit = (event) => {
@@ -57,6 +66,7 @@ const Login = (props) => {
             }
         });
     };
+
     return (
         <Form
             inline
@@ -67,20 +77,20 @@ const Login = (props) => {
                 flexDirection: 'column',
                 flexWrap: 'nowrap',
             }}
-            onClick={handleSubmit}
+            onSubmit={handleSubmit}
         >
             <div>
                 <InputGroup>
                     <FormControl
                         placeholder="Email"
-                        aria-label="Email"
+                        aria-label="email"
                         aria-describedby="basic-addon1"
                         style={{ marginRight: '2%' }}
                         onChange={handleChange}
                     />
                     <FormControl
                         placeholder="Password"
-                        aria-label="Password"
+                        aria-label="password"
                         aria-describedby="basic-addon1"
                         style={{ marginRight: '2%' }}
                         onChange={handleChange}

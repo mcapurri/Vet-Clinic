@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
+import { Form } from 'react-bootstrap';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
@@ -172,7 +173,7 @@ const Signup = (props) => {
     });
 
     return (
-        <form className={style.Form} onSubmit={handleSubmit}>
+        <Form className={style.Form} onSubmit={handleSubmit}>
             {form}
             <button className={style.Button} type="submit">
                 Sign up
@@ -182,7 +183,7 @@ const Signup = (props) => {
             <p>
                 Do you already have an account? <a href="/login">Login</a>
             </p>
-        </form>
+        </Form>
     );
 };
 
