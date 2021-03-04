@@ -45,15 +45,19 @@ router.post('/signup', (req, res, next) => {
     const {
         name,
         lastName,
-        street,
-        zip,
-        city,
-        state,
         email,
         password,
         confirm,
+        street,
+        zipCode,
+        city,
+        state,
         phoneNumber,
     } = req.body;
+
+    console.log('password', password);
+    console.log('city', city);
+
     if (password.length < 3) {
         return res
             .status(400)
@@ -76,7 +80,7 @@ router.post('/signup', (req, res, next) => {
                 lastName,
                 email,
                 password: hash,
-                address: { street, zip, city, state },
+                address: { street, zipCode, city, state },
                 phoneNumber,
             })
                 .then((dbUser) => {

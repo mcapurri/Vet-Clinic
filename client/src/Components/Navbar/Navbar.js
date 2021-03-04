@@ -9,8 +9,6 @@ import { Navbar as Nav } from 'react-bootstrap';
 const Navbar = (props) => {
     const [showForm, setShowForm] = useState(false);
 
-    console.log('props from Nav', props);
-    console.log('history from Nav', props.history);
     console.log('user from Nav', props.user);
 
     // const handleLogout = (props) => {
@@ -26,9 +24,17 @@ const Navbar = (props) => {
                     showForm={showForm}
                     setShowForm={setShowForm}
                     setUser={props.setUser}
+                    history={props.history}
                 />
             </Nav>
-            {showForm && <Signup setUser={props.setUser} />}
+            {showForm && (
+                <Signup
+                    setUser={props.setUser}
+                    showForm={showForm}
+                    setShowForm={setShowForm}
+                    history={props.history}
+                />
+            )}
         </>
     );
 };

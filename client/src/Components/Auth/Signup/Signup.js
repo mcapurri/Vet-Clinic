@@ -17,7 +17,7 @@ const Signup = (props) => {
         },
         lastName: {
             type: 'text',
-            placeholder: 'Last Name',
+            placeholder: 'Last name',
             value: '',
             validation: {
                 required: true,
@@ -120,6 +120,10 @@ const Signup = (props) => {
             state,
             phoneNumber,
         } = controls;
+
+        console.log('password', password);
+        console.log('confirm', confirm);
+
         signup(
             name,
             lastName,
@@ -146,8 +150,9 @@ const Signup = (props) => {
                 // we want to put the user object in the state of App.js
                 console.log('user from Signup', user);
                 console.log('props Signup', props);
+                props.setShowForm(() => !props.showForm);
                 props.setUser(user);
-                // props.history.push('/');
+                props.history.push('/');
             }
         });
     };

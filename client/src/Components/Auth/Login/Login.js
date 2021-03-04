@@ -63,7 +63,7 @@ const Login = (props) => {
                 // we want to put the user object in the state of App.js
                 console.log(user);
                 props.setUser(user);
-                // props.history.push('/');
+                props.history.push('/');
             }
         });
     };

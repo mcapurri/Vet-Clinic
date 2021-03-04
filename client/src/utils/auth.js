@@ -3,26 +3,26 @@ import axios from 'axios';
 const signup = (
     name,
     lastName,
-    street,
-    zip,
-    city,
-    state,
     email,
     password,
     confirm,
+    street,
+    zipCode,
+    city,
+    state,
     phoneNumber
 ) => {
     return axios
         .post('/api/auth/signup', {
             name,
             lastName,
-            street,
-            zip,
-            city,
-            state,
             email,
             password,
             confirm,
+            street,
+            zipCode,
+            city,
+            state,
             phoneNumber,
         })
         .then((response) => {
