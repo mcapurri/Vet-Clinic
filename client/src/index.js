@@ -8,9 +8,10 @@ import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
 // axios
-// .get('/api/auth/loggedin')
-// .then((response) => {
-//     const user = response.data;
+//     .get('/api/auth/loggedin')
+//     .then((response) => {
+//         const user = response.data;
+//         console.log('user Index', user);
 ReactDOM.render(
     <BrowserRouter>
         <App

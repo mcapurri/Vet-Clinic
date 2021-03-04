@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from './Signup.module.css';
-import { signup } from '../../utils/auth';
+import { signup } from '../../../utils/auth';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
