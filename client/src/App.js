@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
+import Footer from './Components/Footer/Footer';
 // import UsersList from './Components/UsersList/UsersList';
 // import UserDetails from './Components/UserDetails/UserDetails';
 
@@ -20,6 +21,7 @@ function App(props) {
                 {/* <Route exact path="/pets" component={PetsList} />
             <Route exact path="/pets/:id" component={PetDetails} /> */}
             </Switch>
+            <Footer />
         </div>
     );
 }

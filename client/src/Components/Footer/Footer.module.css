@@ -1,0 +1,25 @@
+.Footer {
+    background-color: rgb(5, 58, 32);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    position: absolute;
+}
+
+.Footer ul {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Footer ul li {
+    list-style-type: none;
+    text-align: center;
+}
+
+.Footer h5 {
+    padding-left: 10%;
+    color: #c0c0c0;
+}
