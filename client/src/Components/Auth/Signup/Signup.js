@@ -101,37 +101,13 @@ const Signup = (props) => {
                 value: event.target.value,
             }),
         });
-
         setControls(updatedControls);
     };
+
     // console.log('ControlsUpdated', controls);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        // const formData = {
-        //     name: controls.name.value,
-        //     lastName: controls.lastName.value,
-        //     email: controls.email.value,
-        //     password: controls.password.value,
-        //     confirm: controls.confirm.value,
-        //     street: controls.street.value,
-        //     zipCode: controls.zipCode.value,
-        //     city: controls.city.value,
-        //     state: controls.state.value,
-        //     phoneNumber: controls.lastName.value,
-        // };
-        // signup({
-        //     name: formData.name,
-        //     lastName: formData.lastName,
-        //     email: formData.email,
-        //     password: formData.password,
-        //     confirm: formData.confirm,
-        //     street: formData.street,
-        //     zipCode: formData.zipCode,
-        //     city: formData.city,
-        //     state: formData.state,
-        //     phoneNumber: formData.phoneNumber,
 
         signup({
             name: controls.name.value,
@@ -143,7 +119,7 @@ const Signup = (props) => {
             zipCode: controls.zipCode.value,
             city: controls.city.value,
             state: controls.state.value,
-            phoneNumber: controls.lastName.value,
+            phoneNumber: controls.phoneNumber.value,
         }).then((user) => {
             if (user.message) {
                 setMessage(user.message);

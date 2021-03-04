@@ -104,11 +104,11 @@ app.use('/api', index);
 const auth = require('./routes/auth');
 app.use('/api/auth', auth);
 
-const pets = require('./routes/pets');
-app.use('/api', pets);
+// const pets = require('./routes/pets');
+// app.use('/api', pets);
 
-const users = require('./routes/users');
-app.use('/api', users);
+// const users = require('./routes/users');
+// app.use('/api', users);
 
 // Error handling
 require('./error-handling')(app);

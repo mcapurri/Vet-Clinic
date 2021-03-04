@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { login, logout } from '../../../utils/auth';
+import { login } from '../../../utils/auth';
 
 const Login = (props) => {
     const [message, setMessage] = useState('');
@@ -46,9 +46,11 @@ const Login = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const { email, password } = controls;
-
-        login(email, password).then((user) => {
+        console.log('from handleSubmit');
+        login({
+            email: controls.email.value,
+            password: controls.password.value,
+        }).then((user) => {
             if (user.message) {
                 setMessage(user.message);
 
