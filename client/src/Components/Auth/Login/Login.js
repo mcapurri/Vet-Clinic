@@ -2,39 +2,58 @@ import React, { useState } from 'react';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login, logout } from '../../../utils/auth';
-import Signup from '../Signup/Signup';
 
 const Login = (props) => {
-    const [showForm, setShowForm] = useState(false);
     const [message, setMessage] = useState('');
+    const [controls, setControls] = useState({
+        email: {
+            type: 'email',
+            placeholder: 'Email',
+            value: '',
+            validation: {
+                required: true,
+            },
+        },
+        password: {
+            type: 'password',
+            placeholder: 'Password',
+            value: '',
+            validation: {
+                required: true,
+            },
+        },
+    });
 
     const toggleShowForm = () => {
-        setShowForm(() => !showForm);
+        props.setShowForm(() => !props.showForm);
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        this.setState({
+        setControls({
             [name]: value,
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const { username, password } = this.state;
-        login(username, password).then((user) => {
+        const { email, password } = controls;
+
+        login(email, password).then((user) => {
             if (user.message) {
-                this.setState({
-                    message: user.message,
-                    username: '',
-                    password: '',
-                });
+                setMessage(user.message);
+
+                for (let key in controls) {
+                    setControls({
+                        key: { ...key, value: '' },
+                    });
+                }
             } else {
                 // the response from the server is a user object -> signup was successful
                 // we want to put the user object in the state of App.js
                 console.log(user);
-                this.props.setUser(user);
-                this.props.history.push('/projects');
+                props.setUser(user);
+                props.history.push('/');
             }
         });
     };
@@ -53,16 +72,18 @@ const Login = (props) => {
             <div>
                 <InputGroup>
                     <FormControl
-                        placeholder="Username"
-                        aria-label="Username"
+                        placeholder="Email"
+                        aria-label="Email"
                         aria-describedby="basic-addon1"
                         style={{ marginRight: '2%' }}
+                        onChange={handleChange}
                     />
                     <FormControl
                         placeholder="Password"
                         aria-label="Password"
                         aria-describedby="basic-addon1"
                         style={{ marginRight: '2%' }}
+                        onChange={handleChange}
                     />
                 </InputGroup>
                 <Button type="submit">Log in</Button>
@@ -84,7 +105,6 @@ const Login = (props) => {
                     </div>
                 )}
             </div>
-            {showForm && <Signup setUser={props.setUser} />}
         </Form>
     );
 };
