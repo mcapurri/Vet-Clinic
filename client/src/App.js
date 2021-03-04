@@ -13,7 +13,9 @@ function App(props) {
     console.log('props App', props);
     return (
         <div className="App">
-            <Navbar setUser={setUser} />
+            <Route
+                render={(props) => <Navbar {...props} setUser={setUser} />}
+            />
             <Switch>
                 <Route exact path="/" component={Home} />
                 {/* <Route exact path="/users" component={UsersList} />

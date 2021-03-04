@@ -3,23 +3,23 @@
     width: 100%;
     display: flex;
     align-items: center;
+    position: fixed;
     bottom: 0;
-    position: absolute;
 }
 
-.Footer ul {
+ul {
     width: 60%;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
 }
 
-.Footer ul li {
+ul li {
     list-style-type: none;
     text-align: center;
 }
 
-.Footer h5 {
+h5 {
     padding-left: 10%;
     color: #c0c0c0;
 }

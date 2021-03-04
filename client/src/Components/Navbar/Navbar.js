@@ -10,6 +10,7 @@ const Navbar = (props) => {
     const [showForm, setShowForm] = useState(false);
 
     console.log('props from Nav', props);
+    console.log('history from Nav', props.history);
     console.log('user from Nav', props.user);
 
     // const handleLogout = (props) => {
