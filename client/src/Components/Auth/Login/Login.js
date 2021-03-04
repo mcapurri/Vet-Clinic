@@ -54,9 +54,7 @@ const Login = (props) => {
 
                 //Reset input values
                 for (let key in controls) {
-                    setControls({
-                        key: { ...key, value: '' },
-                    });
+                    setControls({ ...controls, key: { ...key, value: '' } });
                 }
             } else {
                 // the response from the server is a user object -> signup was successful

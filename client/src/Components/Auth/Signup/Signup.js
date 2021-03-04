@@ -25,7 +25,7 @@ const Signup = (props) => {
         },
         email: {
             type: 'email',
-            placeholder: 'First brewed',
+            placeholder: 'Email',
             value: '',
             validation: {
                 required: true,
@@ -108,42 +108,49 @@ const Signup = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const {
-            name,
-            lastName,
-            email,
-            password,
-            confirm,
-            street,
-            zipCode,
-            city,
-            state,
-            phoneNumber,
-        } = controls;
 
-        console.log('password', password);
-        console.log('confirm', confirm);
+        // const formData = {
+        //     name: controls.name.value,
+        //     lastName: controls.lastName.value,
+        //     email: controls.email.value,
+        //     password: controls.password.value,
+        //     confirm: controls.confirm.value,
+        //     street: controls.street.value,
+        //     zipCode: controls.zipCode.value,
+        //     city: controls.city.value,
+        //     state: controls.state.value,
+        //     phoneNumber: controls.lastName.value,
+        // };
+        // signup({
+        //     name: formData.name,
+        //     lastName: formData.lastName,
+        //     email: formData.email,
+        //     password: formData.password,
+        //     confirm: formData.confirm,
+        //     street: formData.street,
+        //     zipCode: formData.zipCode,
+        //     city: formData.city,
+        //     state: formData.state,
+        //     phoneNumber: formData.phoneNumber,
 
-        signup(
-            name,
-            lastName,
-            email,
-            password,
-            confirm,
-            street,
-            zipCode,
-            city,
-            state,
-            phoneNumber
-        ).then((user) => {
+        signup({
+            name: controls.name.value,
+            lastName: controls.lastName.value,
+            email: controls.email.value,
+            password: controls.password.value,
+            confirm: controls.confirm.value,
+            street: controls.street.value,
+            zipCode: controls.zipCode.value,
+            city: controls.city.value,
+            state: controls.state.value,
+            phoneNumber: controls.lastName.value,
+        }).then((user) => {
             if (user.message) {
                 setMessage(user.message);
 
                 // Reset input values
                 for (let key in controls) {
-                    setControls({
-                        key: { ...key, value: '' },
-                    });
+                    setControls({ ...controls, key: { ...key, value: '' } });
                 }
             } else {
                 // the response from the server is a user object -> signup was successful

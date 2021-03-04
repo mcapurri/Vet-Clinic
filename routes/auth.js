@@ -41,7 +41,6 @@ router.post('/login', (req, res, next) => {
 // @access    Public
 router.post('/signup', (req, res, next) => {
     console.log('signup route');
-    let signUp = true;
     const {
         name,
         lastName,
@@ -54,16 +53,25 @@ router.post('/signup', (req, res, next) => {
         state,
         phoneNumber,
     } = req.body;
-
-    console.log('password', password);
-    console.log('city', city);
-
-    if (password.length < 3) {
+    console.log(
+        '',
+        name,
+        lastName,
+        email,
+        password,
+        confirm,
+        street,
+        zipCode,
+        city,
+        state,
+        phoneNumber
+    );
+    if (password.value.length < 3) {
         return res
             .status(400)
             .json({ message: 'Your password must be 8 chars minimum' });
     }
-    if (password !== confirm) {
+    if (password.value !== confirm.value) {
         return res.status(400).json({ message: "Passwords don't match" });
     }
 
