@@ -1,18 +1,6 @@
 import axios from 'axios';
 
-const signup = (
-    // name,
-    // lastName,
-    // email,
-    // password,
-    // confirm,
-    // street,
-    // zipCode,
-    // city,
-    // state,
-    // phoneNumber
-    userCredentials
-) => {
+const signup = (userCredentials) => {
     return axios
         .post('/api/auth/signup', userCredentials)
         .then((response) => {
@@ -23,10 +11,9 @@ const signup = (
         });
 };
 
-const login = (email, password) => {
-    console.log('login');
+const login = (userCredentials) => {
     return axios
-        .post('/api/auth/login', { email, password })
+        .post('/api/auth/login', userCredentials)
         .then((response) => {
             return response.data;
         })

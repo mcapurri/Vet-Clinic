@@ -9,7 +9,7 @@ import { Navbar as Nav } from 'react-bootstrap';
 const Navbar = (props) => {
     const [showForm, setShowForm] = useState(false);
 
-    console.log('user from Nav', props);
+    console.log('user from Nav', props.user);
     console.log('isEmployee', props.isEmployee);
 
     const handleLogout = (props) => {
@@ -36,7 +36,7 @@ const Navbar = (props) => {
                         <li>
                             <button
                                 className={style.Button}
-                                onClick={props.handleLogout}
+                                onClick={handleLogout}
                             >
                                 Logout
                             </button>

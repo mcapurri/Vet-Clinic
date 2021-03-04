@@ -3,6 +3,7 @@ import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { updateObject, checkValidity } from '../../../utils/utility';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
@@ -88,24 +89,35 @@ const Signup = (props) => {
             },
         },
     });
+    const [formIsValid, setFormIsValid] = useState(false);
 
-    const updateObject = (oldObject, updatedProperties) => {
-        return {
-            ...oldObject,
-            ...updatedProperties,
-        };
-    };
-    const handleChange = (event, controlName) => {
-        const updatedControls = updateObject(controls, {
-            [controlName]: updateObject(controls[controlName], {
-                value: event.target.value,
-            }),
-        });
-        setControls(updatedControls);
-    };
+    // const handleChange = (event, controlName) => {
+    //     const updatedControls = updateObject(controls, {
+    //         [controlName]: updateObject(controls[controlName], {
+    //             value: event.target.value,
+    //         }),
+    //     });
 
+    //     setControls(updatedControls);
+    // };
     // console.log('ControlsUpdated', controls);
 
+    const handleChange = (e, inputId) => {
+        const updatedFormElement = updateObject(controls[inputId], {
+            value: e.target.value,
+            valid: checkValidity(e.target.value, controls[inputId].validation),
+        });
+        const updatedOrderForm = updateObject(controls, {
+            [inputId]: updatedFormElement,
+        });
+
+        let formIsValid = true;
+        for (let inputId in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+        }
+        setControls(updatedOrderForm);
+        setFormIsValid(formIsValid);
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
 

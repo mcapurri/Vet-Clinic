@@ -17,6 +17,7 @@ router.get('/loggedin', (req, res, next) => {
 // @access    Public
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user) => {
+        console.log('hello from login');
         if (err) {
             return res
                 .status(500)
@@ -53,22 +54,6 @@ router.post('/signup', (req, res, next) => {
         state,
         phoneNumber,
     } = req.body;
-
-    // console.log(
-    //     'datas im sending',
-    //     name,
-    //     lastName,
-    //     email,
-    //     password,
-    //     confirm,
-    //     street,
-    //     zipCode,
-    //     city,
-    //     state,
-    //     phoneNumber
-    // );
-
-    console.log('password from route', password);
 
     if (password.length < 3) {
         return res

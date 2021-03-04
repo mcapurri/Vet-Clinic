@@ -40,13 +40,11 @@ const Login = (props) => {
                 value: event.target.value,
             }),
         });
-
         setControls(updatedControls);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('from handleSubmit');
         login({
             email: controls.email.value,
             password: controls.password.value,
@@ -101,13 +99,14 @@ const Login = (props) => {
                                 marginTop: '5%',
                             }}
                         >
-                            Haven't you registered yet'?{' '}
+                            Haven't you registered yet?
                             <button
                                 className={style.Button}
                                 onClick={toggleShowForm}
                             >
                                 Sign up
                             </button>
+                            here
                         </p>
                     </div>
                 )}
