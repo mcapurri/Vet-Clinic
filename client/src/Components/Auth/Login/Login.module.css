@@ -4,3 +4,10 @@
     border: none;
     cursor: pointer;
 }
+.Form {
+    width: 100%;
+    margin: 5% 0 0 5%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}

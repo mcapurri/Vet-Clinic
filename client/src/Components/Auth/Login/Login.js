@@ -52,6 +52,7 @@ const Login = (props) => {
             if (user.message) {
                 setMessage(user.message);
 
+                //Reset input values
                 for (let key in controls) {
                     setControls({
                         key: { ...key, value: '' },
@@ -62,24 +63,14 @@ const Login = (props) => {
                 // we want to put the user object in the state of App.js
                 console.log(user);
                 props.setUser(user);
-                props.history.push('/');
+                // props.history.push('/');
             }
         });
     };
 
     return (
-        <Form
-            inline
-            style={{
-                width: '100%',
-                margin: '5% 0 0 5%',
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'nowrap',
-            }}
-            onSubmit={handleSubmit}
-        >
-            <div>
+        <Form inline className={style.Form} onSubmit={handleSubmit}>
+            <div style={{ display: 'flex' }}>
                 <InputGroup>
                     <FormControl
                         placeholder="Email"
@@ -103,7 +94,13 @@ const Login = (props) => {
                     <p style={{ color: 'red' }}>{{ message }}</p>
                 ) : (
                     <div>
-                        <p style={{ color: '#fff ', width: '100%' }}>
+                        <p
+                            style={{
+                                color: '#fff ',
+                                width: '100%',
+                                marginTop: '5%',
+                            }}
+                        >
                             Haven't you registered yet'?{' '}
                             <button
                                 className={style.Button}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
 import { Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
@@ -134,6 +135,7 @@ const Signup = (props) => {
             if (user.message) {
                 setMessage(user.message);
 
+                // Reset input values
                 for (let key in controls) {
                     setControls({
                         key: { ...key, value: '' },
@@ -143,7 +145,7 @@ const Signup = (props) => {
                 // the response from the server is a user object -> signup was successful
                 // we want to put the user object in the state of App.js
                 console.log('user from Signup', user);
-                console.log('props', props);
+                console.log('props Signup', props);
                 props.setUser(user);
                 // props.history.push('/');
             }
@@ -181,7 +183,7 @@ const Signup = (props) => {
             {message && <p style={{ color: 'red' }}>{message}</p>}
 
             <p>
-                Do you already have an account? <a href="/login">Login</a>
+                Do you already have an account? <Link to="/">Login</Link>
             </p>
         </Form>
     );
