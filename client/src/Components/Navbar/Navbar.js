@@ -14,7 +14,7 @@ const Navbar = (props) => {
 
     const handleLogout = (props) => {
         logout().then(() => {
-            props.setUser(null);
+            props.setUser(() => null);
         });
     };
 

@@ -4,120 +4,158 @@ import { signup } from '../../../utils/auth';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { updateObject, checkValidity } from '../../../utils/utility';
+import Input from '../../../Components/UI/Input/Input';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
     const [controls, setControls] = useState({
         name: {
-            type: 'text',
-            placeholder: 'Name',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Your Name',
+            },
             value: '',
             validation: {
                 required: true,
             },
+            valid: false,
+            touched: false,
         },
         lastName: {
-            type: 'text',
-            placeholder: 'Last name',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Last name',
+            },
             value: '',
             validation: {
                 required: true,
             },
+            valid: false,
         },
         email: {
-            type: 'email',
-            placeholder: 'Email',
+            elementType: 'input',
+            elementConfig: {
+                type: 'email',
+                placeholder: 'Email',
+            },
             value: '',
             validation: {
                 required: true,
             },
+            valid: false,
         },
         password: {
-            type: 'password',
-            placeholder: 'Password',
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Password',
+            },
             value: '',
             validation: {
                 required: true,
+                minLength: 3,
             },
+            valid: false,
         },
         confirm: {
-            type: 'password',
-            placeholder: 'Confirm password',
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Confirm password',
+            },
             value: '',
             validation: {
                 required: true,
+                minLength: 3,
             },
+            valid: false,
         },
         street: {
-            type: 'text',
-            placeholder: 'Street',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Street',
+            },
             value: '',
             validation: {
                 required: false,
             },
         },
         zipCode: {
-            type: 'text',
-            placeholder: 'ZIP Code',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'ZIP Code',
+            },
             value: '',
             validation: {
                 required: false,
             },
+            valid: false,
         },
         city: {
-            type: 'text',
-            placeholder: 'City',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'City',
+            },
             value: '',
             validation: {
                 required: false,
             },
+            valid: false,
         },
         state: {
-            type: 'text',
-            placeholder: 'State',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'State',
+            },
             value: '',
             validation: {
                 required: false,
             },
+            valid: false,
         },
         phoneNumber: {
-            type: 'text',
-            placeholder: 'Phone Num.',
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Phone Num.',
+            },
             value: '',
             validation: {
                 required: false,
             },
+            valid: false,
         },
     });
     const [formIsValid, setFormIsValid] = useState(false);
 
-    // const handleChange = (event, controlName) => {
-    //     const updatedControls = updateObject(controls, {
-    //         [controlName]: updateObject(controls[controlName], {
-    //             value: event.target.value,
-    //         }),
-    //     });
-
-    //     setControls(updatedControls);
-    // };
-    // console.log('ControlsUpdated', controls);
-
     const handleChange = (e, inputId) => {
+        console.log('inputId', inputId);
+        console.log('required?', checkValidity(controls[inputId].validation));
+
         const updatedFormElement = updateObject(controls[inputId], {
             value: e.target.value,
             valid: checkValidity(e.target.value, controls[inputId].validation),
         });
-        const updatedOrderForm = updateObject(controls, {
+        const updatedControls = updateObject(controls, {
             [inputId]: updatedFormElement,
         });
 
-        let formIsValid = true;
-        for (let inputId in updatedOrderForm) {
-            formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+        let validForm = true;
+        for (let inputId in updatedControls) {
+            validForm = updatedControls[inputId].valid && formIsValid;
         }
-        setControls(updatedOrderForm);
-        setFormIsValid(formIsValid);
+        setControls(updatedControls);
+        setFormIsValid(validForm);
     };
+    console.log('ControlsUpdated', controls);
+    console.log('formIsValid', formIsValid);
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -163,12 +201,14 @@ const Signup = (props) => {
     let form = formElementsArray.map((formElement) => {
         return (
             <div className="form-group" key={formElement.id}>
-                <input
+                <Input
                     className="form-control"
-                    type={formElement.config.type}
+                    elementType={formElement.config.elementType}
+                    // type={formElement.config.type}
+                    elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
                     placeholder={formElement.config.placeholder}
-                    onChange={(event) => handleChange(event, formElement.id)}
+                    changed={(event) => handleChange(event, formElement.id)}
                 />
             </div>
         );
