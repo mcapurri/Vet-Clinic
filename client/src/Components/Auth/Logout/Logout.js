@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { logout } from '../../utils/auth';
+import { logout } from '../../../utils/auth';
 
 const Logout = (props) => {
     console.log('props Logout', props);

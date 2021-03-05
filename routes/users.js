@@ -7,18 +7,18 @@ const Pet = require('../models/Pet');
 // @route     GET /users
 // @access    Private
 router.get('/users', loginCheck(), (req, res, next) => {
-    Pet.find()
-        .populate('pets')
-        .then((pets) => {
-            User.find()
-                .then((users) => {
-                    res.render('users/index', { users, pets });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    next(err);
-                });
-        });
+    User.find().then((users) => {
+        Pet.find()
+            .populate('pets')
+            .then((pets) => {
+                // res.render('users/index', { users, pets });
+                res.status(200).json(users);
+            })
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            });
+    });
 });
 
 /// @desc     Get all clients
@@ -30,7 +30,8 @@ router.get('/users/clients', loginCheck(), (req, res, next) => {
         .then((pets) => {
             User.find({ role: 'client' })
                 .then((users) => {
-                    res.render('users/index', { users, pets });
+                    // res.render('users/index', { users, pets });
+                    res.status(200).json(users);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -48,7 +49,8 @@ router.get('/users/employees', loginCheck(), (req, res, next) => {
         .then((pets) => {
             User.find({ role: 'employee' })
                 .then((users) => {
-                    res.render('users/index', { users });
+                    // res.render('users/index', { users });
+                    res.status(200).json(users);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -65,12 +67,13 @@ router.get('/users/add', loginCheck(), (req, res) => {
     if (req.user.role == 'employee') {
         isEmployee = true;
     }
-    res.render('users/add', { isEmployee });
+    // res.render('users/add', { isEmployee });
+    res.status(200).json(isEmployee);
 });
 
-// @desc      Show edit form
-// @route     GET /users/:id/edit
-// @access    Private
+// // @desc      Show edit form
+// // @route     GET /users/:id/edit
+// // @access    Private
 router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
     User.findById(req.params.id)
         .then((user) => {
@@ -84,7 +87,8 @@ router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
             }
             console.log('user to edit', user);
             console.log('req.user', req.user);
-            res.render('users/edit', { user, isEmployee, userDbIsEmployee });
+            // res.render('users/edit', { user, isEmployee, userDbIsEmployee });
+            res.status(200).json(user, isEmployee, userDbIsEmployee);
         })
         .catch((err) => {
             console.log(err);
@@ -92,9 +96,9 @@ router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
         });
 });
 
-// @desc      Get user details
-// @route     GET /users/:id
-// @access    Private
+// // @desc      Get user details
+// // @route     GET /users/:id
+// // @access    Private
 router.get('/users/:id', loginCheck(), async (req, res, next) => {
     console.log('req.params', req.params.id);
 
@@ -110,11 +114,12 @@ router.get('/users/:id', loginCheck(), async (req, res, next) => {
             if (user.role == 'employee') {
                 userDbIsEmployee = true;
             }
-            res.render('users/show', {
-                user,
-                isEmployee,
-                userDbIsEmployee,
-            });
+            // res.render('users/show', {
+            //     user,
+            //     isEmployee,
+            //     userDbIsEmployee,
+            // });
+            res.status(200).json(user, isEmployee, userDbIsEmployee);
         })
         .catch((err) => {
             next(err);
@@ -133,7 +138,8 @@ router.get('/users/:id/pet', (req, res, next) => {
         .populate('owner')
         .then((owner) => {
             console.log('owner Addpet', owner);
-            res.render('pets/addByClient', { owner: owner[0] });
+            // res.render('pets/addByClient', { owner: owner[0] });
+            res.status(200).json({ owner: owner[0] });
         })
         .catch((err) => {
             console.log(err);
@@ -176,7 +182,7 @@ router.post(
         })
             .then((user) => {
                 console.log('user added', user);
-                res.redirect('/users');
+                res.status(201).json(user).redirect('/users');
             })
             .catch((err) => {
                 next(err);
