@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
-import Home from './Components/Home/Home';
+// import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/UsersList/UsersList';
 // import UserDetails from './Components/UserDetails/UserDetails';
-// import { logout } from './utils/auth';
+import Carousel from './Components/Carousel/Carousel';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');
@@ -50,7 +50,8 @@ function App(props) {
                 )}
             />
             <Switch>
-                <Route exact path="/" component={Home} />
+                {/* <Route exact path="/" component={Home} /> */}
+                <Route exact path="/" component={Carousel} />
                 <Route
                     exact
                     path="/users"
