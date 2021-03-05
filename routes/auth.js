@@ -34,7 +34,7 @@ router.post('/login', (req, res, next) => {
             }
             return res.status(200).json(user);
         });
-    });
+    })(req, res);
 });
 
 // @desc      Sign up

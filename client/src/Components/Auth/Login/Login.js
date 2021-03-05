@@ -2,25 +2,36 @@ import React, { useState } from 'react';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login } from '../../../utils/auth';
+import { updateObject, checkValidity } from '../../../utils/utility';
+// import Input from '../../../Components/UI/Input/Input';
 
 const Login = (props) => {
     const [message, setMessage] = useState('');
     const [controls, setControls] = useState({
         email: {
-            type: 'email',
-            placeholder: 'Email',
+            elementType: 'input',
+            elementConfig: {
+                type: 'email',
+                placeholder: 'Email',
+            },
             value: '',
             validation: {
                 required: true,
+                isEmail: true,
             },
+            touched: false,
         },
         password: {
-            type: 'password',
-            placeholder: 'Password',
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Password',
+            },
             value: '',
             validation: {
                 required: true,
             },
+            touched: false,
         },
     });
 
@@ -28,21 +39,20 @@ const Login = (props) => {
         props.setShowForm(() => !props.showForm);
     };
 
-    const updateObject = (oldObject, updatedProperties) => {
-        return {
-            ...oldObject,
-            ...updatedProperties,
-        };
-    };
     const handleChange = (event, controlName) => {
         const updatedControls = updateObject(controls, {
             [controlName]: updateObject(controls[controlName], {
                 value: event.target.value,
+                valid: checkValidity(
+                    event.target.value,
+                    controls[controlName].validation
+                ),
+                touched: true,
             }),
         });
+
         setControls(updatedControls);
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         login({
@@ -66,25 +76,30 @@ const Login = (props) => {
         });
     };
 
+    const formElementsArray = [];
+    for (let key in controls) {
+        formElementsArray.push({
+            id: key,
+            config: controls[key],
+        });
+    }
+
+    let form = formElementsArray.map((formElement) => (
+        <FormControl
+            key={formElement.id}
+            placeholder={formElement.config.elementConfig.placeholder}
+            // aria-label="email"s
+            // aria-describedby="basic-addon1"
+            style={{ marginRight: '2%' }}
+            value={formElement.config.value}
+            onChange={(event) => handleChange(event, formElement.id)}
+        />
+    ));
+
     return (
         <Form inline className={style.Form} onSubmit={handleSubmit}>
             <div style={{ display: 'flex' }}>
-                <InputGroup>
-                    <FormControl
-                        placeholder="Email"
-                        aria-label="email"
-                        aria-describedby="basic-addon1"
-                        style={{ marginRight: '2%' }}
-                        onChange={handleChange}
-                    />
-                    <FormControl
-                        placeholder="Password"
-                        aria-label="password"
-                        aria-describedby="basic-addon1"
-                        style={{ marginRight: '2%' }}
-                        onChange={handleChange}
-                    />
-                </InputGroup>
+                <InputGroup>{form}</InputGroup>
                 <Button type="submit">Log in</Button>
             </div>
             <div>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../utils/auth';
 import Login from '../Auth/Login/Login';
+import Logout from '../Auth/Login/Login';
 import Signup from '../Auth/Signup/Signup';
 import { Navbar as Nav } from 'react-bootstrap';
 
@@ -12,11 +13,15 @@ const Navbar = (props) => {
     console.log('user from Nav', props.user);
     console.log('isEmployee', props.isEmployee);
 
-    const handleLogout = (props) => {
-        logout().then(() => {
-            props.setUser(() => null);
-        });
-    };
+    const handleLogout = (props) =>
+        logout()
+            .then(() => {
+                props.setUser(() => '');
+                props.history.push('/');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
     return (
         <>

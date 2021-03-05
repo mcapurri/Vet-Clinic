@@ -21,3 +21,6 @@
     background-color: rgb(69, 191, 165);
     color: #fff;
 }
+Button:disabled {
+    color: #ccc;
+}

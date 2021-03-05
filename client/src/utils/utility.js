@@ -6,13 +6,16 @@ export const updateObject = (oldObject, updatedProperties) => {
 };
 
 export const checkValidity = (value, rules) => {
+    // I add isValid var to be able to check more rules at the same time
+    // otherwise the last rule's value would set the whole validation
     let isValid = true;
+
     if (!rules) {
         return true;
     }
 
     if (rules.required) {
-        isValid = value.trim() !== "" && isValid;
+        isValid = value.trim() !== '' && isValid;
     }
 
     if (rules.minLength) {
@@ -32,6 +35,6 @@ export const checkValidity = (value, rules) => {
         const pattern = /^\d+$/;
         isValid = pattern.test(value) && isValid;
     }
-
+    console.log('isValid', isValid);
     return isValid;
 };

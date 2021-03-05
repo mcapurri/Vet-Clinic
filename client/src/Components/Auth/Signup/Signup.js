@@ -13,11 +13,12 @@ const Signup = (props) => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Your Name',
+                placeholder: 'First name',
             },
             value: '',
             validation: {
                 required: true,
+                minLength: 2,
             },
             valid: false,
             touched: false,
@@ -31,8 +32,10 @@ const Signup = (props) => {
             value: '',
             validation: {
                 required: true,
+                minLength: 2,
             },
             valid: false,
+            touched: false,
         },
         email: {
             elementType: 'input',
@@ -43,8 +46,10 @@ const Signup = (props) => {
             value: '',
             validation: {
                 required: true,
+                isEmail: true,
             },
             valid: false,
+            touched: false,
         },
         password: {
             elementType: 'input',
@@ -58,6 +63,7 @@ const Signup = (props) => {
                 minLength: 3,
             },
             valid: false,
+            touched: false,
         },
         confirm: {
             elementType: 'input',
@@ -71,6 +77,7 @@ const Signup = (props) => {
                 minLength: 3,
             },
             valid: false,
+            touched: false,
         },
         street: {
             elementType: 'input',
@@ -80,8 +87,10 @@ const Signup = (props) => {
             },
             value: '',
             validation: {
-                required: false,
+                // required: true,
             },
+            valid: false,
+            touched: false,
         },
         zipCode: {
             elementType: 'input',
@@ -91,9 +100,12 @@ const Signup = (props) => {
             },
             value: '',
             validation: {
-                required: false,
+                // required: true,
+                minLength: 5,
+                maxLength: 5,
             },
             valid: false,
+            touched: false,
         },
         city: {
             elementType: 'input',
@@ -103,9 +115,10 @@ const Signup = (props) => {
             },
             value: '',
             validation: {
-                required: false,
+                // required: true,
             },
             valid: false,
+            touched: false,
         },
         state: {
             elementType: 'input',
@@ -115,9 +128,10 @@ const Signup = (props) => {
             },
             value: '',
             validation: {
-                required: false,
+                // required: true,
             },
             valid: false,
+            touched: false,
         },
         phoneNumber: {
             elementType: 'input',
@@ -127,9 +141,10 @@ const Signup = (props) => {
             },
             value: '',
             validation: {
-                required: false,
+                // required: true,
             },
             valid: false,
+            touched: false,
         },
     });
     const [formIsValid, setFormIsValid] = useState(false);
@@ -141,6 +156,7 @@ const Signup = (props) => {
         const updatedFormElement = updateObject(controls[inputId], {
             value: e.target.value,
             valid: checkValidity(e.target.value, controls[inputId].validation),
+            touched: true, // input in the form has changed
         });
         const updatedControls = updateObject(controls, {
             [inputId]: updatedFormElement,
@@ -204,10 +220,11 @@ const Signup = (props) => {
                 <Input
                     className="form-control"
                     elementType={formElement.config.elementType}
-                    // type={formElement.config.type}
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
-                    placeholder={formElement.config.placeholder}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation} // validation is required
+                    touched={formElement.config.touched} // input has changed from initial status
                     changed={(event) => handleChange(event, formElement.id)}
                 />
             </div>
@@ -217,7 +234,11 @@ const Signup = (props) => {
     return (
         <Form className={style.Form} onSubmit={handleSubmit}>
             {form}
-            <button className={style.Button} type="submit">
+            <button
+                className={style.Button}
+                type="submit"
+                disabled={!formIsValid}
+            >
                 Sign up
             </button>
             {message && <p style={{ color: 'red' }}>{message}</p>}
