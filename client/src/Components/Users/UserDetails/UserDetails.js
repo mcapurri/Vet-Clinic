@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import style from './UserDetails.module.css';
 import axios from 'axios';
+import Spinner from '../../UI/Spinner/Spinner';
 
 const UserDetails = (props) => {
+    console.log('props UserDetails', props);
     const [selectedUser, setSelectedUser] = useState('');
     const [error, setError] = useState(null);
 
@@ -28,7 +31,7 @@ const UserDetails = (props) => {
             });
     };
     console.log('selectedUser', selectedUser);
-    if (!selectedUser) return <h3>Loading...</h3>;
+    if (!selectedUser) return <Spinner />;
     return (
         <div className={style.Card}>
             <h3>
@@ -42,12 +45,45 @@ const UserDetails = (props) => {
                     <p>&nbsp; City: {selectedUser.address.city}</p>
                     <p>&nbsp; State: {selectedUser.address.state}</p>
                     <hr />
-                    <p>Email: {selectedUser.email}</p>
+                    <p>E-mail: {selectedUser.email}</p>
                     <p>Phone num.: {selectedUser.phoneNumber}</p>
                     <hr />
+                    {selectedUser.position && (
+                        <p>Position: {selectedUser.position}</p>
+                    )}
+                    <p>
+                        {selectedUser.role} since: {selectedUser.createdAt}
+                    </p>
                 </div>
                 <div>
                     <p>Pets: </p>
+                    <ul>
+                        {selectedUser.pets.map((pet) => {
+                            <li>
+                                Name: {pet.name}&nbsp; Specie: {pet.specie}
+                                &nbsp; Breed: {pet.breed}&nbsp; Age: {pet.age}
+                            </li>;
+                        })}
+                    </ul>
+                </div>
+            </div>
+            <div className={style.buttons}>
+                <div>
+                    {props.isEmployee ? (
+                        <Link to="/pets/add">
+                            <span style={{ fontSize: 'bold' }}>+</span>
+                            <span>pet</span>
+                        </Link>
+                    ) : (
+                        <Link to={`/users/${selectedUser._id}/pet`}>
+                            <span style={{ fontSize: 'bold' }}>+</span>
+                            <span>pet</span>
+                        </Link>
+                    )}
+                </div>
+                <div style={{ display: 'flex', marginRight: '5%' }}>
+                    <button>Edit</button>
+                    <button>Delete</button>
                 </div>
             </div>
         </div>

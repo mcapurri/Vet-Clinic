@@ -23,7 +23,7 @@
     height: 2rem;
     background-color: rgba(27, 120, 76, 0.2);
 }
-button {
+.Container button {
     display: flex;
     justify-self: flex-end;
     align-self: flex-start;
@@ -34,6 +34,6 @@ button {
     text-decoration: none;
 }
 
-tbody {
+.Container tbody {
     height: 60vh;
 }

@@ -70,7 +70,13 @@ function App(props) {
                         />
                     )}
                 />
-                <Route exact path="/users/:id" component={UserDetails} />
+                <Route
+                    exact
+                    path="/users/:id"
+                    render={(props) => (
+                        <UserDetails {...props} isEmployee={isEmployee} />
+                    )}
+                />
                 {/* <Route exact path="/pets" component={PetsList} />
             <Route exact path="/pets/:id" component={PetDetails} /> */}
             </Switch>
