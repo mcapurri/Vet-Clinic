@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import style from './Signup.module.css';
-import { signup } from '../../../utils/auth';
-import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import style from './AddUser.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
+import { Form } from 'react-bootstrap';
+import axios from 'axios';
 
-const Signup = (props) => {
+const AddUser = (props) => {
     const [message, setMessage] = useState('');
     const [form, setForm] = useState({
         name: {
@@ -52,34 +51,7 @@ const Signup = (props) => {
             valid: false,
             touched: false,
         },
-        password: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Password',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-        confirm: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Confirm password',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
+
         street: {
             elementType: 'input',
             elementConfig: {
@@ -147,26 +119,39 @@ const Signup = (props) => {
             valid: false,
             touched: false,
         },
+        role: {
+            elementType: 'select',
+            elementConfig: {
+                options: [
+                    { value: 'employee', displayValue: 'employee' },
+                    { value: 'client', displayValue: 'client' },
+                ],
+            },
+            value: 'client',
+            validation: {},
+            valid: true,
+        },
     });
     const [formIsValid, setFormIsValid] = useState(false);
 
     const handleChange = (e, inputId) => {
         console.log('inputId', inputId);
+        console.log('required?', checkValidity(form[inputId].validation));
 
         const updatedFormElement = updateObject(form[inputId], {
             value: e.target.value,
             valid: checkValidity(e.target.value, form[inputId].validation),
             touched: true, // input in the form has changed
         });
-        const updatedform = updateObject(form, {
+        const updatedForm = updateObject(form, {
             [inputId]: updatedFormElement,
         });
 
         let validForm = true;
-        for (let inputId in updatedform) {
-            validForm = updatedform[inputId].valid && formIsValid;
+        for (let inputId in updatedForm) {
+            validForm = updatedForm[inputId].valid && formIsValid;
         }
-        setForm(updatedform);
+        setForm(updatedForm);
         setFormIsValid(validForm);
     };
     console.log('formUpdated', form);
@@ -174,38 +159,42 @@ const Signup = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        axios
+            .post('/api/users/add', {
+                name: form.name.value,
+                lastName: form.lastName.value,
+                email: form.email.value,
 
-        signup({
-            name: form.name.value,
-            lastName: form.lastName.value,
-            email: form.email.value,
-            password: form.password.value,
-            confirm: form.confirm.value,
-            street: form.street.value,
-            zipCode: form.zipCode.value,
-            city: form.city.value,
-            state: form.state.value,
-            phoneNumber: form.phoneNumber.value,
-        }).then((user) => {
-            if (user.message) {
-                setMessage(user.message);
+                street: form.street.value,
+                zipCode: form.zipCode.value,
+                city: form.city.value,
+                state: form.state.value,
+                phoneNumber: form.phoneNumber.value,
+            })
+            .then((user) => {
+                if (user.message) {
+                    setMessage(user.message);
 
-                // Reset input values
-                for (let inputField in form) {
-                    setForm({
-                        ...form,
-                        inputField: { ...inputField, value: '' },
-                    });
+                    // Reset input values
+                    for (let key in form) {
+                        setForm({
+                            ...form,
+                            key: { ...key, value: '' },
+                        });
+                    }
+                } else {
+                    // the response from the server is a user object -> signup was successful
+                    // we want to put the user object in the state of App.js
+                    console.log('user from Signup', user);
+                    console.log('props Signup', props);
+                    props.setUser(user);
+                    props.history.push('/');
                 }
-            } else {
-                // signup was successful
-                props.setShowForm(() => !props.showForm);
-                props.setUser(user);
-                props.history.push('/');
-            }
-        });
+                // update the list of projects in Projects.js - we use the getData function
+                // in the props
+                props.fetchData();
+            });
     };
-
     // Make dynamic input tags for the form
     const formElementsArray = [];
     for (let formElement in form) {
@@ -232,22 +221,21 @@ const Signup = (props) => {
     });
 
     return (
-        <Form className={style.Form} onSubmit={handleSubmit}>
-            {displayedForm}
-            <button
-                className={style.Button}
-                type="submit"
-                disabled={!formIsValid}
-            >
-                Sign up
-            </button>
-            {message && <p style={{ color: 'red' }}>{message}</p>}
+        <div>
+            <Form className={style.Form} onSubmit={handleSubmit}>
+                {displayedForm}
+                <button
+                    className={style.Button}
+                    type="submit"
+                    // disabled={!formIsValid}
+                >
+                    <h1 style={{ fontSize: 'bold' }}>+</h1>
+                </button>
 
-            <p>
-                Do you already have an account? <Link to="/">Login</Link>
-            </p>
-        </Form>
+                {message && <p style={{ color: 'red' }}>{message}</p>}
+            </Form>
+        </div>
     );
 };
 
-export default Signup;
+export default AddUser;

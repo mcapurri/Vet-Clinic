@@ -59,42 +59,42 @@ router.get('/users/employees', loginCheck(), (req, res, next) => {
         });
 });
 
-// @desc      Show add user
-// @route     GET /users/add
-// @access    Private
-router.get('/users/add', loginCheck(), (req, res) => {
-    let isEmployee = false;
-    if (req.user.role == 'employee') {
-        isEmployee = true;
-    }
-    // res.render('users/add', { isEmployee });
-    res.status(200).json(isEmployee);
-});
-
-// // @desc      Show edit form
-// // @route     GET /users/:id/edit
+// // @desc      Show add user
+// // @route     GET /users/add
 // // @access    Private
-router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
-    User.findById(req.params.id)
-        .then((user) => {
-            let isEmployee = false;
-            let userDbIsEmployee = false;
-            if (req.user.role == 'employee') {
-                isEmployee = true;
-            }
-            if (user.role == 'employee') {
-                userDbIsEmployee = true;
-            }
-            console.log('user to edit', user);
-            console.log('req.user', req.user);
-            // res.render('users/edit', { user, isEmployee, userDbIsEmployee });
-            res.status(200).json(user, isEmployee, userDbIsEmployee);
-        })
-        .catch((err) => {
-            console.log(err);
-            next(err);
-        });
-});
+// router.get('/users/add', loginCheck(), (req, res) => {
+//     let isEmployee = false;
+//     if (req.user.role == 'employee') {
+//         isEmployee = true;
+//     }
+//     // res.render('users/add', { isEmployee });
+//     res.status(200).json(isEmployee);
+// });
+
+// // // @desc      Show edit form
+// // // @route     GET /users/:id/edit
+// // // @access    Private
+// router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
+//     User.findById(req.params.id)
+//         .then((user) => {
+//             let isEmployee = false;
+//             let userDbIsEmployee = false;
+//             if (req.user.role == 'employee') {
+//                 isEmployee = true;
+//             }
+//             if (user.role == 'employee') {
+//                 userDbIsEmployee = true;
+//             }
+//             console.log('user to edit', user);
+//             console.log('req.user', req.user);
+//             // res.render('users/edit', { user, isEmployee, userDbIsEmployee });
+//             res.status(200).json(user, isEmployee, userDbIsEmployee);
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             next(err);
+//         });
+// });
 
 // // @desc      Get user details
 // // @route     GET /users/:id
@@ -166,6 +166,19 @@ router.post(
             position,
             role,
         } = req.body;
+
+        console.log(
+            'from users/add',
+            name,
+            lastName,
+            street,
+            city,
+            zip,
+            email,
+            phoneNumber,
+            position,
+            role
+        );
 
         User.create({
             name,

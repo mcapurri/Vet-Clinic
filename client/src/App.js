@@ -5,9 +5,10 @@ import axios from 'axios';
 // import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
-import UsersList from './Components/UsersList/UsersList';
+import UsersList from './Components/Users/UsersList/UsersList';
 // import UserDetails from './Components/UserDetails/UserDetails';
 import Carousel from './Components/Carousel/Carousel';
+import AddUser from './Components/Users/AddUser/AddUser';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');
@@ -57,6 +58,17 @@ function App(props) {
                     path="/users"
                     render={(props) => (
                         <UsersList {...props} usersList={usersList} />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/users/add"
+                    render={(props) => (
+                        <AddUser
+                            {...props}
+                            fetchData={fetchData}
+                            setUser={setUser}
+                        />
                     )}
                 />
                 {/* <Route exact path="/users/:id" component={UserDetails} />  */}

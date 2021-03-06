@@ -16,21 +16,16 @@ const UsersList = (props) => {
             //     <span>{user.role}</span>
             // </div>
             <tr key={user._id} className={style.resultCard}>
-                <td>{user.name}</td>
-                <td>{user.lastName}</td>
+                <td>
+                    {user.lastName}, {user.name}
+                </td>
                 <td>{user.role}</td>
-                {/* <td>
-                    {user.linkedin && (
-                        <a href={user.linkedin}>
-                            <img
-                                className="linkedin"
-                                src={linkedinlogo}
-                                alt="linkedin"
-                                style={{ width: '1rem' }}
-                            />
-                        </a>
-                    )}
-                </td> */}
+
+                <td>
+                    {user.pets.map((pet) => {
+                        <h3>&#9732;</h3>;
+                    })}
+                </td>
             </tr>
         );
     });
@@ -39,6 +34,15 @@ const UsersList = (props) => {
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>
+            <button
+                className={style.Button}
+
+                // disabled={!formIsValid}
+            >
+                <Link to={'/users/add'}>
+                    <h1 style={{ fontSize: 'bold' }}>+</h1>
+                </Link>
+            </button>
         </div>
     );
 };
