@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login } from '../../../utils/auth';
@@ -100,7 +101,12 @@ const Login = (props) => {
         <Form inline className={style.Form} onSubmit={handleSubmit}>
             <div style={{ display: 'flex' }}>
                 <InputGroup>{form}</InputGroup>
-                <Button type="submit">Log in</Button>
+                <Button
+                    style={{ maxHeight: '3rem', fontSize: '0.9rem' }}
+                    type="submit"
+                >
+                    Log in
+                </Button>
             </div>
             <div>
                 {message ? (
@@ -115,12 +121,12 @@ const Login = (props) => {
                             }}
                         >
                             Haven't you registered yet?
-                            <button
+                            <Link
                                 className={style.Button}
                                 onClick={toggleShowForm}
                             >
                                 Sign up
-                            </button>
+                            </Link>
                             here
                         </p>
                     </div>

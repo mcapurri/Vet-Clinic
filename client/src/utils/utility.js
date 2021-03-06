@@ -1,8 +1,19 @@
+import { useState, useEffect } from 'react';
 export const updateObject = (oldObject, updatedProperties) => {
     return {
         ...oldObject,
         ...updatedProperties,
     };
+};
+
+export const useLocalStorage = (key, defaultValue = '') => {
+    const [state, setState] = useState(
+        () => window.localStorage.getItem(key) || defaultValue
+    );
+    useEffect(() => {
+        window.localStorage.setItem(key, state);
+    }, [state]);
+    return [state, setState];
 };
 
 export const checkValidity = (value, rules) => {

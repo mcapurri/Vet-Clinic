@@ -51,7 +51,7 @@ const Navbar = (props) => {
                 {props.isEmployee ? (
                     <ul>
                         <li>
-                            <Link to="/users">All users</Link>
+                            <Link to="/users">Users</Link>
                         </li>
                         <li>
                             <Link to="/users/clients">Clients</Link>

@@ -1,12 +1,11 @@
+import './App.css';
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
 import axios from 'axios';
-// import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
-// import UserDetails from './Components/UserDetails/UserDetails';
+import UserDetails from './Components/Users/UserDetails/UserDetails';
 import Carousel from './Components/Carousel/Carousel';
 import AddUser from './Components/Users/AddUser/AddUser';
 
@@ -71,7 +70,7 @@ function App(props) {
                         />
                     )}
                 />
-                {/* <Route exact path="/users/:id" component={UserDetails} />  */}
+                <Route exact path="/users/:id" component={UserDetails} />
                 {/* <Route exact path="/pets" component={PetsList} />
             <Route exact path="/pets/:id" component={PetDetails} /> */}
             </Switch>

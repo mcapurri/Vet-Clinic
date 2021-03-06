@@ -99,7 +99,7 @@ router.get('/users/employees', loginCheck(), (req, res, next) => {
 // // @desc      Get user details
 // // @route     GET /users/:id
 // // @access    Private
-router.get('/users/:id', loginCheck(), async (req, res, next) => {
+router.get('/users/:id', loginCheck(), (req, res, next) => {
     console.log('req.params', req.params.id);
 
     User.findById(req.params.id)

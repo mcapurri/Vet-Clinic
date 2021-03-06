@@ -1,23 +1,19 @@
 import React from 'react';
 import style from './UserList.module.css';
 import { Link } from 'react-router-dom';
+// import { useLocalStorage } from '../../../utils/utility';
 
 const UsersList = (props) => {
+    // const [userList, setUserList] = useLocalStorage(props.usersList || '');
     const displayUsers = props.usersList.map((user) => {
         console.log('user from UList', user);
         console.log('props from UList', props);
         return (
-            // <div key={user._id} className={style.resultCard}>
-            //     <span>
-            //         <Link to={`/users/${user._id}`}>
-            //             {user.name} {user.lastName}
-            //         </Link>
-            //     </span>
-            //     <span>{user.role}</span>
-            // </div>
             <tr key={user._id} className={style.resultCard}>
-                <td>
-                    {user.lastName}, {user.name}
+                <td style={{ width: '30%' }}>
+                    <Link to={`/users/${user._id}`}>
+                        {user.lastName}, {user.name}
+                    </Link>
                 </td>
                 <td>{user.role}</td>
 

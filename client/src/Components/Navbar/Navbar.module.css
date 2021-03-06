@@ -23,6 +23,7 @@ ul {
 
 ul li {
     list-style-type: none;
+    margin-right: 5px;
 }
 span {
     margin-left: 5%;
