@@ -12,7 +12,7 @@ export const useLocalStorage = (key, defaultValue = '') => {
     );
     useEffect(() => {
         window.localStorage.setItem(key, state);
-    }, [state]);
+    }, [key, state]);
     return [state, setState];
 };
 
@@ -25,7 +25,7 @@ export const checkValidity = (value, rules) => {
         return true;
     }
 
-    if (rules.required) {
+    if (rules.required === 'true') {
         isValid = value.trim() !== '' && isValid;
     }
 

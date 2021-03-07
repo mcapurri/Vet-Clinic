@@ -2,11 +2,11 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
 import UserDetails from './Components/Users/UserDetails/UserDetails';
-import Carousel from './Components/Carousel/Carousel';
 import AddUser from './Components/Users/AddUser/AddUser';
 
 function App(props) {
@@ -51,7 +51,7 @@ function App(props) {
             />
             <Switch>
                 {/* <Route exact path="/" component={Home} /> */}
-                <Route exact path="/" component={Carousel} />
+                <Route exact path="/" component={Home} />
                 <Route
                     exact
                     path="/users"

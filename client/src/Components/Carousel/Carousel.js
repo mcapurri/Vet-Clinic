@@ -1,13 +1,14 @@
 import React from 'react';
+import style from './Carousel.module.css';
 import { Carousel as CarouselBootstrap } from 'react-bootstrap';
 const Carousel = () => {
     return (
-        <CarouselBootstrap>
+        <CarouselBootstrap className={style.Carousel}>
             <CarouselBootstrap.Item>
                 <img
                     className="d-block w-100"
-                    src="../../../../images/pets.png"
-                    alt="First slide"
+                    src="../../utils/images/pets.png"
+                    alt="Pets"
                 />
                 <CarouselBootstrap.Caption>
                     <h3>First slide label</h3>
@@ -20,8 +21,8 @@ const Carousel = () => {
             <CarouselBootstrap.Item>
                 <img
                     className="d-block w-100"
-                    src="../../../../images/clinic-front.png"
-                    alt="Second slide"
+                    src="../../utils/images/clinic-front.png"
+                    alt="Clinic front"
                 />
 
                 <CarouselBootstrap.Caption>
@@ -34,8 +35,8 @@ const Carousel = () => {
             <CarouselBootstrap.Item>
                 <img
                     className="d-block w-100"
-                    src="../../../..images/op-room.png"
-                    alt="Third slide"
+                    src="../../utils/images/op-room.png"
+                    alt="op-room"
                 />
 
                 <CarouselBootstrap.Caption>

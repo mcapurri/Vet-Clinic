@@ -31,6 +31,7 @@ const Login = (props) => {
             value: '',
             validation: {
                 required: true,
+                minLenght: 3,
             },
             touched: false,
         },

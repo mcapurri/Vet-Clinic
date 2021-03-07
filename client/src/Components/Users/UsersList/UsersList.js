@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 const UsersList = (props) => {
     // const [userList, setUserList] = useLocalStorage(props.usersList || '');
     const displayUsers = props.usersList.map((user) => {
-        console.log('user from UList', user);
-        console.log('props from UList', props);
         return (
             <tr key={user._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
@@ -19,7 +17,7 @@ const UsersList = (props) => {
 
                 <td>
                     {user.pets.map((pet) => {
-                        <h3>&#9732;</h3>;
+                        return <h3>&#9732;</h3>;
                     })}
                 </td>
             </tr>

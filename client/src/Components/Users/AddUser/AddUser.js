@@ -51,7 +51,6 @@ const AddUser = (props) => {
             valid: false,
             touched: false,
         },
-
         street: {
             elementType: 'input',
             elementConfig: {
@@ -106,6 +105,7 @@ const AddUser = (props) => {
             valid: false,
             touched: false,
         },
+
         phoneNumber: {
             elementType: 'input',
             elementConfig: {
@@ -164,7 +164,6 @@ const AddUser = (props) => {
                 name: form.name.value,
                 lastName: form.lastName.value,
                 email: form.email.value,
-
                 street: form.street.value,
                 zipCode: form.zipCode.value,
                 city: form.city.value,
