@@ -7,15 +7,15 @@ const editUser = (props) => {
 
     return (
         <div>
-            <h2>Edit </h2>
             <form className={style.Form} onSubmit={props.handleSubmit}>
+                <h2>Edit </h2>
                 <div className={style.Input}>
                     <label htmlFor="name">Name: &nbsp;</label>
                     <input
                         type="text"
                         id="name"
                         name="name"
-                        value={props.selectedUser.name}
+                        // value={props.selectedUser.name}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -111,6 +111,7 @@ const editUser = (props) => {
                 </div>
                 <div className={style.buttons}>
                     <button type="submit">Update</button>
+                    <button onClick={props.toggleEditForm}>Back</button>
                     {/* <Link to={`/users/${props.selectedUser._id}`}>Back</Link> */}
                 </div>
             </form>

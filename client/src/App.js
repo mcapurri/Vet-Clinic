@@ -132,13 +132,13 @@ function App(props) {
                         />
                     )}
                 />
-                <Route
+                {/* <Route
                     exact
                     path="/users/:id/edit"
                     render={(props) => (
                         <EditUser {...props} isEmployee={isEmployee} />
                     )}
-                />
+                /> */}
                 {/* <Route exact path="/pets" component={PetsList} />
             <Route exact path="/pets/:id" component={PetDetails} /> */}
             </Switch>

@@ -4,10 +4,11 @@ import style from './UserDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
 import { updateObject, checkValidity } from '../../../utils/utility';
+import EditUser from '../EditUser/EditUser';
 
 const UserDetails = (props) => {
     const [error, setError] = useState(null);
-    // const [editForm, setEditForm] = useState(false);
+    const [editForm, setEditForm] = useState(false);
     const [formIsValid, setFormIsValid] = useState(false);
 
     const [selectedUserForm, setSelectedUserForm] = useState(
@@ -151,8 +152,8 @@ const UserDetails = (props) => {
 
                 setSelectedUserForm(() => response.data);
 
-                //  {for (let inputField in selectedUserForm) {
-                // setSelectedUserForm({ ...selectedUserForm, inputField: { ...inputField, value: response.data.value } })}
+                //  for (let inputField in selectedUserForm) {
+                // setSelectedUserForm({ ...selectedUserForm, inputField: { ...inputField, value: response.data[inputField] } })
             })
 
             .catch((err) => {
@@ -193,6 +194,9 @@ const UserDetails = (props) => {
         setFormIsValid(validForm);
     };
 
+    const toggleEditForm = () => {
+        setEditForm(() => !editForm);
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('update');
@@ -229,75 +233,85 @@ const UserDetails = (props) => {
 
     if (!selectedUserForm) return <Spinner />;
     return (
-        <div className={style.Card}>
-            {/* {!editForm ? ( */}
-            <h3>
-                {selectedUserForm.name} {selectedUserForm.lastName}
-            </h3>
-            <div className={style.Infos}>
-                <div>
-                    <p>Address: </p>
-                    <p>&nbsp; Street: {selectedUserForm.address.street}</p>
-                    <p>&nbsp; ZIP Code: {selectedUserForm.address.zipCode}</p>
-                    <p>&nbsp; City: {selectedUserForm.address.city}</p>
-                    <p>&nbsp; State: {selectedUserForm.address.state}</p>
-                    <hr />
-                    <p>E-mail: {selectedUserForm.email}</p>
-                    <p>Phone num.: {selectedUserForm.phoneNumber}</p>
-                    <hr />
-                    {selectedUserForm.position && (
-                        <p>Position: {selectedUserForm.position}</p>
-                    )}
-                    <p>
-                        {selectedUserForm.role} since:
-                        {selectedUserForm.createdAt}
-                    </p>
-                </div>
-                <div>
-                    <p>Pets: </p>
-                    <ul>
-                        {selectedUserForm.pets.map((pet) => {
-                            return (
-                                <li>
-                                    Name: {pet.name}&nbsp; Specie: {pet.specie}
-                                    &nbsp; Breed: {pet.breed}&nbsp; Age:
-                                    {pet.age}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-            </div>
-            <div className={style.buttons}>
-                <div>
-                    {props.isEmployee ? (
-                        <Link to="/pets/add">
-                            <span style={{ fontSize: 'bold' }}>+</span>
-                            <span>pet</span>
-                        </Link>
-                    ) : (
-                        <Link to={`/users/${selectedUserForm._id}/pet`}>
-                            <span style={{ fontSize: 'bold' }}>+</span>
-                            <span>pet</span>
-                        </Link>
-                    )}
-                </div>
-                <div style={{ display: 'flex', marginRight: '5%' }}>
-                    {/* <button onClick={toggleEditForm}>Edit</button> */}
-                    <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link>
-                    <button onClick={deleteUser}>Delete</button>
-                </div>
-            </div>
-
-            {/* <EditUser
-                    // toggleEditForm={toggleEditForm}
+        <>
+            {editForm ? (
+                <EditUser
+                    toggleEditForm={toggleEditForm}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     selectedUserForm={selectedUserForm}
-                /> */}
-            {/* )} */}
-            <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link>
-        </div>
+                />
+            ) : (
+                // <>
+                <div className={style.Card}>
+                    <h3>
+                        {selectedUserForm.name} {selectedUserForm.lastName}
+                    </h3>
+                    <div className={style.Infos}>
+                        <div>
+                            <p>Address: </p>
+                            <p>
+                                &nbsp; Street: {selectedUserForm.address.street}
+                            </p>
+                            <p>
+                                &nbsp; ZIP Code:{' '}
+                                {selectedUserForm.address.zipCode}
+                            </p>
+                            <p>&nbsp; City: {selectedUserForm.address.city}</p>
+                            <p>
+                                &nbsp; State: {selectedUserForm.address.state}
+                            </p>
+                            <hr />
+                            <p>E-mail: {selectedUserForm.email}</p>
+                            <p>Phone num.: {selectedUserForm.phoneNumber}</p>
+                            <hr />
+                            {selectedUserForm.position && (
+                                <p>Position: {selectedUserForm.position}</p>
+                            )}
+                            <p>
+                                {selectedUserForm.role} since:
+                                {selectedUserForm.createdAt}
+                            </p>
+                        </div>
+                        <div>
+                            <p>Pets: </p>
+                            <ul>
+                                {selectedUserForm.pets.map((pet) => {
+                                    return (
+                                        <li>
+                                            Name: {pet.name}&nbsp; Specie:{' '}
+                                            {pet.specie}
+                                            &nbsp; Breed: {pet.breed}&nbsp; Age:
+                                            {pet.age}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className={style.buttons}>
+                        <div>
+                            {props.isEmployee ? (
+                                <Link to="/pets/add">
+                                    <span style={{ fontSize: 'bold' }}>+</span>
+                                    <span>pet</span>
+                                </Link>
+                            ) : (
+                                <Link to={`/users/${selectedUserForm._id}/pet`}>
+                                    <span style={{ fontSize: 'bold' }}>+</span>
+                                    <span>pet</span>
+                                </Link>
+                            )}
+                        </div>
+                        <div style={{ display: 'flex', marginRight: '5%' }}>
+                            <button onClick={toggleEditForm}>Edit</button>
+                            {/* <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link> */}
+                            <button onClick={deleteUser}>Delete</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
