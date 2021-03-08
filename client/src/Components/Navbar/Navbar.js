@@ -7,9 +7,8 @@ import Login from '../Auth/Login/Login';
 import { Navbar as Nav } from 'react-bootstrap';
 
 const Navbar = (props) => {
-    const [showForm, setShowForm] = useState(false);
+    // const [showForm, setShowForm] = useState(false);
 
-    console.log('user from Nav', props);
     console.log('isEmployee', props.isEmployee);
 
     const handleLogout = () =>
@@ -26,8 +25,8 @@ const Navbar = (props) => {
         <Nav className={style.Navbar}>
             {!props.user ? (
                 <Login
-                    showForm={showForm}
-                    setShowForm={setShowForm}
+                    // showForm={showForm}
+                    // setShowForm={setShowForm}
                     setUser={props.setUser}
                     history={props.history}
                 />

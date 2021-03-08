@@ -4,11 +4,11 @@ const Checkbox = (props) => {
     return (
         <>
             <div style={{ marginRight: '2%' }}>
-                <label htmlFor="teacher">Teacher</label>
+                <label htmlFor="teacher">Checkbox</label>
                 <input
                     type="checkbox"
-                    name={props.pet.type}
-                    checked={props.isTeacher}
+                    // name={props.pet.options}
+                    // checked={props.isTeacher}
                     onChange={props.handleChange}
                 />
             </div>

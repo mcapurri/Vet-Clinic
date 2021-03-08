@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import style from './AddUser.module.css';
+import style from './AddPet.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
-const AddUser = (props) => {
+const AddPet = (props) => {
     const [message, setMessage] = useState('');
+
     const [form, setForm] = useState({
         name: {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'First name',
+                placeholder: 'Name',
             },
             value: '',
             validation: {
@@ -22,112 +23,80 @@ const AddUser = (props) => {
             valid: false,
             touched: false,
         },
-        lastName: {
+        specie: {
+            elementType: 'select',
+            elementConfig: {
+                options: [
+                    { value: 'dog', displayValue: 'dog' },
+                    { value: 'cat', displayValue: 'cat' },
+                    { value: 'bird', displayValue: 'bird' },
+                    { value: 'reptile', displayValue: 'reptile' },
+                    { value: 'other', displayValue: 'other' },
+                ],
+            },
+            validation: {},
+            valid: true,
+        },
+
+        breed: {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Last name',
+                placeholder: 'Breed',
             },
             value: '',
             validation: {
                 required: true,
-                minLength: 2,
+                minLength: 3,
             },
             valid: false,
             touched: false,
         },
-        email: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'email',
-                placeholder: 'Email',
-            },
-            value: '',
-            validation: {
-                required: true,
-                isEmail: true,
-                unique: true, /// you still have to write the code for this validation
-            },
-            valid: false,
-            touched: false,
-        },
-        street: {
+        age: {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Street',
+                placeholder: 'Age',
             },
             value: '',
             validation: {
-                // required: true,
+                minLength: 1,
             },
             valid: false,
             touched: false,
         },
-        zipCode: {
+        diagnosis: {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'ZIP Code',
+                placeholder: 'Diagnosis',
             },
             value: '',
             validation: {
-                // required: true,
-                minLength: 5,
-                maxLength: 5,
+                minLength: 3,
             },
             valid: false,
             touched: false,
         },
-        city: {
+        treatment: {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'City',
+                placeholder: 'Treatment',
             },
             value: '',
             validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
-        state: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'State',
-            },
-            value: '',
-            validation: {
-                // required: true,
+                minLength: 3,
             },
             valid: false,
             touched: false,
         },
 
-        phoneNumber: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Phone Num.',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
-        role: {
+        owner: {
             elementType: 'select',
             elementConfig: {
-                options: [
-                    { value: 'employee', displayValue: 'employee' },
-                    { value: 'client', displayValue: 'client' },
-                ],
+                options: [{ value: 'owner', displayValue: '' }],
             },
-            value: 'client',
             validation: {},
             valid: true,
         },
@@ -160,34 +129,32 @@ const AddUser = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         axios
-            .post('/api/users/add', {
+            .post('/api/pets/add', {
                 name: form.name.value,
-                lastName: form.lastName.value,
-                email: form.email.value,
-                street: form.street.value,
-                zipCode: form.zipCode.value,
-                city: form.city.value,
-                state: form.state.value,
-                role: form.role.value,
-                phoneNumber: form.phoneNumber.value,
+                specie: form.specie.value,
+                breed: form.breed.value,
+                age: form.age.value,
+                diagnosis: form.diagnosis.value,
+                treatment: form.treatment.value,
+                owner: form.owner.value,
             })
             .then((user) => {
                 if (user.message) {
                     setMessage(user.message);
 
                     // Reset input values
-                    for (let key in form) {
-                        setForm({
-                            ...form,
-                            key: { ...key, value: '' },
-                        });
-                    }
+                    // for (let key in form) {
+                    //     setForm({
+                    //         ...form,
+                    //         key: { ...key, value: '' },
+                    //     });
+                    // }
                 } else {
                     console.log('user added', user);
                     props.history.push('/users');
                 }
-                // update the list of users
-                // props.fetchData();
+                // update the list of pets
+                props.fetchData();
             });
     };
     // Make dynamic input tags for the form
@@ -233,4 +200,4 @@ const AddUser = (props) => {
     );
 };
 
-export default AddUser;
+export default AddPet;

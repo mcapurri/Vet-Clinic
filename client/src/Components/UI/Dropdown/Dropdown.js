@@ -7,11 +7,11 @@ const Dropdown = (props) => {
             <select
                 name="role"
                 id="role"
-                style={{ width: ' 6rem' }}
+                style={{ width: ' 7rem' }}
                 onChange={props.handleChange}
             >
                 <option value="">All</option>
-                {props.usersOptions}
+                {props.userRoleOptions}
             </select>
         </div>
     );

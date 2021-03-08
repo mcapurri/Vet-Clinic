@@ -60,9 +60,10 @@ const Login = (props) => {
                 setMessage(user.message);
 
                 //Reset input values
-                for (let key in form) {
-                    setForm({ ...form, key: { ...key, value: '' } });
-                }
+                // for (let key in form) {
+                //     setForm({ ...form, key: { ...key, value: '' } });
+                // }
+                console.log('form', form);
             } else {
                 //  put the user object in the state of App.js
                 console.log(user);
@@ -106,7 +107,7 @@ const Login = (props) => {
             </div>
             <div>
                 {message ? (
-                    <p style={{ color: 'red' }}>{{ message }}</p>
+                    <p style={{ color: 'red' }}>{message}</p>
                 ) : (
                     <div>
                         <p>

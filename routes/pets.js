@@ -7,50 +7,26 @@ const Pet = require('../models/Pet');
 // @route     GET /pets
 // @access    Private
 router.get('/pets', (req, res, next) => {
-    User.find()
-        .then((owners) => {
-            Pet.find()
-                .populate('owner')
-                .then((pets) => {
-                    let isEmployee = false;
-                    if (req.user.role == 'employee') {
-                        isEmployee = true;
-                    }
-                    res.render('pets/index', {
-                        pets,
-                        owners: owners[0],
-                        isEmployee,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    next(err);
-                });
-            // });
-        })
-        .catch((err) => {
-            console.log(err);
-            next(err);
-        });
-});
-
-// @desc      Show add pet
-// @route     GET /pets/add
-// @access    Private
-router.get('/pets/add', (req, res, next) => {
-    User.find()
-        .populate('owner')
-        .then((owners) => {
+    Pet.find()
+        .then((pets) => {
+            pets.map((pet) => {
+                User.find(pet.owner).populate('owner');
+            });
+            // .then((pets) => {
             // let isEmployee = false;
             // if (req.user.role == 'employee') {
             //     isEmployee = true;
-            // }
-            res.render('pets/addByEmployee', { owners });
+            // } owners: owners[0]
+            res.status(200).json(pets);
         })
         .catch((err) => {
             console.log(err);
             next(err);
         });
+    // .catch((err) => {
+    //     console.log(err);
+    //     next(err);
+    // });
 });
 
 // @desc      Get pet details
@@ -63,7 +39,7 @@ router.get('/pets/:id', (req, res, next) => {
             .populate('owner')
             .then((owner) => {
                 console.log('owner of the pet', owner[0]);
-                res.render('pets/show', { pet, owner: owner[0] });
+                res.status(200).json({ pet, owner: owner[0] });
             })
             .catch((err) => {
                 next(err);
@@ -71,36 +47,6 @@ router.get('/pets/:id', (req, res, next) => {
     });
 });
 
-// @desc      Show edit form
-// @route     GET /pets/:id/edit
-// @access    Private
-router.get('/pets/:id/edit', loginCheck(), (req, res, next) => {
-    Pet.findById(req.params.id)
-        .then((pet) => {
-            console.log(' editing pet', pet);
-            User.find(pet.owner)
-                .populate('owner')
-                .then((owner) => {
-                    console.log('owner pet', owner);
-                    let options = '';
-                    let isEmployee = false;
-                    if (req.user.role == 'employee') {
-                        isEmployee = true;
-                    }
-                    console.log('pet to edit', pet);
-                    console.log('req.user', req.user);
-                    res.render('pets/edit', { pet, isEmployee, owner });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    next(err);
-                });
-        })
-        .catch((err) => {
-            console.log(err);
-            next(err);
-        });
-});
 // @desc      Add pet
 // @route     POST /pets/add
 // @access    Private
@@ -135,8 +81,9 @@ router.post(
             .then((pet) => {
                 User.findByIdAndUpdate(owner, {
                     $push: { pets: pet._id },
-                }).then(() => {
-                    res.redirect('/pets');
+                }).then((response) => {
+                    res.status(200).json(response);
+                    // res.redirect('/pets');
                 });
             })
             .catch((err) => {

@@ -214,18 +214,18 @@ const Signup = (props) => {
             config: form[formElement],
         });
     }
-    let displayedForm = formElementsArray.map((formControl) => {
+    let displayedForm = formElementsArray.map((formElement) => {
         return (
-            <div className="form-group" key={formControl.id}>
+            <div className="form-group" key={formElement.id}>
                 <Input
                     className="form-control"
-                    elementType={formControl.config.elementType}
-                    elementConfig={formControl.config.elementConfig}
-                    value={formControl.config.value}
-                    invalid={!formControl.config.valid}
-                    shouldValidate={formControl.config.validation} // validation is required
-                    touched={formControl.config.touched} // input has changed from initial status
-                    changed={(event) => handleChange(event, formControl.id)}
+                    elementType={formElement.config.elementType}
+                    elementConfig={formElement.config.elementConfig}
+                    value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation} // validation is required
+                    touched={formElement.config.touched} // input has changed from initial status
+                    changed={(event) => handleChange(event, formElement.id)}
                 />
             </div>
         );

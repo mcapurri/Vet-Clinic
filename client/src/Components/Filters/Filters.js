@@ -23,9 +23,9 @@ const Filters = (props) => {
                     marginBottom: '10%',
                 }}
             >
-                {props.usersOptions ? (
+                {props.userRoleOptions ? (
                     <Dropdown
-                        usersOptions={props.usersOptions}
+                        userRoleOptions={props.userRoleOptions}
                         handleChange={props.handleChange}
                     />
                 ) : (

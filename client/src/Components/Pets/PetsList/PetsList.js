@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import style from './UserList.module.css';
+import style from './PetsList.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Filters from '../../Filters/Filters';
 import Spinner from '../../UI/Spinner/Spinner';
 
-const UsersList = (props) => {
-    const [usersList, setUsersList] = useState([]);
+const PetsList = (props) => {
+    const [petsList, setPetsList] = useState([]);
     const [searchField, setSearchField] = useState('');
-    const [selectedRole, setSelectedRole] = useState('');
     const [isDog, setIsDog] = useState(true);
     const [isCat, setIsCat] = useState(true);
     const [isBird, setIsBird] = useState(true);
@@ -18,10 +17,9 @@ const UsersList = (props) => {
     const fetchData = () => {
         console.log('fetching data');
         axios
-            .get('/api/users')
-            .then((users) => {
-                console.log('users', users.data);
-                setUsersList(users.data);
+            .get('/api/pets')
+            .then((pets) => {
+                setPetsList(pets.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -33,12 +31,10 @@ const UsersList = (props) => {
         fetchData();
     }, []);
 
-    console.log('usersList', usersList);
+    console.log('petsList', petsList);
 
     const handleChange = (event) => {
-        if (event.target.type === 'select-one') {
-            setSelectedRole(event.target.value);
-        } else if (event.target.type === 'checkbox') {
+        if (event.target.type === 'checkbox') {
             if (event.target.name === 'dog') {
                 setIsDog(() => !isDog);
             } else if (event.target.name === 'cat') {
@@ -55,61 +51,42 @@ const UsersList = (props) => {
         }
     };
 
-    const filteredSearch = usersList.filter((element) => {
+    const filteredSearch = petsList.filter((element) => {
         return (
-            // ((isDog && element.specie === 'dog') ||
-            //     (isCat && element.specie === 'cat')) &&
+            ((isDog && element.specie === 'dog') ||
+                (isCat && element.specie === 'cat') ||
+                (isBird && element.specie === 'bird') ||
+                (isReptile && element.specie === 'reptile') ||
+                (isOther && element.specie === 'other')) &&
             (`${element.name}`
                 .toLowerCase()
                 .includes(`${searchField.toLowerCase()}`) ||
                 `${element.lastName}`
                     .toLowerCase()
-                    .includes(`${searchField.toLowerCase()}`)) &&
-            (element.role === selectedRole || !selectedRole)
+                    .includes(`${searchField.toLowerCase()}`))
         );
-        // );
     });
 
-    const displayUsers = filteredSearch.map((user) => {
+    const displayUsers = filteredSearch.map((pet) => {
         return (
-            <tr key={user._id} className={style.resultCard}>
+            <tr key={pet._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
-                    <Link to={`/users/${user._id}`}>
-                        {user.lastName}, {user.name}
-                    </Link>
+                    <Link to={`/pets/${pet._id}`}>{pet.name}</Link>
                 </td>
-                <td>{user.role}</td>
+                <td>{pet.specie}</td>
 
-                <td>
-                    {user.pets.map((pet) => {
-                        return <h3>&#9732;</h3>;
-                    })}
-                </td>
+                <td>{pet.owner}</td>
             </tr>
         );
     });
-    // const userRoles = [...new Set(usersList.map((user) => user.role)]
-    //  const userRoleOptions = userRoles.map((role) => {
-    //      return (
-    //          <option value={role} key={role}>
-    //              {role}
-    //          </option>
-    //      );
-    //  });
-    const userRoleOptions = (
-        <>
-            <option value="employee">employee</option>
-            <option value="client">client</option>
-        </>
-    );
 
-    if (!usersList) return <Spinner />;
+    if (!petsList) return <Spinner />;
     return (
         <div className={style.Container}>
             <Filters
                 handleChange={handleChange}
                 //  isUsersList={true}
-                userRoleOptions={userRoleOptions}
+                // userRoleOptions={userRoleOptions}
             />
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
@@ -119,7 +96,7 @@ const UsersList = (props) => {
 
                 // disabled={!formIsValid}
             >
-                <Link to={'/users/add'}>
+                <Link to={'/pets/add'}>
                     <h1 style={{ fontSize: 'bold' }}>+</h1>
                 </Link>
             </button>
@@ -127,4 +104,4 @@ const UsersList = (props) => {
     );
 };
 
-export default UsersList;
+export default PetsList;
