@@ -191,16 +191,17 @@ const Signup = (props) => {
                 setMessage(user.message);
 
                 // Reset input values
-                for (let inputField in form) {
+                for (let formControl in form) {
                     setForm({
                         ...form,
-                        inputField: { ...inputField, value: '' },
+                        formControl: { ...formControl, value: '' },
                     });
                 }
             } else {
                 // signup was successful
-                props.setUser(() => user);
-                <Redirect to={'/'} />;
+                props.setUser(user);
+                props.history.push('/');
+                // <Redirect to={'/'} />;
             }
         });
     };
@@ -213,18 +214,18 @@ const Signup = (props) => {
             config: form[formElement],
         });
     }
-    let displayedForm = formElementsArray.map((inputField) => {
+    let displayedForm = formElementsArray.map((formControl) => {
         return (
-            <div className="form-group" key={inputField.id}>
+            <div className="form-group" key={formControl.id}>
                 <Input
                     className="form-control"
-                    elementType={inputField.config.elementType}
-                    elementConfig={inputField.config.elementConfig}
-                    value={inputField.config.value}
-                    invalid={!inputField.config.valid}
-                    shouldValidate={inputField.config.validation} // validation is required
-                    touched={inputField.config.touched} // input has changed from initial status
-                    changed={(event) => handleChange(event, inputField.id)}
+                    elementType={formControl.config.elementType}
+                    elementConfig={formControl.config.elementConfig}
+                    value={formControl.config.value}
+                    invalid={!formControl.config.valid}
+                    shouldValidate={formControl.config.validation} // validation is required
+                    touched={formControl.config.touched} // input has changed from initial status
+                    changed={(event) => handleChange(event, formControl.id)}
                 />
             </div>
         );

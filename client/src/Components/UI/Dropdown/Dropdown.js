@@ -3,16 +3,15 @@ import React from 'react';
 const Dropdown = (props) => {
     return (
         <div>
-            <label htmlFor="campus">Campus</label>
+            <label htmlFor="role">Role: </label>
             <select
-                name="campus"
-                id="campus"
-                // value={props.campusesList}
+                name="role"
+                id="role"
                 style={{ width: ' 6rem' }}
                 onChange={props.handleChange}
             >
                 <option value="">All</option>
-                {props.campusOptions}
+                {props.usersOptions}
             </select>
         </div>
     );

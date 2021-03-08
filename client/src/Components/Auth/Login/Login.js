@@ -4,7 +4,6 @@ import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login } from '../../../utils/auth';
 import { updateObject, checkValidity } from '../../../utils/utility';
-// import Input from '../../../Components/UI/Input/Input';
 
 const Login = (props) => {
     const [message, setMessage] = useState('');
@@ -37,10 +36,6 @@ const Login = (props) => {
         },
     });
 
-    // const toggleShowForm = () => {
-    //     props.setShowForm(() => !props.showForm);
-    // };
-
     const handleChange = (event, controlName) => {
         const updatedForm = updateObject(form, {
             [controlName]: updateObject(form[controlName], {
@@ -62,19 +57,17 @@ const Login = (props) => {
             password: form.password.value,
         }).then((user) => {
             if (user.message) {
-                setMessage(() => user.message);
+                setMessage(user.message);
 
                 //Reset input values
                 for (let key in form) {
                     setForm({ ...form, key: { ...key, value: '' } });
                 }
             } else {
-                // the response from the server is a user object -> signup was successful
-                // we want to put the user object in the state of App.js
+                //  put the user object in the state of App.js
                 console.log(user);
                 props.setUser(user);
-                // props.history.push('/');
-                <Redirect to={'/'} />;
+                props.history.push('/');
             }
         });
     };
@@ -91,6 +84,7 @@ const Login = (props) => {
         <FormControl
             key={formElement.id}
             placeholder={formElement.config.elementConfig.placeholder}
+            type={formElement.config.elementConfig.type}
             // aria-label="email"s
             // aria-describedby="basic-addon1"
             style={{ marginRight: '2%' }}

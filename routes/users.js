@@ -11,7 +11,6 @@ router.get('/users', loginCheck(), (req, res, next) => {
         Pet.find()
             .populate('pets')
             .then((pets) => {
-                // res.render('users/index', { users, pets });
                 res.status(200).json(users);
             })
             .catch((err) => {
@@ -21,78 +20,41 @@ router.get('/users', loginCheck(), (req, res, next) => {
     });
 });
 
-/// @desc     Get all clients
-// @route     GET /users/clients
-// @access    Private
-router.get('/users/clients', loginCheck(), (req, res, next) => {
-    Pet.find()
-        .populate('pets')
-        .then((pets) => {
-            User.find({ role: 'client' })
-                .then((users) => {
-                    // res.render('users/index', { users, pets });
-                    res.status(200).json(users);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    next(err);
-                });
-        });
-});
-
-// @desc      Get all employees
-// @route     GET /users/employees
-// @access    Private
-router.get('/users/employees', loginCheck(), (req, res, next) => {
-    Pet.find()
-        .populate('pets')
-        .then((pets) => {
-            User.find({ role: 'employee' })
-                .then((users) => {
-                    // res.render('users/index', { users });
-                    res.status(200).json(users);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    next(err);
-                });
-        });
-});
-
-// // @desc      Show add user
-// // @route     GET /users/add
+// /// @desc     Get all clients
+// // @route     GET /users/clients
 // // @access    Private
-// router.get('/users/add', loginCheck(), (req, res) => {
-//     let isEmployee = false;
-//     if (req.user.role == 'employee') {
-//         isEmployee = true;
-//     }
-//     // res.render('users/add', { isEmployee });
-//     res.status(200).json(isEmployee);
+// router.get('/users/clients', loginCheck(), (req, res, next) => {
+//     Pet.find()
+//         .populate('pets')
+//         .then((pets) => {
+//             User.find({ role: 'client' })
+//                 .then((users) => {
+//                     // res.render('users/index', { users, pets });
+//                     res.status(200).json({ users });
+//                 })
+//                 .catch((err) => {
+//                     console.log(err);
+//                     next(err);
+//                 });
+//         });
 // });
 
-// // // @desc      Show edit form
-// // // @route     GET /users/:id/edit
-// // // @access    Private
-// router.get('/users/:id/edit', loginCheck(), (req, res, next) => {
-//     User.findById(req.params.id)
-//         .then((user) => {
-//             let isEmployee = false;
-//             let userDbIsEmployee = false;
-//             if (req.user.role == 'employee') {
-//                 isEmployee = true;
-//             }
-//             if (user.role == 'employee') {
-//                 userDbIsEmployee = true;
-//             }
-//             console.log('user to edit', user);
-//             console.log('req.user', req.user);
-//             // res.render('users/edit', { user, isEmployee, userDbIsEmployee });
-//             res.status(200).json(user, isEmployee, userDbIsEmployee);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             next(err);
+// // @desc      Get all employees
+// // @route     GET /users/employees
+// // @access    Private
+// router.get('/users/employees', loginCheck(), (req, res, next) => {
+//     Pet.find()
+//         .populate('pets')
+//         .then((pets) => {
+//             User.find({ role: 'employee' })
+//                 .then((users) => {
+//                     // res.render('users/index', { users });
+//                     res.status(200).json({users});
+//                 })
+//                 .catch((err) => {
+//                     console.log(err);
+//                     next(err);
+//                 });
 //         });
 // });
 
@@ -130,22 +92,21 @@ router.get('/users/:id', loginCheck(), (req, res, next) => {
     // });
 });
 
-// @desc      Show add pet
-// @route     GET /users/:id/pet
-// @access    Private
-router.get('/users/:id/pet', (req, res, next) => {
-    User.find({ _id: req.params.id })
-        .populate('owner')
-        .then((owner) => {
-            console.log('owner Addpet', owner);
-            // res.render('pets/addByClient', { owner: owner[0] });
-            res.status(200).json({ owner: owner[0] });
-        })
-        .catch((err) => {
-            console.log(err);
-            next(err);
-        });
-});
+// // @desc      Show add pet
+// // @route     GET /users/:id/pet
+// // @access    Private
+// router.get('/users/:id/pet', (req, res, next) => {
+//     User.find({ _id: req.params.id })
+//         .populate('owner')
+//         .then((owner) => {
+//             console.log('owner Addpet', owner);
+//             res.status(200).json({ owner: owner[0] });
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             next(err);
+//         });
+// });
 
 // @desc      Add user
 // @route     POST /users/add
@@ -196,7 +157,7 @@ router.post(
         })
             .then((user) => {
                 console.log('user added', user);
-                res.status(201).json(user).redirect('/users');
+                res.status(201).json(user);
             })
             .catch((err) => {
                 next(err);
@@ -215,9 +176,9 @@ router.put(
         // const query = { _id: req.params.id };
 
         // if user is not admin they have to be the owner
-        if (req.user.role !== 'employee') {
-            query.owner = req.user._id;
-        }
+        // if (req.user.role !== 'employee') {
+        //     query.owner = req.user._id;
+        // }
 
         const {
             name,
@@ -246,7 +207,9 @@ router.put(
         })
             .then((user) => {
                 console.log('user was updated', user);
-                res.redirect('/users');
+                res.status(200).json({
+                    message: 'User was updated',
+                });
             })
             .catch((err) => {
                 next(err);
@@ -271,8 +234,11 @@ router.post('/users/:id/pet', (req, res) => {
         .then((pet) => {
             User.findByIdAndUpdate(req.user.id, {
                 $push: { pets: pet._id },
-            }).then(() => {
-                res.redirect(`/users/${req.params.id}`);
+            }).then((user) => {
+                console.log('user was updated', user);
+                res.status(200).json({
+                    message: 'Pet added. User was updated',
+                });
             });
         })
         .catch((err) => {
@@ -291,22 +257,23 @@ router.post('/users/:id/pet', (req, res) => {
     //         console.log(err);
     //     });
 });
+
 // @desc      Delete user
 // @route     DELETE /users/:id/delete
 // @access    Private
 router.delete('/users/:id', loginCheck(), (req, res) => {
     console.log('req.params', req.params);
-    const query = { _id: req.params.id };
 
     // if user is not admin they have to be the owner
-    if (req.user.role !== 'employee') {
-        query.owner = req.user._id;
-    }
-    console.log('query', query);
-    User.findByIdAndDelete(query)
+    // if (req.user.role !== 'employee') {
+    //     query.owner = req.user._id;
+    // }
+    User.findByIdAndDelete(req.params.id)
         .then((user) => {
-            console.log('This user was removed', user);
-            res.redirect('/users');
+            console.log(`User was removed`, user);
+            res.status(200).json({
+                message: `User ${user.name}  ${user.lastName}  was successfully removed`,
+            });
         })
         .catch((err) => {
             console.log(err);

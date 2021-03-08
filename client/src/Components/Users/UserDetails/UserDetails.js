@@ -152,8 +152,8 @@ const UserDetails = (props) => {
 
                 setSelectedUserForm(() => response.data);
 
-                //  for (let inputField in selectedUserForm) {
-                // setSelectedUserForm({ ...selectedUserForm, inputField: { ...inputField, value: response.data[inputField] } })
+                //  for (let formControl in selectedUserForm) {
+                // setSelectedUserForm({ ...selectedUserForm, formControl: { ...formControl, value: response.data[formControl] } })
             })
 
             .catch((err) => {
@@ -220,11 +220,15 @@ const UserDetails = (props) => {
             });
     };
 
-    const deleteUser = () => {
-        axios
+    const deleteUser = async () => {
+        await axios
             .delete(`/api/users/${selectedUserForm._id}`)
             .then(() => {
-                <Redirect to={'/users'} />;
+                console.log(
+                    `${selectedUserForm.name} ${selectedUserForm.lastName} was successfully removed`
+                );
+                props.history.push('/');
+                // <Redirect to={'/'} />;
             })
             .catch((err) => {
                 console.log(err);
