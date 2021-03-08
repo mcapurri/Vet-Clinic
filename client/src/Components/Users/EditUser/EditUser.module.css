@@ -1,8 +1,8 @@
 .Form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    align-items: space-between;
+    justify-content: space-between;
     font-size: 1em;
     border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
@@ -26,7 +26,11 @@ Button:disabled {
 }
 
 .Form input {
-    width: 80%;
-    line-height: 2rem;
+    width: 40%;
+    line-height: 1.5rem;
     padding-left: 5%;
+}
+
+.Input {
+    display: flex;
 }

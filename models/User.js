@@ -12,6 +12,7 @@ const userSchema = new Schema(
             city: String,
             state: String,
         },
+
         phoneNumber: String,
         role: {
             type: String,

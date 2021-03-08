@@ -1,11 +1,14 @@
 import React from 'react';
 import style from './UserList.module.css';
 import { Link } from 'react-router-dom';
-// import { useLocalStorage } from '../../../utils/utility';
+import Filters from '../../Filters/Filters';
+
+import { useLocalStorage } from '../../../utils/utility';
 
 const UsersList = (props) => {
-    // const [userList, setUserList] = useLocalStorage(props.usersList || '');
-    const displayUsers = props.usersList.map((user) => {
+    const [userList, setUserList] = useLocalStorage(props.usersList);
+
+    const displayUsers = userList.map((user) => {
         return (
             <tr key={user._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
@@ -23,8 +26,21 @@ const UsersList = (props) => {
             </tr>
         );
     });
+
+    const usersOptions = userList.map((user) => {
+        return (
+            <option value={user} key={user}>
+                {user}
+            </option>
+        );
+    });
+
     return (
         <div className={style.Container}>
+            <Filters
+                usersOptions={usersOptions}
+                handleChange={props.handleChange}
+            />
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>

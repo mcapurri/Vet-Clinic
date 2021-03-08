@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login } from '../../../utils/auth';
@@ -8,7 +8,7 @@ import { updateObject, checkValidity } from '../../../utils/utility';
 
 const Login = (props) => {
     const [message, setMessage] = useState('');
-    const [controls, setControls] = useState({
+    const [form, setForm] = useState({
         email: {
             elementType: 'input',
             elementConfig: {
@@ -37,56 +37,57 @@ const Login = (props) => {
         },
     });
 
-    const toggleShowForm = () => {
-        props.setShowForm(() => !props.showForm);
-    };
+    // const toggleShowForm = () => {
+    //     props.setShowForm(() => !props.showForm);
+    // };
 
     const handleChange = (event, controlName) => {
-        const updatedControls = updateObject(controls, {
-            [controlName]: updateObject(controls[controlName], {
+        const updatedForm = updateObject(form, {
+            [controlName]: updateObject(form[controlName], {
                 value: event.target.value,
                 valid: checkValidity(
                     event.target.value,
-                    controls[controlName].validation
+                    form[controlName].validation
                 ),
                 touched: true,
             }),
         });
 
-        setControls(updatedControls);
+        setForm(updatedForm);
     };
     const handleSubmit = (event) => {
         event.preventDefault();
         login({
-            email: controls.email.value,
-            password: controls.password.value,
+            email: form.email.value,
+            password: form.password.value,
         }).then((user) => {
             if (user.message) {
-                setMessage(user.message);
+                setMessage(() => user.message);
 
                 //Reset input values
-                for (let key in controls) {
-                    setControls({ ...controls, key: { ...key, value: '' } });
+                for (let key in form) {
+                    setForm({ ...form, key: { ...key, value: '' } });
                 }
             } else {
                 // the response from the server is a user object -> signup was successful
                 // we want to put the user object in the state of App.js
                 console.log(user);
                 props.setUser(user);
-                props.history.push('/');
+                // props.history.push('/');
+                <Redirect to={'/'} />;
             }
         });
     };
 
     const formElementsArray = [];
-    for (let key in controls) {
+    for (let key in form) {
         formElementsArray.push({
             id: key,
-            config: controls[key],
+            config: form[key],
         });
     }
 
-    let form = formElementsArray.map((formElement) => (
+    let displayedForm = formElementsArray.map((formElement) => (
         <FormControl
             key={formElement.id}
             placeholder={formElement.config.elementConfig.placeholder}
@@ -101,7 +102,7 @@ const Login = (props) => {
     return (
         <Form inline className={style.Form} onSubmit={handleSubmit}>
             <div style={{ display: 'flex' }}>
-                <InputGroup>{form}</InputGroup>
+                <InputGroup>{displayedForm}</InputGroup>
                 <Button
                     style={{ maxHeight: '3rem', fontSize: '0.9rem' }}
                     type="submit"
@@ -114,18 +115,9 @@ const Login = (props) => {
                     <p style={{ color: 'red' }}>{{ message }}</p>
                 ) : (
                     <div>
-                        <p
-                            style={{
-                                color: '#fff ',
-                                width: '100%',
-                                marginTop: '5%',
-                            }}
-                        >
+                        <p>
                             Haven't you registered yet?
-                            <Link
-                                className={style.Button}
-                                onClick={toggleShowForm}
-                            >
+                            <Link to={'/signup'} className={style.Button}>
                                 Sign up
                             </Link>
                             here

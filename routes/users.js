@@ -161,6 +161,7 @@ router.post(
             street,
             city,
             zip,
+            state,
             email,
             phoneNumber,
             position,
@@ -204,9 +205,9 @@ router.post(
 );
 
 // @desc      Edit user
-// @route     POST /users/:id/edit
+// @route     PUT /users/:id/edit
 // @access    Private
-router.post(
+router.put(
     '/users/:id/edit',
     loginCheck(),
 
@@ -291,9 +292,9 @@ router.post('/users/:id/pet', (req, res) => {
     //     });
 });
 // @desc      Delete user
-// @route     POST /users/:id/delete
+// @route     DELETE /users/:id/delete
 // @access    Private
-router.post('/users/:id/delete', loginCheck(), (req, res) => {
+router.delete('/users/:id', loginCheck(), (req, res) => {
     console.log('req.params', req.params);
     const query = { _id: req.params.id };
 

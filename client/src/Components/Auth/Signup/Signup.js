@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
 import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
 
@@ -158,15 +158,15 @@ const Signup = (props) => {
             valid: checkValidity(e.target.value, form[inputId].validation),
             touched: true, // input in the form has changed
         });
-        const updatedform = updateObject(form, {
+        const updatedForm = updateObject(form, {
             [inputId]: updatedFormElement,
         });
 
         let validForm = true;
-        for (let inputId in updatedform) {
-            validForm = updatedform[inputId].valid && formIsValid;
+        for (let inputId in updatedForm) {
+            validForm = updatedForm[inputId].valid && formIsValid;
         }
-        setForm(updatedform);
+        setForm(updatedForm);
         setFormIsValid(validForm);
     };
     console.log('formUpdated', form);
@@ -199,9 +199,8 @@ const Signup = (props) => {
                 }
             } else {
                 // signup was successful
-                props.setShowForm(() => !props.showForm);
-                props.setUser(user);
-                props.history.push('/');
+                props.setUser(() => user);
+                <Redirect to={'/'} />;
             }
         });
     };
@@ -237,15 +236,16 @@ const Signup = (props) => {
             <button
                 className={style.Button}
                 type="submit"
-                disabled={!formIsValid}
+                // disabled={!formIsValid}
             >
                 Sign up
             </button>
-            {message && <p style={{ color: 'red' }}>{message}</p>}
+            {message && <p style={{ color: 'red', padding: '0' }}>{message}</p>}
 
-            <p>
+            {/* <p>
                 Do you already have an account? <Link to="/">Login</Link>
-            </p>
+            </p> */}
+            <Link to="/">Back</Link>
         </Form>
     );
 };

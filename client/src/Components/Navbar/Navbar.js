@@ -36,7 +36,7 @@ const Navbar = (props) => {
                 ) : (
                     <ul>
                         <li>
-                            <Link to="/users/{{user._id}}">Profile</Link>
+                            <Link to={`/users/${props.user._id}`}>Profile</Link>
                         </li>
                         <li>
                             <button

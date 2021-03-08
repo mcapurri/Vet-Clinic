@@ -4,6 +4,7 @@ import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const AddUser = (props) => {
     const [message, setMessage] = useState('');
@@ -149,7 +150,7 @@ const AddUser = (props) => {
 
         let validForm = true;
         for (let inputId in updatedForm) {
-            validForm = updatedForm[inputId].valid && formIsValid;
+            validForm = updatedForm[inputId].valid && validForm;
         }
         setForm(updatedForm);
         setFormIsValid(validForm);
@@ -187,7 +188,8 @@ const AddUser = (props) => {
                     console.log('user from Signup', user);
                     console.log('props Signup', props);
                     props.setUser(user);
-                    props.history.push('/');
+                    // props.history.push('/');
+                    <Redirect to={'/'} />;
                 }
                 // update the list of projects in Projects.js - we use the getData function
                 // in the props

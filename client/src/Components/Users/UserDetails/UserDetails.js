@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import style from './UserDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import EditUser from '../EditUser/EditUser';
+import { updateObject, checkValidity } from '../../../utils/utility';
 
 const UserDetails = (props) => {
     const [error, setError] = useState(null);
-    const [editForm, setEditForm] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(
+    // const [editForm, setEditForm] = useState(false);
+    const [formIsValid, setFormIsValid] = useState(false);
+
+    const [selectedUserForm, setSelectedUserForm] = useState(
         // {
         //     name: {
         //         elementType: 'input',
@@ -147,8 +149,12 @@ const UserDetails = (props) => {
             .then((response) => {
                 console.log('response from DB', response.data);
 
-                setSelectedUser(() => response.data);
+                setSelectedUserForm(() => response.data);
+
+                //  {for (let inputField in selectedUserForm) {
+                // setSelectedUserForm({ ...selectedUserForm, inputField: { ...inputField, value: response.data.value } })}
             })
+
             .catch((err) => {
                 console.log(err.response);
                 if (err.response.status === 404) {
@@ -158,114 +164,139 @@ const UserDetails = (props) => {
                 }
             });
     };
-    console.log('selectedUser', selectedUser);
+    console.log('selectedUserForm', selectedUserForm);
 
-    const toggleEditForm = () => {
-        setEditForm(() => !editForm);
-    };
-    console.log('editForm', editForm);
+    const handleChange = (event, inputId) => {
+        console.log('inputId', inputId);
+        console.log(
+            'required?',
+            checkValidity(selectedUserForm[inputId].validation)
+        );
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value,
+        const updatedFormElement = updateObject(selectedUserForm[inputId], {
+            value: event.target.value,
+            valid: checkValidity(
+                event.target.value,
+                selectedUserForm[inputId].validation
+            ),
+            touched: true, // input in the form has changed
         });
+        const updatedForm = updateObject(selectedUserForm, {
+            [inputId]: updatedFormElement,
+        });
+
+        let validForm = true;
+        for (let inputId in updatedForm) {
+            validForm = updatedForm[inputId].valid && validForm;
+        }
+        setSelectedUserForm(updatedForm);
+        setFormIsValid(validForm);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('update');
         axios
-            .put(`/api/users/${selectedUser._id}`, {
-                name: selectedUser.name,
-                lastName: selectedUser.lastName,
-                email: selectedUser.email,
-                street: selectedUser.street,
-                zipCode: selectedUser.zipCode,
-                city: selectedUser.city,
-                state: selectedUser.state,
-                phoneNumber: selectedUser.phoneNumber,
+            .put(`/api/users/${selectedUserForm._id}`, {
+                name: selectedUserForm.name,
+                lastName: selectedUserForm.lastName,
+                email: selectedUserForm.email,
+                street: selectedUserForm.address.street,
+                zipCode: selectedUserForm.address.zipCode,
+                city: selectedUserForm.address.city,
+                state: selectedUserForm.address.state,
+                phoneNumber: selectedUserForm.phoneNumber,
             })
             .then((response) => {
-                setSelectedUser(() => response.data);
-                // this.getData(); / with some changes
+                setSelectedUserForm(() => response.data);
+                fetchData(); // with some changes
             })
             .catch((err) => {
                 console.log(err);
             });
     };
 
-    if (!selectedUser) return <Spinner />;
+    const deleteUser = () => {
+        axios
+            .delete(`/api/users/${selectedUserForm._id}`)
+            .then(() => {
+                <Redirect to={'/users'} />;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    if (!selectedUserForm) return <Spinner />;
     return (
         <div className={style.Card}>
-            {!editForm ? (
-                <>
-                    <h3>
-                        {selectedUser.name} {selectedUser.lastName}
-                    </h3>
-                    <div className={style.Infos}>
-                        <div>
-                            <p>Address: </p>
-                            <p>&nbsp; Street: {selectedUser.street}</p>
-                            <p>&nbsp; ZIP Code: {selectedUser.zipCode}</p>
-                            <p>&nbsp; City: {selectedUser.city}</p>
-                            <p>&nbsp; State: {selectedUser.state}</p>
-                            <hr />
-                            <p>E-mail: {selectedUser.email}</p>
-                            <p>Phone num.: {selectedUser.phoneNumber}</p>
-                            <hr />
-                            {selectedUser.position && (
-                                <p>Position: {selectedUser.position}</p>
-                            )}
-                            <p>
-                                {selectedUser.role} since:
-                                {selectedUser.createdAt}
-                            </p>
-                        </div>
-                        <div>
-                            <p>Pets: </p>
-                            <ul>
-                                {selectedUser.pets.map((pet) => {
-                                    return (
-                                        <li>
-                                            Name: {pet.name}&nbsp; Specie:{' '}
-                                            {pet.specie}
-                                            &nbsp; Breed: {pet.breed}&nbsp; Age:
-                                            {pet.age}
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    </div>
-                    <div className={style.buttons}>
-                        <div>
-                            {props.isEmployee ? (
-                                <Link to="/pets/add">
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            ) : (
-                                <Link to={`/users/${selectedUser._id}/pet`}>
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            )}
-                        </div>
-                        <div style={{ display: 'flex', marginRight: '5%' }}>
-                            <button onClick={toggleEditForm}>Edit</button>
-                            <button>Delete</button>
-                        </div>
-                    </div>
-                </>
-            ) : (
-                <EditUser
-                    toggleEditForm={toggleEditForm}
+            {/* {!editForm ? ( */}
+            <h3>
+                {selectedUserForm.name} {selectedUserForm.lastName}
+            </h3>
+            <div className={style.Infos}>
+                <div>
+                    <p>Address: </p>
+                    <p>&nbsp; Street: {selectedUserForm.address.street}</p>
+                    <p>&nbsp; ZIP Code: {selectedUserForm.address.zipCode}</p>
+                    <p>&nbsp; City: {selectedUserForm.address.city}</p>
+                    <p>&nbsp; State: {selectedUserForm.address.state}</p>
+                    <hr />
+                    <p>E-mail: {selectedUserForm.email}</p>
+                    <p>Phone num.: {selectedUserForm.phoneNumber}</p>
+                    <hr />
+                    {selectedUserForm.position && (
+                        <p>Position: {selectedUserForm.position}</p>
+                    )}
+                    <p>
+                        {selectedUserForm.role} since:
+                        {selectedUserForm.createdAt}
+                    </p>
+                </div>
+                <div>
+                    <p>Pets: </p>
+                    <ul>
+                        {selectedUserForm.pets.map((pet) => {
+                            return (
+                                <li>
+                                    Name: {pet.name}&nbsp; Specie: {pet.specie}
+                                    &nbsp; Breed: {pet.breed}&nbsp; Age:
+                                    {pet.age}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </div>
+            <div className={style.buttons}>
+                <div>
+                    {props.isEmployee ? (
+                        <Link to="/pets/add">
+                            <span style={{ fontSize: 'bold' }}>+</span>
+                            <span>pet</span>
+                        </Link>
+                    ) : (
+                        <Link to={`/users/${selectedUserForm._id}/pet`}>
+                            <span style={{ fontSize: 'bold' }}>+</span>
+                            <span>pet</span>
+                        </Link>
+                    )}
+                </div>
+                <div style={{ display: 'flex', marginRight: '5%' }}>
+                    {/* <button onClick={toggleEditForm}>Edit</button> */}
+                    <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link>
+                    <button onClick={deleteUser}>Delete</button>
+                </div>
+            </div>
+
+            {/* <EditUser
+                    // toggleEditForm={toggleEditForm}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    selectedUser={selectedUser}
-                />
-            )}
+                    selectedUserForm={selectedUserForm}
+                /> */}
+            {/* )} */}
+            <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link>
         </div>
     );
 };
