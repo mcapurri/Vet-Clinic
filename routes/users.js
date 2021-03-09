@@ -19,6 +19,31 @@ router.get('/users', loginCheck(), (req, res, next) => {
             });
     });
 });
+/// @desc     Get all owners
+// @route     GET /users?owner=true
+// @access    Private
+router.get('/users/owner', loginCheck(), (req, res, next) => {
+    User.find()
+        .then((users) => {
+            console.log('users to be filtered', users);
+            const owners = users.filter((user) => {
+                return user.role === 'client' || user.pets.lenght > 0;
+            });
+            const options = owners.map((user) => {
+                return {
+                    value: user._id,
+                    displayValue: `${user.lastName}, ${user.name}`,
+                };
+            });
+            console.log('owners', owners);
+            console.log('options', options);
+            res.status(200).json(options);
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
+});
 
 // /// @desc     Get all clients
 // // @route     GET /users/clients

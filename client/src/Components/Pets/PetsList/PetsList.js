@@ -78,15 +78,6 @@ const PetsList = (props) => {
         );
     });
 
-    const ownerOptions = [
-        ...new Set(
-            petsList.map((pet) => {
-                return pet.owner;
-            })
-        ),
-    ];
-    console.log('ownerOptions', ownerOptions);
-
     if (!petsList) return <Spinner />;
     return (
         <div className={style.Container}>

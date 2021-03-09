@@ -16,7 +16,6 @@ const UsersList = (props) => {
     const [isOther, setIsOther] = useState(true);
 
     const fetchData = () => {
-        console.log('fetching data');
         axios
             .get('/api/users')
             .then((users) => {
@@ -29,7 +28,6 @@ const UsersList = (props) => {
     };
 
     useEffect(() => {
-        console.log('useEffect running');
         fetchData();
     }, []);
 
@@ -57,8 +55,6 @@ const UsersList = (props) => {
 
     const filteredSearch = usersList.filter((element) => {
         return (
-            // ((isDog && element.specie === 'dog') ||
-            //     (isCat && element.specie === 'cat')) &&
             (`${element.name}`
                 .toLowerCase()
                 .includes(`${searchField.toLowerCase()}`) ||
@@ -102,6 +98,18 @@ const UsersList = (props) => {
             <option value="client">client</option>
         </>
     );
+
+    const ownerOptions = usersList
+        .filter((user) => {
+            return user.role === 'client' || user.pets.lenght > 0;
+        })
+        .map((user) => {
+            return {
+                value: user._id,
+                displayValue: `${user.lastName}, ${user.name}`,
+            };
+        });
+    console.log('ownerOptions', ownerOptions);
 
     if (!usersList) return <Spinner />;
     return (

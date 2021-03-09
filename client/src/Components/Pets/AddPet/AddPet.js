@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './AddPet.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 const AddPet = (props) => {
-    console.log('addpet props', props.history);
     const [message, setMessage] = useState('');
 
     const [form, setForm] = useState({
@@ -104,6 +103,32 @@ const AddPet = (props) => {
         },
     });
     const [formIsValid, setFormIsValid] = useState(false);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        axios
+            .get('/api/users/owner')
+            .then((users) => {
+                console.log('options from DB', users.data);
+                setForm({
+                    ...form,
+                    owner: {
+                        ...form.owner,
+                        elementConfig: {
+                            ...form.elementConfig,
+                            options: users.data,
+                        },
+                    },
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    console.log('addPet form', form);
 
     const handleChange = (e, inputId) => {
         console.log('inputId', inputId);
