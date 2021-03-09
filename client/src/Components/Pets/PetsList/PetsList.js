@@ -85,7 +85,11 @@ const PetsList = (props) => {
         <div className={style.Container}>
             <Filters
                 handleChange={handleChange}
-                //  isUsersList={true}
+                isDog={isDog}
+                isCat={isCat}
+                isBird={isBird}
+                isReptile={isReptile}
+                isOther={isOther}
                 // userRoleOptions={userRoleOptions}
             />
             <table style={{ margin: '0 0 10% 5%' }}>

@@ -34,26 +34,31 @@ const Filters = (props) => {
                         <Checkbox
                             name="dog"
                             label="Dog"
+                            checked={props.isDog}
                             handleChange={props.handleChange}
                         />
                         <Checkbox
                             name="cat"
                             label="Cat"
+                            checked={props.isCat}
                             handleChange={props.handleChange}
                         />
                         <Checkbox
                             name="bird"
                             label="Bird"
+                            checked={props.isBird}
                             handleChange={props.handleChange}
                         />
                         <Checkbox
                             name="reptile"
                             label="Reptile"
+                            checked={props.isReptile}
                             handleChange={props.handleChange}
                         />
                         <Checkbox
                             name="other"
                             label="Other"
+                            checked={props.isOther}
                             handleChange={props.handleChange}
                         />
                     </div>

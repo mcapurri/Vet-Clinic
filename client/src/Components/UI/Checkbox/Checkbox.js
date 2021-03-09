@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Checkbox = (props) => {
+    console.log('props Checkbox', props);
     let name;
     let label;
 
@@ -15,7 +16,7 @@ const Checkbox = (props) => {
             <input
                 type="checkbox"
                 name={props.name}
-                // checked={props.isTeacher}
+                checked={props.checked}
                 onChange={props.handleChange}
             />
             <label style={{ marginLeft: '15%' }} htmlFor={name}>
