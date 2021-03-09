@@ -17,8 +17,8 @@
 
 .Infos {
     display: flex;
-    justify-content: space-between;
-    width: 60%;
+    width: 100%;
+    padding-right: 5%;
 }
 
 .buttons {

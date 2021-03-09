@@ -20,7 +20,7 @@ const PetDetails = (props) => {
     const fetchData = async () => {
         await axios
             .get(`/api/pets/${props.match.params.id}`)
-            .then((response, index) => {
+            .then((response) => {
                 console.log('response from DB', response.data);
 
                 setSelectedPet(
@@ -36,6 +36,7 @@ const PetDetails = (props) => {
                             lastName: response.data.owner.lastName,
                             email: response.data.owner.email,
                             address: response.data.owner.address,
+                            phoneNumber: response.data.owner.phoneNumber,
                         },
                     })
                 );
@@ -140,11 +141,10 @@ const PetDetails = (props) => {
                 <div className={style.Card}>
                     <h3>{selectedPet.name}</h3>
                     <div className={style.Infos}>
-                        <div>
+                        <div style={{ width: '100%' }}>
                             <p>Specie: {selectedPet.specie}</p>
                             <p>Breed: {selectedPet.breed}</p>
                             <p>Age: {selectedPet.age}</p>
-                            <p>Owner: {selectedPet.owner.name}</p>
                             <hr />
                             <p>Diagnosis: {selectedPet.diagnosis}</p>
                             <p>Treatment: {selectedPet.treatment}</p>
@@ -152,6 +152,32 @@ const PetDetails = (props) => {
                             <p>
                                 patient since:
                                 {selectedPet.createdAt}
+                            </p>
+                        </div>
+                        <div style={{ width: '100%', height: '50%' }}>
+                            <p>Owner: </p>
+                            <p>&nbsp; Name: {selectedPet.owner.name}</p>
+                            <p>
+                                &nbsp; Last name: {selectedPet.owner.lastName}
+                            </p>
+                            <hr />
+                            <p>&nbsp; @: {selectedPet.owner.email}</p>
+                            <p>
+                                &nbsp; Phone Num:{' '}
+                                {selectedPet.owner.phoneNumber}
+                            </p>
+                            <hr />
+                            <p>
+                                &nbsp; Street:{' '}
+                                {selectedPet.owner.address.street}
+                            </p>
+                            <p>&nbsp; City: {selectedPet.owner.address.city}</p>
+                            <p>
+                                &nbsp; ZIP code:{' '}
+                                {selectedPet.owner.address.zipCode}
+                            </p>
+                            <p>
+                                &nbsp; State: {selectedPet.owner.address.state}
                             </p>
                         </div>
                     </div>

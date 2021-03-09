@@ -261,7 +261,7 @@ const UserDetails = (props) => {
                         {selectedUserForm.name} {selectedUserForm.lastName}
                     </h3>
                     <div className={style.Infos}>
-                        <div>
+                        <div style={{ width: '100%' }}>
                             <p>Address: </p>
                             <p>
                                 &nbsp; Street: {selectedUserForm.address.street}
@@ -282,11 +282,11 @@ const UserDetails = (props) => {
                                 <p>Position: {selectedUserForm.position}</p>
                             )}
                             <p>
-                                {selectedUserForm.role} since:
+                                {selectedUserForm.role} since: <br />
                                 {selectedUserForm.createdAt}
                             </p>
                         </div>
-                        <div>
+                        <div style={{ width: '100%' }}>
                             <p>Pets: </p>
                             <ul>
                                 {selectedUserForm.pets.map((pet) => {

@@ -3,7 +3,6 @@ import style from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../utils/auth';
 import Login from '../Auth/Login/Login';
-// import Logout from '../Auth/Login/Login';
 import { Navbar as Nav } from 'react-bootstrap';
 
 const Navbar = (props) => {
@@ -40,12 +39,7 @@ const Navbar = (props) => {
                     <li>
                         <Link to="/users">Users</Link>
                     </li>
-                    {/* <li>
-                        <Link to="/users/clients">Clients</Link>
-                    </li>
-                    <li>
-                        <Link to="/users/employees">Employees</Link>
-                    </li> */}
+
                     <li>
                         <Link to="/pets">Patients</Link>
                     </li>
