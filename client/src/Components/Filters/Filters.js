@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './Filters.module.css';
 import Checkbox from '../UI/Checkbox/Checkbox';
 import Dropdown from '../UI/Dropdown/Dropdown';
 import SearchField from '../UI/SearchField/SearchField';
@@ -29,25 +30,30 @@ const Filters = (props) => {
                         handleChange={props.handleChange}
                     />
                 ) : (
-                    <div>
+                    <div className={style.Container}>
                         <Checkbox
-                            isDog={props.isDog}
+                            name="dog"
+                            label="Dog"
                             handleChange={props.handleChange}
                         />
                         <Checkbox
-                            isCat={props.isCat}
+                            name="cat"
+                            label="Cat"
                             handleChange={props.handleChange}
                         />
                         <Checkbox
-                            isBird={props.isBird}
+                            name="bird"
+                            label="Bird"
                             handleChange={props.handleChange}
                         />
                         <Checkbox
-                            isReptile={props.isReptile}
+                            name="reptile"
+                            label="Reptile"
                             handleChange={props.handleChange}
                         />
                         <Checkbox
-                            isOther={props.isOther}
+                            name="other"
+                            label="Other"
                             handleChange={props.handleChange}
                         />
                     </div>

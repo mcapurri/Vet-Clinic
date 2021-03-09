@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';

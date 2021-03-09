@@ -1,0 +1,5 @@
+.Container {
+    display: flex;
+    justify-content: space-around;
+    margin: 4% 0 0 9%;
+}
