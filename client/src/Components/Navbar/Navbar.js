@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import style from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../utils/auth';
@@ -7,8 +7,6 @@ import Login from '../Auth/Login/Login';
 import { Navbar as Nav } from 'react-bootstrap';
 
 const Navbar = (props) => {
-    // const [showForm, setShowForm] = useState(false);
-
     console.log('isEmployee', props.isEmployee);
 
     const handleLogout = () =>
@@ -24,12 +22,7 @@ const Navbar = (props) => {
     return (
         <Nav className={style.Navbar}>
             {!props.user ? (
-                <Login
-                    // showForm={showForm}
-                    // setShowForm={setShowForm}
-                    setUser={props.setUser}
-                    history={props.history}
-                />
+                <Login setUser={props.setUser} history={props.history} />
             ) : (
                 <ul>
                     <li>

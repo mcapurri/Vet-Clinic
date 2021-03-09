@@ -15,7 +15,6 @@ const PetsList = (props) => {
     const [isOther, setIsOther] = useState(true);
 
     const fetchData = () => {
-        console.log('fetching data');
         axios
             .get('/api/pets')
             .then((pets) => {
@@ -27,7 +26,6 @@ const PetsList = (props) => {
     };
 
     useEffect(() => {
-        console.log('useEffect running');
         fetchData();
     }, []);
 
@@ -80,6 +78,15 @@ const PetsList = (props) => {
         );
     });
 
+    const ownerOptions = [
+        ...new Set(
+            petsList.map((pet) => {
+                return pet.owner;
+            })
+        ),
+    ];
+    console.log('ownerOptions', ownerOptions);
+
     if (!petsList) return <Spinner />;
     return (
         <div className={style.Container}>
@@ -90,20 +97,15 @@ const PetsList = (props) => {
                 isBird={isBird}
                 isReptile={isReptile}
                 isOther={isOther}
-                // userRoleOptions={userRoleOptions}
             />
+            <button className={style.Button}>
+                <Link to={'/pets/add'}>
+                    <span>+</span>
+                </Link>
+            </button>
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>
-            <button
-                className={style.Button}
-
-                // disabled={!formIsValid}
-            >
-                <Link to={'/pets/add'}>
-                    <h1 style={{ fontSize: 'bold' }}>+</h1>
-                </Link>
-            </button>
         </div>
     );
 };

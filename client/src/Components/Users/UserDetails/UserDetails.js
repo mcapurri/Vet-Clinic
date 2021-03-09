@@ -150,10 +150,23 @@ const UserDetails = (props) => {
             .then((response) => {
                 console.log('response from DB', response.data);
 
-                setSelectedUserForm(() => response.data);
+                setSelectedUserForm(
+                    updateObject(response.data.user, {
+                        pets: response.data.pets,
+                    })
+                );
 
-                //  for (let formControl in selectedUserForm) {
-                // setSelectedUserForm({ ...selectedUserForm, formControl: { ...formControl, value: response.data[formControl] } })
+                // for (let formControl in selectedUserForm) {
+                //     setSelectedUserForm(
+                //         updateObject({
+                //             ...selectedUserForm,
+                //             formControl: {
+                //                 ...formControl,
+                //                 value: response.data[formControl],
+                //             },
+                //         })
+                //     );
+                // }
             })
 
             .catch((err) => {
@@ -169,10 +182,6 @@ const UserDetails = (props) => {
 
     const handleChange = (event, inputId) => {
         console.log('inputId', inputId);
-        console.log(
-            'required?',
-            checkValidity(selectedUserForm[inputId].validation)
-        );
 
         const updatedFormElement = updateObject(selectedUserForm[inputId], {
             value: event.target.value,
@@ -212,8 +221,9 @@ const UserDetails = (props) => {
                 phoneNumber: selectedUserForm.phoneNumber,
             })
             .then((response) => {
-                setSelectedUserForm(() => response.data);
-                fetchData(); // with some changes
+                props.history.goBack();
+
+                // fetchData();
             })
             .catch((err) => {
                 console.log(err);
@@ -228,7 +238,6 @@ const UserDetails = (props) => {
                     `${selectedUserForm.name} ${selectedUserForm.lastName} was successfully removed`
                 );
                 props.history.push('/');
-                // <Redirect to={'/'} />;
             })
             .catch((err) => {
                 console.log(err);

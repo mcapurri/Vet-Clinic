@@ -10,6 +10,7 @@ import UserDetails from './Components/Users/UserDetails/UserDetails';
 import AddUser from './Components/Users/AddUser/AddUser';
 import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
+import PetDetails from './Components/Pets/PetDetails/PetDetails';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');
@@ -64,7 +65,7 @@ function App(props) {
                     render={(props) => <AddPet {...props} />}
                 />
                 <Route exact path="/pets" component={PetsList} />
-                {/* <Route exact path="/pets/:id" component={PetDetails} /> */}
+                <Route exact path="/pets/:id" component={PetDetails} />
             </Switch>
             <Footer />
         </div>

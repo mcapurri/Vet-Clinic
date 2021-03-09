@@ -6,23 +6,10 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 const AddPet = (props) => {
+    console.log('addpet props', props.history);
     const [message, setMessage] = useState('');
 
     const [form, setForm] = useState({
-        name: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Name',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 2,
-            },
-            valid: false,
-            touched: false,
-        },
         specie: {
             elementType: 'select',
             elementConfig: {
@@ -36,6 +23,21 @@ const AddPet = (props) => {
             },
             validation: {},
             valid: true,
+        },
+
+        name: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Name',
+            },
+            value: '',
+            validation: {
+                required: true,
+                minLength: 2,
+            },
+            valid: false,
+            touched: false,
         },
 
         breed: {
@@ -95,7 +97,7 @@ const AddPet = (props) => {
         owner: {
             elementType: 'select',
             elementConfig: {
-                options: [{ value: 'owner', displayValue: '' }],
+                options: [{ value: 'owner', displayValue: 'owner' }],
             },
             validation: {},
             valid: true,
@@ -138,9 +140,9 @@ const AddPet = (props) => {
                 treatment: form.treatment.value,
                 owner: form.owner.value,
             })
-            .then((user) => {
-                if (user.message) {
-                    setMessage(user.message);
+            .then((pet) => {
+                if (pet.message) {
+                    setMessage(pet.message);
 
                     // Reset input values
                     // for (let key in form) {
@@ -150,11 +152,11 @@ const AddPet = (props) => {
                     //     });
                     // }
                 } else {
-                    console.log('user added', user);
-                    props.history.push('/users');
+                    console.log('pet added', pet);
+                    props.history.goBack();
                 }
                 // update the list of pets
-                props.fetchData();
+                // props.fetchData();
             });
     };
     // Make dynamic input tags for the form
@@ -185,13 +187,10 @@ const AddPet = (props) => {
     return (
         <div>
             <Form className={style.Form} onSubmit={handleSubmit}>
+                <h3>Add pet</h3>
                 {displayedForm}
-                <button
-                    className={style.Button}
-                    type="submit"
-                    // disabled={!formIsValid}
-                >
-                    <h1 style={{ fontSize: 'bold' }}>+</h1>
+                <button className={style.Button} type="submit">
+                    <span>+</span>
                 </button>
 
                 {message && <p style={{ color: 'red' }}>{message}</p>}

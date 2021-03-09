@@ -1,10 +1,6 @@
 import React from 'react';
 
 const Checkbox = (props) => {
-    console.log('props Checkbox', props);
-    let name;
-    let label;
-
     return (
         <div
             style={{
@@ -19,7 +15,7 @@ const Checkbox = (props) => {
                 checked={props.checked}
                 onChange={props.handleChange}
             />
-            <label style={{ marginLeft: '15%' }} htmlFor={name}>
+            <label style={{ marginLeft: '15%' }} htmlFor={props.name}>
                 {props.label}
             </label>
         </div>

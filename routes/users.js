@@ -65,48 +65,30 @@ router.get('/users/:id', loginCheck(), (req, res, next) => {
     console.log('req.params', req.params.id);
 
     User.findById(req.params.id)
-        .populate('pets')
         .then((user) => {
-            console.log('userDb', user);
-            let isEmployee = false;
-            let userDbIsEmployee = false;
-            if (req.user.role == 'employee') {
-                isEmployee = true;
-            }
-            if (user.role == 'employee') {
-                userDbIsEmployee = true;
-            }
-            // res.render('users/show', {
-            //     user,
-            //     isEmployee,
-            //     userDbIsEmployee,
-            // });
-            res.status(200).json(user, isEmployee, userDbIsEmployee);
+            Pet.find({ owner: user._id })
+                .populate('pets')
+                .then((pets) => {
+                    console.log('userDb', user);
+                    // let isEmployee = false;
+                    // let userDbIsEmployee = false;
+                    // if (req.user.role == 'employee') {
+                    //     isEmployee = true;
+                    // }
+                    // if (user.role == 'employee') {
+                    //     userDbIsEmployee = true;
+                    // }
+
+                    res.status(200).json({ user, pets });
+                })
+                .catch((err) => {
+                    next(err);
+                });
         })
         .catch((err) => {
             next(err);
         });
-    // })
-    // .catch((err) => {
-    //     next(err);
-    // });
 });
-
-// // @desc      Show add pet
-// // @route     GET /users/:id/pet
-// // @access    Private
-// router.get('/users/:id/pet', (req, res, next) => {
-//     User.find({ _id: req.params.id })
-//         .populate('owner')
-//         .then((owner) => {
-//             console.log('owner Addpet', owner);
-//             res.status(200).json({ owner: owner[0] });
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             next(err);
-//         });
-// });
 
 // @desc      Add user
 // @route     POST /users/add

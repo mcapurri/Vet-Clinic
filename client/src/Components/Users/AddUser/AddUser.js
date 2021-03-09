@@ -184,7 +184,7 @@ const AddUser = (props) => {
                     }
                 } else {
                     console.log('user added', user);
-                    props.history.push('/users');
+                    props.history.goBack();
                 }
                 // update the list of users
                 // props.fetchData();
@@ -219,12 +219,8 @@ const AddUser = (props) => {
         <div>
             <Form className={style.Form} onSubmit={handleSubmit}>
                 {displayedForm}
-                <button
-                    className={style.Button}
-                    type="submit"
-                    // disabled={!formIsValid}
-                >
-                    <h1 style={{ fontSize: 'bold' }}>+</h1>
+                <button className={style.Button} type="submit">
+                    <h1 style={{ fontWeight: 'bold' }}>+</h1>
                 </button>
 
                 {message && <p style={{ color: 'red' }}>{message}</p>}

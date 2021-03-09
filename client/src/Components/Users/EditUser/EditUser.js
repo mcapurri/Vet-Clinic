@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './EditUser.module.css';
-import { Link } from 'react-router-dom';
 
 const editUser = (props) => {
     console.log('props editUser', props);

@@ -108,21 +108,16 @@ const UsersList = (props) => {
         <div className={style.Container}>
             <Filters
                 handleChange={handleChange}
-                //  isUsersList={true}
                 userRoleOptions={userRoleOptions}
             />
+            <button className={style.Button}>
+                <Link to={'/users/add'}>
+                    <span>+</span>
+                </Link>
+            </button>
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>
-            <button
-                className={style.Button}
-
-                // disabled={!formIsValid}
-            >
-                <Link to={'/users/add'}>
-                    <h1 style={{ fontSize: 'bold' }}>+</h1>
-                </Link>
-            </button>
         </div>
     );
 };

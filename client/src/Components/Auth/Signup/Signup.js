@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
 import { Form } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../../Components/UI/Input/Input';
 
@@ -201,7 +201,6 @@ const Signup = (props) => {
                 // signup was successful
                 props.setUser(user);
                 props.history.push('/');
-                // <Redirect to={'/'} />;
             }
         });
     };
