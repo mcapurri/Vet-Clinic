@@ -2,8 +2,6 @@ import React from 'react';
 import style from './EditUser.module.css';
 
 const editUser = (props) => {
-    console.log('props editUser', props);
-
     return (
         <div>
             <form className={style.Form} onSubmit={props.handleSubmit}>

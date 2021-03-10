@@ -137,7 +137,7 @@ router.post(
 // @route     PUT /users/:id/edit
 // @access    Private
 router.put(
-    '/users/:id/edit',
+    '/users/:id',
     loginCheck(),
 
     (req, res, next) => {
@@ -159,6 +159,19 @@ router.put(
             phoneNumber,
             position,
         } = req.body;
+
+        console.log(
+            'datas to be put',
+            name,
+            lastName,
+            street,
+            city,
+            zip,
+            state,
+            email,
+            phoneNumber,
+            position
+        );
 
         User.findByIdAndUpdate(req.params.id, {
             name,

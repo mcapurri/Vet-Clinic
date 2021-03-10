@@ -200,6 +200,7 @@ const UserDetails = (props) => {
             ...selectedUserForm,
             [name]: value,
             address: {
+                ...selectedUserForm.address,
                 [name]: value,
             },
         });
@@ -222,6 +223,8 @@ const UserDetails = (props) => {
         // setSelectedUserForm(updatedForm);
         // setFormIsValid(validForm);
     };
+
+    console.log('selectedUserForm', selectedUserForm);
 
     const toggleEditForm = () => {
         setEditForm(() => !editForm);
