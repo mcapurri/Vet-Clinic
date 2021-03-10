@@ -50,6 +50,12 @@ const Filters = (props) => {
                             handleChange={props.handleChange}
                         />
                         <Checkbox
+                            name="rodent"
+                            label="Rodent"
+                            checked={props.isRodent}
+                            handleChange={props.handleChange}
+                        />
+                        <Checkbox
                             name="reptile"
                             label="Reptile"
                             checked={props.isReptile}

@@ -15,6 +15,7 @@ const AddPet = (props) => {
                 options: [
                     { value: 'dog', displayValue: 'dog' },
                     { value: 'cat', displayValue: 'cat' },
+                    { value: 'rodent', displayValue: 'rodent' },
                     { value: 'bird', displayValue: 'bird' },
                     { value: 'reptile', displayValue: 'reptile' },
                     { value: 'other', displayValue: 'other' },
@@ -110,7 +111,7 @@ const AddPet = (props) => {
 
     const fetchData = () => {
         axios
-            .get('/api/users/owner')
+            .get('/api/users/owners')
             .then((users) => {
                 console.log('options from DB', users.data);
                 setForm({

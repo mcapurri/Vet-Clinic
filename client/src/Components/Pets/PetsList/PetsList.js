@@ -10,6 +10,7 @@ const PetsList = (props) => {
     const [searchField, setSearchField] = useState('');
     const [isDog, setIsDog] = useState(true);
     const [isCat, setIsCat] = useState(true);
+    const [isRodent, setIsRodent] = useState(true);
     const [isBird, setIsBird] = useState(true);
     const [isReptile, setIsReptile] = useState(true);
     const [isOther, setIsOther] = useState(true);
@@ -39,6 +40,8 @@ const PetsList = (props) => {
                 setIsCat(() => !isCat);
             } else if (event.target.name === 'bird') {
                 setIsBird(() => !isBird);
+            } else if (event.target.name === 'rodent') {
+                setIsRodent(() => !isRodent);
             } else if (event.target.name === 'reptile') {
                 setIsReptile(() => !isReptile);
             } else {
@@ -54,6 +57,7 @@ const PetsList = (props) => {
             ((isDog && element.specie === 'dog') ||
                 (isCat && element.specie === 'cat') ||
                 (isBird && element.specie === 'bird') ||
+                (isRodent && element.specie === 'rodent') ||
                 (isReptile && element.specie === 'reptile') ||
                 (isOther && element.specie === 'other')) &&
             (`${element.name}`
@@ -86,6 +90,7 @@ const PetsList = (props) => {
                 isDog={isDog}
                 isCat={isCat}
                 isBird={isBird}
+                isRodent={isRodent}
                 isReptile={isReptile}
                 isOther={isOther}
             />

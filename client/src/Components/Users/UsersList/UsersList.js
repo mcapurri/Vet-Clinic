@@ -76,9 +76,70 @@ const UsersList = (props) => {
                 </td>
                 <td>{user.role}</td>
 
-                <td>
+                <td style={{ display: 'flex' }}>
                     {user.pets.map((pet) => {
-                        return <h3>&#9732;</h3>;
+                        switch (pet.specie) {
+                            case 'dog':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/dog-logo.png"
+                                            alt="dog-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                            case 'cat':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/cat-logo.png"
+                                            alt="cat-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                            case 'rodent':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/rodent-logo.png"
+                                            alt="rodent-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                            case 'bird':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/bird-logo.png"
+                                            alt="bird-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                            case 'reptile':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/reptile-logo.png"
+                                            alt="reptile-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                            case 'other':
+                                return (
+                                    <Link to={`/pets/${pet._id}`}>
+                                        <img
+                                            src="./images/other-logo.png"
+                                            alt="other-logo"
+                                            style={{ width: '1rem' }}
+                                        />
+                                    </Link>
+                                );
+                        }
                     })}
                 </td>
             </tr>
@@ -98,18 +159,6 @@ const UsersList = (props) => {
             <option value="client">client</option>
         </>
     );
-
-    const ownerOptions = usersList
-        .filter((user) => {
-            return user.role === 'client' || user.pets.lenght > 0;
-        })
-        .map((user) => {
-            return {
-                value: user._id,
-                displayValue: `${user.lastName}, ${user.name}`,
-            };
-        });
-    console.log('ownerOptions', ownerOptions);
 
     if (!usersList) return <Spinner />;
     return (

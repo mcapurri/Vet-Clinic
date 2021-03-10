@@ -19,13 +19,12 @@ router.get('/users', loginCheck(), (req, res, next) => {
             });
     });
 });
-/// @desc     Get all owners
-// @route     GET /users?owner=true
+/// @desc     Get all pet owners
+// @route     GET /users/owners
 // @access    Private
-router.get('/users/owner', loginCheck(), (req, res, next) => {
+router.get('/users/owners', loginCheck(), (req, res, next) => {
     User.find()
         .then((users) => {
-            console.log('users to be filtered', users);
             const owners = users.filter((user) => {
                 return user.role === 'client' || user.pets.lenght > 0;
             });
@@ -35,8 +34,8 @@ router.get('/users/owner', loginCheck(), (req, res, next) => {
                     displayValue: `${user.lastName}, ${user.name}`,
                 };
             });
-            console.log('owners', owners);
-            console.log('options', options);
+            // .sort((a, b) => a.displayValue.lastName.localeCompare(b.displayValue.lastName));
+
             res.status(200).json(options);
         })
         .catch((err) => {
@@ -44,44 +43,6 @@ router.get('/users/owner', loginCheck(), (req, res, next) => {
             next(err);
         });
 });
-
-// /// @desc     Get all clients
-// // @route     GET /users/clients
-// // @access    Private
-// router.get('/users/clients', loginCheck(), (req, res, next) => {
-//     Pet.find()
-//         .populate('pets')
-//         .then((pets) => {
-//             User.find({ role: 'client' })
-//                 .then((users) => {
-//                     // res.render('users/index', { users, pets });
-//                     res.status(200).json({ users });
-//                 })
-//                 .catch((err) => {
-//                     console.log(err);
-//                     next(err);
-//                 });
-//         });
-// });
-
-// // @desc      Get all employees
-// // @route     GET /users/employees
-// // @access    Private
-// router.get('/users/employees', loginCheck(), (req, res, next) => {
-//     Pet.find()
-//         .populate('pets')
-//         .then((pets) => {
-//             User.find({ role: 'employee' })
-//                 .then((users) => {
-//                     // res.render('users/index', { users });
-//                     res.status(200).json({users});
-//                 })
-//                 .catch((err) => {
-//                     console.log(err);
-//                     next(err);
-//                 });
-//         });
-// });
 
 // // @desc      Get user details
 // // @route     GET /users/:id

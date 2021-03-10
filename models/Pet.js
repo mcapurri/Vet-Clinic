@@ -5,7 +5,7 @@ const petSchema = new Schema(
         name: String,
         specie: {
             type: String,
-            enum: ['dog', 'cat', 'bird', 'reptile', 'other'],
+            enum: ['dog', 'cat', 'bird', 'reptile', 'rodent', 'other'],
         },
         breed: String,
         age: String,
