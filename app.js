@@ -16,6 +16,9 @@ const MongoStore = require('connect-mongo')(session);
 
 const mongoose = require('mongoose');
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '/client/build')));
+
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -113,4 +116,8 @@ app.use('/api', users);
 // Error handling
 require('./error-handling')(app);
 
+app.use((req, res) => {
+    // If no routes match, send them the React HTML.
+    res.sendFile(__dirname + '/client/build/index.html');
+});
 module.exports = app;
