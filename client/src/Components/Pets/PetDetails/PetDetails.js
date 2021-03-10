@@ -160,7 +160,6 @@ const PetDetails = (props) => {
                             <hr />
                             <p>Diagnosis: {selectedPet.diagnosis}</p>
                             <p>Treatment: {selectedPet.treatment}</p>
-                            <hr />
                         </div>
                         <div style={{ width: '100%', height: '50%' }}>
                             <p>Owner: </p>
@@ -171,7 +170,15 @@ const PetDetails = (props) => {
                             <hr />
                             <p>&nbsp; @: {selectedPet.owner.email}</p>
                             <p>
-                                &nbsp; Phone Num:{' '}
+                                &nbsp;{' '}
+                                <img
+                                    src="../../../../images/phone-logo.png"
+                                    alt="phone-logo"
+                                    style={{
+                                        width: '1.2rem',
+                                        marginRight: '5%',
+                                    }}
+                                />
                                 {selectedPet.owner.phoneNumber}
                             </p>
                             <hr />

@@ -33,7 +33,7 @@ Button:disabled {
 .Form span {
     font-size: 3rem;
     font-weight: bold;
-    color: #fff;
+    color: rgb(48, 153, 228);
 }
 .Form select {
     width: 7rem;

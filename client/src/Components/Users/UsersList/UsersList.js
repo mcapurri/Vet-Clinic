@@ -78,12 +78,15 @@ const UsersList = (props) => {
 
                 <td style={{ display: 'flex' }}>
                     {user.pets.map((pet) => {
-                        switch (pet.specie) {
+                        <span>⭑</span>;
+                        console.log(pet);
+                        {
+                            /* switch (pet.specie) {
                             case 'dog':
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/dog-logo.png"
+                                            src="../../../../images/dog-logo.png"
                                             alt="dog-logo"
                                             style={{ width: '1rem' }}
                                         />
@@ -93,7 +96,7 @@ const UsersList = (props) => {
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/cat-logo.png"
+                                            src="../../../../images/cat-logo.png"
                                             alt="cat-logo"
                                             style={{ width: '1rem' }}
                                         />
@@ -103,7 +106,7 @@ const UsersList = (props) => {
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/rodent-logo.png"
+                                            src="../../../../images/rodent-logo.png"
                                             alt="rodent-logo"
                                             style={{ width: '1rem' }}
                                         />
@@ -113,7 +116,7 @@ const UsersList = (props) => {
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/bird-logo.png"
+                                            src="../../../../images/bird-logo.png"
                                             alt="bird-logo"
                                             style={{ width: '1rem' }}
                                         />
@@ -123,7 +126,7 @@ const UsersList = (props) => {
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/reptile-logo.png"
+                                            src="../../../../images/reptile-logo.png"
                                             alt="reptile-logo"
                                             style={{ width: '1rem' }}
                                         />
@@ -133,12 +136,13 @@ const UsersList = (props) => {
                                 return (
                                     <Link to={`/pets/${pet._id}`}>
                                         <img
-                                            src="./images/other-logo.png"
+                                            src="../../../../images/other-logo.png"
                                             alt="other-logo"
                                             style={{ width: '1rem' }}
                                         />
                                     </Link>
                                 );
+                        } */
                         }
                     })}
                 </td>
