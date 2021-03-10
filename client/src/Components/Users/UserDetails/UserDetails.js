@@ -327,17 +327,17 @@ const UserDetails = (props) => {
                     </div>
                     <div className={style.buttons}>
                         <div>
-                            {props.isEmployee ? (
-                                <Link to="/pets/add">
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
+                            <Link to="/pets/add">
+                                <span style={{ fontSize: 'bold' }}>+</span>
+                                <span>pet</span>
+                            </Link>
+                            {/* {props.isEmployee ? (
                             ) : (
                                 <Link to={`/users/${selectedUserForm._id}/pet`}>
                                     <span style={{ fontSize: 'bold' }}>+</span>
                                     <span>pet</span>
                                 </Link>
-                            )}
+                            )} */}
                         </div>
                         <div style={{ display: 'flex', marginRight: '5%' }}>
                             <button onClick={toggleEditForm}>Edit</button>

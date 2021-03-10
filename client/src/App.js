@@ -62,13 +62,19 @@ function App(props) {
                 <Route
                     exact
                     path="/pets/add"
-                    render={(props) => <AddPet {...props} />}
+                    render={(props) => (
+                        <AddPet
+                            {...props}
+                            isEmployee={isEmployee}
+                            user={user}
+                        />
+                    )}
                 />
-                <Route
+                {/* <Route
                     exact
                     path="/users/:id/pet"
                     render={(props) => <AddPet {...props} />}
-                />
+                /> */}
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
             </Switch>
