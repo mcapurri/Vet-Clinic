@@ -70,11 +70,11 @@ function App(props) {
                         />
                     )}
                 />
-                {/* <Route
+                <Route
                     exact
                     path="/users/:id/pet"
                     render={(props) => <AddPet {...props} />}
-                /> */}
+                />
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
             </Switch>

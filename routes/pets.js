@@ -82,10 +82,10 @@ router.post(
             owner,
         } = req.body;
 
-        // if (req.user.role == 'client') {
-        //     owner = req.user.id;
-        // }
-
+        if (req.user.role == 'client') {
+            owner = req.user.id;
+        }
+        console.log('owner pets/add', owner);
         Pet.create({
             name,
             specie,

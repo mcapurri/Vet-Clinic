@@ -6,7 +6,8 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 const AddPet = (props) => {
-    console.log('AddPet props', props);
+    // console.log('AddPet props', props);
+    console.log('location', props.location.pathname.split('/')[2]);
     const [message, setMessage] = useState('');
 
     const [form, setForm] = useState({
@@ -100,6 +101,7 @@ const AddPet = (props) => {
             elementConfig: {
                 options: [],
             },
+            // value: props.location.pathname.split('/')[2].toString(),
             validation: {},
             valid: true,
         },
@@ -109,6 +111,13 @@ const AddPet = (props) => {
     useEffect(() => {
         fetchData();
     }, []);
+
+    // let value;
+    // {
+    //     props.location !== '/pets/add'
+    //         ? (value = props.location.pathname.split('/')[2].toString())
+    //         // : (value = props.user._id);
+    // }
 
     const fetchData = () => {
         axios
@@ -123,6 +132,7 @@ const AddPet = (props) => {
                             ...form.elementConfig,
                             options: users.data,
                         },
+                        // value: { value },
                     },
                 });
             })
@@ -155,17 +165,37 @@ const AddPet = (props) => {
     console.log('formUpdated', form);
     console.log('formIsValid', formIsValid);
 
+    //Check url
+    let url;
+    let owner;
+    // {
+    //     props.location !== '/pets/add' &&
+    //         (url = `/api/users/${props.location.pathname
+    //             .split('/')[2]
+    //             .toString()}/pet`);
+    // }
+    {
+        props.location.pathname !== '/pets/add'
+            ? (url = `/api/users/${props.location.pathname
+                  .split('/')[2]
+                  .toString()}/pet`) &&
+              (owner = props.location.pathname.split('/')[2].toString())
+            : (url = '/api/pets/add') && (owner = form.owner.value);
+    }
+    console.log('url', url);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         axios
-            .post('/api/pets/add', {
+            .post(url, {
                 name: form.name.value,
                 specie: form.specie.value,
                 breed: form.breed.value,
                 age: form.age.value,
                 diagnosis: form.diagnosis.value,
                 treatment: form.treatment.value,
-                owner: form.owner.value,
+                // owner: props.location.pathname.split('/')[2].toString(),
+                owner: owner,
             })
             .then((pet) => {
                 if (pet.message) {
@@ -194,6 +224,7 @@ const AddPet = (props) => {
     }
     let displayedForm = formElementsArray.map((formElement) => {
         let inputs = '';
+
         {
             props.isEmployee &&
                 (inputs = (

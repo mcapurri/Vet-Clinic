@@ -201,16 +201,17 @@ router.put(
 // @desc      Add pet to user
 // @route     POST /users/:id/pet
 // @access    Private
-router.post('/users/:id/pet', (req, res) => {
-    const { name, specie, breed, age } = req.body;
+router.post('/users/:id/pet', (req, res, next) => {
+    const { name, specie, breed, age, owner } = req.body;
     console.log('req.user.id', req.user.id);
+    console.log('req.params.id', req.params.id);
     Pet.create({
         name,
         specie,
         breed,
         age,
-
-        owner: req.user._id,
+        owner,
+        // owner: req.user._id,
     })
         .then((pet) => {
             User.findByIdAndUpdate(req.user.id, {
