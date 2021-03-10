@@ -7,6 +7,7 @@ import { updateObject, checkValidity } from '../../../utils/utility';
 import EditUser from '../EditUser/EditUser';
 
 const UserDetails = (props) => {
+    console.log('UserDetails props', props);
     const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
     const [formIsValid, setFormIsValid] = useState(false);
@@ -156,6 +157,16 @@ const UserDetails = (props) => {
                     })
                 );
 
+                // setSelectedUserForm({
+                //     ...selectedUserForm,
+                //     owner: {
+                //         ...form.owner,
+                //         elementConfig: {
+                //             ...form.elementConfig,
+                //             options: users.data,
+                //         },
+                //     },
+                // });
                 // for (let formControl in selectedUserForm) {
                 //     setSelectedUserForm(
                 //         updateObject({
@@ -180,27 +191,36 @@ const UserDetails = (props) => {
     };
     console.log('selectedUserForm', selectedUserForm);
 
-    const handleChange = (event, inputId) => {
-        console.log('inputId', inputId);
+    const handleChange = (event) => {
+        // console.log('inputId', inputId);
+        const { name, value } = event.target;
+        console.log('name, value', name, value);
 
-        const updatedFormElement = updateObject(selectedUserForm[inputId], {
-            value: event.target.value,
-            valid: checkValidity(
-                event.target.value,
-                selectedUserForm[inputId].validation
-            ),
-            touched: true, // input in the form has changed
-        });
-        const updatedForm = updateObject(selectedUserForm, {
-            [inputId]: updatedFormElement,
-        });
+        // const updatedFormElement = updateObject(selectedUserForm[inputId], {
+        //     value: event.target.value,
+        //     valid: checkValidity(
+        //         event.target.value,
+        //         selectedUserForm[inputId].validation
+        //     ),
+        //     touched: true, // input in the form has changed
+        // });
+        // const updatedForm = updateObject(selectedUserForm, {
+        //     [inputId]: updatedFormElement,
+        // });
 
-        let validForm = true;
-        for (let inputId in updatedForm) {
-            validForm = updatedForm[inputId].valid && validForm;
-        }
-        setSelectedUserForm(updatedForm);
-        setFormIsValid(validForm);
+        // let validForm = true;
+        // for (let inputId in updatedForm) {
+        //     validForm = updatedForm[inputId].valid && validForm;
+        // }
+        // setSelectedUserForm(updatedForm);
+        setSelectedUserForm({
+            ...selectedUserForm,
+            [name]: value,
+            address: {
+                [name]: value,
+            },
+        });
+        // setFormIsValid(validForm);
     };
 
     const toggleEditForm = () => {

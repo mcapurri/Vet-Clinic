@@ -14,7 +14,7 @@ const editUser = (props) => {
                         type="text"
                         id="name"
                         name="name"
-                        // value={props.selectedUser.name}
+                        value={props.selectedUserForm.name}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -24,17 +24,17 @@ const editUser = (props) => {
                         type="text"
                         id="lastName"
                         name="lastName"
-                        // value={props.selectedUser.lastName}
+                        value={props.selectedUserForm.lastName}
                         onChange={props.handleChange}
                     />
                 </div>
-                <div className={style.Input}>
+                {/* <div className={style.Input}>
                     <label htmlFor="name">E-mail: &nbsp;</label>
                     <input
                         type="text"
                         id="email"
                         name="email"
-                        // value={props.selectedUser.email}
+                        value={props.selectedUserForm.email}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -57,14 +57,14 @@ const editUser = (props) => {
                         value=""
                         onChange={props.handleChange}
                     />
-                </div>
+                </div> */}
                 <div className={style.Input}>
                     <label htmlFor="street">Street: &nbsp;</label>
                     <input
                         type="text"
                         id="street"
                         name="street"
-                        // value={props.selectedUser.address.street}
+                        value={props.selectedUserForm.address.street}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -74,7 +74,7 @@ const editUser = (props) => {
                         type="text"
                         id="zipCode"
                         name="zipCode"
-                        // value={props.selectedUser.address.zipCode}
+                        value={props.selectedUserForm.address.zipCode}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -84,7 +84,7 @@ const editUser = (props) => {
                         type="text"
                         id="city"
                         name="city"
-                        // value={props.selectedUser.address.city}
+                        value={props.selectedUserForm.address.city}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -94,7 +94,7 @@ const editUser = (props) => {
                         type="text"
                         id="state"
                         name="state"
-                        // value={props.selectedUser.address.state}
+                        value={props.selectedUserForm.address.state}
                         onChange={props.handleChange}
                     />
                 </div>
@@ -104,14 +104,13 @@ const editUser = (props) => {
                         type="text"
                         id="phoneNumber"
                         name="phoneNumber"
-                        // value={props.selectedUser.phoneNumber}
+                        value={props.selectedUserForm.phoneNumber}
                         onChange={props.handleChange}
                     />
                 </div>
                 <div className={style.buttons}>
                     <button type="submit">Update</button>
                     <button onClick={props.toggleEditForm}>Back</button>
-                    {/* <Link to={`/users/${props.selectedUser._id}`}>Back</Link> */}
                 </div>
             </form>
         </div>
