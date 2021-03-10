@@ -48,7 +48,7 @@ const input = (props) => {
                     value={props.value}
                     onChange={props.changed}
                 >
-                    <option value=""></option>
+                    <option value="">--Choose one--</option>
 
                     {props.elementConfig.options.map((option) => (
                         <option key={option.value} value={option.value}>

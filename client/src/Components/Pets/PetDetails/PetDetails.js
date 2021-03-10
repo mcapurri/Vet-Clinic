@@ -195,17 +195,9 @@ const PetDetails = (props) => {
                     </div>
                     <div className={style.buttons}>
                         <div>
-                            {props.isEmployee ? (
-                                <Link to="/pets/add">
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            ) : (
-                                <Link to={`/users/${selectedPet._id}/pet`}>
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            )}
+                            <button onClick={() => props.history.goBack()}>
+                                Back
+                            </button>
                         </div>
                         <div style={{ display: 'flex', marginRight: '5%' }}>
                             <button onClick={toggleEditForm}>Edit</button>

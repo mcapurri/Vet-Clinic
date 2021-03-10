@@ -6,6 +6,7 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 const AddPet = (props) => {
+    console.log('AddPet props', props);
     const [message, setMessage] = useState('');
 
     const [form, setForm] = useState({
@@ -181,8 +182,6 @@ const AddPet = (props) => {
                     console.log('pet added', pet);
                     props.history.goBack();
                 }
-                // update the list of pets
-                // props.fetchData();
             });
     };
     // Make dynamic input tags for the form
@@ -194,7 +193,10 @@ const AddPet = (props) => {
         });
     }
     let displayedForm = formElementsArray.map((formElement) => {
+        console.log('location', props.location);
         return (
+            // {props.location.pathname === '/pets/add' ? () }
+
             <div className="form-group" key={formElement.id}>
                 <Input
                     className="form-control"
@@ -207,6 +209,37 @@ const AddPet = (props) => {
                     changed={(event) => handleChange(event, formElement.id)}
                 />
             </div>
+
+            // if (props.location.pathname === '/pets/add') {
+            //      <div className="form-group" key={formElement.id}>
+            //     <Input
+            //         className="form-control"
+            //         elementType={formElement.config.elementType}
+            //         elementConfig={formElement.config.elementConfig}
+            //         value={formElement.config.value}
+            //         invalid={!formElement.config.valid}
+            //         shouldValidate={formElement.config.validation} // validation is required
+            //         touched={formElement.config.touched} // input has changed from initial status
+            //         changed={(event) => handleChange(event, formElement.id)}
+            //     />
+            // </div>
+            // } else  {
+            //     if (formElement.id !== 'owner') {
+
+            //         <div className="form-group" key={formElement.id}>
+            //     <Input
+            //         className="form-control"
+            //         elementType={formElement.config.elementType}
+            //         elementConfig={formElement.config.elementConfig}
+            //         value={formElement.config.value}
+            //         invalid={!formElement.config.valid}
+            //         shouldValidate={formElement.config.validation} // validation is required
+            //         touched={formElement.config.touched} // input has changed from initial status
+            //         changed={(event) => handleChange(event, formElement.id)}
+            //     />
+            // </div>
+            //     }
+            // }
         );
     });
 

@@ -189,7 +189,7 @@ router.put(
             .then((user) => {
                 console.log('user was updated', user);
                 res.status(200).json({
-                    message: 'User was updated',
+                    message: `User ${user.lastName}, ${user.name} was successfully updated`,
                 });
             })
             .catch((err) => {

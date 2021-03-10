@@ -99,8 +99,7 @@ router.post(
                 User.findByIdAndUpdate(owner, {
                     $push: { pets: pet._id },
                 }).then((response) => {
-                    res.status(200).json(response);
-                    // res.redirect('/pets');
+                    res.status(201).json(response);
                 });
             })
             .catch((err) => {
@@ -110,16 +109,16 @@ router.post(
 );
 
 // @desc      Edit pet
-// @route     POST /pets/:id/edit
+// @route     PUT /pets/:id
 // @access    Private
-router.post(
-    '/pets/:id/edit',
+router.put(
+    '/pets/:id',
     loginCheck(),
 
     (req, res, next) => {
         const { name, specie, breed, age, diagnosis, treatment } = req.body;
 
-        User.findByIdAndUpdate(req.params.id, {
+        Pet.findByIdAndUpdate(req.params.id, {
             name,
             specie,
             breed,
@@ -127,9 +126,11 @@ router.post(
             diagnosis,
             treatment,
         })
-            .then((user) => {
-                console.log('user was updated', user);
-                res.redirect(`/pets/${req.params.id}`);
+            .then((pet) => {
+                console.log('pet was updated', pet);
+                res.status(200).json({
+                    message: `Pet ${pet.name} was successfully updated`,
+                });
             })
             .catch((err) => {
                 next(err);
@@ -137,21 +138,23 @@ router.post(
     }
 );
 // @desc      Delete pet
-// @route     POST /pets/:id/delete
+// @route     DELETE /pets/:id
 // @access    Private
-router.post('/pets/:id/delete', loginCheck(), (req, res) => {
+router.delete('/pets/:id', loginCheck(), (req, res) => {
     console.log('req.params', req.params);
-    const query = { _id: req.params.id };
+    // const query = { _id: req.params.id };
 
     // if user is not admin they have to be the owner
-    if (req.user.role !== 'employee') {
-        query.owner = req.user._id;
-    }
-    console.log('query', query);
+    // if (req.user.role !== 'employee') {
+    //     query.owner = req.user._id;
+    // }
+    // console.log('query', query);
     Pet.findByIdAndDelete(req.params.id)
         .then((pet) => {
             console.log('This pet was removed', pet);
-            res.redirect('/pets');
+            res.status(200).json({
+                message: `Pet ${pet.name} was successfully removed`,
+            });
         })
         .catch((err) => {
             console.log(err);
