@@ -43,3 +43,9 @@ Button:disabled {
 .Form select:nth-child(1) {
     width: 10rem;
 }
+.Form button {
+    background: none;
+    color: rgb(48, 153, 228);
+    border: none;
+    cursor: pointer;
+}

@@ -283,6 +283,19 @@ const UserDetails = (props) => {
                     <h3>
                         {selectedUserForm.name} {selectedUserForm.lastName}
                     </h3>
+                    <div>
+                        {!props.isEmployee ? (
+                            <Link to="/pets/add">
+                                <span style={{ fontSize: 'bold' }}>+</span>
+                                <span>pet</span>
+                            </Link>
+                        ) : (
+                            <Link to={`/users/${selectedUserForm._id}/pet`}>
+                                <span style={{ fontSize: 'bold' }}>+</span>
+                                <span>pet</span>
+                            </Link>
+                        )}
+                    </div>
                     <div className={style.Infos}>
                         <div style={{ width: '100%' }}>
                             <p>Address: </p>
@@ -314,19 +327,23 @@ const UserDetails = (props) => {
                             <ul>
                                 {selectedUserForm.pets.map((pet) => {
                                     return (
-                                        <li>
-                                            Name: {pet.name}&nbsp; Specie:{' '}
-                                            {pet.specie}
-                                            &nbsp; Breed: {pet.breed}&nbsp; Age:
-                                            {pet.age}
-                                        </li>
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <li>
+                                                {pet.name}
+                                                <br />
+                                                {pet.specie}
+                                                <br />
+                                                {pet.breed}
+                                                <br />
+                                            </li>
+                                        </Link>
                                     );
                                 })}
                             </ul>
                         </div>
                     </div>
                     <div className={style.buttons}>
-                        <div>
+                        {/* <div>
                             {!props.isEmployee ? (
                                 <Link to="/pets/add">
                                     <span style={{ fontSize: 'bold' }}>+</span>
@@ -338,6 +355,11 @@ const UserDetails = (props) => {
                                     <span>pet</span>
                                 </Link>
                             )}
+                        </div> */}
+                        <div>
+                            <button onClick={() => props.history.goBack()}>
+                                Back
+                            </button>
                         </div>
                         <div style={{ display: 'flex', marginRight: '5%' }}>
                             <button onClick={toggleEditForm}>Edit</button>

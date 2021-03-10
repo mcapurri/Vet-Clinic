@@ -161,10 +161,6 @@ const PetDetails = (props) => {
                             <p>Diagnosis: {selectedPet.diagnosis}</p>
                             <p>Treatment: {selectedPet.treatment}</p>
                             <hr />
-                            <p>
-                                patient since:
-                                {selectedPet.createdAt}
-                            </p>
                         </div>
                         <div style={{ width: '100%', height: '50%' }}>
                             <p>Owner: </p>
