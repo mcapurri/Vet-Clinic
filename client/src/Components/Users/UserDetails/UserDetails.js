@@ -196,6 +196,13 @@ const UserDetails = (props) => {
         const { name, value } = event.target;
         console.log('name, value', name, value);
 
+        setSelectedUserForm({
+            ...selectedUserForm,
+            [name]: value,
+            address: {
+                [name]: value,
+            },
+        });
         // const updatedFormElement = updateObject(selectedUserForm[inputId], {
         //     value: event.target.value,
         //     valid: checkValidity(
@@ -213,13 +220,6 @@ const UserDetails = (props) => {
         //     validForm = updatedForm[inputId].valid && validForm;
         // }
         // setSelectedUserForm(updatedForm);
-        setSelectedUserForm({
-            ...selectedUserForm,
-            [name]: value,
-            address: {
-                [name]: value,
-            },
-        });
         // setFormIsValid(validForm);
     };
 

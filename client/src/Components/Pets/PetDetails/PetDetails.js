@@ -4,7 +4,7 @@ import style from './PetDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
 import { updateObject, checkValidity } from '../../../utils/utility';
-import EditPet from '../EditPet/Editpet';
+import EditPet from '../EditPet/EditPet';
 
 const PetDetails = (props) => {
     const [error, setError] = useState(null);
@@ -25,6 +25,7 @@ const PetDetails = (props) => {
 
                 setSelectedPet(
                     updateObject({
+                        _id: response.data.pet._id,
                         name: response.data.pet.name,
                         specie: response.data.pet.specie,
                         breed: response.data.pet.breed,
@@ -65,28 +66,39 @@ const PetDetails = (props) => {
     };
     console.log('selectedPet', selectedPet);
 
-    const handleChange = (event, inputId) => {
-        console.log('inputId', inputId);
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        console.log('name, value', name, value);
 
-        const updatedFormElement = updateObject(selectedPet[inputId], {
-            value: event.target.value,
-            valid: checkValidity(
-                event.target.value,
-                selectedPet[inputId].validation
-            ),
-            touched: true, // input in the form has changed
-        });
-        const updatedForm = updateObject(selectedPet, {
-            [inputId]: updatedFormElement,
+        setSelectedPet({
+            ...selectedPet,
+            [name]: value,
+            address: {
+                [name]: value,
+            },
         });
 
-        let validForm = true;
-        for (let inputId in updatedForm) {
-            validForm = updatedForm[inputId].valid && validForm;
-        }
-        setSelectedPet(updatedForm);
-        setFormIsValid(validForm);
+        // const updatedFormElement = updateObject(selectedPet[inputId], {
+        //     value: event.target.value,
+        //     valid: checkValidity(
+        //         event.target.value,
+        //         selectedPet[inputId].validation
+        //     ),
+        //     touched: true, // input in the form has changed
+        // });
+        // const updatedForm = updateObject(selectedPet, {
+        //     [inputId]: updatedFormElement,
+        // });
+
+        // let validForm = true;
+        // for (let inputId in updatedForm) {
+        //     validForm = updatedForm[inputId].valid && validForm;
+        // }
+        // setSelectedPet(updatedForm);
+        // setFormIsValid(validForm);
     };
+
+    console.log('selectedPet', selectedPet);
 
     const toggleEditForm = () => {
         setEditForm(() => !editForm);
@@ -99,14 +111,14 @@ const PetDetails = (props) => {
                 name: selectedPet.name,
                 specie: selectedPet.specie,
                 breed: selectedPet.breed,
-                age: selectedPet.address.age,
-                diagnosis: selectedPet.address.diagnosis,
-                treatment: selectedPet.address.treatment,
+                age: selectedPet.age,
+                diagnosis: selectedPet.diagnosis,
+                treatment: selectedPet.treatment,
             })
             .then((response) => {
                 props.history.goBack();
 
-                // fetchData();
+                fetchData();
             })
             .catch((err) => {
                 console.log(err);
@@ -197,7 +209,6 @@ const PetDetails = (props) => {
                         </div>
                         <div style={{ display: 'flex', marginRight: '5%' }}>
                             <button onClick={toggleEditForm}>Edit</button>
-                            {/* <Link to={`/users/${selectedPet._id}/edit`}>Edit</Link> */}
                             <button onClick={deletePet}>Delete</button>
                         </div>
                     </div>
