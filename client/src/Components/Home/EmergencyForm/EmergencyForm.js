@@ -89,7 +89,12 @@ const EmergencyForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('data im sending', form.description, form.image);
+        console.log(
+            'data im sending',
+            form.description,
+            form.image,
+            props.user._id
+        );
         service
             .saveNewThing(form)
             .then((res) => {
@@ -102,13 +107,13 @@ const EmergencyForm = (props) => {
                 //         if (pet.message) {
                 //             setMessage(pet.message);
 
-                //             // Reset input values
-                //             // for (let key in form) {
-                //             //     setForm({
-                //             //         ...form,
-                //             //         key: { ...key, value: '' },
-                //             //     });
-                //             // }
+                // Reset input values
+                for (let key in form) {
+                    setForm({
+                        ...form,
+                        key: { ...key, value: '' },
+                    });
+                }
                 //         } else {
                 //             console.log('pet added', pet);
                 //             props.history.goBack();
@@ -148,7 +153,7 @@ const EmergencyForm = (props) => {
                     <p style={{ color: 'red', padding: '0' }}>{message}</p>
                 )}
                 <div className="buttons">
-                    <button onClick={() => props.history.goBack()}>Back</button>
+                    {/* <button onClick={() => props.history.goBack()}>Back</button> */}
 
                     <button
                         className={style.Button}

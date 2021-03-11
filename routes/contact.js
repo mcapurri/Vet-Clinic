@@ -9,10 +9,10 @@ const Contact = require('../models/Contact');
 // @access    Private
 router.post(
     '/contact/request',
-    loginCheck(),
+    // loginCheck(),
 
     (req, res, next) => {
-        const { description, imageUrl } = req.body;
+        const { description, imageUrl, owner } = req.body;
         // const imgPath = req.file.path;
         // const imgName = req.file.originalname;
         // const publicId = req.file.filename;
@@ -20,7 +20,7 @@ router.post(
         console.log('from /contact', imageUrl, description);
 
         Contact.create({
-            owner: req.user._id,
+            owner,
             description,
             imageUrl,
         })
