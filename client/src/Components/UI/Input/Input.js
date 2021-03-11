@@ -2,7 +2,7 @@ import React from 'react';
 
 import style from './Input.module.css';
 
-const input = (props) => {
+const Input = (props) => {
     let inputElement = null;
     const inputClasses = [style.InputElement];
 
@@ -78,4 +78,4 @@ const input = (props) => {
     );
 };
 
-export default input;
+export default Input;

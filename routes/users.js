@@ -261,6 +261,13 @@ router.delete('/users/:id', loginCheck(), (req, res) => {
     // }
     User.findByIdAndDelete(req.params.id)
         .then((user) => {
+            user.pets.map((pet) => {
+                return Pet.findByIdAndDelete(pet._id).then((pet) =>
+                    res.status(200).json({
+                        message: `Pet ${pet.name}  was successfully removed`,
+                    })
+                );
+            });
             console.log(`User was removed`, user);
             res.status(200).json({
                 message: `User ${user.name}  ${user.lastName}  was successfully removed`,

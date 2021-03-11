@@ -11,9 +11,7 @@ router.get('/pets', (req, res, next) => {
         .populate('owner')
         .then((pets) => {
             console.log('pets', pets);
-            // pets.map((pet) => {
-            //     return User.findById(pet.owner).populate('owner');
-            // });
+
             res.status(200).json(pets);
         })
         .catch((err) => {
@@ -21,34 +19,6 @@ router.get('/pets', (req, res, next) => {
             next(err);
         });
 });
-
-// router.get('/pets', (req, res, next) => {
-//     let pets;
-//     Pet.find()
-//         .then((petsDB) => {
-//             pets = petsDB.map((pet) => {
-//                 User.find(pet.owner)
-//                     .populate('owner')
-//                     .then((owner) => {
-//                         // let isEmployee = false;
-//                         // if (req.user.role == 'employee') {
-//                         //     isEmployee = true;
-//                         // } owners: owners[0]
-//                         return (pet = { ...pet, owner });
-//                     })
-//                     .catch((err) => {
-//                         console.log(err);
-//                         next(err);
-//                     });
-//                 console.log('pets I send', pets);
-//             });
-//             res.status(200).json(pets);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             next(err);
-//         });
-// });
 
 // @desc      Get pet details
 // @route     GET /pets/:id

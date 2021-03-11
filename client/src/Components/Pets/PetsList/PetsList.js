@@ -6,7 +6,7 @@ import Filters from '../../Filters/Filters';
 import Spinner from '../../UI/Spinner/Spinner';
 
 const PetsList = (props) => {
-    const [petsList, setPetsList] = useState('');
+    const [petsList, setPetsList] = useState([]);
     const [searchField, setSearchField] = useState('');
     const [isDog, setIsDog] = useState(true);
     const [isCat, setIsCat] = useState(true);
@@ -71,6 +71,7 @@ const PetsList = (props) => {
     });
 
     const displayUsers = filteredSearch.map((pet) => {
+        console.log('pet', pet);
         return (
             <tr key={pet._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
@@ -78,7 +79,7 @@ const PetsList = (props) => {
                 </td>
                 <td>{pet.specie}</td>
 
-                <td>{pet.owner}</td>
+                <td>{/* {pet.owner.name}, {pet.owner.lastName} */}</td>
             </tr>
         );
     });
