@@ -311,8 +311,30 @@ const UserDetails = (props) => {
                                 &nbsp; State: {selectedUserForm.address.state}
                             </p>
                             <hr />
-                            <p>E-mail: {selectedUserForm.email}</p>
-                            <p>Phone num.: {selectedUserForm.phoneNumber}</p>
+                            <p>
+                                {' '}
+                                <img
+                                    src="../../../../images/email-logo.png"
+                                    alt="phone-logo"
+                                    style={{
+                                        width: '1.2rem',
+                                        marginRight: '5%',
+                                    }}
+                                />{' '}
+                                {selectedUserForm.email}
+                            </p>
+                            <p>
+                                {' '}
+                                <img
+                                    src="../../../../images/phone-logo.png"
+                                    alt="phone-logo"
+                                    style={{
+                                        width: '1.2rem',
+                                        marginRight: '7%',
+                                    }}
+                                />{' '}
+                                {selectedUserForm.phoneNumber}
+                            </p>
                             <hr />
                             {selectedUserForm.position && (
                                 <p>Position: {selectedUserForm.position}</p>

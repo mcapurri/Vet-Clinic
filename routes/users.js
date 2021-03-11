@@ -211,10 +211,9 @@ router.post('/users/:id/pet', (req, res, next) => {
         breed,
         age,
         owner,
-        // owner: req.user._id,
     })
         .then((pet) => {
-            User.findByIdAndUpdate(req.user.id, {
+            User.findByIdAndUpdate(owner, {
                 $push: { pets: pet._id },
             }).then((user) => {
                 console.log('user was updated', user);

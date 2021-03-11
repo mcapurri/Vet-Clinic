@@ -141,7 +141,6 @@ router.put(
 // @route     DELETE /pets/:id
 // @access    Private
 router.delete('/pets/:id', loginCheck(), (req, res) => {
-    console.log('req.params', req.params);
     // const query = { _id: req.params.id };
 
     // if user is not admin they have to be the owner

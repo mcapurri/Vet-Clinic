@@ -78,8 +78,20 @@ const UsersList = (props) => {
 
                 <td style={{ display: 'flex' }}>
                     {user.pets.map((pet) => {
-                        <span>⭑</span>;
                         console.log(pet);
+
+                        return (
+                            <Link to={`/pets/${pet}`}>
+                                <span
+                                    style={{
+                                        marginRight: '5%',
+                                        fontSize: '1rem',
+                                    }}
+                                >
+                                    ⭑
+                                </span>
+                            </Link>
+                        );
                         {
                             /* switch (pet.specie) {
                             case 'dog':

@@ -158,8 +158,10 @@ const PetDetails = (props) => {
                             <p>Breed: {selectedPet.breed}</p>
                             <p>Age: {selectedPet.age}</p>
                             <hr />
-                            <p>Diagnosis: {selectedPet.diagnosis}</p>
-                            <p>Treatment: {selectedPet.treatment}</p>
+                            <p>Diagnosis:</p>
+                            <p>{selectedPet.diagnosis}</p>
+                            <p>Treatment:</p>
+                            <p>{selectedPet.treatment}</p>
                         </div>
                         <div style={{ width: '100%', height: '50%' }}>
                             <p>Owner: </p>
@@ -168,7 +170,18 @@ const PetDetails = (props) => {
                                 &nbsp; Last name: {selectedPet.owner.lastName}
                             </p>
                             <hr />
-                            <p>&nbsp; @: {selectedPet.owner.email}</p>
+                            <p>
+                                &nbsp;{' '}
+                                <img
+                                    src="../../../../images/email-logo.png"
+                                    alt="phone-logo"
+                                    style={{
+                                        width: '1.2rem',
+                                        marginRight: '5%',
+                                    }}
+                                />{' '}
+                                {selectedPet.owner.email}
+                            </p>
                             <p>
                                 &nbsp;{' '}
                                 <img
