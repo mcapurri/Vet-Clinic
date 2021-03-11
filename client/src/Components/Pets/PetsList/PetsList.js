@@ -6,7 +6,7 @@ import Filters from '../../Filters/Filters';
 import Spinner from '../../UI/Spinner/Spinner';
 
 const PetsList = (props) => {
-    const [petsList, setPetsList] = useState([]);
+    const [petsList, setPetsList] = useState('');
     const [searchField, setSearchField] = useState('');
     const [isDog, setIsDog] = useState(true);
     const [isCat, setIsCat] = useState(true);
@@ -19,6 +19,7 @@ const PetsList = (props) => {
         axios
             .get('/api/pets')
             .then((pets) => {
+                console.log('pets', pets.data);
                 setPetsList(pets.data);
             })
             .catch((err) => {

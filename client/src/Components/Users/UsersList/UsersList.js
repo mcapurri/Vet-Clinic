@@ -78,8 +78,9 @@ const UsersList = (props) => {
 
                 <td style={{ display: 'flex' }}>
                     {user.pets.map((pet) => {
-                        console.log(pet);
-
+                        console.log('pet', pet);
+                        {
+                            /* 
                         return (
                             <Link to={`/pets/${pet}`}>
                                 <span
@@ -90,71 +91,92 @@ const UsersList = (props) => {
                                 >
                                     ⭑
                                 </span>
-                            </Link>
-                        );
+                            </Link> */
+                        }
                         {
-                            /* switch (pet.specie) {
-                            case 'dog':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/dog-logo.png"
-                                            alt="dog-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                            case 'cat':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/cat-logo.png"
-                                            alt="cat-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                            case 'rodent':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/rodent-logo.png"
-                                            alt="rodent-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                            case 'bird':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/bird-logo.png"
-                                            alt="bird-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                            case 'reptile':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/reptile-logo.png"
-                                            alt="reptile-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                            case 'other':
-                                return (
-                                    <Link to={`/pets/${pet._id}`}>
-                                        <img
-                                            src="../../../../images/other-logo.png"
-                                            alt="other-logo"
-                                            style={{ width: '1rem' }}
-                                        />
-                                    </Link>
-                                );
-                        } */
+                            /* ); */
+                        }
+                        {
+                            switch (pet.specie) {
+                                case 'dog':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/dog-logo.png"
+                                                alt="dog-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                                case 'cat':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/cat-logo.png"
+                                                alt="cat-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                                case 'rodent':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/rodent-logo.png"
+                                                alt="rodent-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                                case 'bird':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/bird-logo.png"
+                                                alt="bird-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                                case 'reptile':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/reptile-logo.png"
+                                                alt="reptile-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                                case 'other':
+                                    return (
+                                        <Link to={`/pets/${pet._id}`}>
+                                            <img
+                                                src="../../../../images/other-logo.png"
+                                                alt="other-logo"
+                                                style={{
+                                                    width: '1rem',
+                                                    paddingRight: '15%',
+                                                }}
+                                            />
+                                        </Link>
+                                    );
+                            }
                         }
                     })}
                 </td>

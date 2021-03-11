@@ -283,7 +283,7 @@ const UserDetails = (props) => {
                     <h3>
                         {selectedUserForm.name} {selectedUserForm.lastName}
                     </h3>
-                    <div>
+                    <div className={style.AddButton}>
                         {!props.isEmployee ? (
                             <Link to="/pets/add">
                                 <span style={{ fontSize: 'bold' }}>+</span>
@@ -303,7 +303,7 @@ const UserDetails = (props) => {
                                 &nbsp; Street: {selectedUserForm.address.street}
                             </p>
                             <p>
-                                &nbsp; ZIP Code:{' '}
+                                &nbsp; ZIP Code:
                                 {selectedUserForm.address.zipCode}
                             </p>
                             <p>&nbsp; City: {selectedUserForm.address.city}</p>
@@ -312,7 +312,6 @@ const UserDetails = (props) => {
                             </p>
                             <hr />
                             <p>
-                                {' '}
                                 <img
                                     src="../../../../images/email-logo.png"
                                     alt="phone-logo"
@@ -320,11 +319,10 @@ const UserDetails = (props) => {
                                         width: '1.2rem',
                                         marginRight: '5%',
                                     }}
-                                />{' '}
+                                />
                                 {selectedUserForm.email}
                             </p>
                             <p>
-                                {' '}
                                 <img
                                     src="../../../../images/phone-logo.png"
                                     alt="phone-logo"

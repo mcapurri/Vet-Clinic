@@ -8,7 +8,12 @@ const Pet = require('../models/Pet');
 // @access    Private
 router.get('/pets', (req, res, next) => {
     Pet.find()
+        .populate('owner')
         .then((pets) => {
+            console.log('pets', pets);
+            // pets.map((pet) => {
+            //     return User.findById(pet.owner).populate('owner');
+            // });
             res.status(200).json(pets);
         })
         .catch((err) => {

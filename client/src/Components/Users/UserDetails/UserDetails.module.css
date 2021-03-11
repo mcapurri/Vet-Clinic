@@ -41,6 +41,11 @@
     color: rgb(48, 153, 228);
     /* width: 200px; */
 }
+.Card .AddButton {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 5%;
+}
 .Card span {
     color: rgb(48, 153, 228);
     cursor: pointer;

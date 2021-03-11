@@ -6,19 +6,29 @@ const Pet = require('../models/Pet');
 /// @desc     Get all users
 // @route     GET /users
 // @access    Private
+// router.get('/users', loginCheck(), (req, res, next) => {
+//     User.find().then((users) => {
+//         users.map((user) => {
+//             return Pet.find({ owner: user._id }).populate('pets');
+//             // .then((pets) => {})
+//             // .catch((err) => {
+//             //     console.log(err);
+//             //     next(err);
+//             // });
+//         });
+//         res.status(200).json(users);
+//     });
+// });
+
 router.get('/users', loginCheck(), (req, res, next) => {
-    User.find().then((users) => {
-        Pet.find()
-            .populate('pets')
-            .then((pets) => {
-                res.status(200).json(users);
-            })
-            .catch((err) => {
-                console.log(err);
-                next(err);
-            });
-    });
+    User.find()
+        .populate('pets')
+        .then((users) => {
+            console.log('users', users);
+            res.status(200).json(users);
+        });
 });
+
 /// @desc     Get all pet owners
 // @route     GET /users/owners
 // @access    Private
