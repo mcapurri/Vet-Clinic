@@ -23,16 +23,35 @@ const Navbar = (props) => {
             {!props.user ? (
                 <Login setUser={props.setUser} history={props.history} />
             ) : (
-                <ul>
-                    <li>
-                        <Link to={`/users/${props.user._id}`}>Profile</Link>
-                    </li>
-                    <li>
-                        <button className={style.Button} onClick={handleLogout}>
-                            Logout
-                        </button>
-                    </li>
-                </ul>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '100%',
+                    }}
+                >
+                    <Link to="/" style={{ marginLeft: '5%' }}>
+                        <img
+                            src="../../../images/home-logo.png"
+                            alt=""
+                            style={{ width: '2.5rem' }}
+                        />
+                    </Link>
+                    <ul>
+                        <li>
+                            <Link to={`/users/${props.user._id}`}>Profile</Link>
+                        </li>
+                        <li>
+                            <button
+                                className={style.Button}
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             )}
             {props.isEmployee ? (
                 <ul>

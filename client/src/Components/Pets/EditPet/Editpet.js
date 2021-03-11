@@ -20,13 +20,20 @@ const editPet = (props) => {
                 </div>
                 <div className={style.Input}>
                     <label htmlFor="specie">Specie: &nbsp;</label>
-                    <input
-                        type="text"
-                        id="specie"
+
+                    <select
                         name="specie"
                         value={props.selectedPet.specie}
                         onChange={props.handleChange}
-                    />
+                    >
+                        <option value="">--choose an option--</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="bird">Bird</option>
+                        <option value="rodent">Roden</option>
+                        <option value="reptile">Reptile</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
 
                 <div className={style.Input}>
