@@ -1,0 +1,22 @@
+.Container {
+    margin: 5% 0 20% 0;
+    background-color: rgb(5, 58, 32);
+    width: 100vw;
+    min-height: 50vh;
+    color: #fff;
+    display: flex;
+}
+.Container .infos {
+    padding: 10% 10% 0% 3%;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.Map {
+    width: 55vw;
+    height: 45vh;
+    padding-right: 5%;
+}
+.Map input {
+    height: 2rem;
+    width: 10rem;
+}

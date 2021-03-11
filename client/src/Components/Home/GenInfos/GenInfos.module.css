@@ -17,6 +17,7 @@
 .Container .Box img {
     width: 100%;
 }
-.Container .Box img:nth-child(3) {
-    height: 80%; /* Not being applied!!!!*/
+
+.Container article {
+    min-height: 60%;
 }

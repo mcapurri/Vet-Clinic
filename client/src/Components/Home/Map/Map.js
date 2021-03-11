@@ -1,9 +1,10 @@
 import React from 'react';
+import style from './Map.module.css';
 
 const Map = () => {
     return (
-        <section id="mapSection">
-            <div id="infos">
+        <section className={style.Container}>
+            <div className={style.infos}>
                 <h5> Contact Information </h5>
                 <address className="address">
                     Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
@@ -11,8 +12,7 @@ const Map = () => {
                 </address>
             </div>
             <div>
-                <h3>Choose the clinic in your nearest! </h3>
-                <div id="map"></div>
+                <div className={style.Map}></div>
             </div>
         </section>
     );
