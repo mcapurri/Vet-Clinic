@@ -47,7 +47,6 @@ const Signup = (props) => {
             validation: {
                 required: true,
                 isEmail: true,
-                unique: true, /// you still have to write the code for this validation
             },
             valid: false,
             touched: false,

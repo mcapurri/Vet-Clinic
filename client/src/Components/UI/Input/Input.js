@@ -6,6 +6,10 @@ const Input = (props) => {
     let inputElement = null;
     const inputClasses = [style.InputElement];
 
+    // if (props.elementConfig.type === 'textarea') {
+    //     inputClasses.push(style.Textarea);
+    // }
+
     if (props.invalid && props.shouldValidate && props.touched) {
         inputClasses.push(style.Invalid);
     }
@@ -34,6 +38,7 @@ const Input = (props) => {
         case 'textarea':
             inputElement = (
                 <textarea
+                    style={{ width: '15rem' }}
                     className={inputClasses.join(' ')}
                     {...props.elementConfig}
                     value={props.value}

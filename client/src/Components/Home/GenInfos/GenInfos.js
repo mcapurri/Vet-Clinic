@@ -9,7 +9,6 @@ const GenInfos = () => {
                 <h3> Services </h3>
                 <p className="text"> Check out our at home sevices </p>
                 <a className="link-btn" href="#">
-                    {' '}
                     More{' '}
                 </a>
             </article>
@@ -22,7 +21,6 @@ const GenInfos = () => {
                     Find out more about our specialized team.{' '}
                 </p>
                 <a className="link-btn" href="#">
-                    {' '}
                     More{' '}
                 </a>
             </article>

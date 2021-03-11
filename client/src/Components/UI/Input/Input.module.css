@@ -28,3 +28,8 @@
     border: 1px solid red;
     background-color: rgb(250, 131, 117);
 }
+
+.Textarea {
+    min-height: 10rem;
+    min-width: 150%;
+}

@@ -21,7 +21,7 @@
     padding-right: 5%;
 }
 
-.buttons {
+.Card .buttons {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

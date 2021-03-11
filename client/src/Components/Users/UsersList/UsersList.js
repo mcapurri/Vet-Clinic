@@ -105,7 +105,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/dog-logo.png"
                                                 alt="dog-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />
@@ -118,7 +118,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/cat-logo.png"
                                                 alt="cat-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />
@@ -131,7 +131,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/rodent-logo.png"
                                                 alt="rodent-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />
@@ -144,7 +144,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/bird-logo.png"
                                                 alt="bird-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />
@@ -157,7 +157,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/reptile-logo.png"
                                                 alt="reptile-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />
@@ -170,7 +170,7 @@ const UsersList = (props) => {
                                                 src="../../../../images/other-logo.png"
                                                 alt="other-logo"
                                                 style={{
-                                                    width: '1rem',
+                                                    width: '1.5rem',
                                                     paddingRight: '15%',
                                                 }}
                                             />

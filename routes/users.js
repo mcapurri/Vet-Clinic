@@ -6,20 +6,6 @@ const Pet = require('../models/Pet');
 /// @desc     Get all users
 // @route     GET /users
 // @access    Private
-// router.get('/users', loginCheck(), (req, res, next) => {
-//     User.find().then((users) => {
-//         users.map((user) => {
-//             return Pet.find({ owner: user._id }).populate('pets');
-//             // .then((pets) => {})
-//             // .catch((err) => {
-//             //     console.log(err);
-//             //     next(err);
-//             // });
-//         });
-//         res.status(200).json(users);
-//     });
-// });
-
 router.get('/users', loginCheck(), (req, res, next) => {
     User.find()
         .populate('pets')
@@ -66,14 +52,6 @@ router.get('/users/:id', loginCheck(), (req, res, next) => {
                 .populate('pets')
                 .then((pets) => {
                     console.log('userDb', user);
-                    // let isEmployee = false;
-                    // let userDbIsEmployee = false;
-                    // if (req.user.role == 'employee') {
-                    //     isEmployee = true;
-                    // }
-                    // if (user.role == 'employee') {
-                    //     userDbIsEmployee = true;
-                    // }
 
                     res.status(200).json({ user, pets });
                 })
@@ -235,18 +213,6 @@ router.post('/users/:id/pet', (req, res, next) => {
         .catch((err) => {
             next(err);
         });
-    // User.findOneAndUpdate(
-    //     { _id: req.params.id },
-    //     {
-    //         $push: { pets: { name, specie, age, diagnosis, treatment, owner } },
-    //     }
-    // )
-    //     .then(() => {
-    //         res.redirect(`/users/${_id}`);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
 });
 
 // @desc      Delete user
