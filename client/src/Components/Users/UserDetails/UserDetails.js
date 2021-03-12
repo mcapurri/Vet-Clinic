@@ -381,7 +381,14 @@ const UserDetails = (props) => {
                                 Back
                             </button>
                         </div>
-                        <div style={{ display: 'flex', marginRight: '5%' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                marginRight: '5%',
+                                justifyContent: 'space-around',
+                                width: '200px',
+                            }}
+                        >
                             <button onClick={toggleEditForm}>Edit</button>
                             {/* <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link> */}
                             <button onClick={deleteUser}>Delete</button>

@@ -215,7 +215,14 @@ const PetDetails = (props) => {
                                 Back
                             </button>
                         </div>
-                        <div style={{ display: 'flex', marginRight: '5%' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                marginRight: '5%',
+                                width: ' 200px',
+                                justifyContent: 'space-around',
+                            }}
+                        >
                             <button onClick={toggleEditForm}>Edit</button>
                             <button onClick={deletePet}>Delete</button>
                         </div>

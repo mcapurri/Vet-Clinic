@@ -16,9 +16,6 @@ const MongoStore = require('connect-mongo')(session);
 
 const mongoose = require('mongoose');
 
-const path = require('path');
-app.use(express.static(path.join(__dirname, '/client/build')));
-
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -92,6 +89,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // end passport
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 // default value for title local
 const projectName = 'Vet-clinic-project';
