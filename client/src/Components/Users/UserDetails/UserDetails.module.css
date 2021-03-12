@@ -60,7 +60,7 @@
     flex-direction: column;
 }
 .Card li {
-    width: 160%;
+    width: 140%;
     border: 1px solid rgb(48, 153, 228);
     margin-bottom: 20%;
     display: flex;

@@ -30,7 +30,7 @@ const editPet = (props) => {
                         <option value="dog">Dog</option>
                         <option value="cat">Cat</option>
                         <option value="bird">Bird</option>
-                        <option value="rodent">Roden</option>
+                        <option value="rodent">Rodent</option>
                         <option value="reptile">Reptile</option>
                         <option value="other">Other</option>
                     </select>
@@ -78,8 +78,10 @@ const editPet = (props) => {
                 </div>
 
                 <div className={style.buttons}>
-                    <button type="submit">Update</button>
                     <button onClick={props.toggleEditForm}>Back</button>
+                    <button style={{ marginRight: '10%' }} type="submit">
+                        Update
+                    </button>
                 </div>
             </form>
         </div>

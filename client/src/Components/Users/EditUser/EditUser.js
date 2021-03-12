@@ -107,8 +107,10 @@ const editUser = (props) => {
                     />
                 </div>
                 <div className={style.buttons}>
-                    <button type="submit">Update</button>
                     <button onClick={props.toggleEditForm}>Back</button>
+                    <button style={{ marginRight: '10%' }} type="submit">
+                        Update
+                    </button>
                 </div>
             </form>
         </div>

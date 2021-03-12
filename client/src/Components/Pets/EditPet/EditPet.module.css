@@ -41,3 +41,10 @@ Button:disabled {
     border: none;
     cursor: pointer;
 }
+Form .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding-bottom: 5%;
+}

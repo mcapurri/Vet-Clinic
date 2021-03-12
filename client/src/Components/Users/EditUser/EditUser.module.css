@@ -16,12 +16,6 @@
     z-index: 1;
 }
 
-/* .Button {
-    border-radius: 10px;
-    background-color: rgb(69, 191, 165);
-    color: #fff;
-    cursor: pointer;
-} */
 Button:disabled {
     color: #ccc;
 }
@@ -40,4 +34,11 @@ Button:disabled {
     color: rgb(48, 153, 228);
     border: none;
     cursor: pointer;
+}
+Form .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding-bottom: 5%;
 }

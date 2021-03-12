@@ -64,7 +64,7 @@ const Navbar = (props) => {
                     </li>
                 </ul>
             ) : (
-                <ul>
+                <ul style={{ display: 'flex', justifySelf: 'center' }}>
                     <li>
                         <Link to="#emergencyForm">Book an appointment</Link>
                     </li>
