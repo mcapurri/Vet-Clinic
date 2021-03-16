@@ -3,7 +3,8 @@ import style from './EmergencyForm.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import Input from '../../UI/Input/Input';
 import service from '../../../utils/service';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
+import Content from '../../UI/Content/Content';
 import axios from 'axios';
 
 const EmergencyForm = (props) => {
@@ -53,6 +54,7 @@ const EmergencyForm = (props) => {
     const [form, setForm] = useState({
         message: '',
         imageUrl: '',
+        messageSent: false,
     });
 
     const handleChange = (event) => {
@@ -127,7 +129,7 @@ const EmergencyForm = (props) => {
 
     return (
         <section id="emergencyForm">
-            <Form
+            {/* <Form
                 className={style.Form}
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
@@ -142,7 +144,7 @@ const EmergencyForm = (props) => {
                 ></textarea>
 
                 {/* <label for="image">Upload: </label> */}
-                <input
+            {/* <input
                     type="file"
                     name="image"
                     value={form.image}
@@ -155,15 +157,45 @@ const EmergencyForm = (props) => {
                 <div className="buttons">
                     {/* <button onClick={() => props.history.goBack()}>Back</button> */}
 
-                    <button
+            {/* <button
                         className={style.Button}
                         type="submit"
                         // disabled={!formIsValid}
                     >
                         Send
                     </button>
-                </div>
-            </Form>
+                </div> */}
+            {/* </Form>  */}
+            <Content>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group></Form.Group>
+                    <Form.Group>
+                        <Form.Label htmlFor="message">Message</Form.Label>
+                        <Form.Control
+                            id="message"
+                            name="message"
+                            as="textarea"
+                            rows="3"
+                            value={form.message}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Button
+                        className="d-inline-block"
+                        variant="primary"
+                        type="submit"
+                        // disabled={this.state.disable}
+                    >
+                        Send
+                    </Button>
+                    {form.messageSent === true && (
+                        <p className="d-inline success-msg">Message Sent</p>
+                    )}
+                    {form.messageSent === false && (
+                        <p className="d-inline err-msg">Message Not Sent</p>
+                    )}
+                </Form>
+            </Content>
         </section>
     );
 };

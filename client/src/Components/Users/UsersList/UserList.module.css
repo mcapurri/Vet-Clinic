@@ -7,7 +7,7 @@
     align-items: center;
     overflow-y: auto;
     color: #fff;
-    margin: 5% 0 5% 0;
+    margin: 5% 0 5% 0%;
 }
 .resultCard {
     display: flex;
