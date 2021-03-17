@@ -13,6 +13,7 @@
     font-size: 1em;
     text-decoration: none;
     color: #fff;
+    margin-left: 20px;
 }
 .Navbar ul {
     width: 100%;
@@ -23,8 +24,9 @@
 
 .Navbar ul li {
     list-style-type: none;
-    margin-right: 5%;
+    margin-right: 7%;
 }
+
 .Navbar span {
     margin-left: 5%;
     text-align: center;
@@ -35,4 +37,5 @@
     color: #fff;
     border: none;
     cursor: pointer;
+    margin-left: 20px;
 }

@@ -166,36 +166,37 @@ const EmergencyForm = (props) => {
                     </button>
                 </div> */}
             {/* </Form>  */}
-            <Content>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group></Form.Group>
-                    <Form.Group>
-                        <Form.Label htmlFor="message">Message</Form.Label>
-                        <Form.Control
-                            id="message"
-                            name="message"
-                            as="textarea"
-                            rows="3"
-                            value={form.message}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                    <Button
-                        className="d-inline-block"
-                        variant="primary"
-                        type="submit"
-                        // disabled={this.state.disable}
-                    >
-                        Send
-                    </Button>
-                    {form.messageSent === true && (
-                        <p className="d-inline success-msg">Message Sent</p>
-                    )}
-                    {form.messageSent === false && (
-                        <p className="d-inline err-msg">Message Not Sent</p>
-                    )}
-                </Form>
-            </Content>
+            {/* <Content> */}
+            <Form onSubmit={handleSubmit} className={style.Form}>
+                <Form.Group></Form.Group>
+                <Form.Group>
+                    <Form.Label htmlFor="message">Your message</Form.Label>
+                    <Form.Control
+                        id="message"
+                        name="message"
+                        as="textarea"
+                        rows="3"
+                        placeholder="Tell us..."
+                        value={form.message}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+                <Button
+                    className="d-inline-block"
+                    variant="primary"
+                    type="submit"
+                    // disabled={this.state.disable}
+                >
+                    Send
+                </Button>
+                {form.messageSent === true && (
+                    <p className="d-inline success-msg">Message Sent</p>
+                )}
+                {form.messageSent === false && (
+                    <p className="d-inline err-msg">Message Not Sent</p>
+                )}
+            </Form>
+            {/* </Content> */}
         </section>
     );
 };

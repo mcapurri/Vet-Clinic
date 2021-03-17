@@ -26,7 +26,6 @@ const Navbar = (props) => {
                 <div
                     style={{
                         display: 'flex',
-                        justifyContent: 'space-between',
                         alignItems: 'center',
                         width: '100%',
                     }}
@@ -35,9 +34,21 @@ const Navbar = (props) => {
                         <img
                             src="../../../images/home-logo.png"
                             alt=""
-                            style={{ width: '2.5rem' }}
+                            style={{ width: '4rem' }}
                         />
                     </Link>
+                    {props.isEmployee && (
+                        <ul>
+                            <li>
+                                <Link to="/users">Users</Link>
+                            </li>
+
+                            <li>
+                                <Link to="/pets">Patients</Link>
+                            </li>
+                        </ul>
+                    )}
+
                     <ul>
                         <li>
                             <Link to={`/users/${props.user._id}`}>Profile</Link>
@@ -52,23 +63,6 @@ const Navbar = (props) => {
                         </li>
                     </ul>
                 </div>
-            )}
-            {props.isEmployee ? (
-                <ul>
-                    <li>
-                        <Link to="/users">Users</Link>
-                    </li>
-
-                    <li>
-                        <Link to="/pets">Patients</Link>
-                    </li>
-                </ul>
-            ) : (
-                <ul style={{ display: 'flex', justifySelf: 'center' }}>
-                    <li>
-                        {/* <Link to="#emergencyForm">Book an appointment</Link> */}
-                    </li>
-                </ul>
             )}
         </Nav>
     );

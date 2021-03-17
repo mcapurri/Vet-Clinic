@@ -17,7 +17,6 @@ router.get('/loggedin', (req, res, next) => {
 // @access    Public
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user) => {
-        console.log('hello from login');
         if (err) {
             return res
                 .status(500)
