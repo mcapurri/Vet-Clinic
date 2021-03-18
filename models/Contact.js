@@ -2,12 +2,13 @@ const { Schema, model } = require('mongoose');
 
 const contactSchema = new Schema(
     {
-        description: String,
-        imgName: String,
-        imgPath: String,
-        publicId: String,
+        userMessage: String,
+        // imgName: String,
+        // imgPath: String,
+        // publicId: String,
+        imageUrl: String,
 
-        owner: { type: Schema.Types.ObjectId, ref: 'User' },
+        sender: { type: Schema.Types.ObjectId, ref: 'User' },
     },
     {
         timestamps: true,

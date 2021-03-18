@@ -58,9 +58,9 @@ const Map = () => {
                 </address>
             </div>
             <div>
-                <div className={style.Sidebar}>
+                {/* <div className={style.Sidebar}>
                     Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-                </div>
+                </div> */}
                 <div className={style.Map} ref={mapContainer}></div>
             </div>
         </section>

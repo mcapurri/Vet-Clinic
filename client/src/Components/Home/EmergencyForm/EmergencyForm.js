@@ -8,6 +8,7 @@ import Content from '../../UI/Content/Content';
 import axios from 'axios';
 
 const EmergencyForm = (props) => {
+    console.log('props EmForm', props);
     const [message, setMessage] = useState('');
     const [formIsValid, setFormIsValid] = useState(false);
     // const [form, setForm] = useState({
@@ -52,10 +53,12 @@ const EmergencyForm = (props) => {
     // });
 
     const [form, setForm] = useState({
-        message: '',
+        userMessage: '',
         imageUrl: '',
-        messageSent: false,
+        sender: props.user._id,
     });
+    const [messageSent, setMessageSent] = useState(null);
+    const [disabled, setDisabled] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -91,36 +94,39 @@ const EmergencyForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
+        setMessageSent(false);
+        setDisabled(true);
+
         console.log(
             'data im sending',
-            form.description,
-            form.image,
+            form.userMessage,
+            form.imageUrl,
             props.user._id
         );
         service
             .saveNewThing(form)
             .then((res) => {
                 console.log('added: ', res);
+                setMessageSent(true);
+                setDisabled(false);
+
                 // axios
                 //     .post('/contact/request', {
-                //         description: form.description,
+                //         message: form.message,
                 //     })
                 //     .then((pet) => {
                 //         if (pet.message) {
                 //             setMessage(pet.message);
 
                 // Reset input values
-                for (let key in form) {
-                    setForm({
-                        ...form,
-                        key: { ...key, value: '' },
-                    });
-                }
-                //         } else {
-                //             console.log('pet added', pet);
-                //             props.history.goBack();
-                //         }
+                // for (let key in form) {
+                //     setForm({
+                //         ...form,
+                //         key: { ...key, value: '' },
                 //     });
+                // }
+
+                setForm({ userMessage: '', imageUrl: '' });
             })
             .catch((err) => {
                 console.log('Error while adding the thing: ', err);
@@ -172,14 +178,34 @@ const EmergencyForm = (props) => {
                 <Form.Group>
                     <Form.Label htmlFor="message">Your message</Form.Label>
                     <Form.Control
-                        id="message"
-                        name="message"
+                        id="userMessage"
+                        name="userMessage"
                         as="textarea"
                         rows="3"
                         placeholder="Tell us..."
+                        style={{
+                            width: '20rem',
+                            height: '7rem',
+                            marginBottom: '5%',
+                        }}
                         value={form.message}
                         onChange={handleChange}
                     />
+                    {/* <Form.Control
+                        id="image"
+                        name="image"
+                        as="file"
+                        rows="3"
+                        value={form.image}
+                        onChange={(e) => handleFileUpload(e)}
+                    /> */}
+
+                    <input
+                        type="file"
+                        name="image"
+                        value={form.image}
+                        onChange={(e) => handleFileUpload(e)}
+                    ></input>
                 </Form.Group>
                 <Button
                     className="d-inline-block"
@@ -189,10 +215,10 @@ const EmergencyForm = (props) => {
                 >
                     Send
                 </Button>
-                {form.messageSent === true && (
+                {messageSent === true && (
                     <p className="d-inline success-msg">Message Sent</p>
                 )}
-                {form.messageSent === false && (
+                {messageSent === false && (
                     <p className="d-inline err-msg">Message Not Sent</p>
                 )}
             </Form>
