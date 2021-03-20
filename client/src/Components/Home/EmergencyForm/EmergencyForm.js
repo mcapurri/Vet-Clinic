@@ -1,64 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import style from './EmergencyForm.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
-import Input from '../../UI/Input/Input';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+// import AppointmentPicker from './AppointmentPicker/AppointmentPicker';
 import service from '../../../utils/service';
 import { Form, Button } from 'react-bootstrap';
-import Content from '../../UI/Content/Content';
 import axios from 'axios';
 
 const EmergencyForm = (props) => {
-    console.log('props EmForm', props);
     const [message, setMessage] = useState('');
     const [formIsValid, setFormIsValid] = useState(false);
-    // const [form, setForm] = useState({
-    //     // email: {
-    //     //     elementType: 'input',
-    //     //     elementConfig: {
-    //     //         type: 'email',
-    //     //         placeholder: 'Email',
-    //     //     },
-    //     //     value: '',
-    //     //     validation: {
-    //     //         required: true,
-    //     //         isEmail: true,
-    //     //     },
-    //     //     valid: false,
-    //     //     touched: false,
-    //     // },
-    //     description: {
-    //         elementType: 'input',
-    //         elementConfig: {
-    //             type: 'textarea',
-    //             placeholder: 'Tell us...',
-    //         },
-    //         value: '',
-    //         validation: {
-    //             required: true,
-    //         },
-    //         valid: false,
-    //         touched: false,
-    //     },
-    //     image: {
-    //         elementType: 'input',
-    //         elementConfig: {
-    //             type: 'file',
-    //             placeholder: '',
-    //         },
-    //         value: '',
-    //         validation: {},
-    //         valid: false,
-    //         touched: false,
-    //     },
-    // });
-
     const [form, setForm] = useState({
         userMessage: '',
         imageUrl: '',
         sender: props.user._id,
+        appointment: '',
     });
-    const [messageSent, setMessageSent] = useState(null);
-    const [disabled, setDisabled] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -94,8 +52,6 @@ const EmergencyForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        setMessageSent(false);
-        setDisabled(true);
 
         console.log(
             'data im sending',
@@ -107,26 +63,11 @@ const EmergencyForm = (props) => {
             .saveNewThing(form)
             .then((res) => {
                 console.log('added: ', res);
-                setMessageSent(true);
-                setDisabled(false);
 
-                // axios
-                //     .post('/contact/request', {
-                //         message: form.message,
-                //     })
-                //     .then((pet) => {
-                //         if (pet.message) {
-                //             setMessage(pet.message);
+                setMessage(res.message);
 
                 // Reset input values
-                // for (let key in form) {
-                //     setForm({
-                //         ...form,
-                //         key: { ...key, value: '' },
-                //     });
-                // }
-
-                setForm({ userMessage: '', imageUrl: '' });
+                setForm({ userMessage: '', imageUrl: '', appointment: '' });
             })
             .catch((err) => {
                 console.log('Error while adding the thing: ', err);
@@ -135,47 +76,36 @@ const EmergencyForm = (props) => {
 
     return (
         <section id="emergencyForm">
-            {/* <Form
-                className={style.Form}
-                onSubmit={handleSubmit}
-                encType="multipart/form-data"
-            >
-                <textarea
-                    name="description"
-                    rows="7"
-                    cols="40"
-                    value={form.description}
-                    onChange={handleChange}
-                    placeholder="Tell us..."
-                ></textarea>
-
-                {/* <label for="image">Upload: </label> */}
-            {/* <input
-                    type="file"
-                    name="image"
-                    value={form.image}
-                    onChange={(e) => handleFileUpload(e)}
-                ></input>
-
-                {message && (
-                    <p style={{ color: 'red', padding: '0' }}>{message}</p>
-                )}
-                <div className="buttons">
-                    {/* <button onClick={() => props.history.goBack()}>Back</button> */}
-
-            {/* <button
-                        className={style.Button}
-                        type="submit"
-                        // disabled={!formIsValid}
-                    >
-                        Send
-                    </button>
-                </div> */}
-            {/* </Form>  */}
-            {/* <Content> */}
             <Form onSubmit={handleSubmit} className={style.Form}>
                 <Form.Group></Form.Group>
-                <Form.Group>
+
+                <Form.Group
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div>
+                        <DatePicker
+                            selected={form.appointment}
+                            onChange={(date) =>
+                                setForm({ ...form, appointment: date })
+                            }
+                            showTimeSelect
+                            dateFormat="dd/ MMMM/ yyyy h:mm a"
+                            placeholderText="Select appointment"
+                            minDate={new Date()}
+                            filterDate={(date) =>
+                                date.getDay() !== 6 && date.getDay() !== 0
+                            }
+                            isClearable
+                            timeIntervals={15}
+                            // excludeDates={[new Date(), subDays(new Date(), 1)]}
+                            value={form.appointment}
+                        />
+                    </div>
                     <Form.Label htmlFor="message">Your message</Form.Label>
                     <Form.Control
                         id="userMessage"
@@ -188,17 +118,9 @@ const EmergencyForm = (props) => {
                             height: '7rem',
                             marginBottom: '5%',
                         }}
-                        value={form.message}
+                        value={form.userMessage}
                         onChange={handleChange}
                     />
-                    {/* <Form.Control
-                        id="image"
-                        name="image"
-                        as="file"
-                        rows="3"
-                        value={form.image}
-                        onChange={(e) => handleFileUpload(e)}
-                    /> */}
 
                     <input
                         type="file"
@@ -207,6 +129,8 @@ const EmergencyForm = (props) => {
                         onChange={(e) => handleFileUpload(e)}
                     ></input>
                 </Form.Group>
+                {/* </div> */}
+
                 <Button
                     className="d-inline-block"
                     variant="primary"
@@ -215,12 +139,13 @@ const EmergencyForm = (props) => {
                 >
                     Send
                 </Button>
-                {messageSent === true && (
+                {/* {messageSent === true && (
                     <p className="d-inline success-msg">Message Sent</p>
                 )}
                 {messageSent === false && (
                     <p className="d-inline err-msg">Message Not Sent</p>
-                )}
+                )} */}
+                {message && <p className="d-inline success-msg">{message}</p>}
             </Form>
             {/* </Content> */}
         </section>

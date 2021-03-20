@@ -21,6 +21,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "react-datetime-picker": "^3.2.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {

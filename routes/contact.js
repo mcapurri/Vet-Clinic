@@ -12,17 +12,24 @@ router.post(
     // loginCheck(),
 
     (req, res, next) => {
-        const { userMessage, imageUrl, sender } = req.body;
+        const { userMessage, imageUrl, sender, appointment } = req.body;
         // const imgPath = req.file.path;
         // const imgName = req.file.originalname;
         // const publicId = req.file.filename;
 
-        console.log('from /contact', userMessage, sender, imageUrl);
+        console.log(
+            'from /contact',
+            userMessage,
+            sender,
+            imageUrl,
+            appointment
+        );
 
         Contact.create({
             userMessage,
             imageUrl,
             sender,
+            appointment,
         })
             .then((message) => {
                 console.log('contact form sent', message);
