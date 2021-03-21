@@ -3,6 +3,7 @@ const { loginCheck } = require('../middlewares/middlewares');
 const { uploader, cloudinary } = require('../config/cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Contact = require('../models/Contact');
+const User = require('../models/User');
 
 // @desc      Send request form
 // @route     POST /contact/request
@@ -12,17 +13,21 @@ router.post(
     // loginCheck(),
 
     (req, res, next) => {
-        const { userMessage, imageUrl, sender, appointment } = req.body;
-        // const imgPath = req.file.path;
-        // const imgName = req.file.originalname;
-        // const publicId = req.file.filename;
+        const {
+            userMessage,
+            imageUrl,
+            sender,
+            appointment,
+            homeService,
+        } = req.body;
 
         console.log(
             'from /contact',
             userMessage,
             sender,
             imageUrl,
-            appointment
+            appointment,
+            homeService
         );
 
         Contact.create({
@@ -30,12 +35,14 @@ router.post(
             imageUrl,
             sender,
             appointment,
+            homeService,
         })
             .then((message) => {
                 console.log('contact form sent', message);
                 res.status(201).json({ message: 'message sent' });
             })
             .catch((err) => {
+                res.status(400).json({ message: 'message not sent' });
                 next(err);
             });
     }

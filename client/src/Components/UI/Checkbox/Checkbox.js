@@ -7,6 +7,7 @@ const Checkbox = (props) => {
                 display: 'flex',
                 alignItems: 'flex-start',
                 marginLeft: '10%',
+                width: '100%',
             }}
         >
             <input
@@ -14,6 +15,7 @@ const Checkbox = (props) => {
                 name={props.name}
                 checked={props.checked}
                 onChange={props.handleChange}
+                style={{ transform: 'scale(1.5)' }}
             />
             <label style={{ marginLeft: '15%' }} htmlFor={props.name}>
                 {props.label}

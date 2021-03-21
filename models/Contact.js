@@ -6,6 +6,7 @@ const contactSchema = new Schema(
         imageUrl: String,
         sender: { type: Schema.Types.ObjectId, ref: 'User' },
         appointment: Date,
+        homeService: Boolean,
     },
     {
         timestamps: true,

@@ -38,7 +38,7 @@ const Input = (props) => {
         case 'textarea':
             inputElement = (
                 <textarea
-                    style={{ width: '15rem' }}
+                    // style={{ width: '15rem' }}
                     className={inputClasses.join(' ')}
                     {...props.elementConfig}
                     value={props.value}
