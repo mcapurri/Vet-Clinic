@@ -1,0 +1,19 @@
+.Checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 10%;
+    width: 100%;
+}
+.Label {
+    margin-left: 15%;
+}
+
+@media only screen and (max-width: 900px) {
+    .Checkbox {
+        transform: scale(0.7);
+        margin-left: 10%;
+    }
+    .Label {
+        margin-left: 5%;
+    }
+}

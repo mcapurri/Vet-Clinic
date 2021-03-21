@@ -1,15 +1,9 @@
 import React from 'react';
+import style from './Checkbox.module.css';
 
 const Checkbox = (props) => {
     return (
-        <div
-            style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                marginLeft: '10%',
-                width: '100%',
-            }}
-        >
+        <div className={style.Checkbox}>
             <input
                 type="checkbox"
                 name={props.name}
@@ -17,7 +11,7 @@ const Checkbox = (props) => {
                 onChange={props.handleChange}
                 style={{ transform: 'scale(1.5)' }}
             />
-            <label style={{ marginLeft: '15%' }} htmlFor={props.name}>
+            <label className={style.Label} htmlFor={props.name}>
                 {props.label}
             </label>
         </div>

@@ -93,7 +93,14 @@ const EmergencyForm = (props) => {
     };
 
     return (
-        <section id="emergencyForm">
+        <section
+            id="emergencyForm"
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
             <Form onSubmit={handleSubmit} className={style.Form}>
                 <div
                     style={{
@@ -120,16 +127,12 @@ const EmergencyForm = (props) => {
                                 Your message
                             </Form.Label>
                             <Form.Control
+                                className={style.Textarea}
                                 id="userMessage"
                                 name="userMessage"
                                 as="textarea"
                                 rows="3"
                                 placeholder="Tell us..."
-                                style={{
-                                    width: '80%',
-                                    height: '10rem',
-                                    margin: '0 0 5% 0',
-                                }}
                                 value={form.userMessage}
                                 onChange={handleChange}
                             />
@@ -196,7 +199,7 @@ const EmergencyForm = (props) => {
                         {form.homeService && (
                             <Form.Group
                                 style={{
-                                    transform: 'scale(0.7)',
+                                    // transform: 'scale(0.7)',
                                     marginTop: '-10%',
                                 }}
                             >
