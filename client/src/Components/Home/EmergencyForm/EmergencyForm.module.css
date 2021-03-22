@@ -45,14 +45,9 @@
 }
 .Form label:nth-child(2) {
     font-size: 1rem;
-    margin-bottom: 5%;
+    margin: 0 0 5% 10%;
 }
-/* .Form button {
-    background: none;
-    color: rgb(48, 153, 228);
-    border: none;
-    cursor: pointer;
-} */
+
 .Form .Button {
     font-size: 1.1rem;
     font-weight: 600;

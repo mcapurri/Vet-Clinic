@@ -46,6 +46,11 @@ const Navbar = (props) => {
                             <li>
                                 <Link to="/pets">Patients</Link>
                             </li>
+                            <li>
+                                <Link to="/contacts">
+                                    Appointments & Requests
+                                </Link>
+                            </li>
                         </ul>
                     )}
 

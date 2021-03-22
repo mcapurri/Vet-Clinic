@@ -5,7 +5,28 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Contact = require('../models/Contact');
 const User = require('../models/User');
 
-// @desc      Send request form
+// @desc      Get all app &req
+// @route     GET /contacts
+// @access    Private
+router.get(
+    '/contacts',
+    // loginCheck(),
+    (req, res, next) => {
+        Contact.find()
+            .populate('sender')
+            .then((contacts) => {
+                console.log('contacts', contacts);
+
+                res.status(200).json(contacts);
+            })
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            });
+    }
+);
+
+// @desc      Send app&req form
 // @route     POST /contact/request
 // @access    Private
 router.post(

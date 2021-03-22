@@ -4,8 +4,8 @@
     margin-left: 10%;
     width: 100%;
 }
-.Label {
-    margin-left: 15%;
+.Checkbox .Label {
+    margin-left: 25%;
 }
 
 @media only screen and (max-width: 900px) {
