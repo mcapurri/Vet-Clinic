@@ -92,19 +92,19 @@ const AddUser = (props) => {
             valid: false,
             touched: false,
         },
-        state: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'State',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
+        // state: {
+        //     elementType: 'input',
+        //     elementConfig: {
+        //         type: 'text',
+        //         placeholder: 'State',
+        //     },
+        //     value: '',
+        //     validation: {
+        //         // required: true,
+        //     },
+        //     valid: false,
+        //     touched: false,
+        // },
 
         phoneNumber: {
             elementType: 'input',
@@ -167,7 +167,7 @@ const AddUser = (props) => {
                 street: form.street.value,
                 zipCode: form.zipCode.value,
                 city: form.city.value,
-                state: form.state.value,
+                // state: form.state.value,
                 role: form.role.value,
                 phoneNumber: form.phoneNumber.value,
             })

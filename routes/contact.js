@@ -19,6 +19,7 @@ router.post(
             sender,
             appointment,
             homeService,
+            coords,
         } = req.body;
 
         console.log(
@@ -27,7 +28,8 @@ router.post(
             sender,
             imageUrl,
             appointment,
-            homeService
+            homeService,
+            coords
         );
 
         Contact.create({
@@ -36,6 +38,7 @@ router.post(
             sender,
             appointment,
             homeService,
+            coords,
         })
             .then((message) => {
                 console.log('contact form sent', message);

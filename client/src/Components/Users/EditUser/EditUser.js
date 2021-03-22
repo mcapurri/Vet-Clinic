@@ -86,7 +86,7 @@ const editUser = (props) => {
                         onChange={props.handleChange}
                     />
                 </div>
-                <div className={style.Input}>
+                {/* <div className={style.Input}>
                     <label htmlFor="state">State: &nbsp;</label>
                     <input
                         type="text"
@@ -95,7 +95,7 @@ const editUser = (props) => {
                         value={props.selectedUserForm.address.state}
                         onChange={props.handleChange}
                     />
-                </div>
+                </div> */}
                 <div className={style.Input}>
                     <label htmlFor="phoneNum">Phone Num: &nbsp;</label>
                     <input

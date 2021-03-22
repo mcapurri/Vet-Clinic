@@ -1,28 +1,38 @@
 import React, { useRef, useEffect, useState } from 'react';
 import style from './Map.module.css';
-// import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
-// import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 
-// mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWNhcHVycmkiLCJhIjoiY2tsMmR4Z2NmMDgwaDJ1cDEycmEyN3NiaCJ9.Mmr5igenBPR3QkJOKMgG3A';
 
-const Map = () => {
+const Map = ({ setRequestedAddress }) => {
     const mapContainer = useRef();
-    const [lng, setLng] = useState(13.405);
-    const [lat, setLat] = useState(52.52);
-    const [zoom, setZoom] = useState(10);
+    const [berlin, setBerlin] = useState({
+        lng: 13.405,
+        lat: 52.52,
+        zoom: 10,
+    });
     let lngLat = '';
+
     let address = async (lngLat) => {
+        console.log('lngLat', lngLat);
         await axios
             .get(
-                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}&cachebuster=1616347496121&autocomplete=true&types=address&`
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
             )
             .then((resAddress) => {
-                console.log('result', resAddress.data.features[0].place_name);
+                console.log('resAddress', resAddress);
+                setRequestedAddress({
+                    street:
+                        resAddress.data.features[0].text +
+                        ', ' +
+                        resAddress.data.features[0].address,
+                    city: resAddress.data.features[0].context[2].text,
+                    zipCode: resAddress.data.features[0].context[0].text,
+                    coords: lngLat,
+                });
             })
             .catch((err) => console.log(err));
     };
@@ -30,8 +40,8 @@ const Map = () => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
-            zoom: zoom,
+            center: [berlin.lng, berlin.lat],
+            zoom: berlin.zoom,
         });
         map.addControl(
             new mapboxgl.GeolocateControl({
@@ -60,9 +70,11 @@ const Map = () => {
         //     })
         // );
         map.on('move', () => {
-            setLng(map.getCenter().lng.toFixed(4));
-            setLat(map.getCenter().lat.toFixed(4));
-            setZoom(map.getZoom().toFixed(2));
+            setBerlin({
+                lng: map.getCenter().lng.toFixed(4),
+                lat: map.getCenter().lng.toFixed(4),
+                zoom: map.getZoom().toFixed(2),
+            });
         });
         const marker = new mapboxgl.Marker({
             scale: 1,
@@ -78,14 +90,10 @@ const Map = () => {
 
         const onDragEnd = () => {
             lngLat = marker.getLngLat();
-            // console.log('Lng/Lat: ' + lngLat.lng + '/' + lngLat.lat);
-
             address(lngLat);
         };
 
         marker.on('dragend', onDragEnd);
-
-        console.log('address', address);
 
         return () => map.remove();
     }, [lngLat]);

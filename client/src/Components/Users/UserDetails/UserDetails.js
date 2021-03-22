@@ -307,9 +307,9 @@ const UserDetails = (props) => {
                                 {selectedUserForm.address.zipCode}
                             </p>
                             <p>&nbsp; City: {selectedUserForm.address.city}</p>
-                            <p>
+                            {/* <p>
                                 &nbsp; State: {selectedUserForm.address.state}
-                            </p>
+                            </p> */}
                             <hr />
                             <p>
                                 <img

@@ -9,7 +9,6 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 const EmergencyForm = (props) => {
-    console.log('props', props);
     const [message, setMessage] = useState('');
     const [formIsValid, setFormIsValid] = useState(false);
     const [form, setForm] = useState({
@@ -18,6 +17,7 @@ const EmergencyForm = (props) => {
         sender: props.user._id,
         appointment: '',
         homeService: false,
+        coords: props.requestedAddress.coords,
     });
 
     const handleChange = (event) => {
@@ -85,6 +85,7 @@ const EmergencyForm = (props) => {
                     imageUrl: '',
                     appointment: '',
                     homeService: false,
+                    coords: '',
                 });
             })
             .catch((err) => {
@@ -105,136 +106,149 @@ const EmergencyForm = (props) => {
                 <div
                     style={{
                         display: 'flex',
-                        justifyContent: 'space-around',
-                        alignItems: 'flex-start',
-                        margin: '0 5%',
-                        minHeight: '80%',
+                        flexDirection: 'column',
+                        // justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '100%',
+                        marginLeft: '5%',
                     }}
                 >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '50%',
-                            height: '100%',
-                            marginLeft: '5%',
-                        }}
-                    >
-                        <Form.Group>
-                            <Form.Label htmlFor="message">
-                                Your message
-                            </Form.Label>
-                            <Form.Control
-                                className={style.Textarea}
-                                id="userMessage"
-                                name="userMessage"
-                                as="textarea"
-                                rows="3"
-                                placeholder="Tell us..."
-                                value={form.userMessage}
-                                onChange={handleChange}
-                            />
-                            <input
-                                type="file"
-                                name="image"
-                                value={form.image}
-                                onChange={(e) => handleFileUpload(e)}
-                            ></input>
-                        </Form.Group>
-                        <Button
-                            className="d-inline-block"
-                            className={style.Button}
-                            variant="primary sm"
-                            type="submit"
-                            // disabled={
-                            //     (!form.userMessage && !form.appointment) ||
-                            //     (!form.userMessage && !form.homeService)
-                            // }
-                        >
-                            Send
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin: '0 5% 0 0',
-                        }}
-                    >
-                        <div style={{ paddingBottom: '10%' }}>
-                            <DatePicker
-                                selected={form.appointment}
-                                onChange={(date) =>
-                                    setForm({ ...form, appointment: date })
-                                }
-                                showTimeSelect
-                                dateFormat="dd/ MMMM/ yyyy h:mm a"
-                                placeholderText="Select appointment"
-                                minDate={new Date()}
-                                filterDate={(date) =>
-                                    date.getDay() !== 6 && date.getDay() !== 0
-                                }
-                                isClearable
-                                timeIntervals={15}
-                                // excludeDates={[new Date(), subDays(new Date(), 1)]}
-                                value={form.appointment}
-                                disabled={form.homeService}
-                                style={{
-                                    width: '80%',
-                                }}
-                            />
-                        </div>
-
-                        <Checkbox
-                            name="homeRequest"
-                            label="Request home service"
-                            checked={form.homeService}
-                            handleChange={handleChange}
-                            value={form.homeService}
+                    <Form.Group>
+                        <Form.Label htmlFor="message">Your message</Form.Label>
+                        <Form.Control
+                            className={style.Textarea}
+                            id="userMessage"
+                            name="userMessage"
+                            as="textarea"
+                            rows="3"
+                            placeholder="Tell us..."
+                            value={form.userMessage}
+                            onChange={handleChange}
                         />
-                        {form.homeService && (
-                            <Form.Group
-                                style={{
-                                    // transform: 'scale(0.7)',
-                                    marginTop: '-10%',
-                                }}
-                            >
+                        <input
+                            id={style.FileLoader}
+                            type="file"
+                            name="image"
+                            value={form.image}
+                            onChange={(e) => handleFileUpload(e)}
+                        ></input>
+                    </Form.Group>
+                    <Button
+                        className="d-inline-block"
+                        className={style.Button}
+                        variant="primary sm"
+                        type="submit"
+                        // disabled={
+                        //     (!form.userMessage && !form.appointment) ||
+                        //     (!form.userMessage && !form.homeService)
+                        // }
+                    >
+                        Send
+                    </Button>
+
+                    {message && (
+                        <p className="d-inline success-msg">{message}</p>
+                    )}
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        margin: '0 5% 0 0',
+                    }}
+                >
+                    <div style={{ paddingBottom: '10%' }}>
+                        <DatePicker
+                            selected={form.appointment}
+                            onChange={(date) =>
+                                setForm({ ...form, appointment: date })
+                            }
+                            showTimeSelect
+                            dateFormat="dd/ MMMM/ yyyy h:mm a"
+                            placeholderText="Select appointment"
+                            minDate={new Date()}
+                            filterDate={(date) =>
+                                date.getDay() !== 6 && date.getDay() !== 0
+                            }
+                            isClearable
+                            timeIntervals={15}
+                            // excludeDates={[new Date(), subDays(new Date(), 1)]}
+                            value={form.appointment}
+                            disabled={form.homeService}
+                            style={{
+                                width: '80%',
+                            }}
+                        />
+                    </div>
+
+                    <Checkbox
+                        name="homeRequest"
+                        label="Request home service"
+                        checked={form.homeService}
+                        handleChange={handleChange}
+                        value={form.homeService}
+                    />
+                    {form.homeService && (
+                        <Form.Group
+                            style={{
+                                marginTop: '-10%',
+                                transform: 'scale(0.7)',
+                            }}
+                        >
+                            <div>
                                 <Form.Label>Street</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Street"
-                                    value={props.user.address.street}
+                                    value={
+                                        props.requestedAddress.street !== ''
+                                            ? props.requestedAddress.street
+                                            : props.user.address.street
+                                    }
                                 />
+                            </div>
+                            <div>
                                 <Form.Label>City</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="City"
-                                    value={props.user.address.city}
+                                    value={
+                                        props.requestedAddress.city !== ''
+                                            ? props.requestedAddress.city
+                                            : props.user.address.city
+                                    }
                                 />
-
+                            </div>
+                            <div>
                                 <Form.Label>ZIP Code</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="ZIP Code"
-                                    value={props.user.address.zipCode}
+                                    value={
+                                        props.requestedAddress.zipCode !== ''
+                                            ? props.requestedAddress.zipCode
+                                            : props.user.address.zipCode
+                                    }
                                 />
+                            </div>
+                            {/* <div>
                                 <Form.Label>State</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="State"
-                                    value={props.user.address.state}
+                                    value={
+                                        props.requestedAddress.street !== ''
+                                            ? ''
+                                            : props.user.address.state
+                                    }
                                 />
-                            </Form.Group>
-                        )}
-                    </div>
+                            </div> */}
+                        </Form.Group>
+                    )}
                 </div>
-
-                {/* <button className={style.Button}>Send</button> */}
-                {message && <p className="d-inline success-msg">{message}</p>}
             </Form>
         </section>
     );

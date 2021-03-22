@@ -7,6 +7,10 @@ const contactSchema = new Schema(
         sender: { type: Schema.Types.ObjectId, ref: 'User' },
         appointment: Date,
         homeService: Boolean,
+        coords: {
+            lng: { type: String },
+            lat: { type: String },
+        },
     },
     {
         timestamps: true,

@@ -10,7 +10,7 @@ const userSchema = new Schema(
             street: String,
             zipCode: String,
             city: String,
-            state: String,
+            // state: String,
         },
 
         phoneNumber: String,
