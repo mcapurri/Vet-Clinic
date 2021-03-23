@@ -13,6 +13,8 @@ import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
 import AppScheduler from './Components/Scheduler/Scheduler';
+import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
+// import GoogleSchedulerClasses from './Components/Scheduler/GoogleSchedulerClasses';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');
@@ -84,10 +86,15 @@ function App(props) {
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
                 <Route exact path="/contacts" component={ContactsList} />
-                <Route
+                {/* <Route
                     exact
                     path="/contacts/scheduler"
                     component={AppScheduler}
+                /> */}
+                <Route
+                    exact
+                    path="/contacts/scheduler"
+                    component={GoogleScheduler}
                 />
             </Switch>
             <Footer />

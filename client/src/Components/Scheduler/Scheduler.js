@@ -2,7 +2,7 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
     Scheduler,
     WeekView,
@@ -58,21 +58,61 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
         </div>
     )
 );
+//    const onEditingAppointmentChange = (editingAppointment) => {
+//        setState({ ...state, editingAppointment });
+//    };
 
-const usaTime = (date) =>
+//    const onAddedAppointmentChange = (addedAppointment) => {
+//        setState({ ...state, addedAppointment });
+//        const { editingAppointment } = state;
+//        if (editingAppointment !== undefined) {
+//            this.setState({
+//                previousAppointment: editingAppointment,
+//            });
+//        }
+//        setState({
+//            ...state,
+//            editingAppointment: undefined,
+//            isNewAppointment: true,
+//        });
+//    };
+//      const commitChanges = ({ added, changed, deleted }) => {
+//          setState((state) => {
+//              let { data } = state;
+//              if (added) {
+//                  const startingAddedId =
+//                      data.length > 0 ? data[data.length - 1].id + 1 : 0;
+//                  data = [...data, { id: startingAddedId, ...added }];
+//              }
+//              if (changed) {
+//                  data = data.map((appointment) =>
+//                      changed[appointment.id]
+//                          ? { ...appointment, ...changed[appointment.id] }
+//                          : appointment
+//                  );
+//              }
+//              if (deleted !== undefined) {
+//                  setDeletedAppointmentId(deleted);
+//                  toggleConfirmationVisible();
+//              }
+//              return { ...state, data, addedAppointment: {} };
+//          });
+//      };
+
+const berlinTime = (date) =>
     new Date(date).toLocaleString('en-US', { timeZone: 'Europe/Berlin' });
 
 const mapAppointmentData = (appointment) => ({
     id: appointment.id,
-    startDate: usaTime(appointment.start.dateTime),
-    endDate: usaTime(appointment.end.dateTime),
+    startDate: berlinTime(appointment.start.dateTime),
+    endDate: berlinTime(appointment.end.dateTime),
     title: appointment.summary,
 });
 
 const initialState = {
     data: [],
     loading: false,
-    currentDate: '2021-03-23',
+    currentDate: new Date(),
     currentViewName: 'Day',
 };
 
@@ -140,8 +180,13 @@ const AppScheduler = () => {
                     onCurrentViewNameChange={setCurrentViewName}
                     onCurrentDateChange={setCurrentDate}
                 />
-                <DayView startDayHour={7.5} endDayHour={17.5} />
-                <WeekView startDayHour={7.5} endDayHour={17.5} />
+                {/* <EditingState
+                    onCommitChanges={commitChanges}
+                    onEditingAppointmentChange={onEditingAppointmentChange}
+                    onAddedAppointmentChange={onAddedAppointmentChange}
+                /> */}
+                <DayView startDayHour={9} endDayHour={20} />
+                <WeekView startDayHour={9} endDayHour={20} />
                 <Appointments />
                 <Toolbar
                     {...(loading
@@ -152,7 +197,7 @@ const AppScheduler = () => {
                 <TodayButton />
                 <ViewSwitcher />
                 <AppointmentTooltip showOpenButton showCloseButton />
-                <AppointmentForm readOnly />
+                <AppointmentForm />
             </Scheduler>
         </Paper>
     );
