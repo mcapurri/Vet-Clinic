@@ -50,7 +50,6 @@ router.post('/signup', (req, res, next) => {
         street,
         zipCode,
         city,
-        state,
         phoneNumber,
     } = req.body;
 
@@ -76,7 +75,7 @@ router.post('/signup', (req, res, next) => {
                 lastName,
                 email,
                 password: hash,
-                address: { street, zipCode, city, state },
+                address: { street, zipCode, city },
                 phoneNumber,
             })
                 .then((dbUser) => {

@@ -40,39 +40,49 @@ const ContactsList = () => {
             }
         }
     };
-    console.log('isAppointment', isAppointment);
-    console.log('isRequest', isRequest);
 
-    // const filteredSearch = petsList.filter((element) => {
-    //     return (
-    //         ((isDog && element.specie === 'dog') ||
-    //             (isCat && element.specie === 'cat') ||
-    //             (isBird && element.specie === 'bird') ||
-    //             (isRodent && element.specie === 'rodent') ||
-    //             (isReptile && element.specie === 'reptile') ||
-    //             (isOther && element.specie === 'other')) &&
-    //         (`${element.name}`
-    //             .toLowerCase()
-    //             .includes(`${searchField.toLowerCase()}`) ||
-    //             `${element.lastName}`
-    //                 .toLowerCase()
-    //                 .includes(`${searchField.toLowerCase()}`))
-    //     );
-    // });
+    const filteredSearch = contactsList.filter((element) => {
+        console.log('element', element);
+        return (
+            ((isAppointment && element.homeService === false) ||
+                (isRequest && element.homeService === true)) &&
+            (`${element.sender.name}`
+                .toLowerCase()
+                .includes(`${searchField.toLowerCase()}`) ||
+                `${element.sender.lastName}`
+                    .toLowerCase()
+                    .includes(`${searchField.toLowerCase()}`))
+        );
+    });
+    console.log('filteredSearch', filteredSearch);
 
-    // const displayUsers = filteredSearch.map((pet) => {
-    //     console.log('pet', pet);
-    //     return (
-    //         <tr key={pet._id} className={style.resultCard}>
-    //             <td style={{ width: '30%' }}>
-    //                 <Link to={`/pets/${pet._id}`}>{pet.name}</Link>
-    //             </td>
-    //             <td>{pet.specie}</td>
+    const displayUsers = filteredSearch.map((contact) => {
+        console.log('contact', contact);
+        return (
+            <tr key={contact._id} className={style.resultCard}>
+                <td style={{ width: '30%' }}>
+                    {contact.sender.lastName},{contact.sender.name}
+                </td>
+                <td>
+                    <Link to={`/contacts/${contact._id}`}>
+                        {contact.homeService ? 'Request' : 'Appointment'}
+                    </Link>
+                </td>
 
-    //             <td>{/* {pet.owner.name}, {pet.owner.lastName} */}</td>
-    //         </tr>
-    //     );
-    // });
+                <td>
+                    {contact.imageUrl && (
+                        <img
+                            src="../../../images/camera-logo.png"
+                            alt="pic-logo"
+                            style={{
+                                width: '1.5rem',
+                            }}
+                        />
+                    )}
+                </td>
+            </tr>
+        );
+    });
 
     if (!contactsList) return <Spinner />;
     return (
@@ -83,13 +93,15 @@ const ContactsList = () => {
                 isRequest={isRequest}
             />
             <button className={style.Button}>
-                <Link to={'/pets/add'}>
+                <Link to={'/contacts/new'}>
                     <span>+</span>
                 </Link>
             </button>
             <table style={{ margin: '0 0 10% 5%' }}>
-                {/* <tbody>{displayUsers}</tbody> */}
+                <tbody>{displayUsers}</tbody>
             </table>
+
+            <Link to={'/contacts/scheduler'}>Scheduler</Link>
         </div>
     );
 };

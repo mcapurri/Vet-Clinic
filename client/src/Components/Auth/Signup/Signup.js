@@ -120,19 +120,7 @@ const Signup = (props) => {
             valid: false,
             touched: false,
         },
-        state: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'State',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
+
         phoneNumber: {
             elementType: 'input',
             elementConfig: {
@@ -183,7 +171,6 @@ const Signup = (props) => {
             street: form.street.value,
             zipCode: form.zipCode.value,
             city: form.city.value,
-            state: form.state.value,
             phoneNumber: form.phoneNumber.value,
         }).then((user) => {
             if (user.message) {

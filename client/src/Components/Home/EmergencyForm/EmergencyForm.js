@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './EmergencyForm.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
-import DatePicker from 'react-datepicker';
+import DatePicker, { setHours, setMinutes } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
 import service from '../../../utils/service';
@@ -19,6 +19,22 @@ const EmergencyForm = (props) => {
         homeService: false,
         coords: props.requestedAddress.coords,
     });
+    const [booking, setBooking] = useState([]);
+
+    const fetchData = () => {
+        axios
+            .get('/api/contacts/appointments')
+            .then((booking) => {
+                setBooking(booking.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -93,6 +109,15 @@ const EmergencyForm = (props) => {
             });
     };
 
+    /// <DatePicker>
+    let minTime = new Date();
+    minTime.setMinutes(0);
+    minTime.setHours(10);
+
+    let maxTime = new Date();
+    maxTime.setMinutes(30);
+    maxTime.setHours(18);
+
     return (
         <section
             id="emergencyForm"
@@ -166,16 +191,24 @@ const EmergencyForm = (props) => {
                             onChange={(date) =>
                                 setForm({ ...form, appointment: date })
                             }
+                            showPopperArrow
                             showTimeSelect
-                            dateFormat="dd/ MMMM/ yyyy h:mm a"
+                            dateFormat="dd/ MMMM/ yyyy HH:mm  "
+                            timeFormat="HH:mm"
+                            // minTime={setHours(setMinutes(new Date(), 0), 10)}
+                            // maxTime={setHours(setMinutes(new Date(), 30), 18)}
+                            minTime={minTime}
+                            maxTime={maxTime}
                             placeholderText="Select appointment"
+                            // calendarClassName="rasta-stripes"
                             minDate={new Date()}
                             filterDate={(date) =>
                                 date.getDay() !== 6 && date.getDay() !== 0
                             }
                             isClearable
-                            timeIntervals={15}
+                            // timeIntervals={15}
                             // excludeDates={[new Date(), subDays(new Date(), 1)]}
+                            excludeTimes={booking}
                             value={form.appointment}
                             disabled={form.homeService}
                             style={{

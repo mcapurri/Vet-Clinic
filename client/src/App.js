@@ -12,6 +12,7 @@ import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
+import AppScheduler from './Components/Scheduler/Scheduler';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');
@@ -83,6 +84,11 @@ function App(props) {
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
                 <Route exact path="/contacts" component={ContactsList} />
+                <Route
+                    exact
+                    path="/contacts/scheduler"
+                    component={AppScheduler}
+                />
             </Switch>
             <Footer />
         </div>
