@@ -2,7 +2,7 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
     Scheduler,
     WeekView,
@@ -58,46 +58,6 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
         </div>
     )
 );
-//    const onEditingAppointmentChange = (editingAppointment) => {
-//        setState({ ...state, editingAppointment });
-//    };
-
-//    const onAddedAppointmentChange = (addedAppointment) => {
-//        setState({ ...state, addedAppointment });
-//        const { editingAppointment } = state;
-//        if (editingAppointment !== undefined) {
-//            this.setState({
-//                previousAppointment: editingAppointment,
-//            });
-//        }
-//        setState({
-//            ...state,
-//            editingAppointment: undefined,
-//            isNewAppointment: true,
-//        });
-//    };
-//      const commitChanges = ({ added, changed, deleted }) => {
-//          setState((state) => {
-//              let { data } = state;
-//              if (added) {
-//                  const startingAddedId =
-//                      data.length > 0 ? data[data.length - 1].id + 1 : 0;
-//                  data = [...data, { id: startingAddedId, ...added }];
-//              }
-//              if (changed) {
-//                  data = data.map((appointment) =>
-//                      changed[appointment.id]
-//                          ? { ...appointment, ...changed[appointment.id] }
-//                          : appointment
-//                  );
-//              }
-//              if (deleted !== undefined) {
-//                  setDeletedAppointmentId(deleted);
-//                  toggleConfirmationVisible();
-//              }
-//              return { ...state, data, addedAppointment: {} };
-//          });
-//      };
 
 const berlinTime = (date) =>
     new Date(date).toLocaleString('en-US', { timeZone: 'Europe/Berlin' });
@@ -169,7 +129,7 @@ const AppScheduler = () => {
 
     React.useEffect(() => {
         getData(setData, setLoading);
-    }, [setData, currentViewName, currentDate]);
+    }, [setData, setLoading, currentViewName, currentDate]);
 
     return (
         <Paper>
@@ -180,11 +140,6 @@ const AppScheduler = () => {
                     onCurrentViewNameChange={setCurrentViewName}
                     onCurrentDateChange={setCurrentDate}
                 />
-                {/* <EditingState
-                    onCommitChanges={commitChanges}
-                    onEditingAppointmentChange={onEditingAppointmentChange}
-                    onAddedAppointmentChange={onAddedAppointmentChange}
-                /> */}
                 <DayView startDayHour={9} endDayHour={20} />
                 <WeekView startDayHour={9} endDayHour={20} />
                 <Appointments />

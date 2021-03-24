@@ -270,6 +270,8 @@ const styles = (theme) => ({
 
 /* eslint-disable-next-line react/no-multi-comp */
 const GoogleScheduler = (props) => {
+    const { classes } = props;
+
     const [state, setState] = React.useState({
         data: appointments,
         currentDate: new Date(),
@@ -283,11 +285,42 @@ const GoogleScheduler = (props) => {
         endDayHour: 19,
         isNewAppointment: false,
     });
+    const {
+        currentDate,
+        data,
+        confirmationVisible,
+        editingFormVisible,
+        startDayHour,
+        endDayHour,
+    } = state;
 
-    React.useEffect(() => {
-        appointmentForm.update();
-        console.log('useEffect running');
-    }, []);
+    // Google Calendar Api
+    const gapi = window.gapi;
+
+    const CALENDAR_ID = 'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
+    const CLIENT_ID =
+        '831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
+    const DISCOVERY_DOCS = [
+        'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+    ];
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+
+    function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+        console.log('loaded client');
+    }
+
+    const initClient = () => {
+        gapi.client.init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: SCOPES,
+        });
+
+        gapi.client.load('calendar', 'v3', () => console.log('bam!'));
+    };
 
     const onEditingAppointmentChange = (editingAppointment) => {
         setState({ ...state, editingAppointment: editingAppointment });
@@ -384,23 +417,32 @@ const GoogleScheduler = (props) => {
         return {
             visible: editingFormVisible,
             appointmentData: currentAppointment,
-            commitChanges: commitChanges,
+            commitChanges,
             visibleChange: toggleEditingFormVisibility,
-            onEditingAppointmentChange: onEditingAppointmentChange,
+            onEditingAppointmentChange,
             cancelAppointment,
         };
     });
-
-    const {
-        currentDate,
-        data,
-        confirmationVisible,
-        editingFormVisible,
-        startDayHour,
-        endDayHour,
-    } = state;
-
-    const { classes } = props;
+    const getEvents = () => {
+        gapi.client.calendar.events
+            .list({
+                calendarId: this.CALENDAR_ID,
+                timeMin: new Date().toISOString(),
+                showDeleted: false,
+                singleEvents: true,
+                maxResults: 10,
+                orderBy: 'startTime',
+            })
+            .then((response) => {
+                const events = response.result.items;
+                console.log('EVENTS: ', events);
+            });
+    };
+    React.useEffect(() => {
+        appointmentForm.update();
+        // getEvents();
+        console.log('useEffect running');
+    }, [appointmentForm]);
 
     return (
         <Paper>
@@ -431,10 +473,7 @@ const GoogleScheduler = (props) => {
                 <DragDropProvider />
             </Scheduler>
 
-            <Dialog
-                open={confirmationVisible}
-                // onClose={cancelDelete}
-            >
+            <Dialog open={confirmationVisible} onClose={props.cancelDelete}>
                 <DialogTitle>Delete Appointment</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -464,11 +503,12 @@ const GoogleScheduler = (props) => {
                 className={classes.addButton}
                 onClick={() => {
                     setState({ ...state, editingFormVisible: true });
+
                     onEditingAppointmentChange(undefined);
                     onAddedAppointmentChange({
                         startDate: new Date(currentDate).setHours(startDayHour),
-                        endDate: new Date(currentDate).setHours(
-                            startDayHour + 1
+                        endDate: new Date(currentDate).setMinutes(
+                            startDayHour + 30
                         ),
                     });
                 }}

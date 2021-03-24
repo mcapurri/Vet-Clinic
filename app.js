@@ -127,6 +127,35 @@ const event = {
     },
     colorId: 1,
 };
+// calendar.events.list(
+//     {
+//         calendarId: calendarID,
+//         singleEvents: true,
+//         orderBy: 'startTime',
+//     },
+//     (err, res) => {
+//         if (err) return console.log('The API returned an error: ' + err);
+//         const events = res.data.items;
+
+//         if (events.length) {
+//             console.log('Events');
+//             events.map((event, i) => {
+//                 let titleName = event.summary;
+//                 let startTime = event.start.dateTime;
+//                 let endTime = event.end.dateTime;
+//                 this.state.events.push({
+//                     title: titleName,
+//                     start: startTime,
+//                     end: endTime,
+//                 });
+//             });
+//         } else {
+//             console.log('No upcoming events found.');
+//         }
+
+//         console.log(this.state.events);
+//     }
+// );
 
 calendar.freebusy.query(
     {

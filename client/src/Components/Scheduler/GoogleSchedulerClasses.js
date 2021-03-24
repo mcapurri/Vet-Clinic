@@ -40,7 +40,17 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 import axios from 'axios';
 
+import withGoogleApps from './withGoogleApps';
 import { appointments } from '../../appointments';
+
+const CALENDAR_ID = 'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
+const CLIENT_ID =
+    '831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
+const DISCOVERY_DOCS = [
+    'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+];
+const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
 
 const containerStyles = (theme) => ({
     container: {
@@ -363,34 +373,43 @@ class GoogleSchedulerClasses extends React.PureComponent {
             };
         });
     }
+    // getEvents() {
+    //     const calendar = google.calendar({ version: 'v3', oAuth2Client });
 
-    getData() {
-        const PUBLIC_KEY = 'AIzaSyD1mouMT4xIGa_0jZwLd15MIjWM_eIUYGQ';
-        const CALENDAR_ID =
-            'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
+    //     calendar.events.list(
+    //         {
+    //             calendarId: 'primary',
+    //             singleEvents: true,
+    //             orderBy: 'startTime',
+    //         },
+    //         (err, res) => {
+    //             if (err)
+    //                 return console.log('The API returned an error: ' + err);
+    //             const events = res.data.items;
 
-        const dataUrl = [
-            'https://www.googleapis.com/calendar/v3/calendars/',
-            CALENDAR_ID,
-            '/events?key=',
-            PUBLIC_KEY,
-        ].join('');
+    //             if (events.length) {
+    //                 console.log('Events');
+    //                 events.map((event, i) => {
+    //                     let titleName = event.summary;
+    //                     let startTime = event.start.dateTime;
+    //                     let endTime = event.end.dateTime;
+    //                     this.state.events.push({
+    //                         title: titleName,
+    //                         start: startTime,
+    //                         end: endTime,
+    //                     });
+    //                 });
+    //             } else {
+    //                 console.log('No upcoming events found.');
+    //             }
 
-        return (
-            axios(dataUrl)
-                // .then((response) => response.json())
-                .then((data) => {
-                    console.log('schedulerData', data.data.items);
-                    setTimeout(() => {
-                        this.setState({ data: data.data.items });
-                    }, 600);
-                })
-        );
-    }
-
-    componentDidMount() {
-        this.getData();
-    }
+    //             console.log(this.state.events);
+    //         }
+    //     );
+    // }
+    // comonpentDidMount = () => {
+    //     this.getEvents();
+    // };
 
     componentDidUpdate() {
         this.appointmentForm.update();
@@ -559,5 +578,8 @@ class GoogleSchedulerClasses extends React.PureComponent {
 }
 
 export default withStyles(styles, { name: 'EditingGoogleSchedulerClasses' })(
+    // withGoogleApps(
+
     GoogleSchedulerClasses
+    // )
 );
