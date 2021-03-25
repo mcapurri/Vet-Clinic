@@ -38,19 +38,53 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-import axios from 'axios';
+// import axios from 'axios';
 
-import withGoogleApps from './withGoogleApps';
+// import withGoogleApps from './withGoogleApps';
 import { appointments } from '../../appointments';
+import {
+    apiKey,
+    clientId,
+    discoveryDocs,
+    scope,
+    calendarId,
+} from './googleApiConfig.json';
 
-const CALENDAR_ID = 'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
-const CLIENT_ID =
-    '831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
-const DISCOVERY_DOCS = [
-    'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-];
-const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+const gapi = window.gapi;
+console.log('gapi', gapi);
+
+gapi.load('client:auth2', () => {
+    console.log('loaded client');
+
+    gapi.client.init({
+        apiKey: apiKey,
+        clientId: clientId,
+        discoveryDocs: discoveryDocs,
+        scope: scope,
+    });
+
+    gapi.client.load('calendar', 'v3', () => {});
+    gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+            console.log('signed in');
+            // get events
+            gapi.client.calendar.events
+                .list({
+                    calendarId: calendarId,
+                    // timeMin: new Date().toISOString(),
+                    showDeleted: false,
+                    singleEvents: true,
+                    maxResults: 10,
+                    orderBy: 'startTime',
+                })
+                .then((response) => {
+                    const events = response.result.items;
+                    console.log('EVENTS: ', events);
+                });
+        });
+});
 
 const containerStyles = (theme) => ({
     container: {
@@ -101,6 +135,7 @@ const containerStyles = (theme) => ({
 class AppointmentFormContainerBasic extends React.PureComponent {
     constructor(props) {
         super(props);
+        console.log('propsAppFormCont', props);
 
         this.state = {
             appointmentChanges: {},
@@ -118,7 +153,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         this.changeAppointment = this.changeAppointment.bind(this);
         this.commitAppointment = this.commitAppointment.bind(this);
     }
-
     changeAppointment({ field, changes }) {
         const nextChanges = {
             ...this.getAppointmentChanges(),
@@ -320,6 +354,8 @@ class GoogleSchedulerClasses extends React.PureComponent {
             endDayHour: 19,
             isNewAppointment: false,
         };
+        console.log('propsScheduler', props);
+        console.log('state', this.state);
 
         this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(
             this
@@ -354,6 +390,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
                         editingAppointment &&
                         appointment.id === editingAppointment.id
                 )[0] || addedAppointment;
+
             const cancelAppointment = () => {
                 if (isNewAppointment) {
                     this.setState({
@@ -378,7 +415,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
 
     //     calendar.events.list(
     //         {
-    //             calendarId: 'primary',
+    //             calendarId: calendarId,
     //             singleEvents: true,
     //             orderBy: 'startTime',
     //         },
@@ -393,7 +430,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
     //                     let titleName = event.summary;
     //                     let startTime = event.start.dateTime;
     //                     let endTime = event.end.dateTime;
-    //                     this.state.events.push({
+    //                     this.state.data.push({
     //                         title: titleName,
     //                         start: startTime,
     //                         end: endTime,
@@ -414,6 +451,34 @@ class GoogleSchedulerClasses extends React.PureComponent {
     componentDidUpdate() {
         this.appointmentForm.update();
     }
+
+    addEvent(eventToAdd) {
+        console.log('event', eventToAdd);
+        let event = {
+            summary: eventToAdd.title,
+            location: eventToAdd.location,
+            description: eventToAdd.description,
+            start: {
+                dateTime: eventToAdd.startDate,
+                timeZone: 'Europe/Berlin',
+            },
+            end: {
+                dateTime: eventToAdd.endDate,
+                timeZone: 'Europe/Berlin',
+            },
+        };
+
+        var request = gapi.client.calendar.events.insert({
+            calendarId: calendarId,
+            resource: event,
+        });
+
+        request.execute((event) => {
+            console.log(event);
+            window.open(event.htmlLink);
+        });
+    }
+    // });
 
     onEditingAppointmentChange(editingAppointment) {
         this.setState({ editingAppointment });
@@ -465,9 +530,11 @@ class GoogleSchedulerClasses extends React.PureComponent {
         this.setState((state) => {
             let { data } = state;
             if (added) {
+                console.log('added from CommChanges', added);
                 const startingAddedId =
                     data.length > 0 ? data[data.length - 1].id + 1 : 0;
                 data = [...data, { id: startingAddedId, ...added }];
+                this.addEvent(added);
             }
             if (changed) {
                 data = data.map((appointment) =>
@@ -482,6 +549,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
             }
             return { data, addedAppointment: {} };
         });
+        console.log('dataCommitted', this.state.data);
     }
 
     render() {
@@ -579,7 +647,6 @@ class GoogleSchedulerClasses extends React.PureComponent {
 
 export default withStyles(styles, { name: 'EditingGoogleSchedulerClasses' })(
     // withGoogleApps(
-
     GoogleSchedulerClasses
     // )
 );

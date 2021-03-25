@@ -42,7 +42,6 @@ const ContactsList = () => {
     };
 
     const filteredSearch = contactsList.filter((element) => {
-        console.log('element', element);
         return (
             ((isAppointment && element.homeService === false) ||
                 (isRequest && element.homeService === true)) &&
@@ -57,7 +56,6 @@ const ContactsList = () => {
     console.log('filteredSearch', filteredSearch);
 
     const displayUsers = filteredSearch.map((contact) => {
-        console.log('contact', contact);
         return (
             <tr key={contact._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>

@@ -5,7 +5,7 @@ import {
     clientId,
     discoveryDocs,
     scope,
-} from '../../googleApiConfig.json';
+} from './googleApiConfig.json';
 
 const gapi = window.gapi;
 
@@ -36,11 +36,11 @@ class Scheduler2 extends React.Component {
                 scope: scope,
             })
             .then(function () {
-                console.log(window.gapi);
+                console.log('gapi', gapi);
                 // Listen for sign-in state changes.
 
                 // ************* to access instance method you have to use `this.updateSigninStatus`
-                window.gapi.auth2
+                gapi.auth2
                     .getAuthInstance()
                     .isSignedIn.listen(this.updateSigninStatus);
 

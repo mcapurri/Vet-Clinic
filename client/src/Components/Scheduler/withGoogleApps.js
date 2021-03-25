@@ -5,6 +5,7 @@ import Spinner from '../UI/Spinner/Spinner';
 const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
 
 export default function withGoogleApps(WrappedComponent) {
+    console.log('Googleloading');
     class ComponentWithGoogleAPI extends React.Component {
         state = { gapiReady: false };
 

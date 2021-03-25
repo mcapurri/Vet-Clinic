@@ -36,7 +36,7 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-
+import withGoogleApps from './withGoogleApps';
 import { appointments } from '../../appointments';
 
 import {
@@ -95,6 +95,8 @@ const containerStyles = (theme) => ({
 });
 
 const AppointmentFormContainerBasic = (props) => {
+    console.log('props', props);
+
     const [appointmentChanges, setAppointmentChanges] = React.useState({});
 
     const getAppointmentData = () => {
@@ -303,22 +305,22 @@ const GoogleScheduler = (props) => {
         endDayHour,
     } = state;
 
-    function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-        console.log('loaded client');
-    }
+    // function handleClientLoad() {
+    //     gapi.load('client:auth2', initClient);
+    //     console.log('loaded client');
+    // }
 
-    const initClient = () => {
-        console.log('init client');
-        gapi.client.init({
-            apiKey: apiKey,
-            clientId: clientId,
-            discoveryDocs: discoveryDocs,
-            scope: scope,
-        });
+    // const initClient = () => {
+    //     console.log('init client');
+    //     gapi.client.init({
+    //         apiKey: apiKey,
+    //         clientId: clientId,
+    //         discoveryDocs: discoveryDocs,
+    //         scope: scope,
+    //     });
 
-        gapi.client.load('calendar', 'v3', () => console.log('bam!'));
-    };
+    //     gapi.client.load('calendar', 'v3', () => console.log('bam!'));
+    // };
 
     const onEditingAppointmentChange = (editingAppointment) => {
         setState({ ...state, editingAppointment: editingAppointment });
