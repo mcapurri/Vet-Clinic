@@ -1,10 +1,11 @@
 import React from 'react';
-var CLIENT_ID =
-    '831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com';
-var DISCOVERY_DOCS = [
-    'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-];
-var SCOPES = 'https://www.googleapis.com/auth/calendar';
+import {
+    apiKey,
+    calendarId,
+    clientId,
+    discoveryDocs,
+    scope,
+} from '../../googleApiConfig.json';
 
 const gapi = window.gapi;
 
@@ -30,9 +31,9 @@ class Scheduler2 extends React.Component {
     initClient(/****here you've had parameters that made config vars unaccessible*****/) {
         gapi.client
             .init({
-                discoveryDocs: DISCOVERY_DOCS,
-                clientId: CLIENT_ID,
-                scope: SCOPES,
+                discoveryDocs: discoveryDocs,
+                clientId: clientId,
+                scope: scope,
             })
             .then(function () {
                 console.log(window.gapi);

@@ -39,6 +39,15 @@ import Create from '@material-ui/icons/Create';
 
 import { appointments } from '../../appointments';
 
+import {
+    apiKey,
+    clientId,
+    discoveryDocs,
+    scope,
+} from '../../googleApiConfig.json';
+
+const gapi = window.gapi;
+
 const containerStyles = (theme) => ({
     container: {
         width: theme.spacing(68),
@@ -294,29 +303,18 @@ const GoogleScheduler = (props) => {
         endDayHour,
     } = state;
 
-    // Google Calendar Api
-    const gapi = window.gapi;
-
-    const CALENDAR_ID = 'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
-    const CLIENT_ID =
-        '831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
-    const DISCOVERY_DOCS = [
-        'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-    ];
-    const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
-
     function handleClientLoad() {
         gapi.load('client:auth2', initClient);
         console.log('loaded client');
     }
 
     const initClient = () => {
+        console.log('init client');
         gapi.client.init({
-            apiKey: API_KEY,
-            clientId: CLIENT_ID,
-            discoveryDocs: DISCOVERY_DOCS,
-            scope: SCOPES,
+            apiKey: apiKey,
+            clientId: clientId,
+            discoveryDocs: discoveryDocs,
+            scope: scope,
         });
 
         gapi.client.load('calendar', 'v3', () => console.log('bam!'));

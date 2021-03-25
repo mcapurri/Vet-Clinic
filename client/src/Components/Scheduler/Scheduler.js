@@ -16,15 +16,14 @@ import {
     TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const PUBLIC_KEY = 'AIzaSyD1mouMT4xIGa_0jZwLd15MIjWM_eIUYGQ';
-const CALENDAR_ID = 'bmreulqa3uajgpp04t532q6hbs@group.calendar.google.com';
+import { apiKey, calendarId } from '../../googleApiConfig.json';
 
 const getData = (setData, setLoading) => {
     const dataUrl = [
         'https://www.googleapis.com/calendar/v3/calendars/',
-        CALENDAR_ID,
+        calendarId,
         '/events?key=',
-        PUBLIC_KEY,
+        apiKey,
     ].join('');
     setLoading(true);
 
@@ -60,7 +59,9 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
 );
 
 const berlinTime = (date) =>
-    new Date(date).toLocaleString('en-US', { timeZone: 'Europe/Berlin' });
+    new Date(date).toLocaleString('en-US', {
+        timeZone: 'Europe/Berlin',
+    });
 
 const mapAppointmentData = (appointment) => ({
     id: appointment.id,

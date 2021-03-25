@@ -87,16 +87,16 @@ function App(props) {
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
                 <Route exact path="/contacts" component={ContactsList} />
-                <Route
-                    exact
-                    path="/contacts/scheduler"
-                    component={AppScheduler}
-                />
                 {/* <Route
                     exact
                     path="/contacts/scheduler"
-                    component={GoogleSchedulerClasses}
+                    component={AppScheduler}
                 /> */}
+                <Route
+                    exact
+                    path="/contacts/scheduler"
+                    component={GoogleSchedulerClasses}
+                />
             </Switch>
             <Footer />
         </div>
