@@ -1,4 +1,6 @@
-import * as React from 'react';
+/* eslint-disable max-classes-per-file */
+/* eslint-disable react/no-unused-state */
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
@@ -36,17 +38,53 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-import withGoogleApps from './withGoogleApps';
-import { appointments } from '../../appointments';
+// import axios from 'axios';
 
+// import withGoogleApps from './withGoogleApps';
+import { appointments } from '../../appointments';
 import {
     apiKey,
     clientId,
     discoveryDocs,
     scope,
-} from '../../googleApiConfig.json';
+    calendarId,
+} from './googleApiConfig.json';
 
 const gapi = window.gapi;
+console.log('gapi', gapi);
+
+gapi.load('client:auth2', () => {
+    console.log('loaded client');
+
+    gapi.client.init({
+        apiKey: apiKey,
+        clientId: clientId,
+        discoveryDocs: discoveryDocs,
+        scope: scope,
+    });
+
+    gapi.client.load('calendar', 'v3', () => {});
+    gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+            console.log('signed in');
+            // get events
+            gapi.client.calendar.events
+                .list({
+                    calendarId: calendarId,
+                    // timeMin: new Date().toISOString(),
+                    showDeleted: false,
+                    singleEvents: true,
+                    maxResults: 10,
+                    orderBy: 'startTime',
+                })
+                .then((response) => {
+                    const events = response.result.items;
+                    console.log('EVENTS: ', events);
+                });
+        });
+});
 
 const containerStyles = (theme) => ({
     container: {
@@ -95,18 +133,17 @@ const containerStyles = (theme) => ({
 });
 
 const AppointmentFormContainerBasic = (props) => {
-    console.log('props', props);
-
-    const [appointmentChanges, setAppointmentChanges] = React.useState({});
-
+    const [appointmentChanges, setAppointmentChanges] = useState({});
     const getAppointmentData = () => {
         const { appointmentData } = props;
         return appointmentData;
     };
-
+    const getAppointmentChanges = () => {
+        return appointmentChanges;
+    };
     const changeAppointment = ({ field, changes }) => {
         const nextChanges = {
-            ...appointmentChanges,
+            ...getAppointmentChanges(),
             [field]: changes,
         };
 
@@ -117,7 +154,7 @@ const AppointmentFormContainerBasic = (props) => {
         const { commitChanges } = props;
         const appointment = {
             ...getAppointmentData(),
-            ...appointmentChanges,
+            ...getAppointmentChanges(),
         };
         if (type === 'deleted') {
             commitChanges({ [type]: appointment.id });
@@ -126,10 +163,8 @@ const AppointmentFormContainerBasic = (props) => {
         } else {
             commitChanges({ [type]: appointment });
         }
-
         setAppointmentChanges({});
     };
-
     const {
         classes,
         visible,
@@ -139,6 +174,7 @@ const AppointmentFormContainerBasic = (props) => {
         target,
         onHide,
     } = props;
+    // const { appointmentChanges } = appointmentChanges;
 
     const displayAppointmentData = {
         ...appointmentData,
@@ -164,6 +200,7 @@ const AppointmentFormContainerBasic = (props) => {
 
     const pickerEditorProps = (field) => ({
         className: classes.picker,
+        // keyboard: true,
         ampm: false,
         value: displayAppointmentData[field],
         onChange: (date) =>
@@ -265,11 +302,9 @@ const AppointmentFormContainerBasic = (props) => {
     );
 };
 
-const AppointmentFormContainer = React.memo(
-    withStyles(containerStyles, {
-        name: 'AppointmentFormContainer',
-    })(AppointmentFormContainerBasic)
-);
+const AppointmentFormContainer = withStyles(containerStyles, {
+    name: 'AppointmentFormContainer',
+})(AppointmentFormContainerBasic);
 
 const styles = (theme) => ({
     addButton: {
@@ -280,123 +315,19 @@ const styles = (theme) => ({
 });
 
 /* eslint-disable-next-line react/no-multi-comp */
-const GoogleScheduler = (props) => {
-    const { classes } = props;
-
-    const [state, setState] = React.useState({
-        data: appointments,
-        currentDate: new Date(),
-        confirmationVisible: false,
-        editingFormVisible: false,
-        deletedAppointmentId: undefined,
-        editingAppointment: undefined,
-        previousAppointment: undefined,
-        addedAppointment: {},
-        startDayHour: 9,
-        endDayHour: 19,
-        isNewAppointment: false,
-    });
-    const {
-        currentDate,
-        data,
-        confirmationVisible,
-        editingFormVisible,
-        startDayHour,
-        endDayHour,
-    } = state;
-
-    // function handleClientLoad() {
-    //     gapi.load('client:auth2', initClient);
-    //     console.log('loaded client');
-    // }
-
-    // const initClient = () => {
-    //     console.log('init client');
-    //     gapi.client.init({
-    //         apiKey: apiKey,
-    //         clientId: clientId,
-    //         discoveryDocs: discoveryDocs,
-    //         scope: scope,
-    //     });
-
-    //     gapi.client.load('calendar', 'v3', () => console.log('bam!'));
-    // };
-
-    const onEditingAppointmentChange = (editingAppointment) => {
-        setState({ ...state, editingAppointment: editingAppointment });
-    };
-
-    const onAddedAppointmentChange = (addedAppointment) => {
-        setState({ ...state, addedAppointment: addedAppointment });
-        const { editingAppointment } = state;
-        if (editingAppointment !== undefined) {
-            setState({ ...state, previousAppointment: editingAppointment });
-        }
-        setState({
-            ...state,
-            editingAppointment: undefined,
-            isNewAppointment: true,
-        });
-    };
-
-    const setDeletedAppointmentId = (id) => {
-        setState({ ...state, deletedAppointmentId: id });
-    };
-
-    const toggleEditingFormVisibility = () => {
-        const { editingFormVisible } = state;
-        setState({ ...state, editingFormVisible: !editingFormVisible });
-    };
-
-    const toggleConfirmationVisible = () => {
-        const { confirmationVisible } = state;
-        setState({ ...state, confirmationVisible: !confirmationVisible });
-    };
-
-    const commitDeletedAppointment = () => {
-        setState((state) => {
-            const { data, deletedAppointmentId } = state;
-            const nextData = data.filter(
-                (appointment) => appointment.id !== deletedAppointmentId
-            );
-
-            return { ...state, data: nextData, deletedAppointmentId: null };
-        });
-        toggleConfirmationVisible();
-    };
-
-    const commitChanges = ({ added, changed, deleted }) => {
-        setState((state) => {
-            let { data } = state;
-            if (added) {
-                const startingAddedId =
-                    data.length > 0 ? data[data.length - 1].id + 1 : 0;
-                data = [...data, { id: startingAddedId, ...added }];
-            }
-            if (changed) {
-                data = data.map((appointment) =>
-                    changed[appointment.id]
-                        ? { ...appointment, ...changed[appointment.id] }
-                        : appointment
-                );
-            }
-            if (deleted !== undefined) {
-                setDeletedAppointmentId(deleted);
-                toggleConfirmationVisible();
-            }
-            return { ...state, data, addedAppointment: {} };
-        });
-    };
+export const GoogleSchedulerHooks = (props) => {
+    const [data, setData] = useState(appointments);
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [confirmationVisible, setConfirmationVisible] = useState(false);
+    const [editingFormVisible, setEditingFormVisible] = useState(false);
+    const [deletedAppointmentId, setDeletedAppointmentId] = useState(undefined);
+    const [editingAppointment, setEditingAppointment] = useState(undefined);
+    const [previousAppointment, setPreviousAppointment] = useState(undefined);
+    const [addedAppointment, setAddedAppointment] = useState({});
+    const [startDayHour, setStartDayHour] = useState(9);
+    const [endDayHour, setendDayHour] = useState(19);
+    const [isNewAppointment, setIsNewAppointment] = useState(false);
     const appointmentForm = connectProps(AppointmentFormContainer, () => {
-        const {
-            editingFormVisible,
-            editingAppointment,
-            data,
-            addedAppointment,
-            isNewAppointment,
-            previousAppointment,
-        } = state;
-
         const currentAppointment =
             data.filter(
                 (appointment) =>
@@ -406,44 +337,149 @@ const GoogleScheduler = (props) => {
 
         const cancelAppointment = () => {
             if (isNewAppointment) {
-                setState({
-                    ...state,
-                    editingAppointment: previousAppointment,
-                    isNewAppointment: false,
-                });
+                setEditingAppointment(previousAppointment);
+                setIsNewAppointment(false);
             }
         };
 
         return {
             visible: editingFormVisible,
             appointmentData: currentAppointment,
-            commitChanges,
+            commitChanges: commitChanges,
             visibleChange: toggleEditingFormVisibility,
-            onEditingAppointmentChange,
+            onEditingAppointmentChange: onEditingAppointmentChange,
             cancelAppointment,
         };
     });
-    const getEvents = () => {
-        gapi.client.calendar.events
-            .list({
-                calendarId: this.CALENDAR_ID,
-                timeMin: new Date().toISOString(),
-                showDeleted: false,
-                singleEvents: true,
-                maxResults: 10,
-                orderBy: 'startTime',
-            })
-            .then((response) => {
-                const events = response.result.items;
-                console.log('EVENTS: ', events);
-            });
-    };
-    React.useEffect(() => {
-        appointmentForm.update();
-        // getEvents();
-        console.log('useEffect running');
-    }, [appointmentForm]);
+    // };
+    // getEvents() {
+    //     const calendar = google.calendar({ version: 'v3', oAuth2Client });
 
+    //     calendar.events.list(
+    //         {
+    //             calendarId: calendarId,
+    //             singleEvents: true,
+    //             orderBy: 'startTime',
+    //         },
+    //         (err, res) => {
+    //             if (err)
+    //                 return console.log('The API returned an error: ' + err);
+    //             const events = res.data.items;
+
+    //             if (events.length) {
+    //                 console.log('Events');
+    //                 events.map((event, i) => {
+    //                     let titleName = event.summary;
+    //                     let startTime = event.start.dateTime;
+    //                     let endTime = event.end.dateTime;
+    //                     this.state.data.push({
+    //                         title: titleName,
+    //                         start: startTime,
+    //                         end: endTime,
+    //                     });
+    //                 });
+    //             } else {
+    //                 console.log('No upcoming events found.');
+    //             }
+
+    //             console.log(this.state.events);
+    //         }
+    //     );
+    // }
+    // comonpentDidMount = () => {
+    //     this.getEvents();
+    // };
+
+    // Recheck for appointform.updata
+    useEffect(() => {
+        appointmentForm.update();
+    }, []);
+
+    const addEvent = (eventToAdd) => {
+        let event = {
+            summary: eventToAdd.title,
+            location: eventToAdd.location,
+            description: eventToAdd.description,
+            start: {
+                dateTime: eventToAdd.startDate,
+                timeZone: 'Europe/Berlin',
+            },
+            end: {
+                dateTime: eventToAdd.endDate,
+                timeZone: 'Europe/Berlin',
+            },
+        };
+
+        const request = gapi.client.calendar.events.insert({
+            calendarId: calendarId,
+            resource: event,
+        });
+
+        request.execute((event) => {
+            console.log(event);
+            window.open(event.htmlLink);
+        });
+    };
+
+    const onEditingAppointmentChange = (editingAppointment) => {
+        setEditingAppointment(editingAppointment);
+    };
+
+    const onAddedAppointmentChange = (addedAppointment) => {
+        setAddedAppointment(addedAppointment);
+        if (editingAppointment !== undefined) {
+            setPreviousAppointment(editingAppointment);
+        }
+        setEditingAppointment(editingAppointment(undefined));
+        setIsNewAppointment(true);
+    };
+    // const setDeletedAppointmentId = (id) => {
+    //     setDeletedAppointmentId({ id });
+    // };
+
+    const toggleEditingFormVisibility = () => {
+        setEditingFormVisible(!editingFormVisible);
+    };
+
+    const toggleConfirmationVisible = () => {
+        setConfirmationVisible(!confirmationVisible);
+    };
+
+    const commitDeletedAppointment = () => {
+        const nextData = data.filter(
+            (appointment) => appointment.id !== deletedAppointmentId
+        );
+        setData(nextData);
+        setDeletedAppointmentId(null);
+
+        toggleConfirmationVisible();
+    };
+
+    const commitChanges = ({ added, changed, deleted }) => {
+        if (added) {
+            console.log('added from CommChanges', added);
+            const startingAddedId =
+                data.length > 0 ? data[data.length - 1].id + 1 : 0;
+            data = [...data, { id: startingAddedId, ...added }];
+            addEvent(added);
+        }
+        if (changed) {
+            data = data.map((appointment) =>
+                changed[appointment.id]
+                    ? { ...appointment, ...changed[appointment.id] }
+                    : appointment
+            );
+        }
+        if (deleted !== undefined) {
+            setDeletedAppointmentId(deleted);
+            toggleConfirmationVisible();
+        }
+        setData(data);
+        setAddedAppointment({});
+    };
+    console.log('dataCommitted', data);
+    //change
+    const { classes } = props;
     return (
         <Paper>
             <Scheduler data={data} height={660}>
@@ -473,7 +509,10 @@ const GoogleScheduler = (props) => {
                 <DragDropProvider />
             </Scheduler>
 
-            <Dialog open={confirmationVisible} onClose={props.cancelDelete}>
+            <Dialog
+                open={confirmationVisible}
+                //  onClose={cancelDelete}
+            >
                 <DialogTitle>Delete Appointment</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -502,13 +541,12 @@ const GoogleScheduler = (props) => {
                 color="secondary"
                 className={classes.addButton}
                 onClick={() => {
-                    setState({ ...state, editingFormVisible: true });
-
+                    setEditingFormVisible(true);
                     onEditingAppointmentChange(undefined);
                     onAddedAppointmentChange({
                         startDate: new Date(currentDate).setHours(startDayHour),
-                        endDate: new Date(currentDate).setMinutes(
-                            startDayHour + 30
+                        endDate: new Date(currentDate).setHours(
+                            startDayHour + 1
                         ),
                     });
                 }}
@@ -519,6 +557,8 @@ const GoogleScheduler = (props) => {
     );
 };
 
-export default React.memo(
-    withStyles(styles, { name: 'EditingGoogleScheduler' })(GoogleScheduler)
+export default withStyles(styles, { name: 'EditingGoogleSchedulerClasses' })(
+    // withGoogleApps(
+    GoogleSchedulerHooks
+    // )
 );

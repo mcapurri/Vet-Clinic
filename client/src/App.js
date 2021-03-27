@@ -14,7 +14,7 @@ import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
 // import AppScheduler from './Components/Scheduler/Scheduler';
 // import Scheduler2 from './Components/Scheduler/Scheduler2';
-// import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
+import GoogleSchedulerHooks from './Components/Scheduler/GoogleSchedulerHooks';
 import GoogleSchedulerClasses from './Components/Scheduler/GoogleSchedulerClasses';
 
 function App(props) {

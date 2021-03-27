@@ -54,8 +54,6 @@ const gapi = window.gapi;
 console.log('gapi', gapi);
 
 gapi.load('client:auth2', () => {
-    console.log('loaded client');
-
     gapi.client.init({
         apiKey: apiKey,
         clientId: clientId,
@@ -63,28 +61,30 @@ gapi.load('client:auth2', () => {
         scope: scope,
     });
 
-    gapi.client.load('calendar', 'v3', () => {});
+    gapi.client.load('calendar', 'v3', () => console.log('client loaded'));
     gapi.auth2
         .getAuthInstance()
         .signIn()
         .then(() => {
             console.log('signed in');
-            // get events
-            gapi.client.calendar.events
-                .list({
-                    calendarId: calendarId,
-                    // timeMin: new Date().toISOString(),
-                    showDeleted: false,
-                    singleEvents: true,
-                    maxResults: 10,
-                    orderBy: 'startTime',
-                })
-                .then((response) => {
-                    const events = response.result.items;
-                    console.log('EVENTS: ', events);
-                });
+            getEvents();
         });
 });
+
+const getEvents = () => {
+    gapi.client.calendar.events
+        .list({
+            calendarId: calendarId,
+            showDeleted: false,
+            singleEvents: true,
+            // maxResults: 10,
+            orderBy: 'startTime',
+        })
+        .then((response) => {
+            const events = response.result.items;
+            console.log('events: ', events);
+        });
+};
 
 const containerStyles = (theme) => ({
     container: {
@@ -342,7 +342,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: appointments,
+            data: this.events || [],
             currentDate: new Date(),
             confirmationVisible: false,
             editingFormVisible: false,
@@ -355,7 +355,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
             isNewAppointment: false,
         };
         console.log('propsScheduler', props);
-        console.log('state', this.state);
+        // console.log('state', this.state);
 
         this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(
             this
@@ -486,6 +486,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
 
     onAddedAppointmentChange(addedAppointment) {
         this.setState({ addedAppointment });
+        console.log('stateBefore', this.state);
         const { editingAppointment } = this.state;
         if (editingAppointment !== undefined) {
             this.setState({
@@ -527,29 +528,29 @@ class GoogleSchedulerClasses extends React.PureComponent {
     }
 
     commitChanges({ added, changed, deleted }) {
-        this.setState((state) => {
-            let { data } = state;
-            if (added) {
-                console.log('added from CommChanges', added);
-                const startingAddedId =
-                    data.length > 0 ? data[data.length - 1].id + 1 : 0;
-                data = [...data, { id: startingAddedId, ...added }];
-                this.addEvent(added);
-            }
-            if (changed) {
-                data = data.map((appointment) =>
-                    changed[appointment.id]
-                        ? { ...appointment, ...changed[appointment.id] }
-                        : appointment
-                );
-            }
-            if (deleted !== undefined) {
-                this.setDeletedAppointmentId(deleted);
-                this.toggleConfirmationVisible();
-            }
-            return { data, addedAppointment: {} };
-        });
+        let { data } = this.state;
+        if (added) {
+            console.log('added from CommChanges', added);
+            const startingAddedId =
+                data.length > 0 ? data[data.length - 1].id + 1 : 0;
+            data = [...data, { id: startingAddedId, ...added }];
+            // this.addEvent(added);
+        }
+        if (changed) {
+            data = data.map((appointment) =>
+                changed[appointment.id]
+                    ? { ...appointment, ...changed[appointment.id] }
+                    : appointment
+            );
+            this.handleChange(changed);
+        }
+        if (deleted !== undefined) {
+            this.setDeletedAppointmentId(deleted);
+            this.toggleConfirmationVisible();
+        }
+        this.setState({ data: data, addedAppointment: {} });
         console.log('dataCommitted', this.state.data);
+        console.log('stateAfterCommitt', this.state);
     }
 
     render() {
