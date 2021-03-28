@@ -15,6 +15,8 @@ import {
     DragDropProvider,
     EditRecurrenceMenu,
     AllDayPanel,
+    DateNavigator,
+    TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import {
@@ -475,7 +477,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
 
         request.execute((event) => {
             console.log(event);
-            window.open(event.htmlLink);
+            // window.open(event.htmlLink);
         });
     }
     // });
@@ -575,6 +577,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
                         }
                         onAddedAppointmentChange={this.onAddedAppointmentChange}
                     />
+
                     <WeekView
                         startDayHour={startDayHour}
                         endDayHour={endDayHour}

@@ -87,7 +87,7 @@ const Filters = (props) => {
                 style={{
                     display: 'flex',
                     justifyContent: 'flex-start',
-                    width: '30rem',
+                    width: '100%',
                     marginBottom: '10%',
                 }}
             >

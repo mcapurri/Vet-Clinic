@@ -1,11 +1,11 @@
 .Checkbox {
     display: flex;
     align-items: flex-start;
-    margin-left: 10%;
+    margin-left: 15%;
     width: 100%;
 }
 .Checkbox .Label {
-    margin-left: 25%;
+    margin-left: 15%;
 }
 
 @media only screen and (max-width: 900px) {

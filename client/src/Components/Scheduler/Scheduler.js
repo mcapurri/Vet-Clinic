@@ -16,7 +16,7 @@ import {
     TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { apiKey, calendarId } from '../../googleApiConfig.json';
+import { apiKey, calendarId } from './googleApiConfig.json';
 
 const getData = (setData, setLoading) => {
     const dataUrl = [

@@ -7,19 +7,19 @@
     justify-self: flex-end;
 }
 
-ul {
+.Footer ul {
     width: 60%;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
 }
 
-ul li {
+.Footer ul li {
     list-style-type: none;
     text-align: center;
 }
 
-h5 {
+.Footer h5 {
     padding-left: 10%;
     color: #c0c0c0;
 }

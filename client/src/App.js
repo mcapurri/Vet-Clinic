@@ -12,9 +12,9 @@ import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
-// import AppScheduler from './Components/Scheduler/Scheduler';
+import AppScheduler from './Components/Scheduler/Scheduler';
 // import Scheduler2 from './Components/Scheduler/Scheduler2';
-import GoogleSchedulerHooks from './Components/Scheduler/GoogleSchedulerHooks';
+import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 import GoogleSchedulerClasses from './Components/Scheduler/GoogleSchedulerClasses';
 
 function App(props) {

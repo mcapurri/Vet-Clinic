@@ -95,11 +95,12 @@ const ContactsList = () => {
                     <span>+</span>
                 </Link>
             </button>
+
+            <Link to={'/contacts/scheduler'}>Scheduler</Link>
+
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>
-
-            <Link to={'/contacts/scheduler'}>Scheduler</Link>
         </div>
     );
 };
