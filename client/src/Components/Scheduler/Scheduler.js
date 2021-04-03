@@ -16,14 +16,14 @@ import {
     TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { apiKey, calendarId } from './googleApiConfig.json';
+import { GOOGLE_API_KEY, CALENDAR_ID } from '../../googleApiConfig.json';
 
 const getData = (setData, setLoading) => {
     const dataUrl = [
         'https://www.googleapis.com/calendar/v3/calendars/',
-        calendarId,
+        CALENDAR_ID,
         '/events?key=',
-        apiKey,
+        GOOGLE_API_KEY,
     ].join('');
     setLoading(true);
 

@@ -2,8 +2,7 @@ import React from 'react';
 // import { API_KEY } from './googleKeys';
 import Spinner from '../UI/Spinner/Spinner';
 
-const API_KEY = 'AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI';
-
+import { GOOGLE_API_KEY } from '../../googleApiConfig.json';
 export default function withGoogleApps(WrappedComponent) {
     console.log('Googleloading');
     class ComponentWithGoogleAPI extends React.Component {

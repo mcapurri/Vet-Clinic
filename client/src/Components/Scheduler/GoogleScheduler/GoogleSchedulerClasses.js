@@ -45,22 +45,22 @@ import Create from '@material-ui/icons/Create';
 // import withGoogleApps from './withGoogleApps';
 import { appointments } from '../../appointments';
 import {
-    apiKey,
-    clientId,
-    discoveryDocs,
-    scope,
-    calendarId,
-} from './googleApiConfig.json';
+    GOOGLE_API_KEY,
+    GOOGLE_CLIENT_ID,
+    DISCOVERY_DOCS,
+    SCOPE,
+    CALENDAR_ID,
+} from '../../googleApiConfig.json';
 
 const gapi = window.gapi;
 console.log('gapi', gapi);
 
 gapi.load('client:auth2', () => {
     gapi.client.init({
-        apiKey: apiKey,
-        clientId: clientId,
-        discoveryDocs: discoveryDocs,
-        scope: scope,
+        apiKey: GOOGLE_API_KEY,
+        clientId: GOOGLE_CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPE,
     });
 
     gapi.client.load('calendar', 'v3', () => console.log('client loaded'));
@@ -76,7 +76,7 @@ gapi.load('client:auth2', () => {
 const getEvents = () => {
     gapi.client.calendar.events
         .list({
-            calendarId: calendarId,
+            calendarId: CALENDAR_ID,
             showDeleted: false,
             singleEvents: true,
             // maxResults: 10,
@@ -488,7 +488,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
 
     onAddedAppointmentChange(addedAppointment) {
         this.setState({ addedAppointment });
-        console.log('stateBefore', this.state);
+        // console.log('stateBefore', this.state);
         const { editingAppointment } = this.state;
         if (editingAppointment !== undefined) {
             this.setState({
@@ -552,7 +552,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
         }
         this.setState({ data: data, addedAppointment: {} });
         console.log('dataCommitted', this.state.data);
-        console.log('stateAfterCommitt', this.state);
+        // console.log('stateAfterCommitt', this.state);
     }
 
     render() {
