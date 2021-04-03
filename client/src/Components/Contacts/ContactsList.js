@@ -26,7 +26,7 @@ const ContactsList = () => {
         fetchData();
     }, []);
 
-    console.log('contactsList', contactsList);
+    // console.log('contactsList', contactsList);
 
     const handleChange = (event) => {
         console.log('event target', event.target);
@@ -53,7 +53,7 @@ const ContactsList = () => {
                     .includes(`${searchField.toLowerCase()}`))
         );
     });
-    console.log('filteredSearch', filteredSearch);
+    // console.log('filteredSearch', filteredSearch);
 
     const displayUsers = filteredSearch.map((contact) => {
         return (

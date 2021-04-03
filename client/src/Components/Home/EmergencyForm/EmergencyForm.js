@@ -21,20 +21,20 @@ const EmergencyForm = (props) => {
     });
     const [booking, setBooking] = useState([]);
 
-    const fetchData = () => {
-        axios
-            .get('/api/contacts/appointments')
-            .then((booking) => {
-                setBooking(booking.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+    // const fetchData = () => {
+    //     axios
+    //         .get('/api/contacts/appointments')
+    //         .then((booking) => {
+    //             setBooking(booking.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -53,9 +53,9 @@ const EmergencyForm = (props) => {
         }
     };
 
-    console.log('formUpdated', form);
+    // console.log('formUpdated', form);
 
-    console.log('formIsValid', formIsValid);
+    // console.log('formIsValid', formIsValid);
 
     const handleFileUpload = (e) => {
         console.log('The file to be uploaded is: ', e.target.files[0]);

@@ -62,7 +62,7 @@ const containerStyles = (theme) => ({
 });
 
 const AppointmentFormContainerBasic = (props) => {
-    console.log('props', props);
+    // console.log('AppFormContProps', props);
 
     const [appointmentChanges, setAppointmentChanges] = React.useState({});
 

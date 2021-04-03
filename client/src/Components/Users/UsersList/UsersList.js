@@ -19,7 +19,7 @@ const UsersList = (props) => {
         axios
             .get('/api/users')
             .then((users) => {
-                console.log('users', users.data);
+                // console.log('users', users.data);
                 setUsersList(users.data);
             })
             .catch((err) => {
@@ -31,7 +31,7 @@ const UsersList = (props) => {
         fetchData();
     }, []);
 
-    console.log('usersList', usersList);
+    // console.log('usersList', usersList);
 
     const handleChange = (event) => {
         if (event.target.type === 'select-one') {
@@ -78,7 +78,9 @@ const UsersList = (props) => {
 
                 <td style={{ display: 'flex' }}>
                     {user.pets.map((pet) => {
-                        console.log('pet', pet);
+                        {
+                            /* console.log('pet', pet); */
+                        }
                         {
                             /* 
                         return (
@@ -183,14 +185,7 @@ const UsersList = (props) => {
             </tr>
         );
     });
-    // const userRoles = [...new Set(usersList.map((user) => user.role)]
-    //  const userRoleOptions = userRoles.map((role) => {
-    //      return (
-    //          <option value={role} key={role}>
-    //              {role}
-    //          </option>
-    //      );
-    //  });
+
     const userRoleOptions = (
         <>
             <option value="employee">employee</option>
