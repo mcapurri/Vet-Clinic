@@ -90,7 +90,7 @@ function App(props) {
                 <Route
                     exact
                     path="/contacts/scheduler"
-                    component={GoogleScheduler}
+                    component={GoogleSchedulerClasses}
                 />
             </Switch>
             <Footer />

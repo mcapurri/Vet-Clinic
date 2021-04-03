@@ -13,6 +13,8 @@ import {
     DragDropProvider,
     EditRecurrenceMenu,
     AllDayPanel,
+    DateNavigator,
+    TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { withStyles } from '@material-ui/core/styles';
@@ -269,6 +271,8 @@ const GoogleScheduler = (props) => {
                     showDeleteButton
                 />
                 <Toolbar />
+                <DateNavigator />
+                <TodayButton />
                 <ViewSwitcher />
                 <AppointmentForm
                     overlayComponent={appointmentForm}

@@ -592,6 +592,8 @@ class GoogleSchedulerClasses extends React.PureComponent {
                         showDeleteButton
                     />
                     <Toolbar />
+                    <DateNavigator />
+                    <TodayButton />
                     <ViewSwitcher />
                     <AppointmentForm
                         overlayComponent={this.appointmentForm}
