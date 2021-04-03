@@ -14,7 +14,7 @@ import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
 // import AppScheduler from './Components/Scheduler/Scheduler';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler/GoogleScheduler';
-// import GoogleSchedulerClasses from './Components/Scheduler/GoogleScheduler/GoogleSchedulerClasses';
+import GoogleSchedulerClasses from './Components/Scheduler/GoogleScheduler/GoogleSchedulerClasses';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');

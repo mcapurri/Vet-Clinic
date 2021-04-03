@@ -43,14 +43,14 @@ import Create from '@material-ui/icons/Create';
 // import axios from 'axios';
 
 // import withGoogleApps from './withGoogleApps';
-import { appointments } from '../../appointments';
+import { appointments } from '../../../appointments';
 import {
     GOOGLE_API_KEY,
     GOOGLE_CLIENT_ID,
     DISCOVERY_DOCS,
     SCOPE,
     CALENDAR_ID,
-} from '../../googleApiConfig.json';
+} from '../../../googleApiConfig.json';
 
 const gapi = window.gapi;
 console.log('gapi', gapi);
@@ -471,7 +471,7 @@ class GoogleSchedulerClasses extends React.PureComponent {
         };
 
         var request = gapi.client.calendar.events.insert({
-            calendarId: calendarId,
+            calendarId: CALENDAR_ID,
             resource: event,
         });
 
