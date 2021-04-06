@@ -551,8 +551,8 @@ class GoogleSchedulerClasses extends React.PureComponent {
             this.toggleConfirmationVisible();
         }
         this.setState({ data: data, addedAppointment: {} });
-        console.log('dataCommitted', this.state.data);
         // console.log('stateAfterCommitt', this.state);
+        console.log('dataCommitted', this.state.data);
     }
 
     render() {

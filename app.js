@@ -20,7 +20,7 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
-            // samesite: 'none',
+            SameSite: 'lax',
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24,
         },
