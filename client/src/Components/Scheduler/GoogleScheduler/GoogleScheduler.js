@@ -29,19 +29,17 @@ import AddIcon from '@material-ui/icons/Add';
 // import axios from 'axios';
 
 // import withGoogleApps from './withGoogleApps';
-import { appointments } from '../../../appointments';
+
 import {
-    GOOGLE_API_KEY,
-    GOOGLE_CLIENT_ID,
-    DISCOVERY_DOCS,
-    SCOPE,
-    CALENDAR_ID,
-} from '../../../googleApiConfig.json';
+    authenticate,
+    loadClient,
+    listAll,
+    updateEvent,
+    addNewEvent,
+    deleteEvent,
+} from './../../../utils/googleCalenderEvents';
 
 import AppointmentFormContainer from './AppointmentFormContainer';
-
-// const gapi = window.gapi;
-// console.log('gapi', gapi);
 
 // gapi.load('client:auth2', () => {
 //     gapi.client.init({
@@ -63,13 +61,13 @@ import AppointmentFormContainer from './AppointmentFormContainer';
 
 // const getEvents = () => {
 //     gapi.client.calendar.events
-//         .list({
-//             calendarId: CALENDAR_ID,
-//             showDeleted: false,
-//             singleEvents: true,
-//             // maxResults: 10,
-//             orderBy: 'startTime',
-//         })
+// .list({
+//     calendarId: CALENDAR_ID,
+//     showDeleted: false,
+//     singleEvents: true,
+//     // maxResults: 10,
+//     orderBy: 'startTime',
+// })
 //         .then((response) => {
 //             const events = response.result.items;
 //             console.log('events: ', events);
@@ -89,21 +87,20 @@ const GoogleScheduler = (props) => {
     const { classes } = props;
 
     const [state, setState] = useState({
-        data: appointments,
         currentDate: new Date(),
         confirmationVisible: false,
         editingFormVisible: false,
-        deletedAppointmentId: undefined,
-        editingAppointment: undefined,
         previousAppointment: undefined,
-        addedAppointment: {},
         startDayHour: 9,
         endDayHour: 19,
         isNewAppointment: false,
     });
+    const [data, setData] = useState([]);
+    const [addedAppointment, setAddedAppointment] = useState({});
+    const [editingAppointment, setEditingAppointment] = useState(undefined);
+    const [deletedAppointmentId, setDeletedAppointmentId] = useState(undefined);
     const {
         currentDate,
-        data,
         confirmationVisible,
         editingFormVisible,
         startDayHour,
@@ -130,24 +127,19 @@ const GoogleScheduler = (props) => {
     // handleClientLoad();
 
     const onEditingAppointmentChange = (editingAppointment) => {
-        setState({ ...state, editingAppointment: editingAppointment });
+        setEditingAppointment(editingAppointment);
     };
 
     const onAddedAppointmentChange = (addedAppointment) => {
-        setState({ ...state, addedAppointment: addedAppointment });
-        const { editingAppointment } = state;
         if (editingAppointment !== undefined) {
             setState({ ...state, previousAppointment: editingAppointment });
         }
+        setAddedAppointment(addedAppointment);
+        setEditingAppointment(undefined);
         setState({
             ...state,
-            editingAppointment: undefined,
             isNewAppointment: true,
         });
-    };
-
-    const setDeletedAppointmentId = (id) => {
-        setState({ ...state, deletedAppointmentId: id });
     };
 
     const toggleEditingFormVisibility = () => {
@@ -161,51 +153,55 @@ const GoogleScheduler = (props) => {
     };
 
     const commitDeletedAppointment = () => {
-        setState((state) => {
-            const { data, deletedAppointmentId } = state;
+        if (deletedAppointmentId) {
             const nextData = data.filter(
                 (appointment) => appointment.id !== deletedAppointmentId
             );
-
-            return { ...state, data: nextData, deletedAppointmentId: null };
-        });
-        toggleConfirmationVisible();
+            setDeletedAppointmentId(null);
+            setData(nextData);
+            toggleConfirmationVisible();
+            deleteEvent(deletedAppointmentId);
+        }
     };
 
-    const commitChanges = ({ added, changed, deleted }) => {
-        setState((state) => {
-            let { data } = state;
-            if (added) {
-                const startingAddedId =
-                    data.length > 0 ? data[data.length - 1].id + 1 : 0;
-                data = [...data, { id: startingAddedId, ...added }];
-            }
-            if (changed) {
-                data = data.map((appointment) =>
-                    changed[appointment.id]
-                        ? { ...appointment, ...changed[appointment.id] }
-                        : appointment
-                );
-            }
-            if (deleted !== undefined) {
-                setDeletedAppointmentId(deleted);
-                toggleConfirmationVisible();
-            }
-            return { ...state, data, addedAppointment: {} };
-        });
+    const commitChanges = async ({ added, changed, deleted }) => {
+        if (added) {
+            const { result: newEvent } = await addNewEvent(added);
+            setData([...data, { id: newEvent.id, ...added }]);
+        }
+
+        if (changed) {
+            setData(
+                data.map((appointment) => {
+                    if (changed[appointment.id]) {
+                        const newData = {
+                            ...appointment,
+                            ...changed[appointment.id],
+                        };
+                        updateEvent(newData);
+                        return newData;
+                    }
+                    return appointment;
+                })
+            );
+        }
+
+        if (deleted !== undefined) {
+            setDeletedAppointmentId(deleted);
+            toggleConfirmationVisible();
+        }
+
+        setAddedAppointment({});
     };
     const appointmentForm = connectProps(AppointmentFormContainer, () => {
         const {
             editingFormVisible,
-            editingAppointment,
-            data,
-            addedAppointment,
             isNewAppointment,
             previousAppointment,
         } = state;
 
         const currentAppointment =
-            data.filter(
+            data?.filter(
                 (appointment) =>
                     editingAppointment &&
                     appointment.id === editingAppointment.id
@@ -215,9 +211,9 @@ const GoogleScheduler = (props) => {
             if (isNewAppointment) {
                 setState({
                     ...state,
-                    editingAppointment: previousAppointment,
                     isNewAppointment: false,
                 });
+                setEditingAppointment(previousAppointment);
             }
         };
 
@@ -249,7 +245,11 @@ const GoogleScheduler = (props) => {
         appointmentForm.update();
         // getEvents();
         console.log('useEffect running');
-    }, [appointmentForm]);
+        authenticate()
+            ?.then(loadClient)
+            .then(() => listAll())
+            .then((data) => setData(data));
+    }, []);
 
     return (
         <Paper>
