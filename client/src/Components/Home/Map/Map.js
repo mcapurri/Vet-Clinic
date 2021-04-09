@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import style from './Map.module.css';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 mapboxgl.accessToken =
@@ -99,21 +100,20 @@ const Map = ({ setRequestedAddress }) => {
     }, [lngLat]);
 
     return (
-        <section className={style.Container}>
-            <div className={style.infos}>
-                <h5> Contact Information </h5>
-                <address className="address">
-                    Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
-                    Berlin <br /> Germany <br /> +49 157 00 00 00
-                </address>
-            </div>
-            <div>
-                {/* <div className={style.Sidebar}>
-                    Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-                </div> */}
+        <Row className={style.Container}>
+            <Col xs={6} md={4}>
+                <div className={style.Infos}>
+                    <h5> Contact Information </h5>
+                    <address className="address">
+                        Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
+                        Berlin <br /> Germany <br /> +49 157 00 00 00
+                    </address>
+                </div>
+            </Col>
+            <Col xs={12} md={8} className="d-flex justify-content-center">
                 <div className={style.Map} ref={mapContainer}></div>
-            </div>
-        </section>
+            </Col>
+        </Row>
     );
 };
 

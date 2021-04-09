@@ -37,7 +37,7 @@ import {
     updateEvent,
     addNewEvent,
     deleteEvent,
-} from './../../../utils/googleCalenderEvents';
+} from '../../utils/googleCalenderEvents';
 
 import AppointmentFormContainer from './AppointmentFormContainer';
 

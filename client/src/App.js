@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
-import Navbar from './Components/Navbar/Navbar';
+import Navbar from './Components/Navbar/NavigationBar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
 import UserDetails from './Components/Users/UserDetails/UserDetails';
@@ -12,9 +12,7 @@ import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import ContactsList from './Components/Contacts/ContactsList';
-// import AppScheduler from './Components/Scheduler/Scheduler';
-import GoogleScheduler from './Components/Scheduler/GoogleScheduler/GoogleScheduler';
-import GoogleSchedulerClasses from './Components/Scheduler/GoogleScheduler/GoogleSchedulerClasses';
+import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 function App(props) {
     const [user, setUser] = useState(props.user || '');

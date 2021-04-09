@@ -6,6 +6,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
 import service from '../../../utils/service';
 import { Form, Button } from 'react-bootstrap';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import {
+    authenticate,
+    loadClient,
+    listAll,
+    addNewEvent,
+} from '../../../utils/googleCalenderEvents';
 import axios from 'axios';
 
 const EmergencyForm = (props) => {
@@ -32,9 +39,28 @@ const EmergencyForm = (props) => {
     //         });
     // };
 
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        authenticate()
+            ?.then(loadClient)
+            .then(() => listAll())
+            .then((data) => {
+                const events = data.map((event) => {
+                    return {
+                        end: new Date(event.endDate),
+                        start: new Date(event.startDate),
+                    };
+                });
+                setBooking(events);
+            });
+    }, []);
+
+    const filterBookedTime = (time) => {
+        const timeInDay = new Date(time);
+        const isBooked = booking.some((event) => {
+            return event.start <= timeInDay && event.end >= timeInDay;
+        });
+        return !isBooked;
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -77,7 +103,7 @@ const EmergencyForm = (props) => {
             });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         console.log(
@@ -88,6 +114,25 @@ const EmergencyForm = (props) => {
             form.appointment,
             form.homeService
         );
+
+        const newEvent = await addNewEvent({
+            startDate: form.appointment,
+            endDate: new Date(
+                new Date(form.appointment).getTime() + 30 * 60000
+            ),
+        });
+
+        newEvent &&
+            listAll().then((data) => {
+                const events = data.map((event) => {
+                    return {
+                        end: new Date(event.endDate),
+                        start: new Date(event.startDate),
+                    };
+                });
+                setBooking(events);
+            });
+
         service
             .saveNewThing(form)
             .then((res) => {
@@ -118,6 +163,10 @@ const EmergencyForm = (props) => {
     maxTime.setMinutes(30);
     maxTime.setHours(18);
 
+    if (!props.requestedAddress) {
+        return null;
+    }
+
     return (
         <section
             id="emergencyForm"
@@ -125,6 +174,7 @@ const EmergencyForm = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                marginTop: '5rem',
             }}
         >
             <Form onSubmit={handleSubmit} className={style.Form}>
@@ -132,57 +182,8 @@ const EmergencyForm = (props) => {
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        // justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100%',
-                        height: '100%',
-                        marginLeft: '5%',
-                    }}
-                >
-                    <Form.Group>
-                        <Form.Label htmlFor="message">Your message</Form.Label>
-                        <Form.Control
-                            className={style.Textarea}
-                            id="userMessage"
-                            name="userMessage"
-                            as="textarea"
-                            rows="3"
-                            placeholder="Tell us..."
-                            value={form.userMessage}
-                            onChange={handleChange}
-                        />
-                        <input
-                            id={style.FileLoader}
-                            type="file"
-                            name="image"
-                            value={form.image}
-                            onChange={(e) => handleFileUpload(e)}
-                        ></input>
-                    </Form.Group>
-                    <Button
-                        className="d-inline-block"
-                        className={style.Button}
-                        variant="primary sm"
-                        type="submit"
-                        // disabled={
-                        //     (!form.userMessage && !form.appointment) ||
-                        //     (!form.userMessage && !form.homeService)
-                        // }
-                    >
-                        Send
-                    </Button>
-
-                    {message && (
-                        <p className="d-inline success-msg">{message}</p>
-                    )}
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        margin: '0 5% 0 0',
                     }}
                 >
                     <div style={{ paddingBottom: '10%' }}>
@@ -205,10 +206,11 @@ const EmergencyForm = (props) => {
                             filterDate={(date) =>
                                 date.getDay() !== 6 && date.getDay() !== 0
                             }
+                            filterTime={filterBookedTime}
                             isClearable
                             // timeIntervals={15}
                             // excludeDates={[new Date(), subDays(new Date(), 1)]}
-                            excludeTimes={booking}
+                            // excludeTimes={booking}
                             value={form.appointment}
                             disabled={form.homeService}
                             style={{
@@ -237,9 +239,9 @@ const EmergencyForm = (props) => {
                                     type="text"
                                     placeholder="Street"
                                     value={
-                                        props.requestedAddress.street !== ''
-                                            ? props.requestedAddress.street
-                                            : props.user.address.street
+                                        props.requestedAddress?.street !== ''
+                                            ? props.requestedAddress?.street
+                                            : props.user?.address?.street
                                     }
                                 />
                             </div>
@@ -249,9 +251,9 @@ const EmergencyForm = (props) => {
                                     type="text"
                                     placeholder="City"
                                     value={
-                                        props.requestedAddress.city !== ''
-                                            ? props.requestedAddress.city
-                                            : props.user.address.city
+                                        props.requestedAddress?.city !== ''
+                                            ? props.requestedAddress?.city
+                                            : props.user?.address?.city
                                     }
                                 />
                             </div>
@@ -261,26 +263,64 @@ const EmergencyForm = (props) => {
                                     type="text"
                                     placeholder="ZIP Code"
                                     value={
-                                        props.requestedAddress.zipCode !== ''
-                                            ? props.requestedAddress.zipCode
-                                            : props.user.address.zipCode
+                                        props.requestedAddress?.zipCode !== ''
+                                            ? props.requestedAddress?.zipCode
+                                            : props.user?.address?.zipCode
                                     }
                                 />
                             </div>
-                            {/* <div>
-                                <Form.Label>State</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="State"
-                                    value={
-                                        props.requestedAddress.street !== ''
-                                            ? ''
-                                            : props.user.address.state
-                                    }
-                                />
-                            </div> */}
                         </Form.Group>
                     )}
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Form.Group className="d-flex flex-column">
+                        <Form.Label htmlFor="message">Your message</Form.Label>
+                        <Form.Control
+                            className={style.Textarea}
+                            id="userMessage"
+                            name="userMessage"
+                            as="textarea"
+                            rows="3"
+                            placeholder="Tell us..."
+                            value={form.userMessage}
+                            onChange={handleChange}
+                        />
+                        <div>
+                            <AttachFileIcon style={{ color: '#216ba5' }} />
+                            <label className="m-0" htmlFor={style.FileLoader}>
+                                Attach picture
+                            </label>
+                            <input
+                                id={style.FileLoader}
+                                type="file"
+                                name="image"
+                                value={form.image}
+                                onChange={(e) => handleFileUpload(e)}
+                            ></input>
+                        </div>
+                        <Button
+                            className={style.Button}
+                            variant="primary sm"
+                            type="submit"
+                            // disabled={
+                            //     (!form.userMessage && !form.appointment) ||
+                            //     (!form.userMessage && !form.homeService)
+                            // }
+                        >
+                            Send
+                        </Button>
+
+                        {message && (
+                            <p className="d-inline success-msg">{message}</p>
+                        )}
+                    </Form.Group>
                 </div>
             </Form>
         </section>

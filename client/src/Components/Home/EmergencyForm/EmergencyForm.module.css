@@ -1,19 +1,17 @@
 .Form {
     display: flex;
     /* flex-direction: column; */
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
     margin: 0 5%;
-    min-height: 80%;
     font-size: 1em;
     border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
     box-sizing: border-box;
     box-shadow: 2px 2px 10px 0 #eee;
     padding: 5% 5%;
-    width: 60vw;
-    max-width: 40rem;
-    height: 60vh;
+    width: 90vw;
     background-color: rgba(27, 120, 76, 0.2);
 }
 
@@ -28,7 +26,17 @@
     color: rgb(48, 153, 228);
 }
 .Form #FileLoader {
-    transform: scale(0.8);
+    position: relative;
+    width: 0%;
+    height: 0%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    /* z-index: 2; */
 }
 .Form select {
     width: 7rem;
@@ -36,12 +44,18 @@
     text-align: center;
 }
 .Form .Textarea {
-    width: 80%;
+    /* width: 80%; */
     height: 10rem;
-    margin: 0 0 5% 0;
+    max-height: 26rem;
+    border-radius: 2px;
+    border: 1px solid #e6e9f2;
+    background-color: #f6f8ff;
+    /* margin: 0 0 5% 0; */
 }
 .Form label {
-    font-size: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #216ba5;
 }
 .Form label:nth-child(2) {
     font-size: 1rem;
@@ -52,9 +66,8 @@
     font-size: 1.1rem;
     font-weight: 600;
     width: 70px;
-    display: flex;
+    margin-top: 2rem;
     align-self: flex-start;
-    justify-self: flex-end;
 }
 
 .Form .buttons {
@@ -64,32 +77,9 @@
     width: 100%;
     padding-bottom: 5%;
 }
-
-@media only screen and (max-width: 900px) {
+@media screen and (max-width: 834px) {
     .Form {
-        flex-direction: column-reverse;
-        align-items: center;
-        overflow-y: auto;
-    }
-    .Form input {
-        transform: scale(0.6);
-    }
-    .Form .Textarea {
-        width: 50%;
-        height: 80%;
-        margin: 0 0 5% 5%;
-    }
-    .Form .Button {
-        font-size: 0.9rem;
-        width: 60px;
-        display: flex;
-        align-self: flex-start;
-        /* justify-self: flex-end; */
-    }
-    .Form label:nth-child(2) {
-        font-size: 1.1rem;
-    }
-    .Form label {
-        font-size: 0.6rem;
+        margin: 10% 0;
+        margin-top: 5%;
     }
 }

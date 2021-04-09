@@ -5,29 +5,31 @@
     min-height: 60vh;
     color: #fff;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    padding: 0 5%;
 }
-.Container .infos {
+.Container .Infos {
     padding: 0 10% 0% 3%;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 .Map {
-    width: 55vw;
+    width: 100%;
     height: 45vh;
-    padding-right: 5%;
+    padding-inline: 5%;
     margin: 5% 0 5% 0;
 }
-.Map input {
-    height: 2rem;
-    width: 10rem;
+.Map > .mapboxgl-canvas {
+    width: 100%;
 }
-/* .Sidebar {
-    background-color: rgba(35, 55, 75, 0.9);
-    color: #ffffff;
-    padding: 6px 12px;
-    font: 15px/24px monospace;
-    z-index: 1;
-    margin: 12px;
-    border-radius: 4px;
-} */
+
+@media screen and (max-width: 834px) {
+    .Container {
+        flex-direction: column-reverse;
+    }
+    .Container .Infos {
+        margin: 20% 0;
+    }
+}
