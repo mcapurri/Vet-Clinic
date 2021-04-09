@@ -1,21 +1,18 @@
 .Container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     background-color: rgb(5, 58, 32);
-    /* height: 60vh; */
-    /* margin-bottom: 10%; */
-    padding: 10%;
-    padding-bottom: 0;
+    height: 60vh;
+    margin-bottom: 10%;
     color: #c0c0c0;
 }
+
 .Container .Box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 25%; */
-    margin-bottom: 6rem;
+    width: 25%;
 }
 .Container .Box img {
     width: 100%;
@@ -23,4 +20,25 @@
 
 .Container article {
     min-height: 60%;
+}
+@media screen and (max-width: 770px) {
+    .Container {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding-top: 10%;
+    }
+    .Container .Box {
+        width: 70%;
+        margin: 5% 0;
+    }
+    .Container .Box img {
+        height: 15rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .Container .Box {
+        width: 90%;
+    }
 }
