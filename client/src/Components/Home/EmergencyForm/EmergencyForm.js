@@ -52,7 +52,7 @@ const EmergencyForm = (props) => {
                 });
                 setBooking(events);
             });
-    }, []);
+    }, [props.user]);
 
     const filterBookedTime = (time) => {
         const timeInDay = new Date(time);
@@ -120,6 +120,7 @@ const EmergencyForm = (props) => {
             endDate: new Date(
                 new Date(form.appointment).getTime() + 30 * 60000
             ),
+            title: `${props.user.name} ${props.user.lastName} `,
         });
 
         newEvent &&
@@ -163,7 +164,7 @@ const EmergencyForm = (props) => {
     maxTime.setMinutes(30);
     maxTime.setHours(18);
 
-    if (!props.requestedAddress) {
+    if (!props.requestedAddress && !props.user) {
         return null;
     }
 

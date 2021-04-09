@@ -1,18 +1,21 @@
 .Container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     background-color: rgb(5, 58, 32);
-    height: 60vh;
-    margin-bottom: 10%;
+    /* height: 60vh; */
+    /* margin-bottom: 10%; */
+    padding: 10%;
+    padding-bottom: 0;
     color: #c0c0c0;
 }
-
 .Container .Box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 25%;
+    /* width: 25%; */
+    margin-bottom: 6rem;
 }
 .Container .Box img {
     width: 100%;

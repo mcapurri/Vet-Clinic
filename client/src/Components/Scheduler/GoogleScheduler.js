@@ -254,7 +254,7 @@ const GoogleScheduler = (props) => {
     return (
         <Paper>
             <Scheduler data={data} height={660}>
-                <ViewState currentDate={currentDate} />
+                <ViewState defaultCurrentDate={currentDate} />
                 <EditingState
                     onCommitChanges={commitChanges}
                     onEditingAppointmentChange={onEditingAppointmentChange}
