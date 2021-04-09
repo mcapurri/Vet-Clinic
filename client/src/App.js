@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
-import Navbar from './Components/Navbar/NavigationBar';
+import Navbar from './Components/NavigationBar/NavigationBar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
 import UserDetails from './Components/Users/UserDetails/UserDetails';
@@ -11,7 +11,7 @@ import AddUser from './Components/Users/AddUser/AddUser';
 import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
-import ContactsList from './Components/Contacts/ContactsList';
+import Requests from './Components/Requests/Requests';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 function App(props) {
@@ -83,13 +83,9 @@ function App(props) {
                 />
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
-                <Route exact path="/contacts" component={ContactsList} />
+                <Route exact path="/requests" component={Requests} />
 
-                <Route
-                    exact
-                    path="/contacts/scheduler"
-                    component={GoogleScheduler}
-                />
+                <Route exact path="/scheduler" component={GoogleScheduler} />
             </Switch>
             <Footer />
         </div>

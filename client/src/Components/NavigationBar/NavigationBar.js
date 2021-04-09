@@ -76,7 +76,13 @@ const NavigationBar = (props) => {
                                             </Link>
                                             <Link
                                                 className="nav-link text-white"
-                                                to="/contacts"
+                                                to="/scheduler"
+                                            >
+                                                Scheduler
+                                            </Link>
+                                            <Link
+                                                className="nav-link text-white"
+                                                to="/requests"
                                             >
                                                 Requests
                                             </Link>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import style from './ContactsList.module.css';
+import style from './Requests.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Filters from '.././Filters/Filters';
-import Spinner from '.././UI/Spinner/Spinner';
+import Filters from '../Filters/Filters';
+import Spinner from '../UI/Spinner/Spinner';
 
-const ContactsList = () => {
+const Requests = () => {
     const [contactsList, setContactsList] = useState([]);
     const [searchField, setSearchField] = useState('');
     const [isAppointment, setIsAppointment] = useState(true);
@@ -96,8 +96,6 @@ const ContactsList = () => {
                 </Link>
             </button>
 
-            <Link to={'/contacts/scheduler'}>Scheduler</Link>
-
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>
             </table>
@@ -105,4 +103,4 @@ const ContactsList = () => {
     );
 };
 
-export default ContactsList;
+export default Requests;
