@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import style from './EmergencyForm.module.css';
+import style from './AppointmentForm.module.css';
 import { updateObject, checkValidity } from '../../../utils/utility';
 import DatePicker, { setHours, setMinutes } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -27,17 +27,6 @@ const EmergencyForm = (props) => {
         coords: props.requestedAddress.coords,
     });
     const [booking, setBooking] = useState([]);
-
-    // const fetchData = () => {
-    //     axios
-    //         .get('/api/contacts/appointments')
-    //         .then((booking) => {
-    //             setBooking(booking.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // };
 
     useEffect(() => {
         authenticate()
@@ -296,7 +285,7 @@ const EmergencyForm = (props) => {
                         <div>
                             <AttachFileIcon style={{ color: '#216ba5' }} />
                             <label className="m-0" htmlFor={style.FileLoader}>
-                                Attach picture
+                                Attach photo
                             </label>
                             <input
                                 id={style.FileLoader}

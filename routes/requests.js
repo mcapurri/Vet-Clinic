@@ -1,23 +1,23 @@
 const router = require('express').Router();
-const { loginCheck } = require('../middlewares/middlewares');
+const { loginCheck } = require('../middlewares/loginCheck');
 const { uploader, cloudinary } = require('../config/cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Contact = require('../models/Contact');
 const User = require('../models/User');
 
 // @desc      Get all app &req
-// @route     GET /contacts
+// @route     GET /requests
 // @access    Private
 router.get(
-    '/contacts',
+    '/requests',
     // loginCheck(),
     (req, res, next) => {
         Contact.find()
             .populate('sender')
-            .then((contacts) => {
-                console.log('contacts', contacts);
+            .then((requests) => {
+                console.log('requests', requests);
 
-                res.status(200).json(contacts);
+                res.status(200).json(requests);
             })
             .catch((err) => {
                 console.log(err);
@@ -26,11 +26,11 @@ router.get(
     }
 );
 
-// @desc      Send app&req form
-// @route     POST /contact/request
+// @desc      Send req form
+// @route     POST /requests/new
 // @access    Private
 router.post(
-    '/contact/request',
+    '/requests/new',
     // loginCheck(),
 
     (req, res, next) => {
@@ -44,7 +44,7 @@ router.post(
         } = req.body;
 
         console.log(
-            'from /contact',
+            'from /requests',
             userMessage,
             sender,
             imageUrl,
@@ -62,7 +62,7 @@ router.post(
             coords,
         })
             .then((message) => {
-                console.log('contact form sent', message);
+                console.log('request form sent', message);
                 res.status(201).json({ message: 'message sent' });
             })
             .catch((err) => {

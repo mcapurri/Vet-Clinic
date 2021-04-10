@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './Home.module.css';
 import Carousel from './Carousel/Carousel';
 import GenInfos from './GenInfos/GenInfos';
-import EmergencyForm from './EmergencyForm/EmergencyForm';
+import EmergencyForm from './AppointmentForm/AppointmentForm';
 import Map from './Map/Map';
 
 const Home = (props) => {

@@ -6,16 +6,14 @@ import Filters from '../Filters/Filters';
 import Spinner from '../UI/Spinner/Spinner';
 
 const Requests = () => {
-    const [contactsList, setContactsList] = useState([]);
+    const [requestsList, setRequestsList] = useState([]);
     const [searchField, setSearchField] = useState('');
-    const [isAppointment, setIsAppointment] = useState(true);
-    const [isRequest, setIsRequest] = useState(true);
 
     const fetchData = () => {
         axios
-            .get('/api/contacts')
-            .then((contacts) => {
-                setContactsList(contacts.data);
+            .get('/api/requests')
+            .then((requests) => {
+                setRequestsList(requests.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -26,49 +24,37 @@ const Requests = () => {
         fetchData();
     }, []);
 
-    // console.log('contactsList', contactsList);
+    // console.log('requestsList', requestsList);
 
     const handleChange = (event) => {
         console.log('event target', event.target);
-        if (event.target.type === 'checkbox') {
-            if (event.target.name === 'appointment') {
-                setIsAppointment(() => !isAppointment);
-            } else if (event.target.name === 'request') {
-                setIsRequest(() => !isRequest);
-            } else {
-                setSearchField(event.target.value);
-            }
-        }
+
+        setSearchField(event.target.value);
     };
 
-    const filteredSearch = contactsList.filter((element) => {
+    const filteredSearch = requestsList.filter((element) => {
         return (
-            ((isAppointment && element.homeService === false) ||
-                (isRequest && element.homeService === true)) &&
-            (`${element.sender.name}`
+            `${element.sender.name}`
                 .toLowerCase()
                 .includes(`${searchField.toLowerCase()}`) ||
-                `${element.sender.lastName}`
-                    .toLowerCase()
-                    .includes(`${searchField.toLowerCase()}`))
+            `${element.sender.lastName}`
+                .toLowerCase()
+                .includes(`${searchField.toLowerCase()}`)
         );
     });
-    // console.log('filteredSearch', filteredSearch);
 
-    const displayUsers = filteredSearch.map((contact) => {
+    const displayUsers = filteredSearch.map((request) => {
         return (
-            <tr key={contact._id} className={style.resultCard}>
+            <tr key={request._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
-                    {contact.sender.lastName},{contact.sender.name}
+                    {request.sender.lastName},{request.sender.name}
                 </td>
                 <td>
-                    <Link to={`/contacts/${contact._id}`}>
-                        {contact.homeService ? 'Request' : 'Appointment'}
-                    </Link>
+                    <Link to={`/requests/${request._id}`}> new request</Link>
                 </td>
 
                 <td>
-                    {contact.imageUrl && (
+                    {request.imageUrl && (
                         <img
                             src="../../../images/camera-logo.png"
                             alt="pic-logo"
@@ -82,16 +68,12 @@ const Requests = () => {
         );
     });
 
-    if (!contactsList) return <Spinner />;
+    if (!requestsList) return <Spinner />;
     return (
         <div className={style.Container}>
-            <Filters
-                handleChange={handleChange}
-                isAppointment={isAppointment}
-                isRequest={isRequest}
-            />
+            <Filters handleChange={handleChange} />
             <button className={style.Button}>
-                <Link to={'/contacts/new'}>
+                <Link to={'/requests/new'}>
                     <span>+</span>
                 </Link>
             </button>
