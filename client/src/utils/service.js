@@ -22,7 +22,7 @@ export default {
     },
 
     saveNewThing(newThing) {
-        // console.log('new thing is: ', newThing)
+        console.log('new thing is: ', newThing);
         return service
             .post('/requests/new', newThing)
             .then((res) => res.data)

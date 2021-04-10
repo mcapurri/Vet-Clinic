@@ -22,7 +22,17 @@ const AppointmentForm = (props) => {
         sender: props.user._id,
         appointment: '',
         homeService: false,
-        coords: props.requestedAddress.coords,
+        address: {
+            street: props.requestedAddress
+                ? props.requestedAddress.street
+                : props.user.address.street,
+            city: props.requestedAddress
+                ? props.requestedAddress.city
+                : props.user.address.city,
+            zipCode: props.requestedAddress
+                ? props.requestedAddress.zipCode
+                : props.user.address.zipCode,
+        },
     });
     const [booking, setBooking] = useState([]);
 
@@ -61,6 +71,7 @@ const AppointmentForm = (props) => {
         } else {
             setForm({
                 ...form,
+                ...form.address,
                 [name]: value,
             });
         }
@@ -90,55 +101,91 @@ const AppointmentForm = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         console.log(
             'data im sending',
             form.userMessage,
             form.imageUrl,
-            props.user._id,
-            form.appointment,
-            form.homeService
+            props.user._id
         );
 
-        const newEvent = await addNewEvent({
-            startDate: form.appointment,
-            endDate: new Date(
-                new Date(form.appointment).getTime() + 30 * 60000
-            ),
-            title: `${props.user.name} ${props.user.lastName} `,
-            notes: form.userMessage,
-        });
+        if (form.homeService) {
+            service
+                .saveNewThing({
+                    userMessage: form.userMessage,
+                    imageUrl: form.imageUrl,
+                    id: props.user._id,
+                    address: {
+                        street: form.address.street,
+                        city: form.address.city,
+                        zipCode: form.address.zipCode,
+                    },
+                })
+                .then((res) => {
+                    console.log('added: ', res.message);
 
-        newEvent &&
-            listAll().then((data) => {
-                const events = data.map((event) => {
-                    return {
-                        end: new Date(event.endDate),
-                        start: new Date(event.startDate),
-                    };
+                    setMessage(res.message);
+
+                    // Reset input values
+                    setForm({
+                        userMessage: '',
+                        imageUrl: '',
+                        homeService: false,
+                        address: {
+                            street: '',
+                            city: '',
+                            zipCode: '',
+                        },
+                    });
+                })
+                .catch((err) => {
+                    console.log('Error while adding the thing: ', err);
                 });
-                setBooking(events);
+        } else {
+            const newEvent = await addNewEvent({
+                startDate: form.appointment,
+                endDate: new Date(
+                    new Date(form.appointment).getTime() + 30 * 60000
+                ),
+                title: `${props.user.name} ${props.user.lastName} `,
+                notes: `${form.userMessage}`,
             });
 
-        service
-            .saveNewThing(form)
-            .then((res) => {
-                console.log('added: ', res.message);
-
-                setMessage(res.message);
-
-                // Reset input values
-                setForm({
-                    userMessage: '',
-                    imageUrl: '',
-                    appointment: '',
-                    homeService: false,
-                    coords: '',
+            newEvent &&
+                listAll().then((data) => {
+                    const events = data.map((event) => {
+                        return {
+                            end: new Date(event.endDate),
+                            start: new Date(event.startDate),
+                        };
+                    });
+                    setBooking(events);
                 });
-            })
-            .catch((err) => {
-                console.log('Error while adding the thing: ', err);
-            });
+            {
+                form.imageUrl &&
+                    service
+                        .saveNewThing({
+                            imageUrl: form.imageUrl,
+                            id: props.user._id,
+                            appointment: form.appointment,
+                        })
+                        .then((res) => {
+                            console.log('added: ', res.message);
+
+                            setMessage(res.message);
+
+                            // Reset input values
+                            setForm({
+                                userMessage: '',
+                                imageUrl: '',
+                                appointment: '',
+                                homeService: false,
+                            });
+                        })
+                        .catch((err) => {
+                            console.log('Error while adding the thing: ', err);
+                        });
+            }
+        }
     };
 
     /// <DatePicker>

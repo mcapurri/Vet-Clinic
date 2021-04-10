@@ -10,7 +10,6 @@ const Home = (props) => {
         street: '',
         city: '',
         zipCode: '',
-        lngLat: '',
     });
     console.log('reqAddress', requestedAddress);
     return (

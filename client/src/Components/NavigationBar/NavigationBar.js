@@ -86,7 +86,7 @@ const NavigationBar = (props) => {
                                                     className="nav-link text-white"
                                                     to="/requests"
                                                 >
-                                                    Requests
+                                                    Messages
                                                 </Link>
                                             </div>
                                         </>

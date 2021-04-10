@@ -1,16 +1,15 @@
 const router = require('express').Router();
 
-// @desc      Home page
-// @route     GET /
-// @access    Public
-// router.get('/', (req, res, next) => {
-//     let isEmployee = false;
-//     if (req.user && req.user.role == 'employee') {
-//         isEmployee = true;
-//     }
-//     console.log('user', req.user);
-//     // res.render('index', { user: req.user, isEmployee });
-//     res.status(200).json();
-// });
+const auth = require('./auth');
+router.use('/auth', auth);
+
+const pets = require('./pets');
+router.use('/pets', pets);
+
+const users = require('./users');
+router.use('/users', users);
+
+const requests = require('./requests');
+router.use('/requests', requests);
 
 module.exports = router;

@@ -25,7 +25,7 @@ const Carousel = () => {
                 <CarouselBootstrap.Item>
                     <img
                         className="d-block w-100"
-                        src="./images/op-room.jpg"
+                        src="./images/op-room.png"
                         alt="op-room"
                     />
 

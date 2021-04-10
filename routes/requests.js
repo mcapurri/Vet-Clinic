@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { loginCheck } = require('../middlewares/loginCheck');
 const { uploader, cloudinary } = require('../config/cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const Contact = require('../models/Contact');
+const Request = require('../models/Request');
 const User = require('../models/User');
 
 // @desc      Get all requests
@@ -12,7 +12,7 @@ router.get(
     '/requests',
     // loginCheck(),
     (req, res, next) => {
-        Contact.find()
+        Request.find()
             .populate('sender')
             .then((requests) => {
                 console.log('requests', requests);
@@ -37,38 +37,55 @@ router.post(
         const {
             userMessage,
             imageUrl,
-            sender,
-            // appointment,
-            // homeService,
-            coords,
+            id,
+            appointment,
+            homeService,
+            address,
         } = req.body;
 
         console.log(
             'from /requests',
             userMessage,
-            sender,
+            id,
             imageUrl,
-            // appointment,
-            // homeService,
-            coords
+            appointment,
+            homeService,
+            address
         );
-
-        Contact.create({
-            userMessage,
-            imageUrl,
-            sender,
-            // appointment,
-            // homeService,
-            coords,
-        })
-            .then((message) => {
-                console.log('request form sent', message);
-                res.status(201).json({ message: 'message sent' });
-            })
-            .catch((err) => {
-                res.status(400).json({ message: 'message not sent' });
-                next(err);
-            });
+        homeService
+            ? Request.create({
+                  userMessage: userMessage,
+                  imageUrl: imageUrl,
+                  sender: id,
+                  address: {
+                      street: address.street,
+                      city: address.city,
+                      zipCode: address.zipCode,
+                  },
+                  homeService,
+              })
+                  .then((message) => {
+                      console.log('request form sent', message);
+                      res.status(201).json({ message: 'message sent' });
+                  })
+                  .catch((err) => {
+                      res.status(400).json({ message: 'message not sent' });
+                      next(err);
+                  })
+            : Request.create({
+                  imageUrl: imageUrl,
+                  sender: id,
+                  appointment: appointment,
+                  userMessage: userMessage,
+              })
+                  .then((message) => {
+                      console.log('request form sent', message);
+                      res.status(201).json({ message: 'message sent' });
+                  })
+                  .catch((err) => {
+                      res.status(400).json({ message: 'message not sent' });
+                      next(err);
+                  });
     }
 );
 
@@ -89,7 +106,7 @@ router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
 });
 
 // // @desc      Send request form
-// // @route     DELETE /contact/img
+// // @route     DELETE /Request/img
 // // @access    Private
 // router.delete('/contact/img', (req, res, next) => {
 //     Movie.findByIdAndDelete(req.params.id)

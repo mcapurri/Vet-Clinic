@@ -43,14 +43,17 @@ const Requests = () => {
         );
     });
 
-    const displayUsers = filteredSearch.map((request) => {
+    const displayMessages = filteredSearch.map((request) => {
         return (
             <tr key={request._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
                     {request.sender.lastName},{request.sender.name}
                 </td>
                 <td>
-                    <Link to={`/requests/${request._id}`}> new request</Link>
+                    <Link to={`/requests/${request._id}`}>
+                        {' '}
+                        {request.address ? 'new request' : 'message'}
+                    </Link>
                 </td>
 
                 <td>
@@ -74,7 +77,7 @@ const Requests = () => {
             <Filters handleChange={handleChange} />
 
             <table style={{ margin: '0 0 10% 5%' }}>
-                <tbody>{displayUsers}</tbody>
+                <tbody>{displayMessages}</tbody>
             </table>
         </div>
     );
