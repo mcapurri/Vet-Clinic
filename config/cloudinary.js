@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: 'emergency-images',
+        folder: 'patients-images',
         allowed_formats: 'jpg, png',
     },
 });

@@ -28,8 +28,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // import axios from 'axios';
 
-// import withGoogleApps from './withGoogleApps';
-
 import {
     authenticate,
     loadClient,
@@ -41,39 +39,6 @@ import {
 
 import AppointmentFormContainer from './AppointmentFormContainer';
 
-// gapi.load('client:auth2', () => {
-//     gapi.client.init({
-//         apiKey: GOOGLE_API_KEY,
-//         clientId: GOOGLE_CLIENT_ID,
-//         discoveryDocs: DISCOVERY_DOCS,
-//         scope: SCOPE,
-//     });
-
-//     gapi.client.load('calendar', 'v3', () => console.log('client loaded'));
-//     gapi.auth2
-//         .getAuthInstance()
-//         .signIn()
-//         .then(() => {
-//             console.log('signed in');
-//             getEvents();
-//         });
-// });
-
-// const getEvents = () => {
-//     gapi.client.calendar.events
-// .list({
-//     calendarId: CALENDAR_ID,
-//     showDeleted: false,
-//     singleEvents: true,
-//     // maxResults: 10,
-//     orderBy: 'startTime',
-// })
-//         .then((response) => {
-//             const events = response.result.items;
-//             console.log('events: ', events);
-//         });
-// };
-
 const styles = (theme) => ({
     addButton: {
         position: 'absolute',
@@ -82,7 +47,6 @@ const styles = (theme) => ({
     },
 });
 
-/* eslint-disable-next-line react/no-multi-comp */
 const GoogleScheduler = (props) => {
     const { classes } = props;
 
@@ -106,25 +70,6 @@ const GoogleScheduler = (props) => {
         startDayHour,
         endDayHour,
     } = state;
-
-    // const handleClientLoad = () => {
-    //     gapi.load('client:auth2', initClient);
-    //     console.log('loaded client');
-    // };
-
-    // const initClient = () => {
-    //     console.log('init client');
-    //     gapi.client.init({
-    //         apiKey: GOOGLE_API_KEY,
-    //         clientId: GOOGLE_CLIENT_ID,
-    //         discoveryDocs: DISCOVERY_DOCS,
-    //         scope: SCOPE,
-    //     });
-
-    //     gapi.client.load('calendar', 'v3', () => console.log('bam!'));
-    // };
-
-    // handleClientLoad();
 
     const onEditingAppointmentChange = (editingAppointment) => {
         setEditingAppointment(editingAppointment);
@@ -226,25 +171,9 @@ const GoogleScheduler = (props) => {
             cancelAppointment,
         };
     });
-    // const getEvents = () => {
-    //     gapi.client.calendar.events
-    //         .list({
-    //             calendarId: CALENDAR_ID,
-    //             timeMin: new Date().toISOString(),
-    //             showDeleted: false,
-    //             singleEvents: true,
-    //             maxResults: 10,
-    //             orderBy: 'startTime',
-    //         })
-    //         .then((response) => {
-    //             const events = response.result.items;
-    //             console.log('EVENTS: ', events);
-    //         });
-    // };
+
     useEffect(() => {
         appointmentForm.update();
-        // getEvents();
-        console.log('useEffect running');
         authenticate()
             ?.then(loadClient)
             .then(() => listAll())

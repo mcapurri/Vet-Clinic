@@ -46,3 +46,8 @@
 .Container a {
     color: #fff;
 }
+@media screen and (max-width: 770px) {
+    .Container {
+        font-size: 0.8rem;
+    }
+}

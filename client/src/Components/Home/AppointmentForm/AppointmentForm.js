@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from './AppointmentForm.module.css';
-import { updateObject, checkValidity } from '../../../utils/utility';
-import DatePicker, { setHours, setMinutes } from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
 import service from '../../../utils/service';
@@ -13,11 +12,10 @@ import {
     listAll,
     addNewEvent,
 } from '../../../utils/googleCalenderEvents';
-import axios from 'axios';
 
-const EmergencyForm = (props) => {
+const AppointmentForm = (props) => {
     const [message, setMessage] = useState('');
-    const [formIsValid, setFormIsValid] = useState(false);
+    // const [formIsValid, setFormIsValid] = useState(false);
     const [form, setForm] = useState({
         userMessage: '',
         imageUrl: '',
@@ -70,21 +68,19 @@ const EmergencyForm = (props) => {
 
     // console.log('formUpdated', form);
 
-    // console.log('formIsValid', formIsValid);
-
     const handleFileUpload = (e) => {
         console.log('The file to be uploaded is: ', e.target.files[0]);
 
         const uploadData = new FormData();
-        // imageUrl => this name has to be the same as in the model since we pass
-        // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+        // imageUrl => this name has to be the same as in the model since I pass
+        // req.body to .create() method
         uploadData.append('imageUrl', e.target.files[0]);
 
         service
             .handleUpload(uploadData)
             .then((response) => {
                 console.log('response is: ', response);
-                // after the console.log we can see that response carries 'secure_url' which we can use to update the state
+                // response carries 'secure_url' which I can use to update the state
                 setForm({ ...form, imageUrl: response.secure_url });
             })
             .catch((err) => {
@@ -110,6 +106,7 @@ const EmergencyForm = (props) => {
                 new Date(form.appointment).getTime() + 30 * 60000
             ),
             title: `${props.user.name} ${props.user.lastName} `,
+            notes: form.userMessage,
         });
 
         newEvent &&
@@ -159,7 +156,7 @@ const EmergencyForm = (props) => {
 
     return (
         <section
-            id="emergencyForm"
+            id="appointmentForm"
             style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -168,15 +165,8 @@ const EmergencyForm = (props) => {
             }}
         >
             <Form onSubmit={handleSubmit} className={style.Form}>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div style={{ paddingBottom: '10%' }}>
+                <div className={style.Container}>
+                    <div style={{ paddingTop: '5%' }}>
                         <DatePicker
                             selected={form.appointment}
                             onChange={(date) =>
@@ -208,59 +198,69 @@ const EmergencyForm = (props) => {
                             }}
                         />
                     </div>
-
-                    <Checkbox
-                        name="homeRequest"
-                        label="Request home service"
-                        checked={form.homeService}
-                        handleChange={handleChange}
-                        value={form.homeService}
-                    />
-                    {form.homeService && (
-                        <Form.Group
-                            style={{
-                                marginTop: '-10%',
-                                transform: 'scale(0.7)',
-                            }}
-                        >
-                            <div>
-                                <Form.Label>Street</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Street"
-                                    value={
-                                        props.requestedAddress?.street !== ''
-                                            ? props.requestedAddress?.street
-                                            : props.user?.address?.street
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <Form.Label>City</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="City"
-                                    value={
-                                        props.requestedAddress?.city !== ''
-                                            ? props.requestedAddress?.city
-                                            : props.user?.address?.city
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <Form.Label>ZIP Code</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="ZIP Code"
-                                    value={
-                                        props.requestedAddress?.zipCode !== ''
-                                            ? props.requestedAddress?.zipCode
-                                            : props.user?.address?.zipCode
-                                    }
-                                />
-                            </div>
-                        </Form.Group>
-                    )}
+                    <div className={style.AddressContainer}>
+                        <Checkbox
+                            name="homeRequest"
+                            label="Request home service"
+                            checked={form.homeService}
+                            handleChange={handleChange}
+                            value={form.homeService}
+                        />
+                        {form.homeService && (
+                            <Form.Group
+                                style={{
+                                    marginTop: '-10%',
+                                    transform: 'scale(0.7)',
+                                }}
+                            >
+                                <div className={style.Inputfield}>
+                                    <Form.Label>Street</Form.Label>
+                                    <Form.Control
+                                        className={style.addressInput}
+                                        type="text"
+                                        placeholder="Street"
+                                        value={
+                                            props.requestedAddress?.street !==
+                                            ''
+                                                ? props.requestedAddress?.street
+                                                : props.user?.address?.street
+                                        }
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control
+                                        className={style.addressInput}
+                                        type="text"
+                                        placeholder="City"
+                                        value={
+                                            props.requestedAddress?.city !== ''
+                                                ? props.requestedAddress?.city
+                                                : props.user?.address?.city
+                                        }
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <Form.Label>ZIP Code</Form.Label>
+                                    <Form.Control
+                                        className={style.addressInput}
+                                        type="text"
+                                        placeholder="ZIP Code"
+                                        value={
+                                            props.requestedAddress?.zipCode !==
+                                            ''
+                                                ? props.requestedAddress
+                                                      ?.zipCode
+                                                : props.user?.address?.zipCode
+                                        }
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </Form.Group>
+                        )}
+                    </div>
                 </div>
                 <div
                     style={{
@@ -317,4 +317,4 @@ const EmergencyForm = (props) => {
     );
 };
 
-export default EmergencyForm;
+export default AppointmentForm;

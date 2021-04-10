@@ -1,5 +1,14 @@
 .Container {
     display: flex;
     justify-content: space-around;
-    margin: 4% 0 0 9%;
+    margin: 4% 0 0 15%;
+}
+.Container input {
+    margin-left: 5%;
+}
+
+@media screen and (max-width: 834px) {
+    .Container {
+        margin: 4% 0 0 9%;
+    }
 }

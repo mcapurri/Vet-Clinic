@@ -154,14 +154,12 @@ const AddPet = (props) => {
     let url;
     let owner;
 
-    {
-        props.location.pathname !== '/pets/add'
-            ? (url = `/api/users/${props.location.pathname
-                  .split('/')[2]
-                  .toString()}/pet`) &&
-              (owner = props.location.pathname.split('/')[2].toString())
-            : (url = '/api/pets/add') && (owner = form.owner.value);
-    }
+    props.location.pathname !== '/pets/add'
+        ? (url = `/api/users/${props.location.pathname
+              .split('/')[2]
+              .toString()}/pet`) &&
+          (owner = props.location.pathname.split('/')[2].toString())
+        : (url = '/api/pets/add') && (owner = form.owner.value);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -203,58 +201,50 @@ const AddPet = (props) => {
     let displayedForm = formElementsArray.map((formElement) => {
         let inputs = '';
 
-        {
-            props.isEmployee &&
-                (inputs = (
-                    <div className="form-group" key={formElement.id}>
-                        <Input
-                            className="form-control"
-                            elementType={formElement.config.elementType}
-                            elementConfig={formElement.config.elementConfig}
-                            value={formElement.config.value}
-                            invalid={!formElement.config.valid}
-                            shouldValidate={formElement.config.validation} // validation is required
-                            touched={formElement.config.touched} // input has changed from initial status
-                            changed={(event) =>
-                                handleChange(event, formElement.id)
-                            }
-                        />
-                    </div>
-                ));
-        }
+        props.isEmployee &&
+            (inputs = (
+                <div className="form-group" key={formElement.id}>
+                    <Input
+                        className="form-control"
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation} // validation is required
+                        touched={formElement.config.touched} // input has changed from initial status
+                        changed={(event) => handleChange(event, formElement.id)}
+                    />
+                </div>
+            ));
 
-        {
-            formElement.id !== 'owner' &&
-                (inputs = (
-                    <div className="form-group" key={formElement.id}>
-                        <Input
-                            className="form-control"
-                            elementType={formElement.config.elementType}
-                            elementConfig={formElement.config.elementConfig}
-                            value={formElement.config.value}
-                            invalid={!formElement.config.valid}
-                            shouldValidate={formElement.config.validation} // validation is required
-                            touched={formElement.config.touched} // input has changed from initial status
-                            changed={(event) =>
-                                handleChange(event, formElement.id)
-                            }
-                        />
-                    </div>
-                ));
-            // setForm({
-            //     ...form,
-            //     owner: {
-            //         ...form.owner,
-            //         elementConfig: {
-            //             ...form.elementConfig,
-            //             options: {
-            //                 value: props.user._id,
-            //                 displayValue: `${props.user.lastName}, ${props.user.lastName}`,
-            //             },
-            //         },
-            //     },
-            // });
-        }
+        formElement.id !== 'owner' &&
+            (inputs = (
+                <div className="form-group" key={formElement.id}>
+                    <Input
+                        className="form-control"
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation} // validation is required
+                        touched={formElement.config.touched} // input has changed from initial status
+                        changed={(event) => handleChange(event, formElement.id)}
+                    />
+                </div>
+            ));
+        // setForm({
+        //     ...form,
+        //     owner: {
+        //         ...form.owner,
+        //         elementConfig: {
+        //             ...form.elementConfig,
+        //             options: {
+        //                 value: props.user._id,
+        //                 displayValue: `${props.user.lastName}, ${props.user.lastName}`,
+        //             },
+        //         },
+        //     },
+        // });
 
         return inputs;
     });

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
-import Navbar from './Components/NavigationBar/NavigationBar';
+import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
 import UserDetails from './Components/Users/UserDetails/UserDetails';
@@ -20,15 +20,13 @@ function App(props) {
     console.log('user', user);
 
     let isEmployee = false;
-    {
-        user.role === 'employee' && (isEmployee = true);
-    }
+    user.role === 'employee' && (isEmployee = true);
 
     return (
         <div className="App">
             <Route
                 render={(props) => (
-                    <Navbar
+                    <NavigationBar
                         {...props}
                         isEmployee={isEmployee}
                         setUser={setUser}

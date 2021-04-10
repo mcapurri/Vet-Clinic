@@ -43,10 +43,15 @@
 }
 .Container a {
     color: #fff;
+    text-decoration: underline;
 }
 
 .Button {
     display: flex;
     align-self: flex-end;
-    /* position: absolute; */
+}
+@media screen and (max-width: 770px) {
+    .Container {
+        font-size: 0.8rem;
+    }
 }

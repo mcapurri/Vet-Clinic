@@ -1,12 +1,9 @@
 import React from 'react';
+import style from './SearchField.module.css';
 
 const SearchField = (props) => {
     return (
-        <div
-            style={{
-                margin: '5% 0 3% 0',
-            }}
-        >
+        <div className={style.SearchField}>
             <input
                 type="text"
                 name="search"

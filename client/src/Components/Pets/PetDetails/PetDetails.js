@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import style from './PetDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import { updateObject, checkValidity } from '../../../utils/utility';
+import { updateObject } from '../../../utils/utility';
 import EditPet from '../EditPet/EditPet';
 
 const PetDetails = (props) => {
     const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
-    const [formIsValid, setFormIsValid] = useState(false);
+    // const [formIsValid, setFormIsValid] = useState(false);
 
     const [selectedPet, setSelectedPet] = useState('');
 

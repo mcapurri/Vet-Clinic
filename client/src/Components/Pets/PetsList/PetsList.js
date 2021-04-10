@@ -70,7 +70,7 @@ const PetsList = (props) => {
         );
     });
 
-    const displayUsers = filteredSearch.map((pet) => {
+    const displayPets = filteredSearch.map((pet) => {
         console.log('pet', pet);
         return (
             <tr key={pet._id} className={style.resultCard}>
@@ -78,8 +78,9 @@ const PetsList = (props) => {
                     <Link to={`/pets/${pet._id}`}>{pet.name}</Link>
                 </td>
                 <td>{pet.specie}</td>
-
-                <td>{/* {pet.owner.name}, {pet.owner.lastName} */}</td>
+                <td>
+                    {pet.owner.name} {pet.owner.lastName}
+                </td>
             </tr>
         );
     });
@@ -102,7 +103,7 @@ const PetsList = (props) => {
                 </Link>
             </button>
             <table style={{ margin: '0 0 10% 5%' }}>
-                <tbody>{displayUsers}</tbody>
+                <tbody>{displayPets}</tbody>
             </table>
         </div>
     );

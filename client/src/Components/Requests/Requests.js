@@ -72,11 +72,6 @@ const Requests = () => {
     return (
         <div className={style.Container}>
             <Filters handleChange={handleChange} />
-            <button className={style.Button}>
-                <Link to={'/requests/new'}>
-                    <span>+</span>
-                </Link>
-            </button>
 
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayUsers}</tbody>

@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './GenInfos.module.css';
+import style from './GeneralInfos.module.css';
 
-const GenInfos = () => {
+const GeneralInfos = () => {
     return (
         <section className={style.Container}>
             <article className={style.Box}>
@@ -38,4 +38,4 @@ const GenInfos = () => {
     );
 };
 
-export default GenInfos;
+export default GeneralInfos;

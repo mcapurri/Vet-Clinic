@@ -111,11 +111,11 @@ const Login = (props) => {
                 ) : (
                     <div>
                         <p>
-                            Haven't you registered yet?
+                            Haven't you registered yet?&nbsp;
                             <Link to={'/signup'} className={style.Button}>
                                 Sign up
                             </Link>
-                            here
+                            &nbsp;here
                         </p>
                     </div>
                 )}

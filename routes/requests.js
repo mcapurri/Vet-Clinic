@@ -5,7 +5,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Contact = require('../models/Contact');
 const User = require('../models/User');
 
-// @desc      Get all app &req
+// @desc      Get all requests
 // @route     GET /requests
 // @access    Private
 router.get(
@@ -38,8 +38,8 @@ router.post(
             userMessage,
             imageUrl,
             sender,
-            appointment,
-            homeService,
+            // appointment,
+            // homeService,
             coords,
         } = req.body;
 
@@ -48,8 +48,8 @@ router.post(
             userMessage,
             sender,
             imageUrl,
-            appointment,
-            homeService,
+            // appointment,
+            // homeService,
             coords
         );
 
@@ -57,8 +57,8 @@ router.post(
             userMessage,
             imageUrl,
             sender,
-            appointment,
-            homeService,
+            // appointment,
+            // homeService,
             coords,
         })
             .then((message) => {

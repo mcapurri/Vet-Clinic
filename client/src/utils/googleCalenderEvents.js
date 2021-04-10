@@ -1,7 +1,7 @@
 import {
     GOOGLE_API_KEY,
     GOOGLE_CLIENT_ID,
-    DISCOVERY_DOCS,
+    // DISCOVERY_DOCS,
     SCOPE,
     CALENDAR_ID,
 } from '../utils/googleApiConfig.json';

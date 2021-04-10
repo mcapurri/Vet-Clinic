@@ -157,6 +157,8 @@ const UsersList = (props) => {
                                         />
                                     </Link>
                                 );
+                            default:
+                                return;
                         }
                     })}
                 </td>

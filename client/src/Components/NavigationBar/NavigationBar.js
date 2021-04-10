@@ -27,7 +27,6 @@ const NavigationBar = (props) => {
             style={{ backgroundColor: 'rgb(5, 58, 32)', color: '#ccc' }}
         >
             <Navbar
-                // className={style.Navbar} expand="md">
                 className="border-bottom text-white"
                 bg="transparent"
                 expand="md"
@@ -61,45 +60,51 @@ const NavigationBar = (props) => {
                                 <div className={style.navItems}>
                                     {props.isEmployee && (
                                         <>
-                                            <Link
-                                                className="nav-link text-white"
-                                                to="/users"
-                                            >
-                                                Users
-                                            </Link>
+                                            <div className={style.coupleItems}>
+                                                <Link
+                                                    className="nav-link text-white"
+                                                    to="/users"
+                                                >
+                                                    Users
+                                                </Link>
 
-                                            <Link
-                                                className="nav-link text-white"
-                                                to="/pets"
-                                            >
-                                                Patients
-                                            </Link>
-                                            <Link
-                                                className="nav-link text-white"
-                                                to="/scheduler"
-                                            >
-                                                Scheduler
-                                            </Link>
-                                            <Link
-                                                className="nav-link text-white"
-                                                to="/requests"
-                                            >
-                                                Requests
-                                            </Link>
+                                                <Link
+                                                    className="nav-link text-white"
+                                                    to="/pets"
+                                                >
+                                                    Patients
+                                                </Link>
+                                            </div>
+                                            <div className={style.coupleItems}>
+                                                <Link
+                                                    className="nav-link text-white"
+                                                    to="/scheduler"
+                                                >
+                                                    Scheduler
+                                                </Link>
+                                                <Link
+                                                    className="nav-link text-white"
+                                                    to="/requests"
+                                                >
+                                                    Requests
+                                                </Link>
+                                            </div>
                                         </>
                                     )}
-                                    <Link
-                                        className="nav-link text-white"
-                                        to={`/users/${props.user._id}`}
-                                    >
-                                        Profile
-                                    </Link>
-                                    <button
-                                        className={style.Button}
-                                        onClick={handleLogout}
-                                    >
-                                        Logout
-                                    </button>
+                                    <div className={style.coupleItems}>
+                                        <Link
+                                            className="nav-link text-white"
+                                            to={`/users/${props.user._id}`}
+                                        >
+                                            Profile
+                                        </Link>
+                                        <button
+                                            className={style.Button}
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
                                 </div>
                             </Nav>
                         </Navbar.Collapse>

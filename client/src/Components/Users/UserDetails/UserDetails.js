@@ -10,7 +10,7 @@ const UserDetails = (props) => {
     console.log('UserDetails props', props);
     const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
-    const [formIsValid, setFormIsValid] = useState(false);
+    // const [formIsValid, setFormIsValid] = useState(false);
 
     const [selectedUserForm, setSelectedUserForm] = useState(
         // {
@@ -156,28 +156,6 @@ const UserDetails = (props) => {
                         pets: response.data.pets,
                     })
                 );
-
-                // setSelectedUserForm({
-                //     ...selectedUserForm,
-                //     owner: {
-                //         ...form.owner,
-                //         elementConfig: {
-                //             ...form.elementConfig,
-                //             options: users.data,
-                //         },
-                //     },
-                // });
-                // for (let formControl in selectedUserForm) {
-                //     setSelectedUserForm(
-                //         updateObject({
-                //             ...selectedUserForm,
-                //             formControl: {
-                //                 ...formControl,
-                //                 value: response.data[formControl],
-                //             },
-                //         })
-                //     );
-                // }
             })
 
             .catch((err) => {
