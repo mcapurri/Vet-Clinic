@@ -69,14 +69,13 @@ const UsersList = (props) => {
     const displayUsers = filteredSearch.map((user) => {
         return (
             <tr key={user._id} className={style.resultCard}>
-                <td style={{ width: '30%' }}>
+                <td>
                     <Link to={`/users/${user._id}`}>
                         {user.lastName}, {user.name}
                     </Link>
                 </td>
                 <td>{user.role}</td>
-
-                <td style={{ display: 'flex' }}>
+                <td>
                     {user.pets.map((pet) => {
                         switch (pet.specie) {
                             case 'dog':

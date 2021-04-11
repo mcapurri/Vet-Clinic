@@ -23,18 +23,13 @@ const AppointmentForm = (props) => {
         appointment: '',
         homeService: false,
         address: {
-            street: props.requestedAddress
-                ? props.requestedAddress.street
-                : props.user.address.street,
-            city: props.requestedAddress
-                ? props.requestedAddress.city
-                : props.user.address.city,
-            zipCode: props.requestedAddress
-                ? props.requestedAddress.zipCode
-                : props.user.address.zipCode,
+            street: '',
+            city: '',
+            zipCode: '',
         },
     });
     const [booking, setBooking] = useState([]);
+    console.log('form', form);
 
     useEffect(() => {
         authenticate()
@@ -213,7 +208,7 @@ const AppointmentForm = (props) => {
         >
             <Form onSubmit={handleSubmit} className={style.Form}>
                 <div className={style.Container}>
-                    <div style={{ paddingTop: '5%' }}>
+                    <div style={{ padding: '5% 0' }}>
                         <DatePicker
                             selected={form.appointment}
                             onChange={(date) =>
@@ -253,112 +248,98 @@ const AppointmentForm = (props) => {
                             handleChange={handleChange}
                             value={form.homeService}
                         />
-                        {form.homeService && (
-                            <Form.Group
-                                style={{
-                                    marginTop: '-10%',
-                                    transform: 'scale(0.7)',
-                                }}
-                            >
-                                <div className={style.Inputfield}>
-                                    <Form.Label>Street</Form.Label>
-                                    <Form.Control
-                                        className={style.addressInput}
-                                        type="text"
-                                        placeholder="Street"
-                                        value={
-                                            props.requestedAddress?.street !==
-                                            ''
-                                                ? props.requestedAddress?.street
-                                                : props.user?.address?.street
-                                        }
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div>
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control
-                                        className={style.addressInput}
-                                        type="text"
-                                        placeholder="City"
-                                        value={
-                                            props.requestedAddress?.city !== ''
-                                                ? props.requestedAddress?.city
-                                                : props.user?.address?.city
-                                        }
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div>
-                                    <Form.Label>ZIP Code</Form.Label>
-                                    <Form.Control
-                                        className={style.addressInput}
-                                        type="text"
-                                        placeholder="ZIP Code"
-                                        value={
-                                            props.requestedAddress?.zipCode !==
-                                            ''
-                                                ? props.requestedAddress
-                                                      ?.zipCode
-                                                : props.user?.address?.zipCode
-                                        }
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </Form.Group>
-                        )}
+                        <Form.Group style={{ width: '100%' }}>
+                            <Form.Label>Street</Form.Label>
+                            <Form.Control
+                                className={style.addressInput}
+                                type="text"
+                                placeholder="Street"
+                                value={
+                                    props.requestedAddress?.street !== ''
+                                        ? props.requestedAddress?.street
+                                        : props.user?.address?.street
+                                }
+                                onChange={handleChange}
+                            />
+                            <Form.Label>City</Form.Label>
+                            <Form.Control
+                                className={style.addressInput}
+                                type="text"
+                                placeholder="City"
+                                value={
+                                    props.requestedAddress?.city !== ''
+                                        ? props.requestedAddress?.city
+                                        : props.user?.address?.city
+                                }
+                                onChange={handleChange}
+                            />
+                            <Form.Label>ZIP Code</Form.Label>
+                            <Form.Control
+                                className={style.addressInput}
+                                type="text"
+                                placeholder="ZIP Code"
+                                value={
+                                    props.requestedAddress?.zipCode !== ''
+                                        ? props.requestedAddress?.zipCode
+                                        : props.user?.address?.zipCode
+                                }
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
                     </div>
                 </div>
-                <div
+                {/* <div
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
                         flexWrap: 'wrap',
                         alignItems: 'center',
                     }}
-                >
-                    <Form.Group className="d-flex flex-column">
-                        <Form.Label htmlFor="message">Your message</Form.Label>
-                        <Form.Control
-                            className={style.Textarea}
-                            id="userMessage"
-                            name="userMessage"
-                            as="textarea"
-                            rows="3"
-                            placeholder="Tell us..."
-                            value={form.userMessage}
-                            onChange={handleChange}
-                        />
-                        <div>
-                            <AttachFileIcon style={{ color: '#216ba5' }} />
-                            <label className="m-0" htmlFor={style.FileLoader}>
-                                Attach photo
-                            </label>
-                            <input
-                                id={style.FileLoader}
-                                type="file"
-                                name="image"
-                                value={form.image}
-                                onChange={(e) => handleFileUpload(e)}
-                            ></input>
-                        </div>
-                        <Button
-                            className={style.Button}
-                            variant="primary sm"
-                            type="submit"
-                            // disabled={
-                            //     (!form.userMessage && !form.appointment) ||
-                            //     (!form.userMessage && !form.homeService)
-                            // }
-                        >
-                            Send
-                        </Button>
+                > */}
+                <Form.Group className={style.Group}>
+                    <Form.Label className={style.Label} htmlFor="message">
+                        Your message
+                    </Form.Label>
+                    <Form.Control
+                        className={style.Textarea}
+                        id="userMessage"
+                        name="userMessage"
+                        as="textarea"
+                        rows="3"
+                        placeholder="Tell us..."
+                        value={form.userMessage}
+                        onChange={handleChange}
+                    />
+                    <div className={style.Loader}>
+                        <AttachFileIcon style={{ color: '#216ba5' }} />
+                        <label className="m-0" htmlFor={style.FileLoader}>
+                            Attach photo
+                        </label>
+                        <input
+                            id={style.FileLoader}
+                            type="file"
+                            name="image"
+                            value={form.image}
+                            onChange={(e) => handleFileUpload(e)}
+                        ></input>
+                    </div>
+                    <Button
+                        className={style.Button}
+                        variant="primary sm"
+                        type="submit"
+                        // disabled={
+                        //     (!form.userMessage && !form.appointment) ||
+                        //     (!form.userMessage && !form.homeService)
+                        // }
+                    >
+                        Send
+                    </Button>
 
-                        {message && (
-                            <p className="d-inline success-msg">{message}</p>
-                        )}
-                    </Form.Group>
-                </div>
+                    {message && (
+                        <p className="d-inline success-msg">{message}</p>
+                    )}
+                </Form.Group>
+                {/* </div> */}
             </Form>
         </section>
     );

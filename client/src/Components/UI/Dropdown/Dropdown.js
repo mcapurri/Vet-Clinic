@@ -1,8 +1,9 @@
 import React from 'react';
+import style from './Dropdown.module.css';
 
 const Dropdown = (props) => {
     return (
-        <div style={{ width: '50%' }}>
+        <div className={style.Dropdown}>
             <label htmlFor="role">Role: </label>
             <select
                 name="role"

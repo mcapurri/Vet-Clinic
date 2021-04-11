@@ -19,9 +19,14 @@
     /* box-sizing: border-box; */
     /* box-shadow: 2px 2px 10px 0 #eee; */
     margin: 5% 5% 0 0;
-    width: 80vw;
+    width: 70vw;
     height: 2rem;
     background-color: rgba(27, 120, 76, 0.2);
+}
+.resultCard td {
+    display: flex;
+    justify-content: center;
+    width: 30%;
 }
 .Container button {
     display: flex;

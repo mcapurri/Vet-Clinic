@@ -98,10 +98,7 @@ const Login = (props) => {
         <Form inline className={style.Form} onSubmit={handleSubmit}>
             <div style={{ display: 'flex' }}>
                 <InputGroup>{displayedForm}</InputGroup>
-                <Button
-                    style={{ maxHeight: '3rem', fontSize: '0.9rem' }}
-                    type="submit"
-                >
+                <Button className={style.LoginButton} type="submit">
                     Log in
                 </Button>
             </div>
@@ -112,6 +109,7 @@ const Login = (props) => {
                     <div>
                         <p>
                             Haven't you registered yet?&nbsp;
+                            <br />
                             <Link to={'/signup'} className={style.Button}>
                                 Sign up
                             </Link>

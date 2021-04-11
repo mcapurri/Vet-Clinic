@@ -1,15 +1,19 @@
 const router = require('express').Router();
 
-const auth = require('./auth');
-router.use('/auth', auth);
+router.get('/', (req, res, next) => {
+    res.json('Happy coding!');
+});
 
-const pets = require('./pets');
-router.use('/pets', pets);
+// const auth = require('./auth');
+// router.use('/auth', auth);
 
-const users = require('./users');
-router.use('/users', users);
+// const pets = require('./pets');
+// router.use('/pets', pets);
 
-const requests = require('./requests');
-router.use('/requests', requests);
+// const users = require('./users');
+// router.use('/users', users);
+
+// const requests = require('./requests');
+// router.use('/requests', requests);
 
 module.exports = router;

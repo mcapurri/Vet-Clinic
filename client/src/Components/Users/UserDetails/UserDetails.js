@@ -269,7 +269,14 @@ const UserDetails = (props) => {
                             </Link>
                         ) : (
                             <Link to={`/users/${selectedUserForm._id}/pet`}>
-                                <span style={{ fontSize: 'bold' }}>+</span>
+                                <span
+                                    style={{
+                                        fontSize: 'bold',
+                                        marginRight: '5%',
+                                    }}
+                                >
+                                    +
+                                </span>
                                 <span>pet</span>
                             </Link>
                         )}
@@ -327,7 +334,7 @@ const UserDetails = (props) => {
                                     return (
                                         <Link to={`/pets/${pet._id}`}>
                                             <li>
-                                                {pet.name}
+                                                <h6>{pet.name}</h6>
                                                 <br />
                                                 {pet.specie}
                                                 <br />
@@ -340,20 +347,8 @@ const UserDetails = (props) => {
                             </ul>
                         </div>
                     </div>
+
                     <div className={style.buttons}>
-                        {/* <div>
-                            {!props.isEmployee ? (
-                                <Link to="/pets/add">
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            ) : (
-                                <Link to={`/users/${selectedUserForm._id}/pet`}>
-                                    <span style={{ fontSize: 'bold' }}>+</span>
-                                    <span>pet</span>
-                                </Link>
-                            )}
-                        </div> */}
                         <div>
                             <button onClick={() => props.history.goBack()}>
                                 Back
@@ -368,7 +363,6 @@ const UserDetails = (props) => {
                             }}
                         >
                             <button onClick={toggleEditForm}>Edit</button>
-                            {/* <Link to={`/users/${selectedUserForm._id}/edit`}>Edit</Link> */}
                             <button onClick={deleteUser}>Delete</button>
                         </div>
                     </div>

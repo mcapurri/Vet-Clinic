@@ -1,8 +1,10 @@
 import React from 'react';
-import style from './EditUser.module.css';
+import style from './EditPet.module.css';
 import { Form } from 'react-bootstrap';
 
-const editUser = (props) => {
+const editPet = (props) => {
+    // console.log('props editPet', props);
+
     return (
         <Form className={style.Form} onSubmit={props.handleSubmit}>
             <h2>Edit </h2>
@@ -14,71 +16,78 @@ const editUser = (props) => {
                     type="text"
                     id="name"
                     name="name"
-                    value={props.selectedUserForm.name}
+                    value={props.selectedPet.name}
                     onChange={props.handleChange}
                 />
             </Form.Group>
 
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="name">
-                    Last name: &nbsp;
+                <Form.Label className={style.Label} htmlFor="specie">
+                    Specie: &nbsp;
                 </Form.Label>
                 <Form.Control
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={props.selectedUserForm.lastName}
+                    type="select"
+                    name="specie"
+                    value={props.selectedPet.specie}
                     onChange={props.handleChange}
-                />
+                >
+                    <option value="">--choose an option--</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="bird">Bird</option>
+                    <option value="rodent">Rodent</option>
+                    <option value="reptile">Reptile</option>
+                    <option value="other">Other</option>
+                </Form.Control>
             </Form.Group>
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="street">
-                    Street: &nbsp;
+                <Form.Label className={style.Label} htmlFor="breed">
+                    Breed: &nbsp;
                 </Form.Label>
                 <Form.Control
                     type="text"
-                    id="street"
-                    name="street"
-                    value={props.selectedUserForm.address.street}
-                    onChange={props.handleChange}
-                />
-            </Form.Group>
-
-            <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="zipCode">
-                    ZIP Code: &nbsp;
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    id="zipCode"
-                    name="zipCode"
-                    value={props.selectedUserForm.address.zipCode}
+                    id="breed"
+                    name="breed"
+                    value={props.selectedPet.breed}
                     onChange={props.handleChange}
                 />
             </Form.Group>
 
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="city">
-                    City: &nbsp;
+                <Form.Label className={style.Label} htmlFor="age">
+                    Age: &nbsp;
                 </Form.Label>
                 <Form.Control
                     type="text"
-                    id="city"
-                    name="city"
-                    value={props.selectedUserForm.address.city}
+                    id="age"
+                    name="age"
+                    value={props.selectedPet.age}
                     onChange={props.handleChange}
                 />
             </Form.Group>
 
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="phoneNum">
-                    Phone Num: &nbsp;
+                <Form.Label className={style.Label} htmlFor="diagnosis">
+                    Diagnosis: &nbsp;
                 </Form.Label>
                 <Form.Control
                     type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={props.selectedUserForm.phoneNumber}
+                    id="diagnosis"
+                    name="diagnosis"
+                    value={props.selectedPet.diagnosis}
+                    onChange={props.handleChange}
+                />
+            </Form.Group>
+
+            <Form.Group className={style.Group}>
+                <Form.Label className={style.Label} htmlFor="treatment">
+                    Treatment: &nbsp;
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    id="treatment"
+                    name="treatment"
+                    value={props.selectedPet.treatment}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -93,4 +102,4 @@ const editUser = (props) => {
     );
 };
 
-export default editUser;
+export default editPet;

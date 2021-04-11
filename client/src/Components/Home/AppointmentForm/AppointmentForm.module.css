@@ -1,15 +1,14 @@
 .Form {
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
-    margin: 0 5%;
+    /* margin: 0 5%; */
     border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
     box-sizing: border-box;
     box-shadow: 2px 2px 10px 0 #eee;
     padding: 5% 5%;
-    width: 90vw;
+    width: 80vw;
     color: #fff;
     background-color: rgba(27, 120, 76, 0.2);
 }
@@ -17,10 +16,14 @@
 .Form input {
     border-radius: 5px;
 }
+.Form input:nth-child(1) {
+    border-radius: 5px;
+    transform: scale(1.2);
+}
 
 .Form #FileLoader {
     position: relative;
-    width: 0%;
+    width: 0;
     height: 0%;
     top: 0;
     left: 0;
@@ -30,20 +33,29 @@
     opacity: 0;
     cursor: pointer;
 }
-/* .Form select {
-    width: 7rem;
-    height: 2rem;
-    text-align: center;
-} */
 
 .Form .Textarea {
-    /* width: 80%; */
+    align-self: center;
+    width: 80%;
     height: 10rem;
     max-height: 26rem;
     border-radius: 5px;
     border: 1px solid #e6e9f2;
     background-color: #f6f8ff;
     /* margin: 0 0 5% 0; */
+}
+.Form .Group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin-bottom: 5%;
+}
+.Form .Label {
+    display: flex;
+    align-self: flex-start;
+    color: rgb(5, 58, 32);
+    margin-left: 10%;
 }
 .Form label {
     font-size: 1.3rem;
@@ -63,6 +75,7 @@
     align-self: flex-start;
     background-color: rgb(5, 58, 32);
     border: none;
+    margin-left: 10%;
 }
 
 .Form .buttons {
@@ -85,26 +98,42 @@
     flex-direction: column;
     align-items: center;
 }
+.Loader {
+    margin-top: 3%;
+    display: flex;
+    align-self: flex-start;
+    margin-left: 10%;
+}
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 990px) {
     .Form {
-        margin: 10% 0;
-        margin-top: 5%;
+        /* margin: 10% 0;
+        margin-bottom: 5%; */
+        flex-direction: column;
+        align-items: center;
     }
-    .Form input {
-        line-height: 2rem;
-    }
+
     .Form .Container {
         width: 100%;
     }
     .Form .AddressContainer {
-        transform: scale(1.4);
-        /* width: 50%; */
+        transform: scale(1.2);
+        width: 60%;
     }
-    .Form .addressInput {
-        width: 90%;
+    .Form .AddressContainer label:not(:nth-child(2)) {
+        transform: scale(0.7);
     }
+    .Form .Textarea {
+        transform: scale(1.2);
+        width: 100%;
+        margin: 3% 0;
+    }
+
     .Form .Button {
         align-self: center;
+        margin-left: 0;
+    }
+    .Loader {
+        margin-left: 0;
     }
 }

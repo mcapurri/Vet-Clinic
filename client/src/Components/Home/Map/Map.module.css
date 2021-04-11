@@ -31,5 +31,9 @@
     }
     .Container .Infos {
         margin: 20% 0;
+        font-size: 1.6rem;
+    }
+    .Map {
+        margin: 15% 0 5% 0;
     }
 }

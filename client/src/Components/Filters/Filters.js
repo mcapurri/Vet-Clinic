@@ -64,14 +64,7 @@ const Filters = (props) => {
             }}
         >
             <SearchField handleChange={props.handleChange} />
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    width: '100%',
-                    marginBottom: '10%',
-                }}
-            >
+            <div className={style.ChecksContainer}>
                 {props.userRoleOptions ? (
                     <Dropdown
                         userRoleOptions={props.userRoleOptions}

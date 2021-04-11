@@ -74,7 +74,7 @@ const PetsList = (props) => {
         console.log('pet', pet);
         return (
             <tr key={pet._id} className={style.resultCard}>
-                <td style={{ width: '30%' }}>
+                <td>
                     <Link to={`/pets/${pet._id}`}>{pet.name}</Link>
                 </td>
                 <td>{pet.specie}</td>

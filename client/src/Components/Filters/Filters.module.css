@@ -2,13 +2,13 @@
     display: flex;
     justify-content: space-around;
     margin: 4% 0 0 15%;
-}
-.Container input {
-    margin-left: 5%;
+    width: 100%;
 }
 
-@media screen and (max-width: 834px) {
-    .Container {
-        margin: 4% 0 0 9%;
-    }
+.ChecksContainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+    margin: 5% 0;
+    margin-left: 5%;
 }

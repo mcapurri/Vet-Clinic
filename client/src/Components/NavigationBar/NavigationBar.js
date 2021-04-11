@@ -6,7 +6,6 @@ import Login from '../Auth/Login/Login';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 const NavigationBar = (props) => {
-    console.log('isEmployee', props.isEmployee);
     const ref = useRef(null);
 
     const handleLogout = () =>
@@ -24,7 +23,7 @@ const NavigationBar = (props) => {
             className="p-3"
             fluid={true}
             ref={ref}
-            style={{ backgroundColor: 'rgb(5, 58, 32)', color: '#ccc' }}
+            style={{ backgroundColor: 'rgb(5, 58, 32)', color: '#fff' }}
         >
             <Navbar
                 className="border-bottom text-white"
