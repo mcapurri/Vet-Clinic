@@ -2,7 +2,7 @@ import React from 'react';
 import style from './EditUser.module.css';
 import { Form } from 'react-bootstrap';
 
-const editUser = (props) => {
+const EditUser = (props) => {
     return (
         <Form className={style.Form} onSubmit={props.handleSubmit}>
             <h2>Edit </h2>
@@ -14,7 +14,7 @@ const editUser = (props) => {
                     type="text"
                     id="name"
                     name="name"
-                    value={props.selectedUserForm.name}
+                    value={props.selectedUser.name}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -27,7 +27,7 @@ const editUser = (props) => {
                     type="text"
                     id="lastName"
                     name="lastName"
-                    value={props.selectedUserForm.lastName}
+                    value={props.selectedUser.lastName}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -39,7 +39,7 @@ const editUser = (props) => {
                     type="text"
                     id="street"
                     name="street"
-                    value={props.selectedUserForm.address.street}
+                    value={props.selectedUser.address.street}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -52,7 +52,7 @@ const editUser = (props) => {
                     type="text"
                     id="zipCode"
                     name="zipCode"
-                    value={props.selectedUserForm.address.zipCode}
+                    value={props.selectedUser.address.zipCode}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -65,7 +65,7 @@ const editUser = (props) => {
                     type="text"
                     id="city"
                     name="city"
-                    value={props.selectedUserForm.address.city}
+                    value={props.selectedUser.address.city}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -78,7 +78,7 @@ const editUser = (props) => {
                     type="text"
                     id="phoneNumber"
                     name="phoneNumber"
-                    value={props.selectedUserForm.phoneNumber}
+                    value={props.selectedUser.phoneNumber}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -93,4 +93,4 @@ const editUser = (props) => {
     );
 };
 
-export default editUser;
+export default EditUser;

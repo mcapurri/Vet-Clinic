@@ -12,134 +12,7 @@ const UserDetails = (props) => {
     const [editForm, setEditForm] = useState(false);
     // const [formIsValid, setFormIsValid] = useState(false);
 
-    const [selectedUserForm, setSelectedUserForm] = useState(
-        // {
-        //     name: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'First name',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             required: true,
-        //             minLength: 2,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     lastName: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'Last name',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             required: true,
-        //             minLength: 2,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     email: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'email',
-        //             placeholder: 'Email',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             required: true,
-        //             isEmail: true,
-        //             unique: true, /// you still have to write the code for this validation
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     street: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'Street',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             // required: true,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     zipCode: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'ZIP Code',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             // required: true,
-        //             minLength: 5,
-        //             maxLength: 5,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     city: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'City',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             // required: true,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     state: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'State',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             // required: true,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     phoneNumber: {
-        //         elementType: 'input',
-        //         elementConfig: {
-        //             type: 'text',
-        //             placeholder: 'Phone Num.',
-        //         },
-        //         value: '',
-        //         validation: {
-        //             // required: true,
-        //         },
-        //         valid: false,
-        //         touched: false,
-        //     },
-        //     role: {
-        //         elementType: 'select',
-        //         elementConfig: {
-        //             options: [
-        //                 { value: 'employee', displayValue: 'employee' },
-        //                 { value: 'client', displayValue: 'client' },
-        //             ],
-        //         },
-        //         value: '',
-        //         validation: {},
-        //         valid: true,
-        //     },
-        // } || ''
-
-        ''
-    );
+    const [selectedUser, setSelectedUser] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -151,7 +24,7 @@ const UserDetails = (props) => {
             .then((response) => {
                 console.log('response from DB', response.data);
 
-                setSelectedUserForm(
+                setSelectedUser(
                     updateObject(response.data.user, {
                         pets: response.data.pets,
                     })
@@ -167,30 +40,30 @@ const UserDetails = (props) => {
                 }
             });
     };
-    console.log('selectedUserForm', selectedUserForm);
+    console.log('selectedUser', selectedUser);
 
     const handleChange = (event) => {
         // console.log('inputId', inputId);
         const { name, value } = event.target;
         console.log('name, value', name, value);
 
-        setSelectedUserForm({
-            ...selectedUserForm,
+        setSelectedUser({
+            ...selectedUser,
             [name]: value,
             address: {
-                ...selectedUserForm.address,
+                ...selectedUser.address,
                 [name]: value,
             },
         });
-        // const updatedFormElement = updateObject(selectedUserForm[inputId], {
+        // const updatedFormElement = updateObject(selectedUser[inputId], {
         //     value: event.target.value,
         //     valid: checkValidity(
         //         event.target.value,
-        //         selectedUserForm[inputId].validation
+        //         selectedUser[inputId].validation
         //     ),
         //     touched: true, // input in the form has changed
         // });
-        // const updatedForm = updateObject(selectedUserForm, {
+        // const updatedForm = updateObject(selectedUser, {
         //     [inputId]: updatedFormElement,
         // });
 
@@ -198,11 +71,11 @@ const UserDetails = (props) => {
         // for (let inputId in updatedForm) {
         //     validForm = updatedForm[inputId].valid && validForm;
         // }
-        // setSelectedUserForm(updatedForm);
+        // setSelectedUser(updatedForm);
         // setFormIsValid(validForm);
     };
 
-    console.log('selectedUserForm', selectedUserForm);
+    console.log('selectedUser', selectedUser);
 
     const toggleEditForm = () => {
         setEditForm(() => !editForm);
@@ -211,15 +84,15 @@ const UserDetails = (props) => {
         event.preventDefault();
         console.log('update');
         axios
-            .put(`/api/users/${selectedUserForm._id}`, {
-                name: selectedUserForm.name,
-                lastName: selectedUserForm.lastName,
-                email: selectedUserForm.email,
-                street: selectedUserForm.address.street,
-                zipCode: selectedUserForm.address.zipCode,
-                city: selectedUserForm.address.city,
-                state: selectedUserForm.address.state,
-                phoneNumber: selectedUserForm.phoneNumber,
+            .put(`/api/users/${selectedUser._id}`, {
+                name: selectedUser.name,
+                lastName: selectedUser.lastName,
+                email: selectedUser.email,
+                street: selectedUser.address.street,
+                zipCode: selectedUser.address.zipCode,
+                city: selectedUser.address.city,
+                state: selectedUser.address.state,
+                phoneNumber: selectedUser.phoneNumber,
             })
             .then((response) => {
                 props.history.goBack();
@@ -233,10 +106,10 @@ const UserDetails = (props) => {
 
     const deleteUser = async () => {
         await axios
-            .delete(`/api/users/${selectedUserForm._id}`)
+            .delete(`/api/users/${selectedUser._id}`)
             .then(() => {
                 console.log(
-                    `${selectedUserForm.name} ${selectedUserForm.lastName} was successfully removed`
+                    `${selectedUser.name} ${selectedUser.lastName} was successfully removed`
                 );
                 props.history.push('/');
             })
@@ -245,7 +118,7 @@ const UserDetails = (props) => {
             });
     };
 
-    if (!selectedUserForm) return <Spinner />;
+    if (!selectedUser) return <Spinner />;
     return (
         <>
             {editForm ? (
@@ -253,13 +126,13 @@ const UserDetails = (props) => {
                     toggleEditForm={toggleEditForm}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    selectedUserForm={selectedUserForm}
+                    selectedUser={selectedUser}
                 />
             ) : (
                 // <>
                 <div className={style.Card}>
                     <h3>
-                        {selectedUserForm.name} {selectedUserForm.lastName}
+                        {selectedUser.name} {selectedUser.lastName}
                     </h3>
                     <div className={style.AddButton}>
                         {!props.isEmployee ? (
@@ -268,7 +141,7 @@ const UserDetails = (props) => {
                                 <span>pet</span>
                             </Link>
                         ) : (
-                            <Link to={`/users/${selectedUserForm._id}/pet`}>
+                            <Link to={`/users/${selectedUser._id}/pet`}>
                                 <span
                                     style={{
                                         fontSize: 'bold',
@@ -284,16 +157,14 @@ const UserDetails = (props) => {
                     <div className={style.Infos}>
                         <div style={{ width: '100%' }}>
                             <p>Address: </p>
-                            <p>
-                                &nbsp; Street: {selectedUserForm.address.street}
-                            </p>
+                            <p>&nbsp; Street: {selectedUser.address.street}</p>
                             <p>
                                 &nbsp; ZIP Code:
-                                {selectedUserForm.address.zipCode}
+                                {selectedUser.address.zipCode}
                             </p>
-                            <p>&nbsp; City: {selectedUserForm.address.city}</p>
+                            <p>&nbsp; City: {selectedUser.address.city}</p>
                             {/* <p>
-                                &nbsp; State: {selectedUserForm.address.state}
+                                &nbsp; State: {selectedUser.address.state}
                             </p> */}
                             <hr />
                             <p>
@@ -305,7 +176,7 @@ const UserDetails = (props) => {
                                         marginRight: '5%',
                                     }}
                                 />
-                                {selectedUserForm.email}
+                                {selectedUser.email}
                             </p>
                             <p>
                                 <img
@@ -316,21 +187,21 @@ const UserDetails = (props) => {
                                         marginRight: '7%',
                                     }}
                                 />{' '}
-                                {selectedUserForm.phoneNumber}
+                                {selectedUser.phoneNumber}
                             </p>
                             <hr />
-                            {selectedUserForm.position && (
-                                <p>Position: {selectedUserForm.position}</p>
+                            {selectedUser.position && (
+                                <p>Position: {selectedUser.position}</p>
                             )}
                             <p>
-                                {selectedUserForm.role} since: <br />
-                                {selectedUserForm.createdAt}
+                                {selectedUser.role} since: <br />
+                                {selectedUser.createdAt}
                             </p>
                         </div>
                         <div style={{ width: '100%' }}>
                             <p>Pets: </p>
                             <ul>
-                                {selectedUserForm.pets.map((pet) => {
+                                {selectedUser.pets.map((pet) => {
                                     return (
                                         <Link to={`/pets/${pet._id}`}>
                                             <li>

@@ -48,42 +48,51 @@ const MessageDetails = (props) => {
     return (
         <div className={style.Card}>
             <h6>New message</h6>
-            <div style={{ width: '100%' }}>
-                <p>
-                    from: {selectedMessage.sender.name}{' '}
-                    {selectedMessage.sender.lastName}
-                </p>
-                <p>
-                    <img
-                        src="../../../../images/email-logo.png"
-                        alt="phone-logo"
-                        style={{
-                            width: '1.2rem',
-                            marginRight: '5%',
-                        }}
-                    />
-                    {selectedMessage.sender.email}
-                </p>
-                <p>
-                    <img
-                        src="../../../../images/phone-logo.png"
-                        alt="phone-logo"
-                        style={{
-                            width: '1.2rem',
-                            marginRight: '7%',
-                        }}
-                    />{' '}
-                    {selectedMessage.sender.phoneNumber}
-                </p>
-                <p>Received on {selectedMessage.createdAt}</p>
-                <hr />
-                {selectedMessage?.userMessage}
-            </div>
             <div className={style.Infos}>
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '50%', height: '100%' }}>
+                    <p>
+                        from: {selectedMessage.sender.name}{' '}
+                        {selectedMessage.sender.lastName}
+                    </p>
+                    <p>
+                        <img
+                            src="../../../../images/email-logo.png"
+                            alt="phone-logo"
+                            style={{
+                                width: '1.2rem',
+                                marginRight: '5%',
+                            }}
+                        />
+                        {selectedMessage.sender.email}
+                    </p>
+                    <p>
+                        <img
+                            src="../../../../images/phone-logo.png"
+                            alt="phone-logo"
+                            style={{
+                                width: '1.2rem',
+                                marginRight: '7%',
+                            }}
+                        />{' '}
+                        {selectedMessage.sender.phoneNumber}
+                    </p>
+                    <p>Received on {selectedMessage.createdAt}</p>
+                    <hr />
+                </div>
+                <div
+                    style={{
+                        width: '50%',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-end',
+                    }}
+                >
                     {selectedMessage.address && (
                         <>
-                            <p>Requested service at: </p>
+                            <p style={{ alignSelf: 'flex-start' }}>
+                                Requested service at:{' '}
+                            </p>
                             <p>
                                 &nbsp; Street: {selectedMessage.address.street}
                             </p>
@@ -94,31 +103,23 @@ const MessageDetails = (props) => {
                             </p>
                         </>
                     )}
-
-                    <hr />
-
-                    <hr />
                 </div>
-                {/* <div style={{ width: '100%' }}>
-                    <p>Pets: </p>
-                    <ul>
-                        {selectedMessage.pets.map((pet) => {
-                            return (
-                                <Link to={`/pets/${pet._id}`}>
-                                    <li>
-                                        <h6>{pet.name}</h6>
-                                        <br />
-                                        {pet.specie}
-                                        <br />
-                                        {pet.breed}
-                                        <br />
-                                    </li>
-                                </Link>
-                            );
-                        })}
-                    </ul>
-                </div> */}
+                <hr />
             </div>
+            <hr />
+
+            <div className={style.Container}>
+                {selectedMessage?.userMessage}
+            </div>
+            <hr />
+
+            <div className={style.Container}>
+                <p>Attached:</p>
+                <div className={style.ImgContainer}>
+                    <img src={selectedMessage.imageUrl} alt="pet-pic" />
+                </div>
+            </div>
+
             {message && (
                 <p style={{ color: 'rgb(5, 58, 32)', padding: '0' }}>
                     {message}

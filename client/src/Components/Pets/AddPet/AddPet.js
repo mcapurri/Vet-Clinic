@@ -161,6 +161,9 @@ const AddPet = (props) => {
           (owner = props.location.pathname.split('/')[2].toString())
         : (url = '/api/pets/add') && (owner = form.owner.value);
 
+    console.log('owner', owner);
+    console.log('url', url);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         axios
@@ -199,6 +202,7 @@ const AddPet = (props) => {
         });
     }
     let displayedForm = formElementsArray.map((formElement) => {
+        console.log('formElement', formElement);
         let inputs = '';
 
         props.isEmployee &&
@@ -218,6 +222,8 @@ const AddPet = (props) => {
             ));
 
         formElement.id !== 'owner' &&
+            formElement.id !== 'diagnosis' &&
+            formElement.id !== 'treatment' &&
             (inputs = (
                 <div className="form-group" key={formElement.id}>
                     <Input
@@ -232,19 +238,6 @@ const AddPet = (props) => {
                     />
                 </div>
             ));
-        // setForm({
-        //     ...form,
-        //     owner: {
-        //         ...form.owner,
-        //         elementConfig: {
-        //             ...form.elementConfig,
-        //             options: {
-        //                 value: props.user._id,
-        //                 displayValue: `${props.user.lastName}, ${props.user.lastName}`,
-        //             },
-        //         },
-        //     },
-        // });
 
         return inputs;
     });

@@ -11,6 +11,7 @@ const messageSchema = new Schema(
             zipCode: String,
         },
         appointment: Date,
+        homeService: Boolean,
     },
     {
         timestamps: true,

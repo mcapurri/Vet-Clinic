@@ -13,9 +13,8 @@ import {
     addNewEvent,
 } from '../../../utils/googleCalenderEvents';
 
-const AppointmentForm = (props) => {
+const MessageForm = (props) => {
     const [message, setMessage] = useState('');
-    // const [formIsValid, setFormIsValid] = useState(false);
     const [form, setForm] = useState({
         userMessage: '',
         imageUrl: '',
@@ -77,6 +76,15 @@ const AppointmentForm = (props) => {
                     zipCode: props.user.address.zipCode,
                 },
             });
+        } else {
+            setForm({
+                ...form,
+                address: {
+                    street: '',
+                    city: '',
+                    zipCode: '',
+                },
+            });
         }
     }, [form.homeService]);
 
@@ -111,6 +119,7 @@ const AppointmentForm = (props) => {
                 homeService: !form.homeService,
                 appointment: '',
             });
+            // props.setRequestedAddress({ steeet: '', city: '', zipCode: '' });
         } else {
             setForm({
                 ...form,
@@ -162,6 +171,7 @@ const AppointmentForm = (props) => {
                         city: form.address.city,
                         zipCode: form.address.zipCode,
                     },
+                    homeService: form.homeService,
                 })
                 .then((res) => {
                     console.log('added: ', res.message);
@@ -203,31 +213,30 @@ const AppointmentForm = (props) => {
                     });
                     setBooking(events);
                 });
-            {
-                form.imageUrl &&
-                    service
-                        .saveNewThing({
-                            imageUrl: form.imageUrl,
-                            id: props.user._id,
-                            appointment: form.appointment,
-                        })
-                        .then((res) => {
-                            console.log('added: ', res.message);
+            form.imageUrl &&
+                service
+                    .saveNewThing({
+                        imageUrl: form.imageUrl,
+                        id: props.user._id,
+                        appointment: form.appointment,
+                        homeService: form.homeService,
+                    })
+                    .then((res) => {
+                        console.log('added: ', res.message);
 
-                            setMessage(res.message);
+                        setMessage(res.message);
 
-                            // Reset input values
-                            setForm({
-                                userMessage: '',
-                                imageUrl: '',
-                                appointment: '',
-                                homeService: false,
-                            });
-                        })
-                        .catch((err) => {
-                            console.log('Error while adding the thing: ', err);
+                        // Reset input values
+                        setForm({
+                            userMessage: '',
+                            imageUrl: '',
+                            appointment: '',
+                            homeService: false,
                         });
-            }
+                    })
+                    .catch((err) => {
+                        console.log('Error while adding the thing: ', err);
+                    });
         }
     };
 
@@ -246,7 +255,7 @@ const AppointmentForm = (props) => {
 
     return (
         <section
-            id="appointmentForm"
+            id="messageForm"
             style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -396,4 +405,4 @@ const AppointmentForm = (props) => {
     );
 };
 
-export default AppointmentForm;
+export default MessageForm;

@@ -19,6 +19,7 @@ const Home = (props) => {
             <MessageForm
                 user={props.user}
                 requestedAddress={requestedAddress}
+                setRequestedAddress={setRequestedAddress}
             />
             <Map setRequestedAddress={setRequestedAddress} />
         </div>
