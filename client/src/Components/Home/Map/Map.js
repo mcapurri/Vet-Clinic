@@ -106,7 +106,8 @@ const Map = ({ setRequestedAddress }) => {
                     {/* <h5> Contact Information </h5> */}
                     <address className="address">
                         Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
-                        Berlin <br /> Germany <br /> +49 157 00 00 00
+                        Berlin <br /> Germany <br />{' '}
+                        <small>+49 157 00 00 00</small>
                     </address>
                 </div>
             </Col>

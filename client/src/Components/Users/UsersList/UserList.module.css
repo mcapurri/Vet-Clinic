@@ -23,6 +23,11 @@
     height: 2rem;
     background-color: rgba(27, 120, 76, 0.2);
 }
+.resultCard td {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+}
 .Container button {
     display: flex;
     justify-self: flex-end;

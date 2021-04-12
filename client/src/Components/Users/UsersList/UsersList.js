@@ -19,7 +19,6 @@ const UsersList = (props) => {
         axios
             .get('/api/users')
             .then((users) => {
-                // console.log('users', users.data);
                 setUsersList(users.data);
             })
             .catch((err) => {
@@ -63,7 +62,6 @@ const UsersList = (props) => {
                     .includes(`${searchField.toLowerCase()}`)) &&
             (element.role === selectedRole || !selectedRole)
         );
-        // );
     });
 
     const displayUsers = filteredSearch.map((user) => {

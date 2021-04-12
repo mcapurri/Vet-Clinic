@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 // const users = require('./users');
 // router.use('/users', users);
 
-// const requests = require('./requests');
-// router.use('/requests', requests);
+// const messages = require('./messages');
+// router.use('/messages', messages);
 
 module.exports = router;

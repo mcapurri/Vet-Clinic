@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import style from './AppointmentForm.module.css';
+import style from './MessageForm.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
@@ -31,6 +31,55 @@ const AppointmentForm = (props) => {
     const [booking, setBooking] = useState([]);
     console.log('form', form);
 
+    // form.homeService && props.requestedAddress
+    //     ? setForm({
+    //           ...form,
+    //           address: {
+    //               street: props.requestedAddress.street,
+    //               city: props.requestedAddress.city,
+    //               zipCode: props.requestedAddress.zipCode,
+    //           },
+    //       })
+    //     : form.homeService && !props.requestedAddress && props.user
+    //     ? setForm({
+    //           ...form,
+    //           address: {
+    //               street: props.user.address.street,
+    //               city: props.user.address.city,
+    //               zipCode: props.user.address.zipCode,
+    //           },
+    //       })
+    //     : null;
+
+    useEffect(() => {
+        if (form.homeService === true && props.requestedAddress.street !== '') {
+            console.log('useEffect running', props.requestedAddress);
+            setForm({
+                ...form,
+                address: {
+                    street: props.requestedAddress.street,
+                    city: props.requestedAddress.city,
+                    zipCode: props.requestedAddress.zipCode,
+                },
+            });
+        } else if (
+            form.homeService === true &&
+            props.requestedAddress.street === '' &&
+            props.user
+        ) {
+            console.log('useEffect running', props.user.address);
+
+            setForm({
+                ...form,
+                address: {
+                    street: props.user.address.street,
+                    city: props.user.address.city,
+                    zipCode: props.user.address.zipCode,
+                },
+            });
+        }
+    }, [form.homeService]);
+
     useEffect(() => {
         authenticate()
             ?.then(loadClient)
@@ -56,7 +105,6 @@ const AppointmentForm = (props) => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        console.log('name, value', name, value);
         if (event.target.type === 'checkbox') {
             setForm({
                 ...form,
@@ -208,7 +256,11 @@ const AppointmentForm = (props) => {
         >
             <Form onSubmit={handleSubmit} className={style.Form}>
                 <div className={style.Container}>
-                    <div style={{ padding: '5% 0' }}>
+                    <div
+                        style={{
+                            padding: '5% 0',
+                        }}
+                    >
                         <DatePicker
                             selected={form.appointment}
                             onChange={(date) =>
@@ -223,7 +275,6 @@ const AppointmentForm = (props) => {
                             minTime={minTime}
                             maxTime={maxTime}
                             placeholderText="Select appointment"
-                            // calendarClassName="rasta-stripes"
                             minDate={new Date()}
                             filterDate={(date) =>
                                 date.getDay() !== 6 && date.getDay() !== 0
@@ -235,9 +286,6 @@ const AppointmentForm = (props) => {
                             // excludeTimes={booking}
                             value={form.appointment}
                             disabled={form.homeService}
-                            style={{
-                                width: '80%',
-                            }}
                         />
                     </div>
                     <div className={style.AddressContainer}>
@@ -255,9 +303,10 @@ const AppointmentForm = (props) => {
                                 type="text"
                                 placeholder="Street"
                                 value={
-                                    props.requestedAddress?.street !== ''
-                                        ? props.requestedAddress?.street
-                                        : props.user?.address?.street
+                                    // props.requestedAddress?.street !== ''
+                                    //     ? props.requestedAddress?.street
+                                    //     : props.user?.address?.street
+                                    form.street
                                 }
                                 onChange={handleChange}
                             />
@@ -267,9 +316,10 @@ const AppointmentForm = (props) => {
                                 type="text"
                                 placeholder="City"
                                 value={
-                                    props.requestedAddress?.city !== ''
-                                        ? props.requestedAddress?.city
-                                        : props.user?.address?.city
+                                    // props.requestedAddress?.city !== ''
+                                    //     ? props.requestedAddress?.city
+                                    //     : props.user?.address?.city
+                                    form.city
                                 }
                                 onChange={handleChange}
                             />
@@ -279,9 +329,10 @@ const AppointmentForm = (props) => {
                                 type="text"
                                 placeholder="ZIP Code"
                                 value={
-                                    props.requestedAddress?.zipCode !== ''
-                                        ? props.requestedAddress?.zipCode
-                                        : props.user?.address?.zipCode
+                                    // props.requestedAddress?.zipCode !== ''
+                                    //     ? props.requestedAddress?.zipCode
+                                    //     : props.user?.address?.zipCode
+                                    form.zipCode
                                 }
                                 onChange={handleChange}
                             />
@@ -321,7 +372,7 @@ const AppointmentForm = (props) => {
                             name="image"
                             value={form.image}
                             onChange={(e) => handleFileUpload(e)}
-                        ></input>
+                        />
                     </div>
                     <Button
                         className={style.Button}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './Home.module.css';
 import Carousel from './Carousel/Carousel';
 import GeneralInfos from './GeneralInfos/GeneralInfos';
-import AppointmentForm from './AppointmentForm/AppointmentForm';
+import MessageForm from './MessageForm/MessageForm';
 import Map from './Map/Map';
 
 const Home = (props) => {
@@ -16,7 +16,7 @@ const Home = (props) => {
         <div className={style.Home}>
             <Carousel />
             <GeneralInfos />
-            <AppointmentForm
+            <MessageForm
                 user={props.user}
                 requestedAddress={requestedAddress}
             />

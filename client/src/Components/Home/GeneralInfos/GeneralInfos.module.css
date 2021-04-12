@@ -4,7 +4,6 @@
     align-items: center;
     background-color: rgb(5, 58, 32);
     height: 60vh;
-    margin-bottom: 10%;
     color: #c0c0c0;
     width: 100vw;
 }
@@ -23,7 +22,7 @@
 .Container article {
     min-height: 60%;
 }
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 700px) {
     .Container {
         flex-direction: column;
         height: auto;
@@ -31,16 +30,10 @@
         padding-top: 10%;
     }
     .Container .Box {
-        width: 70%;
+        width: 90%;
         margin: 5% 0;
     }
     .Container .Box img {
         height: 15rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .Container .Box {
-        width: 90%;
     }
 }

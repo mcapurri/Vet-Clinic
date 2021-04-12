@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const requestSchema = new Schema(
+const messageSchema = new Schema(
     {
         userMessage: String,
         imageUrl: String,
@@ -16,6 +16,6 @@ const requestSchema = new Schema(
         timestamps: true,
     }
 );
-const Request = model('Contact', requestSchema);
+const Message = model('Contact', messageSchema);
 
-module.exports = Request;
+module.exports = Message;

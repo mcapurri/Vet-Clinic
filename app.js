@@ -113,8 +113,8 @@ app.use('/api', pets);
 const users = require('./routes/users');
 app.use('/api', users);
 
-const requests = require('./routes/requests');
-app.use('/api', requests);
+const messages = require('./routes/messages');
+app.use('/api', messages);
 
 // Error handling
 require('./error-handling')(app);

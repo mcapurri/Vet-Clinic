@@ -11,7 +11,8 @@ import AddUser from './Components/Users/AddUser/AddUser';
 import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
-import Requests from './Components/Requests/Requests';
+import MessagesList from './Components/Messages/MessagesList';
+import MessageDetails from './Components/Messages/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 function App(props) {
@@ -81,8 +82,12 @@ function App(props) {
                 />
                 <Route exact path="/pets" component={PetsList} />
                 <Route exact path="/pets/:id" component={PetDetails} />
-                <Route exact path="/requests" component={Requests} />
-
+                <Route exact path="/messages" component={MessagesList} />
+                <Route
+                    exact
+                    path="/messages/:id"
+                    render={(props) => <MessageDetails {...props} />}
+                />
                 <Route exact path="/scheduler" component={GoogleScheduler} />
             </Switch>
             <Footer />

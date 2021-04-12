@@ -83,7 +83,7 @@ const NavigationBar = (props) => {
                                                 </Link>
                                                 <Link
                                                     className="nav-link text-white"
-                                                    to="/requests"
+                                                    to="/messages"
                                                 >
                                                     Messages
                                                 </Link>

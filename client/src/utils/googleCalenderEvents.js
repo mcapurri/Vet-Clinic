@@ -29,7 +29,7 @@ export const loadClient = () => {
             'https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest'
         )
         .then(function () {
-            console.log('GAPI client loaded for API');
+            console.log('GAPI client loaded');
         })
         .catch((err) => {
             console.error('Error loading GAPI client for API', err);

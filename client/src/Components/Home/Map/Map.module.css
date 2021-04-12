@@ -21,9 +21,9 @@
     padding-inline: 5%;
     margin: 5% 0 5% 0;
 }
-.Map > .mapboxgl-canvas {
+/* .Map > .mapboxgl-canvas {
     width: 100%;
-}
+} */
 
 @media screen and (max-width: 834px) {
     .Container {

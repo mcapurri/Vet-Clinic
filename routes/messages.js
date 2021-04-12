@@ -2,22 +2,46 @@ const router = require('express').Router();
 const { loginCheck } = require('../middlewares/loginCheck');
 const { uploader, cloudinary } = require('../config/cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const Request = require('../models/Request');
+const Message = require('../models/Message');
 const User = require('../models/User');
 
-// @desc      Get all requests
-// @route     GET /requests
+// @desc      Get all messages
+// @route     GET /messages
 // @access    Private
 router.get(
-    '/requests',
+    '/messages',
     // loginCheck(),
     (req, res, next) => {
-        Request.find()
+        Message.find()
             .populate('sender')
-            .then((requests) => {
-                console.log('requests', requests);
+            .then((messages) => {
+                console.log('messages', messages);
 
-                res.status(200).json(requests);
+                res.status(200).json(messages);
+            })
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            });
+    }
+);
+
+// @desc      Get single message
+// @route     GET /messages/:id
+// @access    Private
+router.get(
+    '/messages/:id',
+    // loginCheck(),
+    (req, res, next) => {
+        const { id } = req.params;
+        console.log('id', id);
+
+        Message.find({ _id: id })
+            .populate('sender')
+            .then((message) => {
+                console.log('message', message);
+
+                res.status(200).json(message);
             })
             .catch((err) => {
                 console.log(err);
@@ -27,10 +51,10 @@ router.get(
 );
 
 // @desc      Send req form
-// @route     POST /requests/new
+// @route     POST /messages/new
 // @access    Private
 router.post(
-    '/requests/new',
+    '/messages/new',
     // loginCheck(),
 
     (req, res, next) => {
@@ -44,7 +68,7 @@ router.post(
         } = req.body;
 
         console.log(
-            'from /requests',
+            'from /messages',
             userMessage,
             id,
             imageUrl,
@@ -53,7 +77,7 @@ router.post(
             address
         );
         homeService
-            ? Request.create({
+            ? Message.create({
                   userMessage: userMessage,
                   imageUrl: imageUrl,
                   sender: id,
@@ -65,14 +89,14 @@ router.post(
                   homeService,
               })
                   .then((message) => {
-                      console.log('request form sent', message);
+                      console.log('message form sent', message);
                       res.status(201).json({ message: 'message sent' });
                   })
                   .catch((err) => {
                       res.status(400).json({ message: 'message not sent' });
                       next(err);
                   })
-            : Request.create({
+            : Message.create({
                   imageUrl: imageUrl,
                   sender: id,
                   appointment: appointment,
@@ -105,22 +129,22 @@ router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
     res.json({ secure_url: req.file.path });
 });
 
-// // @desc      Send request form
-// // @route     DELETE /Request/img
+// // @desc      Send message form
+// // @route     DELETE /Message/img
 // // @access    Private
-// router.delete('/contact/img', (req, res, next) => {
-//     Movie.findByIdAndDelete(req.params.id)
-//         .then((image) => {
-//             // check if the deleted movie had an image
-//             if (image.imgPath) {
-//                 // we want to delete the image on cloudinary
-//                 cloudinary.uploader.destroy(image.publicId);
-//             }
-//             res.status(200).json({ message: 'Image deleted' });
-//         })
-//         .catch((err) => {
-//             next(err);
-//         });
-// });
+router.delete('/messages/delete/:id', (req, res, next) => {
+    Message.findByIdAndDelete(req.params.id)
+        .then((avatar) => {
+            // check if the deleted movie had an image
+            if (avatar.imgPath) {
+                // we want to delete the image on cloudinary
+                cloudinary.uploader.destroy(avatar.publicId);
+            }
+            res.status(200).json({ message: 'Image deleted' });
+        })
+        .catch((err) => {
+            next(err);
+        });
+});
 
 module.exports = router;

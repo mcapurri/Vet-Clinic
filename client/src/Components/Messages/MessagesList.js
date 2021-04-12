@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import style from './Requests.module.css';
+import style from './MessagesList.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Filters from '../Filters/Filters';
 import Spinner from '../UI/Spinner/Spinner';
 
-const Requests = () => {
-    const [requestsList, setRequestsList] = useState([]);
+const MessagesList = () => {
+    const [messagesList, setMessagesList] = useState([]);
     const [searchField, setSearchField] = useState('');
 
     const fetchData = () => {
         axios
-            .get('/api/requests')
-            .then((requests) => {
-                setRequestsList(requests.data);
+            .get('/api/messages')
+            .then((messages) => {
+                setMessagesList(messages.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -24,7 +24,7 @@ const Requests = () => {
         fetchData();
     }, []);
 
-    // console.log('requestsList', requestsList);
+    // console.log('messagesList', messagesList);
 
     const handleChange = (event) => {
         console.log('event target', event.target);
@@ -32,7 +32,7 @@ const Requests = () => {
         setSearchField(event.target.value);
     };
 
-    const filteredSearch = requestsList.filter((element) => {
+    const filteredSearch = messagesList.filter((element) => {
         return (
             `${element.sender.name}`
                 .toLowerCase()
@@ -43,21 +43,21 @@ const Requests = () => {
         );
     });
 
-    const displayMessages = filteredSearch.map((request) => {
+    const displayMessages = filteredSearch.map((message) => {
         return (
-            <tr key={request._id} className={style.resultCard}>
+            <tr key={message._id} className={style.resultCard}>
                 <td style={{ width: '30%' }}>
-                    {request.sender.lastName},{request.sender.name}
+                    {message.sender.lastName},{message.sender.name}
                 </td>
                 <td>
-                    <Link to={`/requests/${request._id}`}>
+                    <Link to={`/messages/${message._id}`}>
                         {' '}
-                        {request.address ? 'new request' : 'message'}
+                        {message.address ? 'new request' : 'message'}
                     </Link>
                 </td>
 
                 <td>
-                    {request.imageUrl && (
+                    {message.imageUrl && (
                         <img
                             src="../../../images/camera-logo.png"
                             alt="pic-logo"
@@ -71,7 +71,7 @@ const Requests = () => {
         );
     });
 
-    if (!requestsList) return <Spinner />;
+    if (!messagesList) return <Spinner />;
     return (
         <div className={style.Container}>
             <Filters handleChange={handleChange} />
@@ -83,4 +83,4 @@ const Requests = () => {
     );
 };
 
-export default Requests;
+export default MessagesList;
