@@ -7,7 +7,7 @@ const MessageDetails = (props) => {
     const [message, setMessage] = useState('');
     const [selectedMessage, setSelectedMessage] = useState('');
 
-    console.log('selectedMessage', selectedMessage);
+    // console.log('selectedMessage', selectedMessage);
 
     const fetchData = async () => {
         await axios

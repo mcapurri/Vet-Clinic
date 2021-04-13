@@ -19,7 +19,7 @@ const PetsList = (props) => {
         axios
             .get('/api/pets')
             .then((pets) => {
-                console.log('pets', pets.data);
+                // console.log('pets', pets.data);
                 setPetsList(pets.data);
             })
             .catch((err) => {
@@ -31,7 +31,7 @@ const PetsList = (props) => {
         fetchData();
     }, []);
 
-    console.log('petsList', petsList);
+    // console.log('petsList', petsList);
 
     const handleChange = (event) => {
         if (event.target.type === 'checkbox') {
@@ -71,7 +71,6 @@ const PetsList = (props) => {
     });
 
     const displayPets = filteredSearch.map((pet) => {
-        console.log('pet', pet);
         return (
             <tr key={pet._id} className={style.resultCard}>
                 <td>

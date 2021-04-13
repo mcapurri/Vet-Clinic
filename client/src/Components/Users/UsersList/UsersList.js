@@ -78,7 +78,7 @@ const UsersList = (props) => {
                         switch (pet.specie) {
                             case 'dog':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/dog-logo.png"
                                             alt="dog-logo"
@@ -91,7 +91,7 @@ const UsersList = (props) => {
                                 );
                             case 'cat':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/cat-logo.png"
                                             alt="cat-logo"
@@ -104,7 +104,7 @@ const UsersList = (props) => {
                                 );
                             case 'rodent':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/rodent-logo.png"
                                             alt="rodent-logo"
@@ -117,7 +117,7 @@ const UsersList = (props) => {
                                 );
                             case 'bird':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/bird-logo.png"
                                             alt="bird-logo"
@@ -130,7 +130,7 @@ const UsersList = (props) => {
                                 );
                             case 'reptile':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/reptile-logo.png"
                                             alt="reptile-logo"
@@ -143,7 +143,7 @@ const UsersList = (props) => {
                                 );
                             case 'other':
                                 return (
-                                    <Link to={`/pets/${pet._id}`}>
+                                    <Link to={`/pets/${pet._id}`} key={pet._id}>
                                         <img
                                             src="../../../../images/other-logo.png"
                                             alt="other-logo"

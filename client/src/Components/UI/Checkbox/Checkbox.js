@@ -10,6 +10,7 @@ const Checkbox = (props) => {
                 checked={props.checked}
                 onChange={props.handleChange}
                 style={{ transform: 'scale(1.5)' }}
+                disabled={props.disabled}
             />
             <label className={style.Label} htmlFor={props.name}>
                 {props.label}

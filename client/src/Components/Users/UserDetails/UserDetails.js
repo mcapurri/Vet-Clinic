@@ -7,7 +7,6 @@ import { updateObject, checkValidity } from '../../../utils/utility';
 import EditUser from '../EditUser/EditUser';
 
 const UserDetails = (props) => {
-    console.log('UserDetails props', props);
     const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
     // const [formIsValid, setFormIsValid] = useState(false);
@@ -22,8 +21,6 @@ const UserDetails = (props) => {
         await axios
             .get(`/api/users/${props.match.params.id}`)
             .then((response) => {
-                console.log('response from DB', response.data);
-
                 setSelectedUser(
                     updateObject(response.data.user, {
                         pets: response.data.pets,
@@ -40,7 +37,7 @@ const UserDetails = (props) => {
                 }
             });
     };
-    console.log('selectedUser', selectedUser);
+    // console.log('selectedUser', selectedUser);
 
     const handleChange = (event) => {
         // console.log('inputId', inputId);
@@ -55,27 +52,7 @@ const UserDetails = (props) => {
                 [name]: value,
             },
         });
-        // const updatedFormElement = updateObject(selectedUser[inputId], {
-        //     value: event.target.value,
-        //     valid: checkValidity(
-        //         event.target.value,
-        //         selectedUser[inputId].validation
-        //     ),
-        //     touched: true, // input in the form has changed
-        // });
-        // const updatedForm = updateObject(selectedUser, {
-        //     [inputId]: updatedFormElement,
-        // });
-
-        // let validForm = true;
-        // for (let inputId in updatedForm) {
-        //     validForm = updatedForm[inputId].valid && validForm;
-        // }
-        // setSelectedUser(updatedForm);
-        // setFormIsValid(validForm);
     };
-
-    console.log('selectedUser', selectedUser);
 
     const toggleEditForm = () => {
         setEditForm(() => !editForm);
@@ -215,7 +192,10 @@ const UserDetails = (props) => {
                             <ul>
                                 {selectedUser.pets.map((pet) => {
                                     return (
-                                        <Link to={`/pets/${pet._id}`}>
+                                        <Link
+                                            to={`/pets/${pet._id}`}
+                                            key={pet._id}
+                                        >
                                             <li>
                                                 <h6>{pet.name}</h6>
                                                 <br />

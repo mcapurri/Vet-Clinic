@@ -28,7 +28,7 @@ const MessageForm = (props) => {
         },
     });
     const [booking, setBooking] = useState([]);
-    console.log('form', form);
+    // console.log('form', form);
 
     // form.homeService && props.requestedAddress
     //     ? setForm({
@@ -52,7 +52,6 @@ const MessageForm = (props) => {
 
     useEffect(() => {
         if (form.homeService === true && props.requestedAddress.street) {
-            console.log('useEffect running', props.requestedAddress);
             setForm({
                 ...form,
                 address: {
@@ -66,8 +65,6 @@ const MessageForm = (props) => {
             props.requestedAddress.street === '' &&
             props.user
         ) {
-            console.log('useEffect running', props.user.address);
-
             setForm({
                 ...form,
                 address: {
@@ -119,7 +116,7 @@ const MessageForm = (props) => {
                 homeService: !form.homeService,
                 appointment: '',
             });
-            // props.setRequestedAddress({ steeet: '', city: '', zipCode: '' });
+            props.setRequestedAddress({ street: '', city: '', zipCode: '' });
         } else {
             setForm({
                 ...form,
@@ -128,8 +125,6 @@ const MessageForm = (props) => {
             });
         }
     };
-
-    // console.log('formUpdated', form);
 
     const handleFileUpload = (e) => {
         console.log('The file to be uploaded is: ', e.target.files[0]);
@@ -304,6 +299,7 @@ const MessageForm = (props) => {
                             checked={form.homeService}
                             handleChange={handleChange}
                             value={form.homeService}
+                            disabled={!props.user}
                         />
                         <Form.Group style={{ width: '100%' }}>
                             <Form.Label>Street</Form.Label>

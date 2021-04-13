@@ -7,7 +7,7 @@ import {
 } from '../utils/googleApiConfig.json';
 
 const gapi = window.gapi;
-console.log('gapi', gapi);
+// console.log('gapi', gapi);
 
 export const authenticate = () => {
     return gapi.auth2
@@ -56,7 +56,7 @@ export const listAll = () => {
                 id: item.id,
                 location: item.location,
             }));
-            console.log('events ', events);
+            // console.log('events ', events);
             return events;
         })
         .catch((err) => {

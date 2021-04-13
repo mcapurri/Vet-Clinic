@@ -7,8 +7,8 @@ import Spinner from '../../UI/Spinner/Spinner';
 // import NotifyMe from 'react-notification-timeline';
 
 const MessagesList = () => {
-    const [messagesList, setMessagesList] = useState([]);
     const [searchField, setSearchField] = useState('');
+    const [messagesList, setMessagesList] = useState([]);
 
     const fetchData = () => {
         axios
