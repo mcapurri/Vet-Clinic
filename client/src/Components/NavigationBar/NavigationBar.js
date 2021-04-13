@@ -26,6 +26,7 @@ const NavigationBar = (props) => {
             style={{ backgroundColor: 'rgb(5, 58, 32)', color: '#fff' }}
         >
             <Navbar
+                collapseOnSelect
                 className="border-bottom text-white"
                 bg="transparent"
                 expand="md"

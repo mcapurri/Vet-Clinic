@@ -51,7 +51,7 @@ const MessageForm = (props) => {
     //     : null;
 
     useEffect(() => {
-        if (form.homeService === true && props.requestedAddress.street !== '') {
+        if (form.homeService === true && props.requestedAddress.street) {
             console.log('useEffect running', props.requestedAddress);
             setForm({
                 ...form,
@@ -86,7 +86,7 @@ const MessageForm = (props) => {
                 },
             });
         }
-    }, [form.homeService]);
+    }, [form.homeService, props.requestedAddress]);
 
     useEffect(() => {
         authenticate()
@@ -311,12 +311,7 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="Street"
-                                value={
-                                    // props.requestedAddress?.street !== ''
-                                    //     ? props.requestedAddress?.street
-                                    //     : props.user?.address?.street
-                                    form.street
-                                }
+                                value={form.address.street}
                                 onChange={handleChange}
                             />
                             <Form.Label>City</Form.Label>
@@ -324,12 +319,7 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="City"
-                                value={
-                                    // props.requestedAddress?.city !== ''
-                                    //     ? props.requestedAddress?.city
-                                    //     : props.user?.address?.city
-                                    form.city
-                                }
+                                value={form.address.city}
                                 onChange={handleChange}
                             />
                             <Form.Label>ZIP Code</Form.Label>
@@ -337,25 +327,13 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="ZIP Code"
-                                value={
-                                    // props.requestedAddress?.zipCode !== ''
-                                    //     ? props.requestedAddress?.zipCode
-                                    //     : props.user?.address?.zipCode
-                                    form.zipCode
-                                }
+                                value={form.address.zipCode}
                                 onChange={handleChange}
                             />
                         </Form.Group>
                     </div>
                 </div>
-                {/* <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                    }}
-                > */}
+
                 <Form.Group className={style.Group}>
                     <Form.Label className={style.Label} htmlFor="message">
                         Your message
@@ -396,15 +374,17 @@ const MessageForm = (props) => {
                         className={style.Button}
                         variant="primary sm"
                         type="submit"
-                        // disabled={
-                        //     (!form.userMessage && !form.appointment) ||
-                        //     (!form.userMessage && !form.homeService)
-                        // }
+                        disabled={
+                            !props.user
+                            // (!props.user && !form.appointment) ||
+                            // (!props.user &&
+                            //     !form.userMessage &&
+                            //     !form.homeService)
+                        }
                     >
                         Send
                     </Button>
                 </Form.Group>
-                {/* </div> */}
             </Form>
         </section>
     );
