@@ -153,59 +153,106 @@ const PetDetails = (props) => {
                     <h3>{selectedPet.name}</h3>
                     <div className={style.Infos}>
                         <div style={{ width: '100%' }}>
-                            <p>Specie: {selectedPet.specie}</p>
-                            <p>Breed: {selectedPet.breed}</p>
-                            <p>Age: {selectedPet.age}</p>
+                            <p>
+                                <b>Specie:</b> {selectedPet.specie}
+                            </p>
+                            <p>
+                                <b>Breed:</b> {selectedPet.breed}
+                            </p>
+                            <p>
+                                {' '}
+                                <b>Age:</b> {selectedPet.age}
+                            </p>
                             <hr />
-                            <p>Diagnosis:</p>
-                            <p>{selectedPet.diagnosis}</p>
-                            <p>Treatment:</p>
-                            <p>{selectedPet.treatment}</p>
+                            <p>
+                                {' '}
+                                <b>Diagnosis:</b>{' '}
+                            </p>
+                            <div className={style.TextBox}>
+                                <p>{selectedPet.diagnosis}</p>
+                            </div>
+                            <p>
+                                {' '}
+                                <b>Treatment:</b>{' '}
+                            </p>
+                            <div className={style.TextBox}>
+                                <p>{selectedPet.treatment}</p>
+                            </div>
                         </div>
-                        <div style={{ width: '100%', height: '50%' }}>
-                            <p>Owner: </p>
-                            <p>&nbsp; Name: {selectedPet.owner.name}</p>
+                        <div
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                paddingLeft: '10%',
+                            }}
+                        >
                             <p>
-                                &nbsp; Last name: {selectedPet.owner.lastName}
+                                <b>Owner:</b>{' '}
                             </p>
+                            <div>
+                                <p>
+                                    &nbsp; <b>Name: </b>{' '}
+                                    {selectedPet.owner.name}
+                                </p>
+                                <p>
+                                    &nbsp; <b>Last name: </b>{' '}
+                                    {selectedPet.owner.lastName}
+                                </p>
+                                <hr />
+                                <p>
+                                    &nbsp;{' '}
+                                    <b>
+                                        <img
+                                            src="../../../../images/email-logo.png"
+                                            alt="phone-logo"
+                                            style={{
+                                                width: '1.2rem',
+                                                marginRight: '5%',
+                                            }}
+                                        />{' '}
+                                    </b>
+                                    {selectedPet.owner.email}
+                                </p>
+                                <p>
+                                    &nbsp;{' '}
+                                    <b>
+                                        <img
+                                            src="../../../../images/phone-logo.png"
+                                            alt="phone-logo"
+                                            style={{
+                                                width: '1.2rem',
+                                                marginRight: '5%',
+                                            }}
+                                        />
+                                    </b>
+                                    {selectedPet.owner.phoneNumber}
+                                </p>
+                            </div>
+
                             <hr />
-                            <p>
-                                &nbsp;{' '}
-                                <img
-                                    src="../../../../images/email-logo.png"
-                                    alt="phone-logo"
-                                    style={{
-                                        width: '1.2rem',
-                                        marginRight: '5%',
-                                    }}
-                                />{' '}
-                                {selectedPet.owner.email}
-                            </p>
-                            <p>
-                                &nbsp;{' '}
-                                <img
-                                    src="../../../../images/phone-logo.png"
-                                    alt="phone-logo"
-                                    style={{
-                                        width: '1.2rem',
-                                        marginRight: '5%',
-                                    }}
-                                />
-                                {selectedPet.owner.phoneNumber}
-                            </p>
-                            <hr />
-                            <p>
-                                &nbsp; Street:{' '}
-                                {selectedPet.owner.address.street}
-                            </p>
-                            <p>&nbsp; City: {selectedPet.owner.address.city}</p>
-                            <p>
-                                &nbsp; ZIP code:{' '}
-                                {selectedPet.owner.address.zipCode}
-                            </p>
-                            <p>
-                                &nbsp; State: {selectedPet.owner.address.state}
-                            </p>
+                            <div
+                                style={{
+                                    height: '50%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <p>
+                                    &nbsp; <b>Street: </b>{' '}
+                                    {selectedPet.owner.address.street}
+                                </p>
+                                <p>
+                                    &nbsp; <b>City: </b>{' '}
+                                    {selectedPet.owner.address.city}
+                                </p>
+                                <p>
+                                    &nbsp; <b>Zip code: </b>{' '}
+                                    {selectedPet.owner.address.zipCode}
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div className={style.buttons}>

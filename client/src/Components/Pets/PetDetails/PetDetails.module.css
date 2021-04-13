@@ -13,6 +13,8 @@
     width: 80vw;
     height: 80vh;
     background-color: rgba(27, 120, 76, 0.2);
+    color: rgb(5, 58, 32);
+    padding: 10% 10%;
 }
 
 .Infos {
@@ -45,8 +47,16 @@
     color: rgb(48, 153, 228);
     cursor: pointer;
 }
-.Card span:nth-child(1) {
+/* .Card span:nth-child(1) {
     font-size: 3em;
     font-weight: bold;
     width: 100%;
+} */
+.Card .TextBox {
+    width: 100%;
+    min-height: 20%;
+    max-height: 10rem;
+    overflow-y: auto;
+    border-bottom: 3px solid rgb(5, 58, 32);
+    border-right: 1px solid rgb(5, 58, 32);
 }

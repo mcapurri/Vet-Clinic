@@ -51,7 +51,8 @@ const MessageDetails = (props) => {
             <div className={style.Infos}>
                 <div style={{ width: '50%', height: '100%' }}>
                     <p>
-                        from: {selectedMessage.sender.name}{' '}
+                        <b>from: </b>
+                        {selectedMessage.sender.name}{' '}
                         {selectedMessage.sender.lastName}
                     </p>
                     <p>
@@ -76,8 +77,18 @@ const MessageDetails = (props) => {
                         />{' '}
                         {selectedMessage.sender.phoneNumber}
                     </p>
-                    <p>Received on {selectedMessage.createdAt}</p>
-                    <hr />
+                    <p>
+                        <b>Received on </b>
+                        {/* {new Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                        }).format(selectedMessage.createdAt)} */}
+                        {selectedMessage.createdAt}
+                    </p>
                 </div>
                 <div
                     style={{
@@ -91,23 +102,24 @@ const MessageDetails = (props) => {
                     {selectedMessage.address && (
                         <>
                             <p style={{ alignSelf: 'flex-start' }}>
-                                Requested service at:{' '}
+                                <b>Requested service at: </b>
                             </p>
                             <p>
-                                &nbsp; Street: {selectedMessage.address.street}
+                                &nbsp;<b>Street: </b>
+                                {selectedMessage.address.street}
                             </p>
-                            <p>&nbsp; City: {selectedMessage.address.city}</p>
                             <p>
-                                &nbsp; ZIP Code:
+                                &nbsp; <b>City: </b>{' '}
+                                {selectedMessage.address.city}
+                            </p>
+                            <p>
+                                &nbsp; <b>Zip Code: </b>
                                 {selectedMessage.address.zipCode}
                             </p>
                         </>
                     )}
                 </div>
-                <hr />
             </div>
-            <hr />
-
             <div className={style.Container}>
                 {selectedMessage.userMessage
                     ? selectedMessage.userMessage
@@ -116,7 +128,9 @@ const MessageDetails = (props) => {
             <hr />
 
             <div className={style.Container}>
-                <p>Attached:</p>
+                <p>
+                    <b>Attached:</b>
+                </p>
                 <div className={style.ImgContainer}>
                     <img src={selectedMessage.imageUrl} alt="pet-pic" />
                 </div>

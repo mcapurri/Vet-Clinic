@@ -9,7 +9,7 @@
     box-sizing: border-box;
     /* box-shadow: 2px 2px 10px 0 #eee; */
     margin: 5% 0;
-    padding: 10% 5%;
+    padding: 10% 10%;
     width: 80vw;
     /* min-height: 80vh */
     background-color: rgba(27, 120, 76, 0.2);
@@ -26,10 +26,10 @@
 
 .Card .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-end;
     width: 100%;
-    margin: 5% 0;
+    /* margin: 5% 0; */
 }
 .Card button {
     background: none;
@@ -59,10 +59,9 @@
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     margin-bottom: 20%;
-    align-self: center;
     justify-content: center;
+    /* align-items: center; */
 }
 .Card .ImgContainer p {
     display: flex;
@@ -71,4 +70,15 @@
 .Card .ImgContainer img {
     width: 20rem;
     max-height: 80%;
+}
+
+@media only screen and (max-width: 600px) {
+    .Card {
+        margin: 5% 0;
+        padding: 10% 5%;
+    }
+    .Infos {
+        /* transform: scale(0.8); */
+        /* justify-content: space-around; */
+    }
 }

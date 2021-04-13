@@ -156,16 +156,22 @@ const UserDetails = (props) => {
                     </div>
                     <div className={style.Infos}>
                         <div style={{ width: '100%' }}>
-                            <p>Address: </p>
-                            <p>&nbsp; Street: {selectedUser.address.street}</p>
                             <p>
-                                &nbsp; ZIP Code:
+                                {' '}
+                                <b>Address:</b>{' '}
+                            </p>
+                            <p>
+                                &nbsp; <b>Street: </b>{' '}
+                                {selectedUser.address.street}
+                            </p>
+                            <p>
+                                &nbsp; <b>Zip Code: </b>
                                 {selectedUser.address.zipCode}
                             </p>
-                            <p>&nbsp; City: {selectedUser.address.city}</p>
-                            {/* <p>
-                                &nbsp; State: {selectedUser.address.state}
-                            </p> */}
+                            <p>
+                                &nbsp; <b>City:</b> {selectedUser.address.city}
+                            </p>
+
                             <hr />
                             <p>
                                 <img
@@ -191,15 +197,21 @@ const UserDetails = (props) => {
                             </p>
                             <hr />
                             {selectedUser.position && (
-                                <p>Position: {selectedUser.position}</p>
+                                <p>
+                                    <b>Position:</b> {selectedUser.position}
+                                </p>
                             )}
                             <p>
-                                {selectedUser.role} since: <br />
+                                <b>
+                                    {selectedUser.role} since: <br />
+                                </b>
                                 {selectedUser.createdAt}
                             </p>
                         </div>
-                        <div style={{ width: '100%' }}>
-                            <p>Pets: </p>
+                        <div style={{ width: '100%', paddingLeft: '5%' }}>
+                            <p>
+                                <b>Pets: </b>
+                            </p>
                             <ul>
                                 {selectedUser.pets.map((pet) => {
                                     return (

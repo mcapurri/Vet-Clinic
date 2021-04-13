@@ -101,6 +101,7 @@ router.post(
                   sender: id,
                   appointment: appointment,
                   userMessage: userMessage,
+                  homeService,
               })
                   .then((message) => {
                       console.log('request form sent', message);
