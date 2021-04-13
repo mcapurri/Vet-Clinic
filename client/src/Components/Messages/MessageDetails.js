@@ -47,7 +47,7 @@ const MessageDetails = (props) => {
 
     return (
         <div className={style.Card}>
-            <h6>New message</h6>
+            <h4 style={{ paddingBottom: '5%' }}>New message</h4>
             <div className={style.Infos}>
                 <div style={{ width: '50%', height: '100%' }}>
                     <p>
@@ -109,7 +109,9 @@ const MessageDetails = (props) => {
             <hr />
 
             <div className={style.Container}>
-                {selectedMessage?.userMessage}
+                {selectedMessage.userMessage
+                    ? selectedMessage.userMessage
+                    : 'No message'}
             </div>
             <hr />
 

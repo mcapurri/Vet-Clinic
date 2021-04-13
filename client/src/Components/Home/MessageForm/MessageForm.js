@@ -383,6 +383,11 @@ const MessageForm = (props) => {
                             onChange={(e) => handleFileUpload(e)}
                         />
                     </div>
+                    {message && (
+                        <p style={{ color: ' color: rgb(5, 58, 32)' }}>
+                            {message}
+                        </p>
+                    )}
                     <Button
                         className={style.Button}
                         variant="primary sm"
@@ -394,10 +399,6 @@ const MessageForm = (props) => {
                     >
                         Send
                     </Button>
-
-                    {message && (
-                        <p className="d-inline success-msg">{message}</p>
-                    )}
                 </Form.Group>
                 {/* </div> */}
             </Form>
