@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './MessageDetails.module.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../../UI/Spinner/Spinner';
 
 const MessageDetails = (props) => {
     const [message, setMessage] = useState('');

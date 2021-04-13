@@ -11,8 +11,8 @@ import AddUser from './Components/Users/AddUser/AddUser';
 import AddPet from './Components/Pets/AddPet/AddPet';
 import PetsList from './Components/Pets/PetsList/PetsList';
 import PetDetails from './Components/Pets/PetDetails/PetDetails';
-import MessagesList from './Components/Messages/MessagesList';
-import MessageDetails from './Components/Messages/MessageDetails';
+import MessagesList from './Components/Messages/MessagesList/MessagesList';
+import MessageDetails from './Components/Messages/MessageDetails/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 function App(props) {

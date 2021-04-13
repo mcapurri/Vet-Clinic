@@ -41,9 +41,9 @@ const NavigationBar = (props) => {
                         >
                             <Link to="/" style={{ marginLeft: '5%' }}>
                                 <img
-                                    src="../../../images/home-logo.png"
+                                    src="/images/home-logo-white.png"
                                     alt=""
-                                    style={{ width: '2.8rem' }}
+                                    style={{ width: '2rem', color: '#fff' }}
                                 />
                             </Link>
                         </Navbar.Brand>

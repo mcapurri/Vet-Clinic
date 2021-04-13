@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import style from './MessagesList.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Filters from '../Filters/Filters';
-import Spinner from '../UI/Spinner/Spinner';
+import Filters from '../../Filters/Filters';
+import Spinner from '../../UI/Spinner/Spinner';
 
 const MessagesList = () => {
     const [messagesList, setMessagesList] = useState([]);
