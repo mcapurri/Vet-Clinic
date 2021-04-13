@@ -372,7 +372,11 @@ const MessageForm = (props) => {
                     />
                     <div className={style.Loader}>
                         <AttachFileIcon style={{ color: '#216ba5' }} />
-                        <label className="m-0" htmlFor={style.FileLoader}>
+                        <label
+                            className="m-0"
+                            htmlFor={style.FileLoader}
+                            style={{ cursor: 'pointer' }}
+                        >
                             Attach photo
                         </label>
                         <input

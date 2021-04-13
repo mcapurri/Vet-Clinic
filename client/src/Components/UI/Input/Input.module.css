@@ -2,6 +2,7 @@
     width: 100%;
     /* padding: 10px; */
     box-sizing: border-box;
+    margin-bottom: 10%;
 }
 
 .Label {
@@ -18,7 +19,9 @@
     /* padding: 6px 10px; */
     display: block;
     width: 100%;
+    height: 2rem;
     box-sizing: border-box;
+    /* padding-bottom: 0%; */
 }
 .InputElement :focus {
     outline: none;

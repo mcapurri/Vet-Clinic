@@ -17,7 +17,7 @@ const Input = (props) => {
     let validationError = null;
     if (props.invalid && props.touched) {
         validationError = (
-            <p>
+            <p style={{ margin: '0' }}>
                 Please enter a valid{' '}
                 {props.elementConfig.placeholder.toLowerCase()}
             </p>

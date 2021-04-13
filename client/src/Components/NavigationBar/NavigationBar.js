@@ -81,6 +81,7 @@ const NavigationBar = (props) => {
                                                 >
                                                     Scheduler
                                                 </Link>
+
                                                 <Link
                                                     className="nav-link text-white"
                                                     to="/messages"
