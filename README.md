@@ -7,7 +7,8 @@ the map below, and setting up the draggable marker.
 'Employee' users have access to the full CRUD operations over both database and Google scheduler.
 They can add, edit and delete the clients, so like  other employees, their pets and the appointments
 
-
+## Technologies used:
+Express, React, Bootstrap, Passport, Mongoose, Cloudinary, Mapbox, Google API
 ## Author
 
 Marco Capurri
