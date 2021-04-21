@@ -5,13 +5,13 @@ const Carousel = () => {
     return (
         <div className={style.CarouselContainer}>
             <CarouselBootstrap data-interval="10000">
-                <CarouselBootstrap.Item className={style.Fade}>
+                {/* <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
                         src="./images/pets.png"
                         alt="Pets"
                     />
-                </CarouselBootstrap.Item>
+                </CarouselBootstrap.Item> */}
                 <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
