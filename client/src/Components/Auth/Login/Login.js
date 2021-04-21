@@ -3,113 +3,102 @@ import { Link } from 'react-router-dom';
 import style from './Login.module.css';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { login } from '../../../utils/auth';
-import { updateObject, checkValidity } from '../../../utils/utility';
+import { useForm } from 'react-hook-form';
+import useInput from '../../../utils/useInput';
 
 const Login = (props) => {
     const [message, setMessage] = useState('');
-    const [form, setForm] = useState({
-        email: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'email',
-                placeholder: 'Email',
-            },
-            value: '',
-            validation: {
-                required: true,
-                isEmail: true,
-            },
-            touched: false,
-        },
-        password: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Password',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLenght: 3,
-            },
-            touched: false,
-        },
-    });
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
-    const handleChange = (event, controlName) => {
-        const updatedForm = updateObject(form, {
-            [controlName]: updateObject(form[controlName], {
-                value: event.target.value,
-                valid: checkValidity(
-                    event.target.value,
-                    form[controlName].validation
-                ),
-                touched: true,
-            }),
+    const [email, setEmail] = useInput('');
+    const [password, setPassword] = useInput('');
+
+    const onSubmit = async (data) => {
+        console.log('data', data);
+        const user = await login({
+            email,
+            password,
         });
+        if (user.message) {
+            setMessage(user.message);
 
-        setForm(updatedForm);
+            //Reset input values
+            setEmail('');
+            setPassword('');
+        } else {
+            //  put the user object in the state of App.js
+            console.log(user);
+            props.setUser(user);
+            props.history.push('/');
+        }
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        login({
-            email: form.email.value,
-            password: form.password.value,
-        }).then((user) => {
-            if (user.message) {
-                setMessage(user.message);
-
-                //Reset input values
-                // for (let key in form) {
-                //     setForm({ ...form, key: { ...key, value: '' } });
-                // }
-                console.log('form', form);
-            } else {
-                //  put the user object in the state of App.js
-                console.log(user);
-                props.setUser(user);
-                props.history.push('/');
-            }
-        });
-    };
-
-    const formElementsArray = [];
-    for (let key in form) {
-        formElementsArray.push({
-            id: key,
-            config: form[key],
-        });
-    }
-
-    let displayedForm = formElementsArray.map((formElement) => (
-        <FormControl
-            key={formElement.id}
-            placeholder={formElement.config.elementConfig.placeholder}
-            type={formElement.config.elementConfig.type}
-            // aria-label="email"s
-            // aria-describedby="basic-addon1"
-            style={{ marginRight: '2%' }}
-            value={formElement.config.value}
-            onChange={(event) => handleChange(event, formElement.id)}
-        />
-    ));
 
     return (
-        <Form inline className={style.Form} onSubmit={handleSubmit}>
-            <div style={{ display: 'flex' }}>
-                <InputGroup>{displayedForm}</InputGroup>
+        <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
+            {/* <Form.Group
+                style={{
+                    display: 'flex',
+                    width: '100%',
+                    // justifyContent: 'space-around',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            > */}
+            <div
+                style={{
+                    display: 'flex',
+                    width: '100%',
+                    maxWidth: '40rem',
+                    justifyContent: 'space-around',
+                }}
+            >
+                <Form.Group>
+                    <FormControl
+                        {...register('email', {
+                            required: true,
+                            pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+                        })}
+                        placeholder="Email"
+                        name="email"
+                        type="email"
+                        value={email}
+                        onChange={setEmail}
+                    />
+                    {errors.email && <span>This field is required</span>}
+                </Form.Group>
+
+                <Form.Group>
+                    <FormControl
+                        {...register('password', {
+                            required: true,
+                            minLength: 3,
+                        })}
+                        placeholder="Password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={setPassword}
+                    />
+                    {errors.password && <span>This field is required</span>}
+                </Form.Group>
+                {/* <InputGroup>{displayedForm}</InputGroup> */}
                 <Button className={style.LoginButton} type="submit">
                     Log in
                 </Button>
             </div>
-            <div>
+            {/* </Form.Group> */}
+            <div style={{ display: 'flex', alignSelf: 'flex-start' }}>
                 {message ? (
                     <p style={{ color: 'red' }}>{message}</p>
                 ) : (
                     <div>
                         <p>
                             Haven't you registered yet?&nbsp;
-                            <br />
                             <Link to={'/signup'} className={style.Button}>
                                 Sign up
                             </Link>

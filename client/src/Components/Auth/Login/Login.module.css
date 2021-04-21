@@ -9,7 +9,13 @@
     margin: 5% 0 0 5%;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    /* flex-wrap: nowrap; */
+}
+.Form input {
+    width: 100%;
+    padding-right: 5%;
 }
 Form a {
     margin: 0 1% 0 1%;
@@ -17,13 +23,14 @@ Form a {
 .Form p {
     color: #fff;
     width: 50vw;
-    margin-top: 5%;
+    margin-left: 3%;
 }
 
 .LoginButton {
-    max-height: 3rem;
+    max-height: 2.4rem;
     font-size: 0.9rem;
     font-weight: bold;
+    width: 15%;
 }
 @media only screen and (max-width: 600px) {
     .LoginButton {

@@ -1,224 +1,154 @@
 import React, { useState } from 'react';
 import style from './Signup.module.css';
 import { signup } from '../../../utils/auth';
-import { Form } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { updateObject, checkValidity } from '../../../utils/utility';
-import Input from '../../../Components/UI/Input/Input';
+import { useForm } from 'react-hook-form';
+import useInput from '../../../utils/useInput';
 
 const Signup = (props) => {
     const [message, setMessage] = useState('');
-    const [form, setForm] = useState({
-        name: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'First name',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 2,
-            },
-            valid: false,
-            touched: false,
-        },
-        lastName: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Last name',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 2,
-            },
-            valid: false,
-            touched: false,
-        },
-        email: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'email',
-                placeholder: 'Email',
-            },
-            value: '',
-            validation: {
-                required: true,
-                isEmail: true,
-            },
-            valid: false,
-            touched: false,
-        },
-        password: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Password',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-        confirm: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Confirm password',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-        street: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Street',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
-        zipCode: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'ZIP Code',
-            },
-            value: '',
-            validation: {
-                // required: true,
-                minLength: 5,
-                maxLength: 5,
-            },
-            valid: false,
-            touched: false,
-        },
-        city: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'City',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
-        phoneNumber: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Phone Num.',
-            },
-            value: '',
-            validation: {
-                // required: true,
-            },
-            valid: false,
-            touched: false,
-        },
-    });
-    const [formIsValid, setFormIsValid] = useState(false);
+    const [firstName, setFirstName] = useInput('');
+    const [lastName, setLastName] = useInput('');
+    const [email, setEmail] = useInput('');
+    const [password, setPassword] = useInput('');
+    const [confirm, setConfirm] = useInput('');
+    const [phoneNumber, setPhoneNumber] = useInput('');
+    const [street, setStreet] = useInput('');
+    const [zipCode, setZipCode] = useInput('');
+    const [city, setCity] = useInput('');
 
-    const handleChange = (e, inputId) => {
-        console.log('inputId', inputId);
-
-        const updatedFormElement = updateObject(form[inputId], {
-            value: e.target.value,
-            valid: checkValidity(e.target.value, form[inputId].validation),
-            touched: true, // input in the form has changed
-        });
-        const updatedForm = updateObject(form, {
-            [inputId]: updatedFormElement,
-        });
-
-        let validForm = true;
-        for (let inputId in updatedForm) {
-            validForm = updatedForm[inputId].valid && formIsValid;
+    console.log('city', city);
+    const onSubmit = async (data) => {
+        console.log('data', data);
+        // event.preventDefault();
+        const user = await signup(data);
+        if (user.message) {
+            setMessage(user.message);
+        } else {
+            // signup was successful
+            props.setUser(user);
+            props.history.push('/');
         }
-        setForm(updatedForm);
-        setFormIsValid(validForm);
     };
-    console.log('formUpdated', form);
-    console.log('formIsValid', formIsValid);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        signup({
-            name: form.name.value,
-            lastName: form.lastName.value,
-            email: form.email.value,
-            password: form.password.value,
-            confirm: form.confirm.value,
-            street: form.street.value,
-            zipCode: form.zipCode.value,
-            city: form.city.value,
-            phoneNumber: form.phoneNumber.value,
-        }).then((user) => {
-            if (user.message) {
-                setMessage(user.message);
-
-                // Reset input values
-                for (let formControl in form) {
-                    setForm({
-                        ...form,
-                        formControl: { ...formControl, value: '' },
-                    });
-                }
-            } else {
-                // signup was successful
-                props.setUser(user);
-                props.history.push('/');
-            }
-        });
-    };
-
-    // Make dynamic input tags for the form
-    const formElementsArray = [];
-    for (let formElement in form) {
-        formElementsArray.push({
-            id: formElement,
-            config: form[formElement],
-        });
-    }
-    let displayedForm = formElementsArray.map((formElement) => {
-        return (
-            <div className="form-group" key={formElement.id}>
-                <Input
-                    className="form-control"
-                    elementType={formElement.config.elementType}
-                    elementConfig={formElement.config.elementConfig}
-                    value={formElement.config.value}
-                    invalid={!formElement.config.valid}
-                    shouldValidate={formElement.config.validation} // validation is required
-                    touched={formElement.config.touched} // input has changed from initial status
-                    changed={(event) => handleChange(event, formElement.id)}
-                />
-            </div>
-        );
-    });
 
     return (
-        <Form className={style.Form} onSubmit={handleSubmit}>
-            {displayedForm}
+        <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group>
+                <FormControl
+                    {...register('firstName', { required: true, minLength: 2 })}
+                    placeholder="First Name"
+                    name="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={setFirstName}
+                />
+                {errors.firstName && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('lastName', { required: true, minLength: 2 })}
+                    placeholder="Last Name"
+                    name="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={setLastName}
+                />
+                {errors.lastName && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('email', { required: true })}
+                    placeholder="Email"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={setEmail}
+                />
+                {errors.email && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('password', { required: true, minLength: 3 })}
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={setPassword}
+                />
+                {errors.password && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('confirm', { required: true, minLength: 3 })}
+                    placeholder="Confirm password"
+                    name="confirm"
+                    type="password"
+                    value={confirm}
+                    onChange={setConfirm}
+                />
+                {errors.confirm && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('phoneNumber', { required: true })}
+                    placeholder="Phone Number"
+                    name="phoneNumber"
+                    type="text"
+                    value={phoneNumber}
+                    onChange={setPhoneNumber}
+                />
+                {errors.phoneNumber && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('street', { required: true })}
+                    placeholder="Street"
+                    name="street"
+                    type="text"
+                    value={street}
+                    onChange={setStreet}
+                />
+                {errors.street && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('zipCode', { required: true, minLength: 5 })}
+                    placeholder="Zip Code"
+                    name="zipCode"
+                    type="text"
+                    value={zipCode}
+                    onChange={setZipCode}
+                />
+                {errors.zipCode && <span>This field is required</span>}
+            </Form.Group>
+
+            <Form.Group>
+                <FormControl
+                    {...register('city', { required: true, minLength: 2 })}
+                    placeholder="City"
+                    name="city"
+                    type="text"
+                    value={city}
+                    onChange={setCity}
+                />
+                {errors.city && <span>This field is required</span>}
+            </Form.Group>
+
             <button
                 className={style.Button}
                 type="submit"
@@ -228,9 +158,6 @@ const Signup = (props) => {
             </button>
             {message && <p style={{ color: 'red', padding: '0' }}>{message}</p>}
 
-            {/* <p>
-                Do you already have an account? <Link to="/">Login</Link>
-            </p> */}
             <Link to="/">Back</Link>
         </Form>
     );
