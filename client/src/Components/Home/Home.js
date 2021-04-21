@@ -11,7 +11,6 @@ const Home = (props) => {
         city: '',
         zipCode: '',
     });
-    console.log('reqAddress', requestedAddress);
     return (
         <div className={style.Home}>
             <Carousel />

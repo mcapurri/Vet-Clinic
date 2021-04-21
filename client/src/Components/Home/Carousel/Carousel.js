@@ -4,16 +4,15 @@ import { Carousel as CarouselBootstrap } from 'react-bootstrap';
 const Carousel = () => {
     return (
         <div className={style.CarouselContainer}>
-            <CarouselBootstrap data-interval="5000">
-                <CarouselBootstrap.Item>
+            <CarouselBootstrap data-interval="10000">
+                <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
                         src="./images/pets.png"
                         alt="Pets"
                     />
-                    {/* <CarouselBootstrap.Caption></CarouselBootstrap.Caption> */}
                 </CarouselBootstrap.Item>
-                <CarouselBootstrap.Item>
+                <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
                         src="./images/clinic-front.jpg"
@@ -22,10 +21,10 @@ const Carousel = () => {
 
                     {/* <CarouselBootstrap.Caption></CarouselBootstrap.Caption> */}
                 </CarouselBootstrap.Item>
-                <CarouselBootstrap.Item>
+                <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
-                        src="./images/op-room.png"
+                        src="./images/op-room.jpg"
                         alt="op-room"
                     />
 

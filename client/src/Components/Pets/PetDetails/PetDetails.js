@@ -6,7 +6,6 @@ import { updateObject } from '../../../utils/utility';
 import EditPet from '../EditPet/EditPet';
 
 const PetDetails = (props) => {
-    const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
     // const [formIsValid, setFormIsValid] = useState(false);
 
@@ -40,27 +39,10 @@ const PetDetails = (props) => {
                         },
                     })
                 );
-
-                // setSelectedPet(updateObject((selectedPet[index], {value: response.data[index]}))
-
-                // for (let formControl in selectedPet) {
-                //     setSelectedPet({
-                //         ...selectedPet,
-                //         formControl: {
-                //             ...formControl,
-                //             value: response.data[formControl],
-                //         },
-                //     });
-                // }
             })
 
             .catch((err) => {
                 console.log(err.response);
-                if (err.response.status === 404) {
-                    setError({
-                        error: 'Pet not found',
-                    });
-                }
             });
     };
     console.log('selectedPet', selectedPet);
@@ -76,25 +58,6 @@ const PetDetails = (props) => {
                 [name]: value,
             },
         });
-
-        // const updatedFormElement = updateObject(selectedPet[inputId], {
-        //     value: event.target.value,
-        //     valid: checkValidity(
-        //         event.target.value,
-        //         selectedPet[inputId].validation
-        //     ),
-        //     touched: true, // input in the form has changed
-        // });
-        // const updatedForm = updateObject(selectedPet, {
-        //     [inputId]: updatedFormElement,
-        // });
-
-        // let validForm = true;
-        // for (let inputId in updatedForm) {
-        //     validForm = updatedForm[inputId].valid && validForm;
-        // }
-        // setSelectedPet(updatedForm);
-        // setFormIsValid(validForm);
     };
 
     console.log('selectedPet', selectedPet);

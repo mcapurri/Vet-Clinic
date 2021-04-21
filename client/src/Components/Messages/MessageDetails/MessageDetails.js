@@ -9,8 +9,8 @@ const MessageDetails = (props) => {
 
     // console.log('selectedMessage', selectedMessage);
 
-    const fetchData = async () => {
-        await axios
+    const fetchData = () => {
+        axios
             .get(`/api/messages/${props.match.params.id}`)
             .then((response) => {
                 // console.log('response from DB', response.data[0]);

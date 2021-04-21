@@ -94,7 +94,7 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, '/client/build')));
 
 // default value for title local
-const projectName = 'Vet-clinic-project';
+const projectName = 'Vet-clinic';
 const capitalized = (string) =>
     string[0].toUpperCase() + string.slice(1).toLowerCase();
 

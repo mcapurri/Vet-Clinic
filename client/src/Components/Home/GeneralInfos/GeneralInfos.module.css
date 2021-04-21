@@ -16,13 +16,13 @@
 }
 .Container .Box img {
     width: 100%;
-    height: 10rem;
+    height: 15rem;
 }
 
 .Container article {
     min-height: 60%;
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     .Container {
         flex-direction: column;
         height: auto;
@@ -30,10 +30,10 @@
         padding-top: 10%;
     }
     .Container .Box {
-        width: 90%;
+        width: 80%;
         margin: 5% 0;
     }
     .Container .Box img {
-        height: 15rem;
+        height: 18rem;
     }
 }
