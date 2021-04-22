@@ -7,60 +7,71 @@ import EditPet from '../EditPet/EditPet';
 
 const PetDetails = (props) => {
     const [editForm, setEditForm] = useState(false);
-    // const [formIsValid, setFormIsValid] = useState(false);
 
-    const [selectedPet, setSelectedPet] = useState('');
+    const [petId] = useState(props.match.params.id);
+    const [specie, setSpecie] = useState('');
+    const [name, setName] = useState('');
+    const [breed, setBreed] = useState('');
+    const [age, setAge] = useState('');
+    const [owner, setOwner] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: {},
+        phoneNumber: '',
+    });
+    const [diagnosis, setDiagnosis] = useState('');
+    const [treatment, setTreatment] = useState('');
 
+    const fetchData = async () => {
+        try {
+            const pet = await axios.get(`/api/pets/${props.match.params.id}`);
+            setName(pet.data.pet.name);
+            setSpecie(pet.data.pet.specie);
+            setBreed(pet.data.pet.breed);
+            setAge(pet.data.pet.age);
+            setOwner({
+                name: pet.data.owner.name,
+                lastName: pet.data.owner.lastName,
+                email: pet.data.owner.email,
+                address: pet.data.owner.address,
+                phoneNumber: pet.data.owner.phoneNumber,
+            });
+            setDiagnosis(pet.data.pet.diagnosis);
+            setTreatment(pet.data.pet.treatment);
+        } catch (err) {
+            console.log(err.response);
+        }
+    };
     useEffect(() => {
         fetchData();
     }, []);
 
-    const fetchData = async () => {
-        await axios
-            .get(`/api/pets/${props.match.params.id}`)
-            .then((response) => {
-                console.log('response from DB', response.data);
-
-                setSelectedPet(
-                    updateObject({
-                        _id: response.data.pet._id,
-                        name: response.data.pet.name,
-                        specie: response.data.pet.specie,
-                        breed: response.data.pet.breed,
-                        age: response.data.pet.age,
-                        diagnosis: response.data.pet.diagnosis,
-                        treatment: response.data.pet.treatment,
-                        owner: {
-                            name: response.data.owner.name,
-                            lastName: response.data.owner.lastName,
-                            email: response.data.owner.email,
-                            address: response.data.owner.address,
-                            phoneNumber: response.data.owner.phoneNumber,
-                        },
-                    })
-                );
-            })
-
-            .catch((err) => {
-                console.log(err.response);
-            });
-    };
-    console.log('selectedPet', selectedPet);
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         console.log('name, value', name, value);
+        switch (name) {
+            case 'name':
+                setName(value);
+                break;
+            case 'specie':
+                setSpecie(value);
+                break;
+            case 'breed':
+                setBreed(value);
+                break;
+            case 'age':
+                setAge(value);
+                break;
 
-        setSelectedPet({
-            ...selectedPet,
-            [name]: value,
-            address: {
-                [name]: value,
-            },
-        });
+            case 'diagnosis':
+                setDiagnosis(value);
+                break;
+            case 'treatment':
+                setTreatment(value);
+                break;
+        }
     };
-
-    console.log('selectedPet', selectedPet);
 
     const toggleEditForm = () => {
         setEditForm(() => !editForm);
@@ -69,13 +80,13 @@ const PetDetails = (props) => {
         event.preventDefault();
         console.log('update');
         axios
-            .put(`/api/pets/${selectedPet._id}`, {
-                name: selectedPet.name,
-                specie: selectedPet.specie,
-                breed: selectedPet.breed,
-                age: selectedPet.age,
-                diagnosis: selectedPet.diagnosis,
-                treatment: selectedPet.treatment,
+            .put(`/api/pets/${petId}`, {
+                name,
+                specie,
+                breed,
+                age,
+                diagnosis,
+                treatment,
             })
             .then((response) => {
                 props.history.goBack();
@@ -89,11 +100,9 @@ const PetDetails = (props) => {
 
     const deletePet = async () => {
         await axios
-            .delete(`/api/pets/${selectedPet._id}`)
+            .delete(`/api/pets/${petId}`)
             .then(() => {
-                console.log(
-                    `${selectedPet.name} ${selectedPet.lastName} was successfully removed`
-                );
+                console.log(`patient ${name} was successfully removed`);
                 props.history.goBack();
             })
             .catch((err) => {
@@ -101,7 +110,7 @@ const PetDetails = (props) => {
             });
     };
 
-    if (!selectedPet) return <Spinner />;
+    if (!name) return <Spinner />;
     return (
         <>
             {editForm ? (
@@ -109,22 +118,27 @@ const PetDetails = (props) => {
                     toggleEditForm={toggleEditForm}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    selectedPet={selectedPet}
+                    name={name}
+                    specie={specie}
+                    breed={breed}
+                    age={age}
+                    diagnosis={diagnosis}
+                    treatment={treatment}
                 />
             ) : (
                 <div className={style.Card}>
-                    <h3>{selectedPet.name}</h3>
+                    <h3>{name}</h3>
                     <div className={style.Infos}>
                         <div style={{ width: '100%' }}>
                             <p>
-                                <b>Specie:</b> {selectedPet.specie}
+                                <b>Specie:</b> {specie}
                             </p>
                             <p>
-                                <b>Breed:</b> {selectedPet.breed}
+                                <b>Breed:</b> {breed}
                             </p>
                             <p>
                                 {' '}
-                                <b>Age:</b> {selectedPet.age}
+                                <b>Age:</b> {age}
                             </p>
                             <hr />
                             <p>
@@ -132,14 +146,14 @@ const PetDetails = (props) => {
                                 <b>Diagnosis:</b>{' '}
                             </p>
                             <div className={style.TextBox}>
-                                <p>{selectedPet.diagnosis}</p>
+                                <p>{diagnosis}</p>
                             </div>
                             <p>
                                 {' '}
                                 <b>Treatment:</b>{' '}
                             </p>
                             <div className={style.TextBox}>
-                                <p>{selectedPet.treatment}</p>
+                                <p>{treatment}</p>
                             </div>
                         </div>
                         <div
@@ -156,12 +170,10 @@ const PetDetails = (props) => {
                             </p>
                             <div>
                                 <p>
-                                    &nbsp; <b>Name: </b>{' '}
-                                    {selectedPet.owner.name}
+                                    &nbsp; <b>Name: </b> {owner.name}
                                 </p>
                                 <p>
-                                    &nbsp; <b>Last name: </b>{' '}
-                                    {selectedPet.owner.lastName}
+                                    &nbsp; <b>Last name: </b> {owner.lastName}
                                 </p>
                                 <hr />
                                 <p>
@@ -176,7 +188,7 @@ const PetDetails = (props) => {
                                             }}
                                         />{' '}
                                     </b>
-                                    {selectedPet.owner.email}
+                                    {owner.email}
                                 </p>
                                 <p>
                                     &nbsp;{' '}
@@ -190,7 +202,7 @@ const PetDetails = (props) => {
                                             }}
                                         />
                                     </b>
-                                    {selectedPet.owner.phoneNumber}
+                                    {owner.phoneNumber}
                                 </p>
                             </div>
 
@@ -205,15 +217,14 @@ const PetDetails = (props) => {
                             >
                                 <p>
                                     &nbsp; <b>Street: </b>{' '}
-                                    {selectedPet.owner.address.street}
+                                    {owner.address.street}
                                 </p>
                                 <p>
-                                    &nbsp; <b>City: </b>{' '}
-                                    {selectedPet.owner.address.city}
+                                    &nbsp; <b>City: </b> {owner.address.city}
                                 </p>
                                 <p>
                                     &nbsp; <b>Zip code: </b>{' '}
-                                    {selectedPet.owner.address.zipCode}
+                                    {owner.address.zipCode}
                                 </p>
                             </div>
                         </div>

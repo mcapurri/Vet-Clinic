@@ -16,7 +16,7 @@ const editPet = (props) => {
                     type="text"
                     id="name"
                     name="name"
-                    value={props.selectedPet.name}
+                    value={props.name}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -28,7 +28,7 @@ const editPet = (props) => {
                 <Form.Control
                     as="select"
                     name="specie"
-                    value={props.selectedPet.specie}
+                    value={props.specie}
                     onChange={props.handleChange}
                 >
                     <option value="">--choose an option--</option>
@@ -48,7 +48,7 @@ const editPet = (props) => {
                     type="text"
                     id="breed"
                     name="breed"
-                    value={props.selectedPet.breed}
+                    value={props.breed}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -61,7 +61,7 @@ const editPet = (props) => {
                     type="text"
                     id="age"
                     name="age"
-                    value={props.selectedPet.age}
+                    value={props.age}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -74,7 +74,7 @@ const editPet = (props) => {
                     type="text"
                     id="diagnosis"
                     name="diagnosis"
-                    value={props.selectedPet.diagnosis}
+                    value={props.diagnosis}
                     onChange={props.handleChange}
                 />
             </Form.Group>
@@ -87,7 +87,7 @@ const editPet = (props) => {
                     type="text"
                     id="treatment"
                     name="treatment"
-                    value={props.selectedPet.treatment}
+                    value={props.treatment}
                     onChange={props.handleChange}
                 />
             </Form.Group>

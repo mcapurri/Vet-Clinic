@@ -82,55 +82,6 @@ const AddPet = (props) => {
         }
     };
 
-    // Make dynamic input tags for the form
-    // const formElementsArray = [];
-    // for (let formElement in form) {
-    //     formElementsArray.push({
-    //         id: formElement,
-    //         config: form[formElement],
-    //     });
-    // }
-    // let displayedForm = formElementsArray.map((formElement) => {
-    //     console.log('formElement', formElement);
-    //     let inputs = '';
-
-    //     props.isEmployee &&
-    //         (inputs = (
-    //             <div className="form-group" key={formElement.id}>
-    //                 <Input
-    //                     className="form-control"
-    //                     elementType={formElement.config.elementType}
-    //                     elementConfig={formElement.config.elementConfig}
-    //                     value={formElement.config.value}
-    //                     invalid={!formElement.config.valid}
-    //                     shouldValidate={formElement.config.validation} // validation is required
-    //                     touched={formElement.config.touched} // input has changed from initial status
-    //                     changed={(event) => handleChange(event, formElement.id)}
-    //                 />
-    //             </div>
-    //         ));
-
-    //     formElement.id !== 'owner' &&
-    //         formElement.id !== 'diagnosis' &&
-    //         formElement.id !== 'treatment' &&
-    //         (inputs = (
-    //             <div className="form-group" key={formElement.id}>
-    //                 <Input
-    //                     className="form-control"
-    //                     elementType={formElement.config.elementType}
-    //                     elementConfig={formElement.config.elementConfig}
-    //                     value={formElement.config.value}
-    //                     invalid={!formElement.config.valid}
-    //                     shouldValidate={formElement.config.validation} // validation is required
-    //                     touched={formElement.config.touched} // input has changed from initial status
-    //                     changed={(event) => handleChange(event, formElement.id)}
-    //                 />
-    //             </div>
-    //         ));
-
-    //     return inputs;
-    // });
-
     return (
         <div>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
