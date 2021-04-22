@@ -1,252 +1,252 @@
 import React, { useState, useEffect } from 'react';
 import style from './AddPet.module.css';
-import { updateObject, checkValidity } from '../../../utils/utility';
-import Input from '../../../Components/UI/Input/Input';
-import { Form } from 'react-bootstrap';
+
+import useInput from '../../../utils/useInput';
+import { useForm } from 'react-hook-form';
+
+import { Form, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 
 const AddPet = (props) => {
     const [message, setMessage] = useState('');
 
-    const [form, setForm] = useState({
-        specie: {
-            elementType: 'select',
-            elementConfig: {
-                options: [
-                    { value: 'dog', displayValue: 'dog' },
-                    { value: 'cat', displayValue: 'cat' },
-                    { value: 'rodent', displayValue: 'rodent' },
-                    { value: 'bird', displayValue: 'bird' },
-                    { value: 'reptile', displayValue: 'reptile' },
-                    { value: 'other', displayValue: 'other' },
-                ],
-            },
-            validation: {},
-            valid: true,
-        },
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
-        name: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Name',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 2,
-            },
-            valid: false,
-            touched: false,
-        },
-
-        breed: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Breed',
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-        age: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Age',
-            },
-            value: '',
-            validation: {
-                minLength: 1,
-            },
-            valid: false,
-            touched: false,
-        },
-        diagnosis: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Diagnosis',
-            },
-            value: '',
-            validation: {
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-        treatment: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Treatment',
-            },
-            value: '',
-            validation: {
-                minLength: 3,
-            },
-            valid: false,
-            touched: false,
-        },
-
-        owner: {
-            elementType: 'select',
-            elementConfig: {
-                options: [],
-            },
-            validation: {},
-            valid: true,
-        },
-    });
-    const [formIsValid, setFormIsValid] = useState(false);
+    const [specie, setSpecie] = useInput('');
+    const [name, setName] = useInput('');
+    const [breed, setBreed] = useInput('');
+    const [age, setAge] = useInput('');
+    const [owner, setOwner] = useInput('');
+    const [diagnosis, setDiagnosis] = useInput('');
+    const [treatment, setTreatment] = useInput('');
+    const [ownersList, setOwnersList] = useState([]);
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    const fetchData = () => {
-        axios
-            .get('/api/users/owners')
-            .then((users) => {
-                // console.log('options from DB', users.data);
-                setForm({
-                    ...form,
-                    owner: {
-                        ...form.owner,
-                        elementConfig: {
-                            ...form.elementConfig,
-                            options: users.data,
-                        },
-                    },
-                });
-            })
-            .catch((err) => {
-                console.log(err);
+    const fetchData = async () => {
+        try {
+            const owners = await axios.get('/api/users/owners');
+            console.log('owners', owners.data);
+
+            const options = owners.data.map((owner) => {
+                return (
+                    <option key={owner.value} value={owner.value}>
+                        {owner.displayValue}
+                    </option>
+                );
             });
-    };
 
-    const handleChange = (e, inputId) => {
-        const updatedFormElement = updateObject(form[inputId], {
-            value: e.target.value,
-            valid: checkValidity(e.target.value, form[inputId].validation),
-            touched: true, // input in the form has changed
-        });
-        const updatedForm = updateObject(form, {
-            [inputId]: updatedFormElement,
-        });
-
-        let validForm = true;
-        for (let inputId in updatedForm) {
-            validForm = updatedForm[inputId].valid && validForm;
+            setOwnersList(options);
+        } catch (err) {
+            console.log(err);
         }
-        setForm(updatedForm);
-        setFormIsValid(validForm);
     };
-    console.log('formUpdated', form);
-    console.log('formIsValid', formIsValid);
 
     //Set dinamically url according to role and history url
     let url;
-    let owner;
+    let profileOwner;
 
     props.location.pathname !== '/pets/add'
         ? (url = `/api/users/${props.location.pathname
               .split('/')[2]
               .toString()}/pet`) &&
-          (owner = props.location.pathname.split('/')[2].toString())
-        : (url = '/api/pets/add') && (owner = form.owner.value);
+          (profileOwner = props.location.pathname.split('/')[2].toString())
+        : (url = '/api/pets/add') && (profileOwner = owner);
 
-    console.log('owner', owner);
+    console.log('profileOwner', profileOwner);
     console.log('url', url);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios
-            .post(url, {
-                name: form.name.value,
-                specie: form.specie.value,
-                breed: form.breed.value,
-                age: form.age.value,
-                diagnosis: form.diagnosis.value,
-                treatment: form.treatment.value,
-                owner: owner,
-            })
-            .then((pet) => {
-                if (pet.message) {
-                    setMessage(pet.message);
+    const onSubmit = async (data) => {
+        const user = await axios.post(url, { ...data, owner: profileOwner });
+        if (user.message) {
+            setMessage(user.message);
 
-                    // Reset input values
-                    // for (let key in form) {
-                    //     setForm({
-                    //         ...form,
-                    //         key: { ...key, value: '' },
-                    //     });
-                    // }
-                } else {
-                    console.log('pet added', pet);
-                    props.history.goBack();
-                }
-            });
+            // Reset input values
+            setSpecie('');
+            setName('');
+            setBreed('');
+            setAge('');
+            setDiagnosis('');
+            setTreatment('');
+            setOwner('');
+        } else {
+            console.log('user added', user);
+            props.history.goBack();
+        }
     };
+
     // Make dynamic input tags for the form
-    const formElementsArray = [];
-    for (let formElement in form) {
-        formElementsArray.push({
-            id: formElement,
-            config: form[formElement],
-        });
-    }
-    let displayedForm = formElementsArray.map((formElement) => {
-        console.log('formElement', formElement);
-        let inputs = '';
+    // const formElementsArray = [];
+    // for (let formElement in form) {
+    //     formElementsArray.push({
+    //         id: formElement,
+    //         config: form[formElement],
+    //     });
+    // }
+    // let displayedForm = formElementsArray.map((formElement) => {
+    //     console.log('formElement', formElement);
+    //     let inputs = '';
 
-        props.isEmployee &&
-            (inputs = (
-                <div className="form-group" key={formElement.id}>
-                    <Input
-                        className="form-control"
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation} // validation is required
-                        touched={formElement.config.touched} // input has changed from initial status
-                        changed={(event) => handleChange(event, formElement.id)}
-                    />
-                </div>
-            ));
+    //     props.isEmployee &&
+    //         (inputs = (
+    //             <div className="form-group" key={formElement.id}>
+    //                 <Input
+    //                     className="form-control"
+    //                     elementType={formElement.config.elementType}
+    //                     elementConfig={formElement.config.elementConfig}
+    //                     value={formElement.config.value}
+    //                     invalid={!formElement.config.valid}
+    //                     shouldValidate={formElement.config.validation} // validation is required
+    //                     touched={formElement.config.touched} // input has changed from initial status
+    //                     changed={(event) => handleChange(event, formElement.id)}
+    //                 />
+    //             </div>
+    //         ));
 
-        formElement.id !== 'owner' &&
-            formElement.id !== 'diagnosis' &&
-            formElement.id !== 'treatment' &&
-            (inputs = (
-                <div className="form-group" key={formElement.id}>
-                    <Input
-                        className="form-control"
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation} // validation is required
-                        touched={formElement.config.touched} // input has changed from initial status
-                        changed={(event) => handleChange(event, formElement.id)}
-                    />
-                </div>
-            ));
+    //     formElement.id !== 'owner' &&
+    //         formElement.id !== 'diagnosis' &&
+    //         formElement.id !== 'treatment' &&
+    //         (inputs = (
+    //             <div className="form-group" key={formElement.id}>
+    //                 <Input
+    //                     className="form-control"
+    //                     elementType={formElement.config.elementType}
+    //                     elementConfig={formElement.config.elementConfig}
+    //                     value={formElement.config.value}
+    //                     invalid={!formElement.config.valid}
+    //                     shouldValidate={formElement.config.validation} // validation is required
+    //                     touched={formElement.config.touched} // input has changed from initial status
+    //                     changed={(event) => handleChange(event, formElement.id)}
+    //                 />
+    //             </div>
+    //         ));
 
-        return inputs;
-    });
+    //     return inputs;
+    // });
 
     return (
         <div>
-            <Form className={style.Form} onSubmit={handleSubmit}>
+            <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
                 <h3>Add pet</h3>
-                {displayedForm}
+
+                <Form.Group>
+                    <FormControl
+                        as="select"
+                        {...register('specie', { required: true })}
+                        name="specie"
+                        value={specie}
+                        onChange={setSpecie}
+                    >
+                        <option value="">--Choose one--</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="bird">Bird</option>
+                        <option value="rodent">Rodent</option>
+                        <option value="reptile">Reptile</option>
+                        <option value="other">Other</option>
+                    </FormControl>
+                    {errors.specie && <span>This field is required</span>}
+                </Form.Group>
+
+                <Form.Group>
+                    <FormControl
+                        {...register('name', {
+                            required: true,
+                            minLength: 2,
+                        })}
+                        placeholder="Name"
+                        name="name"
+                        type="text"
+                        value={name}
+                        onChange={setName}
+                    />
+                    {errors.name && <span>This field is required</span>}
+                </Form.Group>
+
+                <Form.Group>
+                    <FormControl
+                        {...register('breed', {
+                            required: true,
+                            minLength: 2,
+                        })}
+                        placeholder="Breed"
+                        name="breed"
+                        type="text"
+                        value={breed}
+                        onChange={setBreed}
+                    />
+                    {errors.breed && <span>This field is required</span>}
+                </Form.Group>
+
+                <Form.Group>
+                    <FormControl
+                        {...register('age', { required: true })}
+                        placeholder="Age"
+                        name="age"
+                        type="text"
+                        value={age}
+                        onChange={setAge}
+                    />
+                    {errors.age && <span>This field is required</span>}
+                </Form.Group>
+                {props.isEmployee && (
+                    <>
+                        <Form.Group>
+                            <FormControl
+                                {...register('diagnosis', { required: true })}
+                                placeholder="Diagnosis"
+                                name="diagnosis"
+                                type="text"
+                                value={diagnosis}
+                                onChange={setDiagnosis}
+                            />
+                            {errors.diagnosis && (
+                                <span>This field is required</span>
+                            )}
+                        </Form.Group>
+
+                        <Form.Group>
+                            <FormControl
+                                {...register('treatment', { required: true })}
+                                placeholder="Treatment"
+                                name="treatment"
+                                type="text"
+                                value={treatment}
+                                onChange={setTreatment}
+                            />
+                            {errors.treatment && (
+                                <span>This field is required</span>
+                            )}
+                        </Form.Group>
+
+                        <Form.Group>
+                            <FormControl
+                                as="select"
+                                {...register('owner', {
+                                    required: true,
+                                })}
+                                name="owner"
+                                value={owner}
+                                onChange={setOwner}
+                            >
+                                <option value="">--Choose one--</option>
+                                {ownersList}
+                            </FormControl>
+                            {errors.owner && (
+                                <span>This field is required</span>
+                            )}
+                        </Form.Group>
+                    </>
+                )}
+
+                {message && <p style={{ color: 'red' }}>{message}</p>}
                 <button className={style.Button} type="submit">
                     <span>+</span>
                 </button>
