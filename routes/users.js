@@ -73,7 +73,7 @@ router.post(
 
     (req, res, next) => {
         const {
-            name,
+            firstName,
             lastName,
             street,
             city,
@@ -86,7 +86,7 @@ router.post(
 
         console.log(
             'from users/add',
-            name,
+            firstName,
             lastName,
             street,
             city,

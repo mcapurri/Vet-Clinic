@@ -110,7 +110,7 @@ const UserDetails = (props) => {
                 console.log(
                     `${firstName} ${lastName} was successfully removed`
                 );
-                props.history.push('/');
+                props.history.push('/users');
             })
             .catch((err) => {
                 console.log(err);
@@ -125,19 +125,12 @@ const UserDetails = (props) => {
                     toggleEditForm={toggleEditForm}
                     handleSubmit={handleSubmit}
                     firstName={firstName}
-                    setFirstName={setFirstName}
                     lastName={lastName}
-                    setLastName={setLastName}
                     email={email}
-                    setEmail={setEmail}
                     phoneNumber={phoneNumber}
-                    setPhoneNumber={setPhoneNumber}
                     street={street}
-                    setStreet={setStreet}
                     zipCode={zipCode}
-                    setZipCode={setZipCode}
                     city={city}
-                    setCity={setCity}
                     handleChange={handleChange}
                 />
             ) : (
