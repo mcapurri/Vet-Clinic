@@ -77,10 +77,10 @@ router.post(
             lastName,
             street,
             city,
-            zip,
+            zipCode,
             email,
             phoneNumber,
-            position,
+            // position,
             role,
         } = req.body;
 
@@ -90,24 +90,24 @@ router.post(
             lastName,
             street,
             city,
-            zip,
+            zipCode,
             email,
             phoneNumber,
-            position,
+            // position,
             role
         );
 
         User.create({
-            name,
+            name: firstName,
             lastName,
             address: {
                 street,
-                zip,
+                zipCode,
                 city,
             },
             email,
             phoneNumber,
-            position,
+            // position,
             role,
         })
             .then((user) => {
@@ -128,47 +128,40 @@ router.put(
     loginCheck(),
 
     (req, res, next) => {
-        // const query = { _id: req.params.id };
-
-        // if user is not admin they have to be the owner
-        // if (req.user.role !== 'employee') {
-        //     query.owner = req.user._id;
-        // }
-
         const {
-            name,
+            firstName,
             lastName,
             street,
             city,
-            zip,
+            zipCode,
             email,
             phoneNumber,
-            position,
+            // position,
         } = req.body;
 
         console.log(
             'datas to be put',
-            name,
+            firstName,
             lastName,
             street,
             city,
-            zip,
+            zipCode,
             email,
-            phoneNumber,
-            position
+            phoneNumber
+            // position
         );
 
         User.findByIdAndUpdate(req.params.id, {
-            name,
+            name: firstName,
             lastName,
             address: {
                 street,
-                zip,
+                zipCode,
                 city,
             },
             email,
             phoneNumber,
-            position,
+            // position,
         })
             .then((user) => {
                 console.log('user was updated', user);

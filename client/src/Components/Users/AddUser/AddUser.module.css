@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    font-size: 1em;
+    /* font-size: 1em; */
     border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
     box-sizing: border-box;
@@ -29,4 +29,10 @@ Button:disabled {
     width: 120%;
     line-height: 2rem;
     padding-left: 5%;
+}
+.Form button:last-child {
+    background: none;
+    color: rgb(48, 153, 228);
+    border: none;
+    cursor: pointer;
 }

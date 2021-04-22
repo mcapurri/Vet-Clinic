@@ -6,7 +6,7 @@
 }
 .Form {
     width: 100%;
-    margin: 5% 0 0 5%;
+    /* margin: 5% 0 0 5%; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -31,10 +31,15 @@ Form a {
     font-size: 0.9rem;
     font-weight: bold;
     width: 15%;
+    display: flex;
+    align-items: center;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 620px) {
     .LoginButton {
-        max-height: 2.5rem;
         font-size: 0.7rem;
+        transform: scale(0.9);
+    }
+    .Form input {
+        transform: scale(0.9);
     }
 }

@@ -7,20 +7,20 @@
     border: 2px solid #eee;
     border-radius: 20px;
     box-sizing: border-box;
-    margin-top: 5%;
-    padding: 5% 0 5% 5%;
+    margin: 5% 0;
+    /* padding: 5% 0 5% 5%; */
     width: 80vw;
     height: 80vh;
     background-color: rgba(27, 120, 76, 0.2);
-    margin-bottom: 5%;
     color: rgb(5, 58, 32);
-    padding: 10% 10%;
+    padding: 10% 5%;
 }
 
 .Infos {
     display: flex;
+    justify-content: space-between;
     width: 100%;
-    padding-right: 5%;
+    /* padding-right: 5%; */
 }
 
 .buttons {
@@ -65,5 +65,10 @@
     flex-direction: column;
     align-items: center;
     color: rgba(0, 0, 0, 0.8);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+}
+@media screen and (max-width: 770px) {
+    .Card {
+        font-size: 0.9rem;
+    }
 }

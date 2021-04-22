@@ -7,28 +7,28 @@ const EditUser = (props) => {
         <Form className={style.Form} onSubmit={props.handleSubmit}>
             <h2>Edit </h2>
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="name">
+                <Form.Label className={style.Label} htmlFor="firstName">
                     Name: &nbsp;
                 </Form.Label>
                 <Form.Control
                     type="text"
-                    id="name"
-                    name="name"
-                    value={props.selectedUser.name}
-                    onChange={props.handleChange}
+                    id="firstName"
+                    name="firstName"
+                    value={props.firstName}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
 
             <Form.Group className={style.Group}>
-                <Form.Label className={style.Label} htmlFor="name">
+                <Form.Label className={style.Label} htmlFor="lastName">
                     Last name: &nbsp;
                 </Form.Label>
                 <Form.Control
                     type="text"
                     id="lastName"
                     name="lastName"
-                    value={props.selectedUser.lastName}
-                    onChange={props.handleChange}
+                    value={props.lastName}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
             <Form.Group className={style.Group}>
@@ -39,8 +39,8 @@ const EditUser = (props) => {
                     type="text"
                     id="street"
                     name="street"
-                    value={props.selectedUser.address.street}
-                    onChange={props.handleChange}
+                    value={props.street}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
 
@@ -52,8 +52,8 @@ const EditUser = (props) => {
                     type="text"
                     id="zipCode"
                     name="zipCode"
-                    value={props.selectedUser.address.zipCode}
-                    onChange={props.handleChange}
+                    value={props.zipCode}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
 
@@ -65,8 +65,8 @@ const EditUser = (props) => {
                     type="text"
                     id="city"
                     name="city"
-                    value={props.selectedUser.address.city}
-                    onChange={props.handleChange}
+                    value={props.city}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
 
@@ -78,8 +78,8 @@ const EditUser = (props) => {
                     type="text"
                     id="phoneNumber"
                     name="phoneNumber"
-                    value={props.selectedUser.phoneNumber}
-                    onChange={props.handleChange}
+                    value={props.phoneNumber}
+                    onChange={(e) => props.handleChange(e)}
                 />
             </Form.Group>
 

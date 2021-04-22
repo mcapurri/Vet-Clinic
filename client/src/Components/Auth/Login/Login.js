@@ -92,11 +92,11 @@ const Login = (props) => {
                 </Button>
             </div>
             {/* </Form.Group> */}
-            <div style={{ display: 'flex', alignSelf: 'flex-start' }}>
+            <div style={{ display: 'flex' }}>
                 {message ? (
                     <p style={{ color: 'red' }}>{message}</p>
                 ) : (
-                    <div>
+                    <div style={{ width: '100%' }}>
                         <p>
                             Haven't you registered yet?&nbsp;
                             <Link to={'/signup'} className={style.Button}>

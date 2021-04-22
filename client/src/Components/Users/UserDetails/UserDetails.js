@@ -3,55 +3,78 @@ import { Link } from 'react-router-dom';
 import style from './UserDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import { updateObject, checkValidity } from '../../../utils/utility';
 import EditUser from '../EditUser/EditUser';
 
 const UserDetails = (props) => {
     const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
-    // const [formIsValid, setFormIsValid] = useState(false);
-
-    const [selectedUser, setSelectedUser] = useState('');
+    const [userId] = useState(props.match.params.id);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [street, setStreet] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [city, setCity] = useState('');
+    const [pets, setPets] = useState([]);
+    const [role, setRole] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
-        await axios
-            .get(`/api/users/${props.match.params.id}`)
-            .then((response) => {
-                setSelectedUser(
-                    updateObject(response.data.user, {
-                        pets: response.data.pets,
-                    })
-                );
-            })
-
-            .catch((err) => {
-                console.log(err.response);
-                if (err.response.status === 404) {
-                    setError({
-                        error: 'User not found',
-                    });
-                }
-            });
+        try {
+            const user = await axios.get(`/api/users/${userId}`);
+            console.log('user', user.data);
+            console.log('userLastName', user.data.user.lastName);
+            setFirstName(user.data.user.name);
+            setLastName(user.data.user.lastName);
+            setEmail(user.data.user.email);
+            setPhoneNumber(user.data.user.phoneNumber);
+            setStreet(user.data.user.address.street);
+            setZipCode(user.data.user.address.zipCode);
+            setCity(user.data.user.address.city);
+            setPets(user.data.pets);
+            setRole(user.data.user.role);
+            setCreatedAt(user.data.user.createdAt);
+        } catch (err) {
+            console.log(err.response);
+            if (err.response.status === 404) {
+                setError({
+                    error: 'User not found',
+                });
+            }
+        }
     };
-    // console.log('selectedUser', selectedUser);
 
     const handleChange = (event) => {
-        // console.log('inputId', inputId);
         const { name, value } = event.target;
         console.log('name, value', name, value);
-
-        setSelectedUser({
-            ...selectedUser,
-            [name]: value,
-            address: {
-                ...selectedUser.address,
-                [name]: value,
-            },
-        });
+        switch (name) {
+            case 'firstName':
+                setFirstName(value);
+                break;
+            case 'lastName':
+                setLastName(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'phoneNumber':
+                setPhoneNumber(value);
+                break;
+            case 'street':
+                setStreet(value);
+                break;
+            case 'zipCode':
+                setZipCode(value);
+                break;
+            case 'city':
+                setCity(value);
+                break;
+        }
     };
 
     const toggleEditForm = () => {
@@ -61,15 +84,14 @@ const UserDetails = (props) => {
         event.preventDefault();
         console.log('update');
         axios
-            .put(`/api/users/${selectedUser._id}`, {
-                name: selectedUser.name,
-                lastName: selectedUser.lastName,
-                email: selectedUser.email,
-                street: selectedUser.address.street,
-                zipCode: selectedUser.address.zipCode,
-                city: selectedUser.address.city,
-                state: selectedUser.address.state,
-                phoneNumber: selectedUser.phoneNumber,
+            .put(`/api/users/${userId}`, {
+                firstName,
+                lastName,
+                email,
+                street,
+                zipCode,
+                city,
+                phoneNumber,
             })
             .then((response) => {
                 props.history.goBack();
@@ -83,10 +105,10 @@ const UserDetails = (props) => {
 
     const deleteUser = async () => {
         await axios
-            .delete(`/api/users/${selectedUser._id}`)
+            .delete(`/api/users/${userId}`)
             .then(() => {
                 console.log(
-                    `${selectedUser.name} ${selectedUser.lastName} was successfully removed`
+                    `${firstName} ${lastName} was successfully removed`
                 );
                 props.history.push('/');
             })
@@ -95,21 +117,34 @@ const UserDetails = (props) => {
             });
     };
 
-    if (!selectedUser) return <Spinner />;
+    if (!lastName) return <Spinner />;
     return (
         <>
             {editForm ? (
                 <EditUser
                     toggleEditForm={toggleEditForm}
-                    handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    selectedUser={selectedUser}
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    lastName={lastName}
+                    setLastName={setLastName}
+                    email={email}
+                    setEmail={setEmail}
+                    phoneNumber={phoneNumber}
+                    setPhoneNumber={setPhoneNumber}
+                    street={street}
+                    setStreet={setStreet}
+                    zipCode={zipCode}
+                    setZipCode={setZipCode}
+                    city={city}
+                    setCity={setCity}
+                    handleChange={handleChange}
                 />
             ) : (
                 // <>
                 <div className={style.Card}>
                     <h3>
-                        {selectedUser.name} {selectedUser.lastName}
+                        {firstName} {lastName}
                     </h3>
                     <div className={style.AddButton}>
                         {!props.isEmployee ? (
@@ -118,7 +153,7 @@ const UserDetails = (props) => {
                                 <span>pet</span>
                             </Link>
                         ) : (
-                            <Link to={`/users/${selectedUser._id}/pet`}>
+                            <Link to={`/users/${userId}/pet`}>
                                 <span
                                     style={{
                                         fontSize: 'bold',
@@ -132,34 +167,33 @@ const UserDetails = (props) => {
                         )}
                     </div>
                     <div className={style.Infos}>
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: '50%' }}>
                             <p>
                                 {' '}
                                 <b>Address:</b>{' '}
                             </p>
                             <p>
-                                &nbsp; <b>Street: </b>{' '}
-                                {selectedUser.address.street}
+                                &nbsp; <b>Street: </b> {street}
                             </p>
                             <p>
                                 &nbsp; <b>Zip Code: </b>
-                                {selectedUser.address.zipCode}
+                                {zipCode}
                             </p>
                             <p>
-                                &nbsp; <b>City:</b> {selectedUser.address.city}
+                                &nbsp; <b>City:</b> {city}
                             </p>
 
                             <hr />
                             <p>
                                 <img
                                     src="../../../../images/email-logo.png"
-                                    alt="phone-logo"
+                                    alt="email-logo"
                                     style={{
                                         width: '1.2rem',
                                         marginRight: '5%',
                                     }}
                                 />
-                                {selectedUser.email}
+                                {email}
                             </p>
                             <p>
                                 <img
@@ -170,27 +204,27 @@ const UserDetails = (props) => {
                                         marginRight: '7%',
                                     }}
                                 />{' '}
-                                {selectedUser.phoneNumber}
+                                {phoneNumber}
                             </p>
                             <hr />
-                            {selectedUser.position && (
+                            {/* {position && (
                                 <p>
-                                    <b>Position:</b> {selectedUser.position}
+                                    <b>Position:</b> {position}
                                 </p>
-                            )}
+                            )} */}
                             <p>
                                 <b>
-                                    {selectedUser.role} since: <br />
+                                    {role} since: <br />
                                 </b>
-                                {selectedUser.createdAt}
+                                {createdAt}
                             </p>
                         </div>
-                        <div style={{ width: '100%', paddingLeft: '5%' }}>
+                        <div style={{ width: '50%' }}>
                             <p>
                                 <b>Pets: </b>
                             </p>
                             <ul>
-                                {selectedUser.pets.map((pet) => {
+                                {pets?.map((pet) => {
                                     return (
                                         <Link
                                             to={`/pets/${pet._id}`}

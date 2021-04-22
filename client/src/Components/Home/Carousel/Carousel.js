@@ -4,7 +4,7 @@ import { Carousel as CarouselBootstrap } from 'react-bootstrap';
 const Carousel = () => {
     return (
         <div className={style.CarouselContainer}>
-            <CarouselBootstrap data-interval="10000">
+            <CarouselBootstrap interval="20000" fade indicators="false">
                 {/* <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
