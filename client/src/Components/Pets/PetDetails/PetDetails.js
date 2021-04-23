@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import style from './PetDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import { updateObject } from '../../../utils/utility';
 import EditPet from '../EditPet/EditPet';
 
 const PetDetails = (props) => {
@@ -13,13 +12,7 @@ const PetDetails = (props) => {
     const [name, setName] = useState('');
     const [breed, setBreed] = useState('');
     const [age, setAge] = useState('');
-    const [owner, setOwner] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        address: {},
-        phoneNumber: '',
-    });
+    const [owner, setOwner] = useState({});
     const [diagnosis, setDiagnosis] = useState('');
     const [treatment, setTreatment] = useState('');
 
@@ -30,13 +23,7 @@ const PetDetails = (props) => {
             setSpecie(pet.data.pet.specie);
             setBreed(pet.data.pet.breed);
             setAge(pet.data.pet.age);
-            setOwner({
-                name: pet.data.owner.name,
-                lastName: pet.data.owner.lastName,
-                email: pet.data.owner.email,
-                address: pet.data.owner.address,
-                phoneNumber: pet.data.owner.phoneNumber,
-            });
+            setOwner(pet.data.owner);
             setDiagnosis(pet.data.pet.diagnosis);
             setTreatment(pet.data.pet.treatment);
         } catch (err) {
@@ -110,7 +97,7 @@ const PetDetails = (props) => {
             });
     };
 
-    if (!name) return <Spinner />;
+    if (!owner) return <Spinner />;
     return (
         <>
             {editForm ? (
@@ -217,14 +204,14 @@ const PetDetails = (props) => {
                             >
                                 <p>
                                     &nbsp; <b>Street: </b>{' '}
-                                    {owner.address.street}
+                                    {owner.address?.street}
                                 </p>
                                 <p>
-                                    &nbsp; <b>City: </b> {owner.address.city}
+                                    &nbsp; <b>City: </b> {owner.address?.city}
                                 </p>
                                 <p>
                                     &nbsp; <b>Zip code: </b>{' '}
-                                    {owner.address.zipCode}
+                                    {owner.address?.zipCode}
                                 </p>
                             </div>
                         </div>
