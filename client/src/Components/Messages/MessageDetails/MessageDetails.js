@@ -5,25 +5,30 @@ import Spinner from '../../UI/Spinner/Spinner';
 
 const MessageDetails = (props) => {
     const [message, setMessage] = useState('');
-    const [selectedMessage, setSelectedMessage] = useState('');
+    const [messageId] = useState(props.match.params.id);
+    const [userMessage, setUserMessage] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [appointment, setAppointment] = useState('');
+    const [sender, setSender] = useState({});
+    const [reqAddress, setReqAddress] = useState({});
+    const [createdAt, setCreatedAt] = useState('');
 
-    // console.log('selectedMessage', selectedMessage);
-
-    const fetchData = () => {
-        axios
-            .get(`/api/messages/${props.match.params.id}`)
-            .then((response) => {
-                // console.log('response from DB', response.data[0]);
-
-                setSelectedMessage(response.data[0]);
-            })
-
-            .catch((err) => {
-                console.log(err.response);
-                if (err.response.status === 404) {
-                    setMessage('Message not found');
-                }
-            });
+    const fetchData = async () => {
+        try {
+            const message = await axios.get(`/api/messages/${messageId}`);
+            console.log('response from DB', message.data[0]);
+            setUserMessage(message.data[0].userMessage);
+            setImageUrl(message.data[0].imageUrl);
+            setSender(message.data[0].sender);
+            setAppointment(message.data[0].appointment);
+            setReqAddress(message.data[0].address);
+            setCreatedAt(message.data[0].createdAt);
+        } catch (err) {
+            console.log(err.response);
+            if (err.response.status === 404) {
+                setMessage('Message not found');
+            }
+        }
     };
 
     useEffect(() => {
@@ -31,18 +36,18 @@ const MessageDetails = (props) => {
     }, []);
 
     const deleteMessage = async () => {
-        await axios
-            .delete(`/api/messages/delete/${selectedMessage._id}`)
-            .then((response) => {
-                setMessage(response.data);
-                props.history.push('/');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        try {
+            const message = await axios.delete(
+                `/api/messages/delete/${messageId}`
+            );
+            setMessage(message.data);
+            props.history.push('/');
+        } catch (err) {
+            console.log(err.response);
+        }
     };
 
-    if (!selectedMessage) return <Spinner />;
+    if (!createdAt) return <Spinner />;
 
     return (
         <div className={style.Card}>
@@ -51,8 +56,7 @@ const MessageDetails = (props) => {
                 <div style={{ width: '50%', height: '100%' }}>
                     <p>
                         <b>from: </b>
-                        {selectedMessage.sender.name}{' '}
-                        {selectedMessage.sender.lastName}
+                        {sender.name} {sender.lastName}
                     </p>
                     <p>
                         <img
@@ -63,7 +67,7 @@ const MessageDetails = (props) => {
                                 marginRight: '5%',
                             }}
                         />
-                        {selectedMessage.sender.email}
+                        {sender.email}
                     </p>
                     <p>
                         <img
@@ -74,10 +78,10 @@ const MessageDetails = (props) => {
                                 marginRight: '7%',
                             }}
                         />{' '}
-                        {selectedMessage.sender.phoneNumber}
+                        {sender.phoneNumber}
                     </p>
                     <p>
-                        <b>Received on </b>
+                        <b>Received on: </b>
                         {/* {new Intl.DateTimeFormat('en-US', {
                             year: 'numeric',
                             month: '2-digit',
@@ -85,9 +89,15 @@ const MessageDetails = (props) => {
                             hour: '2-digit',
                             minute: '2-digit',
                             second: '2-digit',
-                        }).format(selectedMessage.createdAt)} */}
-                        {selectedMessage.createdAt}
+                        }).format(createdAt)} */}
+                        {createdAt}
                     </p>
+                    {appointment && (
+                        <p>
+                            <b>Appointment: </b>
+                            {appointment}
+                        </p>
+                    )}
                 </div>
                 <div
                     style={{
@@ -98,31 +108,28 @@ const MessageDetails = (props) => {
                         alignItems: 'flex-end',
                     }}
                 >
-                    {selectedMessage.address && (
+                    {reqAddress && (
                         <>
                             <p style={{ alignSelf: 'flex-start' }}>
                                 <b>Requested service at: </b>
                             </p>
                             <p>
                                 &nbsp;<b>Street: </b>
-                                {selectedMessage.address.street}
+                                {reqAddress.street}
                             </p>
                             <p>
-                                &nbsp; <b>City: </b>{' '}
-                                {selectedMessage.address.city}
+                                &nbsp; <b>City: </b> {reqAddress.city}
                             </p>
                             <p>
                                 &nbsp; <b>Zip Code: </b>
-                                {selectedMessage.address.zipCode}
+                                {reqAddress.zipCode}
                             </p>
                         </>
                     )}
                 </div>
             </div>
             <div className={style.Container}>
-                {selectedMessage.userMessage
-                    ? selectedMessage.userMessage
-                    : 'No message'}
+                {userMessage ? userMessage : 'No message'}
             </div>
             <hr />
 
@@ -131,7 +138,7 @@ const MessageDetails = (props) => {
                     <b>Attached:</b>
                 </p>
                 <div className={style.ImgContainer}>
-                    <img src={selectedMessage.imageUrl} alt="pet-pic" />
+                    <img src={imageUrl} alt="pet-pic" />
                 </div>
             </div>
 

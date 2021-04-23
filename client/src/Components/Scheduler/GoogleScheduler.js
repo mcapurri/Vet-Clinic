@@ -41,7 +41,7 @@ import AppointmentFormContainer from './AppointmentFormContainer';
 
 const styles = (theme) => ({
     addButton: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(1) * 3,
         right: theme.spacing(1) * 4,
     },
@@ -182,7 +182,7 @@ const GoogleScheduler = (props) => {
 
     return (
         <Paper>
-            <Scheduler data={data} height={660}>
+            <Scheduler data={data} height={'100vh'}>
                 <ViewState defaultCurrentDate={currentDate} />
                 <EditingState
                     onCommitChanges={commitChanges}

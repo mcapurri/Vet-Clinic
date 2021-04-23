@@ -5,7 +5,7 @@ const Carousel = () => {
     return (
         <div className={style.CarouselContainer}>
             <CarouselBootstrap
-                data-interval="20000"
+                interval={parseInt('20000')}
                 fade
                 indicators={false}
                 controls={false}

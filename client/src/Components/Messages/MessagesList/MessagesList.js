@@ -4,32 +4,25 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Filters from '../../Filters/Filters';
 import Spinner from '../../UI/Spinner/Spinner';
-// import NotifyMe from 'react-notification-timeline';
 
 const MessagesList = () => {
     const [searchField, setSearchField] = useState('');
     const [messagesList, setMessagesList] = useState([]);
 
-    const fetchData = () => {
-        axios
-            .get('/api/messages')
-            .then((messages) => {
-                setMessagesList(messages.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+    const fetchData = async () => {
+        try {
+            const messages = await axios.get('/api/messages');
+            setMessagesList(messages.data);
+        } catch (err) {
+            console.log(err.response);
+        }
     };
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    // console.log('messagesList', messagesList);
-
     const handleChange = (event) => {
-        console.log('event target', event.target);
-
         setSearchField(event.target.value);
     };
 
@@ -76,20 +69,6 @@ const MessagesList = () => {
     return (
         <div className={style.Container}>
             <Filters handleChange={handleChange} />
-            {/* <NotifyMe
-                data={messagesList}
-                storageKey="notific_key"
-                notific_key="timestamp"
-                notific_value="update"
-                // heading="Notification Alerts"
-                sortedByKey={false}
-                showDate={true}
-                size={64}
-                color="yellow"
-                // markAsReadFn={() =>
-                //     yourOwnFunctionHandler()
-                // }
-            /> */}
 
             <table style={{ margin: '0 0 10% 5%' }}>
                 <tbody>{displayMessages}</tbody>
