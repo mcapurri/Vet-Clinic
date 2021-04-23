@@ -15,27 +15,26 @@ const Map = ({ setRequestedAddress }) => {
         lat: 52.52,
         zoom: 10,
     });
-    let lngLat = '';
+
+    let lngLat;
 
     let address = async (lngLat) => {
-        console.log('lngLat', lngLat);
-        await axios
-            .get(
+        try {
+            const address = await axios.get(
                 `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
-            )
-            .then((resAddress) => {
-                console.log('resAddress', resAddress);
-                setRequestedAddress({
-                    street:
-                        resAddress.data.features[0].text +
-                        ', ' +
-                        resAddress.data.features[0].address,
-                    city: resAddress.data.features[0].context[2].text,
-                    zipCode: resAddress.data.features[0].context[0].text,
-                    coords: lngLat,
-                });
-            })
-            .catch((err) => console.log(err));
+            );
+            setRequestedAddress({
+                street:
+                    address.data.features[0].text +
+                    ', ' +
+                    address.data.features[0].address,
+                city: address.data.features[0].context[2].text,
+                zipCode: address.data.features[0].context[0].text,
+                coords: lngLat,
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -89,15 +88,16 @@ const Map = ({ setRequestedAddress }) => {
         };
         map.on('click', addMarker);
 
-        const onDragEnd = () => {
+        const onDragEnd = async () => {
             lngLat = marker.getLngLat();
+
             address(lngLat);
         };
 
         marker.on('dragend', onDragEnd);
 
         return () => map.remove();
-    }, [lngLat]);
+    }, []);
 
     return (
         <Row className={style.Container}>

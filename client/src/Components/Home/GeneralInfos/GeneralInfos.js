@@ -8,7 +8,7 @@ const GeneralInfos = () => {
                 <img src="/images/services.png" alt="services" />
                 <h3> Services </h3>
                 <p className="text"> Check out our at home sevices </p>
-                <a className="link-btn" href="#">
+                <a className="link-btn" href="#GeneralInfos">
                     More{' '}
                 </a>
             </article>
@@ -20,7 +20,7 @@ const GeneralInfos = () => {
                     {' '}
                     Find out more about our specialized team.{' '}
                 </p>
-                <a className="link-btn" href="#">
+                <a className="link-btn" href="#More">
                     More{' '}
                 </a>
             </article>
@@ -29,7 +29,7 @@ const GeneralInfos = () => {
                 <img src="/images/news.png" alt="news" />
                 <h3> News </h3>
                 <p className="text"> All the news about pets. </p>
-                <a className="link-btn" href="#">
+                <a className="link-btn" href="#More">
                     {' '}
                     More{' '}
                 </a>

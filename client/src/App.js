@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
@@ -14,7 +14,6 @@ import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import MessagesList from './Components/Messages/MessagesList/MessagesList';
 import MessageDetails from './Components/Messages/MessageDetails/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
-import axios from 'axios';
 function App(props) {
     const [user, setUser] = useState(props.user || '');
 

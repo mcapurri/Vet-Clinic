@@ -40,6 +40,7 @@ const MessageDetails = (props) => {
             const message = await axios.delete(
                 `/api/messages/delete/${messageId}`
             );
+            console.log('message', message);
             setMessage(message.data);
             props.history.push('/');
         } catch (err) {
@@ -137,9 +138,13 @@ const MessageDetails = (props) => {
                 <p>
                     <b>Attached:</b>
                 </p>
-                <div className={style.ImgContainer}>
-                    <img src={imageUrl} alt="pet-pic" />
-                </div>
+                {imageUrl ? (
+                    <div className={style.ImgContainer}>
+                        <img src={imageUrl} alt="pet-pic" />
+                    </div>
+                ) : (
+                    <p>No picture attached</p>
+                )}
             </div>
 
             {message && (

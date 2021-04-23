@@ -5,7 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
 import service from '../../../utils/service';
 import { Form, Button } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import useInput from '../../../utils/useInput';
+
 import {
     authenticate,
     loadClient,
@@ -15,75 +18,54 @@ import {
 
 const MessageForm = (props) => {
     const [message, setMessage] = useState('');
-    const [form, setForm] = useState({
-        userMessage: '',
-        imageUrl: '',
-        sender: props.user._id,
-        appointment: '',
-        homeService: false,
-        address: {
-            street: '',
-            city: '',
-            zipCode: '',
-        },
-    });
     const [booking, setBooking] = useState([]);
-    // console.log('form', form);
 
-    // form.homeService && props.requestedAddress
-    //     ? setForm({
-    //           ...form,
-    //           address: {
-    //               street: props.requestedAddress.street,
-    //               city: props.requestedAddress.city,
-    //               zipCode: props.requestedAddress.zipCode,
-    //           },
-    //       })
-    //     : form.homeService && !props.requestedAddress && props.user
-    //     ? setForm({
-    //           ...form,
-    //           address: {
-    //               street: props.user.address.street,
-    //               city: props.user.address.city,
-    //               zipCode: props.user.address.zipCode,
-    //           },
-    //       })
-    //     : null;
+    const [userMessage, setUserMessage] = useInput('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [appointment, setAppointment] = useState('');
+    // const [sender] = useState(props.user._id);
+    const [reqAddress, setReqAddress] = useState({});
+    const [homeService, setHomeService] = useState(false);
+
+    // console.log('userMessage', userMessage);
+    // console.log('street', reqAddress.street);
+    // console.log('zip', reqAddress.zipCode);
+    // console.log('city ', reqAddress.city);
+
+    const {
+        register,
+        handleSubmit,
+        // watch,
+        formState: { errors },
+    } = useForm();
+
+    // console.log('reqAddress', reqAddress);
 
     useEffect(() => {
-        if (form.homeService === true && props.requestedAddress.street) {
-            setForm({
-                ...form,
-                address: {
-                    street: props.requestedAddress.street,
-                    city: props.requestedAddress.city,
-                    zipCode: props.requestedAddress.zipCode,
-                },
+        if (homeService === true && props.requestedAddress.street) {
+            setReqAddress({
+                street: props.requestedAddress.street,
+                city: props.requestedAddress.city,
+                zipCode: props.requestedAddress.zipCode,
             });
         } else if (
-            form.homeService === true &&
+            homeService === true &&
             props.requestedAddress.street === '' &&
             props.user
         ) {
-            setForm({
-                ...form,
-                address: {
-                    street: props.user.address.street,
-                    city: props.user.address.city,
-                    zipCode: props.user.address.zipCode,
-                },
+            setReqAddress({
+                street: props.user.address.street,
+                city: props.user.address.city,
+                zipCode: props.user.address.zipCode,
             });
         } else {
-            setForm({
-                ...form,
-                address: {
-                    street: '',
-                    city: '',
-                    zipCode: '',
-                },
+            setReqAddress({
+                street: '',
+                city: '',
+                zipCode: '',
             });
         }
-    }, [form.homeService, props.requestedAddress]);
+    }, [homeService, props.requestedAddress]);
 
     useEffect(() => {
         authenticate()
@@ -111,16 +93,12 @@ const MessageForm = (props) => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (event.target.type === 'checkbox') {
-            setForm({
-                ...form,
-                homeService: !form.homeService,
-                appointment: '',
-            });
+            setHomeService(() => !homeService);
+            setAppointment('');
             props.setRequestedAddress({ street: '', city: '', zipCode: '' });
         } else {
-            setForm({
-                ...form,
-                ...form.address,
+            setReqAddress({
+                ...reqAddress,
                 [name]: value,
             });
         }
@@ -139,34 +117,25 @@ const MessageForm = (props) => {
             .then((response) => {
                 console.log('response is: ', response);
                 // response carries 'secure_url' which I can use to update the state
-                setForm({ ...form, imageUrl: response.secure_url });
+                setImageUrl(response.secure_url);
             })
             .catch((err) => {
                 console.log('Error while uploading the file: ', err);
             });
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(
-            'data im sending',
-            form.userMessage,
-            form.imageUrl,
-            props.user._id
-        );
+    const onSubmit = async (data) => {
+        // event.preventDefault();
+        console.log('data im sending', data);
 
-        if (form.homeService) {
+        if (homeService) {
             service
                 .saveNewThing({
-                    userMessage: form.userMessage,
-                    imageUrl: form.imageUrl,
+                    userMessage: userMessage,
+                    imageUrl: imageUrl,
                     id: props.user._id,
-                    address: {
-                        street: form.address.street,
-                        city: form.address.city,
-                        zipCode: form.address.zipCode,
-                    },
-                    homeService: form.homeService,
+                    address: reqAddress,
+                    homeService: homeService,
                 })
                 .then((res) => {
                     console.log('added: ', res.message);
@@ -174,28 +143,20 @@ const MessageForm = (props) => {
                     setMessage(res.message);
 
                     // Reset input values
-                    setForm({
-                        userMessage: '',
-                        imageUrl: '',
-                        homeService: false,
-                        address: {
-                            street: '',
-                            city: '',
-                            zipCode: '',
-                        },
-                    });
+                    setUserMessage('');
+                    setImageUrl('');
+                    setHomeService(false);
+                    setReqAddress('');
                 })
                 .catch((err) => {
                     console.log('Error while adding the thing: ', err);
                 });
         } else {
             const newEvent = await addNewEvent({
-                startDate: form.appointment,
-                endDate: new Date(
-                    new Date(form.appointment).getTime() + 30 * 60000
-                ),
+                startDate: appointment,
+                endDate: new Date(new Date(appointment).getTime() + 30 * 60000),
                 title: `${props.user.name} ${props.user.lastName} `,
-                notes: `${form.userMessage}`,
+                notes: `${userMessage}`,
             });
 
             newEvent &&
@@ -208,26 +169,22 @@ const MessageForm = (props) => {
                     });
                     setBooking(events);
                 });
-            form.imageUrl &&
+            imageUrl &&
                 service
                     .saveNewThing({
-                        imageUrl: form.imageUrl,
+                        imageUrl,
                         id: props.user._id,
-                        appointment: form.appointment,
-                        homeService: form.homeService,
+                        appointment,
+                        homeService,
                     })
-                    .then((res) => {
-                        console.log('added: ', res.message);
-
-                        setMessage(res.message);
+                    .then(async (res) => {
+                        await setMessage(res.message);
 
                         // Reset input values
-                        setForm({
-                            userMessage: '',
-                            imageUrl: '',
-                            appointment: '',
-                            homeService: false,
-                        });
+                        await setUserMessage('');
+                        await setImageUrl('');
+                        await setHomeService(false);
+                        await setReqAddress('');
                     })
                     .catch((err) => {
                         console.log('Error while adding the thing: ', err);
@@ -247,7 +204,7 @@ const MessageForm = (props) => {
     if (!props.requestedAddress && !props.user) {
         return null;
     }
-
+    // console.log(watch());
     return (
         <section
             id="messageForm"
@@ -258,7 +215,7 @@ const MessageForm = (props) => {
                 marginTop: '5rem',
             }}
         >
-            <Form onSubmit={handleSubmit} className={style.Form}>
+            <Form onSubmit={handleSubmit(onSubmit)} className={style.Form}>
                 <div className={style.Container}>
                     <div
                         style={{
@@ -266,10 +223,8 @@ const MessageForm = (props) => {
                         }}
                     >
                         <DatePicker
-                            selected={form.appointment}
-                            onChange={(date) =>
-                                setForm({ ...form, appointment: date })
-                            }
+                            selected={appointment}
+                            onChange={(date) => setAppointment(date)}
                             showPopperArrow
                             showTimeSelect
                             dateFormat="dd/ MMMM/ yyyy HH:mm  "
@@ -288,42 +243,53 @@ const MessageForm = (props) => {
                             // timeIntervals={15}
                             // excludeDates={[new Date(), subDays(new Date(), 1)]}
                             // excludeTimes={booking}
-                            value={form.appointment}
-                            disabled={form.homeService}
+                            value={appointment}
+                            disabled={homeService}
                         />
                     </div>
                     <div className={style.AddressContainer}>
                         <Checkbox
                             name="homeRequest"
                             label="Request home service"
-                            checked={form.homeService}
+                            checked={homeService}
                             handleChange={handleChange}
-                            value={form.homeService}
+                            value={homeService}
                             disabled={!props.user}
                         />
                         <Form.Group style={{ width: '100%' }}>
                             <Form.Label>Street</Form.Label>
                             <Form.Control
+                                {...register('street', { required: true })}
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="Street"
-                                value={form.address.street}
+                                value={reqAddress?.street}
+                                onChange={handleChange}
+                            />
+
+                            <Form.Label>ZIP Code</Form.Label>
+                            <Form.Control
+                                {...register('zipCode', {
+                                    required: true,
+                                    minLength: 5,
+                                    maxLength: 5,
+                                })}
+                                className={style.addressInput}
+                                type="text"
+                                placeholder="ZIP Code"
+                                value={reqAddress?.zipCode}
                                 onChange={handleChange}
                             />
                             <Form.Label>City</Form.Label>
                             <Form.Control
+                                {...register('city', {
+                                    required: true,
+                                    minLength: 2,
+                                })}
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="City"
-                                value={form.address.city}
-                                onChange={handleChange}
-                            />
-                            <Form.Label>ZIP Code</Form.Label>
-                            <Form.Control
-                                className={style.addressInput}
-                                type="text"
-                                placeholder="ZIP Code"
-                                value={form.address.zipCode}
+                                value={reqAddress?.city}
                                 onChange={handleChange}
                             />
                         </Form.Group>
@@ -341,8 +307,8 @@ const MessageForm = (props) => {
                         as="textarea"
                         rows="3"
                         placeholder="Tell us..."
-                        value={form.userMessage}
-                        onChange={handleChange}
+                        value={userMessage}
+                        onChange={setUserMessage}
                     />
                     <div className={style.Loader}>
                         <AttachFileIcon style={{ color: '#216ba5' }} />
@@ -357,26 +323,18 @@ const MessageForm = (props) => {
                             id={style.FileLoader}
                             type="file"
                             name="image"
-                            value={form.image}
+                            value={imageUrl}
                             onChange={(e) => handleFileUpload(e)}
                         />
                     </div>
                     {message && (
-                        <p style={{ color: ' color: rgb(5, 58, 32)' }}>
-                            {message}
-                        </p>
+                        <p style={{ color: 'rgb(5, 58, 32)' }}>{message}</p>
                     )}
                     <Button
                         className={style.Button}
                         variant="primary sm"
                         type="submit"
-                        disabled={
-                            !props.user
-                            // (!props.user && !form.appointment) ||
-                            // (!props.user &&
-                            //     !form.userMessage &&
-                            //     !form.homeService)
-                        }
+                        disabled={!props.user}
                     >
                         Send
                     </Button>

@@ -127,7 +127,11 @@ const Signup = (props) => {
 
             <Form.Group>
                 <FormControl
-                    {...register('zipCode', { required: true, minLength: 5 })}
+                    {...register('zipCode', {
+                        required: true,
+                        minLength: 5,
+                        maxLength: 5,
+                    })}
                     placeholder="Zip Code"
                     name="zipCode"
                     type="text"
