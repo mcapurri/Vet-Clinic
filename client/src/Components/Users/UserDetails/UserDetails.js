@@ -209,7 +209,7 @@ const UserDetails = (props) => {
                                 <b>
                                     {role} since: <br />
                                 </b>
-                                {createdAt}
+                                {createdAt.substring(0, 10)}
                             </p>
                         </div>
                         <div style={{ width: '50%' }}>

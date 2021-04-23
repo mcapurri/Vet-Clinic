@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './MessageDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-
+import { parseISOString } from '../../../utils/utility';
 const MessageDetails = (props) => {
     const [message, setMessage] = useState('');
     const [messageId] = useState(props.match.params.id);
@@ -91,12 +91,13 @@ const MessageDetails = (props) => {
                             minute: '2-digit',
                             second: '2-digit',
                         }).format(createdAt)} */}
-                        {createdAt}
+                        {createdAt.substring(0, 10)}
                     </p>
                     {appointment && (
                         <p>
                             <b>Appointment: </b>
-                            {appointment}
+                            {appointment.substring(0, 10)}
+                            {/* {parseISOString(appointment)} */}
                         </p>
                     )}
                 </div>
