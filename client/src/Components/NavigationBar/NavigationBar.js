@@ -12,6 +12,7 @@ const NavigationBar = (props) => {
         logout()
             .then(() => {
                 props.setUser(() => '');
+                localStorage.removeItem('token');
                 props.history.push('/');
             })
             .catch((err) => {

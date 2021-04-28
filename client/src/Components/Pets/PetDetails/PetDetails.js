@@ -16,9 +16,13 @@ const PetDetails = (props) => {
     const [diagnosis, setDiagnosis] = useState('');
     const [treatment, setTreatment] = useState('');
 
+    const token = localStorage.getItem('token');
+
     const fetchData = async () => {
         try {
-            const pet = await axios.get(`/api/pets/${props.match.params.id}`);
+            const pet = await axios.get(`/api/pets/${props.match.params.id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             setName(pet.data.pet.name);
             setSpecie(pet.data.pet.specie);
             setBreed(pet.data.pet.breed);
@@ -67,14 +71,20 @@ const PetDetails = (props) => {
         event.preventDefault();
         console.log('update');
         axios
-            .put(`/api/pets/${petId}`, {
-                name,
-                specie,
-                breed,
-                age,
-                diagnosis,
-                treatment,
-            })
+            .put(
+                `/api/pets/${petId}`,
+                {
+                    name,
+                    specie,
+                    breed,
+                    age,
+                    diagnosis,
+                    treatment,
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
             .then((response) => {
                 props.history.goBack();
 
@@ -87,7 +97,9 @@ const PetDetails = (props) => {
 
     const deletePet = async () => {
         await axios
-            .delete(`/api/pets/${petId}`)
+            .delete(`/api/pets/${petId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
             .then(() => {
                 console.log(`patient ${name} was successfully removed`);
                 props.history.goBack();

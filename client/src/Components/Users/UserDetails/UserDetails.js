@@ -6,7 +6,6 @@ import Spinner from '../../UI/Spinner/Spinner';
 import EditUser from '../EditUser/EditUser';
 
 const UserDetails = (props) => {
-    const [error, setError] = useState(null);
     const [editForm, setEditForm] = useState(false);
     const [userId] = useState(props.match.params.id);
     const [firstName, setFirstName] = useState('');
@@ -20,13 +19,13 @@ const UserDetails = (props) => {
     const [role, setRole] = useState('');
     const [createdAt, setCreatedAt] = useState('');
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const token = localStorage.getItem('token');
 
     const fetchData = async () => {
         try {
-            const user = await axios.get(`/api/users/${userId}`);
+            const user = await axios.get(`/api/users/${userId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             console.log('user', user.data);
             console.log('userLastName', user.data.user.lastName);
             setFirstName(user.data.user.name);
@@ -41,13 +40,12 @@ const UserDetails = (props) => {
             setCreatedAt(user.data.user.createdAt);
         } catch (err) {
             console.log(err.response);
-            if (err.response.status === 404) {
-                setError({
-                    error: 'User not found',
-                });
-            }
         }
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -105,7 +103,9 @@ const UserDetails = (props) => {
 
     const deleteUser = async () => {
         await axios
-            .delete(`/api/users/${userId}`)
+            .delete(`/api/users/${userId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
             .then(() => {
                 console.log(
                     `${firstName} ${lastName} was successfully removed`

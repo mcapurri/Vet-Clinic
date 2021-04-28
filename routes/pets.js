@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { loginCheck } = require('../middlewares/loginCheck');
 const User = require('../models/User');
 const Pet = require('../models/Pet');
 
@@ -44,7 +43,6 @@ router.get('/pets/:id', (req, res, next) => {
 // @access    Private
 router.post(
     '/pets/add',
-    // loginCheck,
 
     (req, res, next) => {
         let {
@@ -88,7 +86,6 @@ router.post(
 // @access    Private
 router.put(
     '/pets/:id',
-    loginCheck(),
 
     (req, res, next) => {
         const { name, specie, breed, age, diagnosis, treatment } = req.body;
@@ -104,7 +101,7 @@ router.put(
             .then((pet) => {
                 console.log('pet was updated', pet);
                 res.status(200).json({
-                    message: `Pet ${pet.name} was successfully updated`,
+                    msg: `Pet ${pet.name} was successfully updated`,
                 });
             })
             .catch((err) => {
@@ -115,7 +112,7 @@ router.put(
 // @desc      Delete pet
 // @route     DELETE /pets/:id
 // @access    Private
-router.delete('/pets/:id', loginCheck(), (req, res) => {
+router.delete('/pets/:id', (req, res) => {
     // const query = { _id: req.params.id };
 
     // if user is not admin they have to be the owner
@@ -127,7 +124,7 @@ router.delete('/pets/:id', loginCheck(), (req, res) => {
         .then((pet) => {
             console.log('This pet was removed', pet);
             res.status(200).json({
-                message: `Pet ${pet.name} was successfully removed`,
+                msg: `Pet ${pet.name} was successfully removed`,
             });
         })
         .catch((err) => {

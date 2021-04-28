@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
+import ForgotPassword from './Components/Auth/Recovery_Email/ForgotPassword';
+import ResetPassword from './Components/Auth/Recovery_Email/ResetPassword';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Footer from './Components/Footer/Footer';
 import UsersList from './Components/Users/UsersList/UsersList';
@@ -14,9 +16,11 @@ import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import MessagesList from './Components/Messages/MessagesList/MessagesList';
 import MessageDetails from './Components/Messages/MessageDetails/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
-function App(props) {
-    const [user, setUser] = useState(props.user || '');
+import ProtectedRoute from './utils/ProtectedRoute';
 
+function App(props) {
+    console.log('props', props.user);
+    const [user, setUser] = useState(props.user || '');
     console.log('user', user);
 
     let isEmployee = false;
@@ -45,49 +49,79 @@ function App(props) {
                     path="/signup"
                     render={(props) => <Signup {...props} setUser={setUser} />}
                 />
-                <Route exact path="/users" component={UsersList} />
                 <Route
                     exact
-                    path="/users/add"
-                    render={(props) => <AddUser {...props} />}
+                    path="/forgotpassword"
+                    render={(props) => <ForgotPassword {...props} />}
+                    // component={ForgotPassword}
                 />
                 <Route
+                    exact
+                    path="/resetpassword/:resettoken"
+                    render={(props) => <ResetPassword {...props} />}
+                    // component={ResetPassword}
+                />
+                {/* <Route exact path="/users" component={UsersList} /> */}
+                <ProtectedRoute
+                    exact
+                    path="/users"
+                    component={UsersList}
+                    user={user}
+                />
+                <ProtectedRoute
                     exact
                     path="/users/:id"
-                    render={(props) => (
-                        <UserDetails
-                            {...props}
-                            isEmployee={isEmployee}
-                            selectedUser={user}
-                        />
-                    )}
+                    component={UserDetails}
+                    user={user}
+                    isEmployee={isEmployee}
+                    selectedUser={user}
                 />
 
-                <Route
+                <ProtectedRoute
+                    exact
+                    path="/users/add"
+                    component={AddUser}
+                    user={user}
+                />
+
+                <ProtectedRoute
                     exact
                     path="/pets/add"
-                    render={(props) => (
-                        <AddPet
-                            {...props}
-                            isEmployee={isEmployee}
-                            user={user}
-                        />
-                    )}
+                    component={AddPet}
+                    user={user}
+                    isEmployee={isEmployee}
                 />
-                <Route
+
+                <ProtectedRoute
                     exact
-                    path="/users/:id/pet"
-                    render={(props) => <AddPet {...props} />}
+                    path="/pets"
+                    component={PetsList}
+                    user={user}
                 />
-                <Route exact path="/pets" component={PetsList} />
-                <Route exact path="/pets/:id" component={PetDetails} />
-                <Route exact path="/messages" component={MessagesList} />
-                <Route
+                <ProtectedRoute
+                    exact
+                    path="/pets/:id"
+                    component={PetDetails}
+                    user={user}
+                />
+                <ProtectedRoute
+                    exact
+                    path="/messages"
+                    component={MessagesList}
+                    user={user}
+                />
+                <ProtectedRoute
                     exact
                     path="/messages/:id"
-                    render={(props) => <MessageDetails {...props} />}
+                    component={MessageDetails}
+                    user={user}
                 />
-                <Route exact path="/scheduler" component={GoogleScheduler} />
+                <ProtectedRoute
+                    exact
+                    path="/scheduler"
+                    component={GoogleScheduler}
+                    user={user}
+                />
             </Switch>
             <Footer isEmployee={isEmployee} />
         </div>

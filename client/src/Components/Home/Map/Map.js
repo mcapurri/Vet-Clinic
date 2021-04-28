@@ -103,7 +103,6 @@ const Map = ({ setRequestedAddress }) => {
         <Row className={style.Container}>
             <Col xs={6} md={4}>
                 <div className={style.Infos}>
-                    {/* <h5> Contact Information </h5> */}
                     <address className="address">
                         Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
                         Berlin <br /> Germany <br />{' '}

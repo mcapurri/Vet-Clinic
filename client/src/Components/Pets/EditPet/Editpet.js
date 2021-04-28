@@ -2,7 +2,7 @@ import React from 'react';
 import style from './EditPet.module.css';
 import { Form } from 'react-bootstrap';
 
-const editPet = (props) => {
+const EditPet = (props) => {
     // console.log('props editPet', props);
 
     return (
@@ -102,4 +102,4 @@ const editPet = (props) => {
     );
 };
 
-export default editPet;
+export default EditPet;

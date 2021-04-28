@@ -1,26 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+import jwt from 'jsonwebtoken';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
+import { JWT_SECRET } from './utils/config.json';
 
-axios
-    .get('/api/auth/loggedin')
-    .then((response) => {
-        const user = response.data;
+const token = localStorage.getItem('token');
+jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+    if (!err) {
+        const loggedInUser = await axios.get(
+            `/api/auth/loggedin/${decoded._id}`
+        );
         ReactDOM.render(
             <BrowserRouter>
-                <App user={user} />
+                <App user={{ ...loggedInUser.data, ...decoded }} />
             </BrowserRouter>,
             document.getElementById('root')
         );
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+    } else {
+        ReactDOM.render(
+            <BrowserRouter>
+                <App user={''} />
+            </BrowserRouter>,
+            document.getElementById('root')
+        );
+    }
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

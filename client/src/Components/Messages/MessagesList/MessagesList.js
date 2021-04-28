@@ -11,7 +11,10 @@ const MessagesList = () => {
 
     const fetchData = async () => {
         try {
-            const messages = await axios.get('/api/messages');
+            const token = localStorage.getItem('token');
+            const messages = await axios.get('/api/messages', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             setMessagesList(messages.data);
         } catch (err) {
             console.log(err.response);

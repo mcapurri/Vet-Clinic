@@ -19,36 +19,27 @@ const Login = (props) => {
     const [password, setPassword] = useInput('');
 
     const onSubmit = async (data) => {
-        console.log('data', data);
         const user = await login({
             email,
             password,
         });
-        if (user.message) {
-            setMessage(user.message);
+        if (user.msg) {
+            setMessage(user.msg);
 
             //Reset input values
             setEmail('');
             setPassword('');
         } else {
-            //  put the user object in the state of App.js
-            console.log(user);
-            props.setUser(user);
+            if (user.token) {
+                localStorage.setItem('token', user.token);
+                props.setUser(user);
+            }
             props.history.push('/');
         }
     };
 
     return (
         <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-            {/* <Form.Group
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    // justifyContent: 'space-around',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            > */}
             <div
                 style={{
                     display: 'flex',
@@ -86,12 +77,12 @@ const Login = (props) => {
                     />
                     {errors.password && <span>This field is required</span>}
                 </Form.Group>
-                {/* <InputGroup>{displayedForm}</InputGroup> */}
                 <Button className={style.LoginButton} type="submit">
                     Log in
                 </Button>
             </div>
-            {/* </Form.Group> */}
+            <Link to="/forgotpassword">Forgot password?</Link>
+
             <div style={{ display: 'flex' }}>
                 {message ? (
                     <p style={{ color: 'red' }}>{message}</p>

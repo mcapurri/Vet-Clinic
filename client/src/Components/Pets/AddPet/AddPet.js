@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { Form, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 
+const token = localStorage.getItem('token');
+
 const AddPet = (props) => {
     const [message, setMessage] = useState('');
 
@@ -32,7 +34,9 @@ const AddPet = (props) => {
 
     const fetchData = async () => {
         try {
-            const owners = await axios.get('/api/users/owners');
+            const owners = await axios.get('/api/users/owners', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             console.log('owners', owners.data);
 
             const options = owners.data.map((owner) => {
@@ -64,9 +68,15 @@ const AddPet = (props) => {
     console.log('url', url);
 
     const onSubmit = async (data) => {
-        const user = await axios.post(url, { ...data, owner: profileOwner });
+        const user = await axios.post(
+            url,
+            { ...data, owner: profileOwner },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
         if (user.message) {
-            setMessage(user.message);
+            setMessage(user.msg);
 
             // Reset input values
             setSpecie('');

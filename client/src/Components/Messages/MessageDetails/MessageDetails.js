@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './MessageDetails.module.css';
 import axios from 'axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import { parseISOString } from '../../../utils/utility';
+// import { parseISOString } from '../../../utils/utility';
 const MessageDetails = (props) => {
     const [message, setMessage] = useState('');
     const [messageId] = useState(props.match.params.id);
@@ -15,7 +15,10 @@ const MessageDetails = (props) => {
 
     const fetchData = async () => {
         try {
-            const message = await axios.get(`/api/messages/${messageId}`);
+            const token = localStorage.getItem('token');
+            const message = await axios.get(`/api/messages/${messageId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             console.log('response from DB', message.data[0]);
             setUserMessage(message.data[0].userMessage);
             setImageUrl(message.data[0].imageUrl);
@@ -24,8 +27,8 @@ const MessageDetails = (props) => {
             setReqAddress(message.data[0].address);
             setCreatedAt(message.data[0].createdAt);
         } catch (err) {
-            console.log(err.response);
-            if (err.response.status === 404) {
+            console.log(err);
+            if (err.response?.status === 404) {
                 setMessage('Message not found');
             }
         }
@@ -40,8 +43,8 @@ const MessageDetails = (props) => {
             const message = await axios.delete(
                 `/api/messages/delete/${messageId}`
             );
-            console.log('message', message);
-            setMessage(message.data);
+            console.log('message', message.data.msg);
+            setMessage(message.data.msg);
             props.history.push('/');
         } catch (err) {
             console.log(err.response);

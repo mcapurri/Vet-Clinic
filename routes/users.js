@@ -6,19 +6,16 @@ const Pet = require('../models/Pet');
 /// @desc     Get all users
 // @route     GET /users
 // @access    Private
-router.get('/users', loginCheck(), (req, res, next) => {
-    User.find()
-        .populate('pets')
-        .then((users) => {
-            console.log('users', users);
-            res.status(200).json(users);
-        });
+router.get('/users', async (req, res, next) => {
+    const users = await User.find().populate('pets');
+    console.log('users', users);
+    res.status(200).json(users);
 });
 
 /// @desc     Get all pet owners
 // @route     GET /users/owners
 // @access    Private
-router.get('/users/owners', loginCheck(), (req, res, next) => {
+router.get('/users/owners', (req, res, next) => {
     User.find()
         .then((users) => {
             const owners = users.filter((user) => {
@@ -43,9 +40,7 @@ router.get('/users/owners', loginCheck(), (req, res, next) => {
 // // @desc      Get user details
 // // @route     GET /users/:id
 // // @access    Private
-router.get('/users/:id', loginCheck(), (req, res, next) => {
-    console.log('req.params', req.params.id);
-
+router.get('/users/:id', (req, res, next) => {
     User.findById(req.params.id)
         .then((user) => {
             Pet.find({ owner: user._id })
@@ -69,7 +64,6 @@ router.get('/users/:id', loginCheck(), (req, res, next) => {
 // @access    Private
 router.post(
     '/users/add',
-    loginCheck(),
 
     (req, res, next) => {
         const {
@@ -125,7 +119,6 @@ router.post(
 // @access    Private
 router.put(
     '/users/:id',
-    loginCheck(),
 
     (req, res, next) => {
         const {
@@ -207,7 +200,7 @@ router.post('/users/:id/pet', (req, res, next) => {
 // @desc      Delete user
 // @route     DELETE /users/:id/delete
 // @access    Private
-router.delete('/users/:id', loginCheck(), (req, res) => {
+router.delete('/users/:id', (req, res) => {
     console.log('req.params', req.params);
 
     // if user is not admin they have to be the owner

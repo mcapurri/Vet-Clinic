@@ -4,7 +4,7 @@ import {
     // DISCOVERY_DOCS,
     SCOPE,
     CALENDAR_ID,
-} from '../utils/googleApiConfig.json';
+} from '../utils/config.json';
 
 const gapi = window.gapi;
 // console.log('gapi', gapi);
@@ -90,6 +90,7 @@ export const updateEvent = (event) => {
 };
 
 export const addNewEvent = (event) => {
+    console.log('addEvent', event);
     return gapi.client.calendar.events
         .insert({
             calendarId: CALENDAR_ID,

@@ -23,14 +23,11 @@ const MessageForm = (props) => {
     const [userMessage, setUserMessage] = useInput('');
     const [imageUrl, setImageUrl] = useState('');
     const [appointment, setAppointment] = useState('');
-    // const [sender] = useState(props.user._id);
     const [reqAddress, setReqAddress] = useState({});
     const [homeService, setHomeService] = useState(false);
 
     // console.log('userMessage', userMessage);
-    // console.log('street', reqAddress.street);
-    // console.log('zip', reqAddress.zipCode);
-    // console.log('city ', reqAddress.city);
+    console.log('imageUrl', imageUrl);
 
     const {
         register,
@@ -65,7 +62,7 @@ const MessageForm = (props) => {
                 zipCode: '',
             });
         }
-    }, [homeService, props.requestedAddress]);
+    }, [homeService, props.requestedAddress, userMessage]);
 
     useEffect(() => {
         authenticate()
@@ -104,28 +101,25 @@ const MessageForm = (props) => {
         }
     };
 
-    const handleFileUpload = (e) => {
-        console.log('The file to be uploaded is: ', e.target.files[0]);
+    const handleFileUpload = async (e) => {
+        // console.log('The file to be uploaded is: ', e.target.files[0]);
+        try {
+            const uploadData = new FormData();
+            // imageUrl => this name has to be the same as in the model since I pass
+            // req.body to .create() method
+            await uploadData.append('imageUrl', e.target.files[0]);
 
-        const uploadData = new FormData();
-        // imageUrl => this name has to be the same as in the model since I pass
-        // req.body to .create() method
-        uploadData.append('imageUrl', e.target.files[0]);
-
-        service
-            .handleUpload(uploadData)
-            .then((response) => {
-                console.log('response is: ', response);
-                // response carries 'secure_url' which I can use to update the state
+            const response = await service.handleUpload(uploadData);
+            console.log('response', response);
+            if (response && response.secure_url) {
                 setImageUrl(response.secure_url);
-            })
-            .catch((err) => {
-                console.log('Error while uploading the file: ', err);
-            });
+            }
+        } catch (err) {
+            console.log('Error while uploading the file: ', err);
+        }
     };
 
     const onSubmit = async (data) => {
-        // event.preventDefault();
         console.log('data im sending', data);
 
         if (homeService) {
@@ -138,9 +132,9 @@ const MessageForm = (props) => {
                     homeService: homeService,
                 })
                 .then((res) => {
-                    console.log('added: ', res.message);
+                    console.log('added: ', res.msg);
 
-                    setMessage(res.message);
+                    setMessage(res.msg);
 
                     // Reset input values
                     setUserMessage('');
@@ -178,7 +172,7 @@ const MessageForm = (props) => {
                         homeService,
                     })
                     .then(async (res) => {
-                        await setMessage(res.message);
+                        await setMessage(res.msg);
 
                         // Reset input values
                         await setUserMessage('');
@@ -215,7 +209,7 @@ const MessageForm = (props) => {
                 marginTop: '5rem',
             }}
         >
-            <Form onSubmit={handleSubmit(onSubmit)} className={style.Form}>
+            <Form onSubmit={onSubmit} className={style.Form}>
                 <div className={style.Container}>
                     <div
                         style={{
@@ -223,6 +217,7 @@ const MessageForm = (props) => {
                         }}
                     >
                         <DatePicker
+                            {...register('appointment', { required: true })}
                             selected={appointment}
                             onChange={(date) => setAppointment(date)}
                             showPopperArrow
@@ -263,6 +258,7 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="Street"
+                                disabled={!homeService}
                                 value={reqAddress?.street}
                                 onChange={handleChange}
                             />
@@ -277,6 +273,7 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="ZIP Code"
+                                disabled={!homeService}
                                 value={reqAddress?.zipCode}
                                 onChange={handleChange}
                             />
@@ -289,6 +286,7 @@ const MessageForm = (props) => {
                                 className={style.addressInput}
                                 type="text"
                                 placeholder="City"
+                                disabled={!homeService}
                                 value={reqAddress?.city}
                                 onChange={handleChange}
                             />
@@ -323,7 +321,7 @@ const MessageForm = (props) => {
                             id={style.FileLoader}
                             type="file"
                             name="image"
-                            value={imageUrl}
+                            // value={imageUrl ? imageUrl : ''}
                             onChange={(e) => handleFileUpload(e)}
                         />
                     </div>

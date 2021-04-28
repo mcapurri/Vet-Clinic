@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import style from './AddUser.module.css';
 import useInput from '../../../utils/useInput';
 import { Form, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -10,7 +9,7 @@ const AddUser = (props) => {
     const {
         register,
         handleSubmit,
-        watch,
+        // watch,
         formState: { errors },
     } = useForm();
     const [message, setMessage] = useState('');
@@ -23,12 +22,16 @@ const AddUser = (props) => {
     const [city, setCity] = useInput('');
     const [role, setRole] = useInput('');
 
+    const token = localStorage.getItem('token');
+
     const onSubmit = async (data) => {
         console.log('data', data);
+        const user = await axios.post('/api/users/add', data, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
 
-        const user = await axios.post('/api/users/add', data);
-        if (user.message) {
-            setMessage(user.message);
+        if (user.msg) {
+            setMessage(user.msg);
 
             // Reset input values
             setFirstName('');
@@ -43,7 +46,6 @@ const AddUser = (props) => {
             props.history.goBack();
         }
     };
-
     return (
         <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
             <Form.Group>

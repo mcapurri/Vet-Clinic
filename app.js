@@ -20,7 +20,7 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         cookie: {
-            SameSite: 'lax',
+            sameSite: 'none',
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24,
         },
@@ -86,7 +86,35 @@ passport.use(
 );
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
+
+// Passport JWT config
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
+const options = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET,
+};
+
+passport.use(
+    new JwtStrategy(options, (jwt_payload, done) => {
+        User.findOne({ id: jwt_payload.sub })
+            .then((user) => {
+                console.log('userJWTstr', user);
+                // if (err) {
+                //     return done(err, false);
+                // }
+                if (user) {
+                    console.log('user jwt', user);
+                    return done(null, user);
+                } else {
+                    return done(null, false);
+                    // or you could create a new account
+                }
+            })
+            .catch((err) => console.log(err));
+    })
+);
 
 // end passport
 
@@ -101,6 +129,9 @@ const capitalized = (string) =>
 app.locals.title = `${capitalized(projectName)}`;
 
 // Routes
+// const allRoutes = require('./routes');
+// app.use('/api', allRoutes);
+
 const index = require('./routes/index');
 app.use('/api', index);
 

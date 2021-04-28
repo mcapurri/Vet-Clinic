@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { loginCheck } = require('../middlewares/loginCheck');
 const { uploader, cloudinary } = require('../config/cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Message = require('../models/Message');
@@ -8,54 +7,45 @@ const User = require('../models/User');
 // @desc      Get all messages
 // @route     GET /messages
 // @access    Private
-router.get(
-    '/messages',
-    // loginCheck(),
-    (req, res, next) => {
-        Message.find()
-            .populate('sender')
-            .then((messages) => {
-                console.log('messages', messages);
+router.get('/messages', (req, res, next) => {
+    Message.find()
+        .populate('sender')
+        .then((messages) => {
+            console.log('messages', messages);
 
-                res.status(200).json(messages);
-            })
-            .catch((err) => {
-                console.log(err);
-                next(err);
-            });
-    }
-);
+            res.status(200).json(messages);
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
+});
 
 // @desc      Get single message
 // @route     GET /messages/:id
 // @access    Private
-router.get(
-    '/messages/:id',
-    // loginCheck(),
-    (req, res, next) => {
-        const { id } = req.params;
-        console.log('id', id);
+router.get('/messages/:id', (req, res, next) => {
+    const { id } = req.params;
+    console.log('id', id);
 
-        Message.find({ _id: id })
-            .populate('sender')
-            .then((message) => {
-                console.log('message', message);
+    Message.find({ _id: id })
+        .populate('sender')
+        .then((message) => {
+            console.log('message', message);
 
-                res.status(200).json(message);
-            })
-            .catch((err) => {
-                console.log(err);
-                next(err);
-            });
-    }
-);
+            res.status(200).json(message);
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
+});
 
 // @desc      Send req form
 // @route     POST /messages/new
 // @access    Private
 router.post(
     '/messages/new',
-    // loginCheck(),
 
     (req, res, next) => {
         const {

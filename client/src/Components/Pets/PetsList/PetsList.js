@@ -14,17 +14,17 @@ const PetsList = (props) => {
     const [isBird, setIsBird] = useState(true);
     const [isReptile, setIsReptile] = useState(true);
     const [isOther, setIsOther] = useState(true);
+    const token = localStorage.getItem('token');
 
-    const fetchData = () => {
-        axios
-            .get('/api/pets')
-            .then((pets) => {
-                // console.log('pets', pets.data);
-                setPetsList(pets.data);
-            })
-            .catch((err) => {
-                console.log(err);
+    const fetchData = async () => {
+        try {
+            const pets = await axios.get('/api/pets', {
+                headers: { Authorization: `Bearer ${token}` },
             });
+            setPetsList(pets.data);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     useEffect(() => {
