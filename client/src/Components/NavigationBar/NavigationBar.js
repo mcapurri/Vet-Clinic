@@ -24,7 +24,7 @@ const NavigationBar = (props) => {
             className="p-3"
             fluid={true}
             ref={ref}
-            style={{ backgroundColor: 'rgb(5, 58, 32)', color: '#fff' }}
+            style={{ backgroundColor: ' rgb(72, 50, 105)', color: '#fff' }}
         >
             <Navbar
                 // collapseOnSelect

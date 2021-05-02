@@ -8,7 +8,7 @@ import axios from 'axios';
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWNhcHVycmkiLCJhIjoiY2tsMmR4Z2NmMDgwaDJ1cDEycmEyN3NiaCJ9.Mmr5igenBPR3QkJOKMgG3A';
 
-const Map = ({ setRequestedAddress }) => {
+const Map = ({ setRequestedAddress, width }) => {
     const mapContainer = useRef();
     const [berlin, setBerlin] = useState({
         lng: 13.405,
@@ -101,15 +101,17 @@ const Map = ({ setRequestedAddress }) => {
 
     return (
         <Row className={style.Container}>
-            <Col xs={6} md={4}>
-                <div className={style.Infos}>
-                    <address className="address">
-                        Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
-                        Berlin <br /> Germany <br />{' '}
-                        <small>+49 157 00 00 00</small>
-                    </address>
-                </div>
-            </Col>
+            {width > '860' && (
+                <Col xs={6} md={4}>
+                    <div className={style.Infos}>
+                        <address className="address">
+                            Animal Clinic <br /> Buschkrug Allee 206, <br />{' '}
+                            12359 Berlin <br /> Germany <br />{' '}
+                            <small>+49 157 00 00 00</small>
+                        </address>
+                    </div>
+                </Col>
+            )}
             <Col xs={12} md={8} className="d-flex justify-content-center">
                 <div className={style.Map} ref={mapContainer}></div>
             </Col>

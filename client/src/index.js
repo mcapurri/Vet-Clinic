@@ -14,6 +14,7 @@ jwt.verify(token, JWT_SECRET, async (err, decoded) => {
         const loggedInUser = await axios.get(
             `/api/auth/loggedin/${decoded._id}`
         );
+        // console.log('loggeIn', loggedInUser);
         ReactDOM.render(
             <BrowserRouter>
                 <App user={{ ...loggedInUser.data, ...decoded }} />

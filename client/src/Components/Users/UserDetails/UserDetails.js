@@ -26,8 +26,7 @@ const UserDetails = (props) => {
             const user = await axios.get(`/api/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log('user', user.data);
-            console.log('userLastName', user.data.user.lastName);
+            // console.log('user', user.data.user);
             setFirstName(user.data.user.name);
             setLastName(user.data.user.lastName);
             setEmail(user.data.user.email);

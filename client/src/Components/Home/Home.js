@@ -20,7 +20,10 @@ const Home = (props) => {
                 requestedAddress={requestedAddress}
                 setRequestedAddress={setRequestedAddress}
             />
-            <Map setRequestedAddress={setRequestedAddress} />
+            <Map
+                setRequestedAddress={setRequestedAddress}
+                width={props.width}
+            />
         </div>
     );
 };

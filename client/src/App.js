@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
@@ -19,9 +19,23 @@ import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 function App(props) {
-    console.log('props', props.user);
+    // console.log('props', props.user);
     const [user, setUser] = useState(props.user || '');
     console.log('user', user);
+
+    // Show text in the header if screen > 660px
+    const [width, setWidth] = useState(window.innerWidth);
+    // console.log('width', width);
+
+    const handleResize = () => {
+        setWidth(window.innerWidth);
+    };
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     let isEmployee = false;
     user.role === 'employee' && (isEmployee = true);
@@ -42,7 +56,9 @@ function App(props) {
                 <Route
                     exact
                     path="/"
-                    render={(props) => <Home {...props} user={user} />}
+                    render={(props) => (
+                        <Home {...props} user={user} width={width} />
+                    )}
                 />
                 <Route
                     exact
@@ -123,7 +139,7 @@ function App(props) {
                     user={user}
                 />
             </Switch>
-            <Footer isEmployee={isEmployee} />
+            <Footer isEmployee={isEmployee} width={width} />
         </div>
     );
 }
