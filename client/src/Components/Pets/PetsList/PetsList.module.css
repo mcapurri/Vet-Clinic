@@ -1,7 +1,7 @@
 .Container {
     width: 90vw;
     min-height: 80vh;
-    background-color: rgb(20, 122, 105);
+    background-color: rgb(194, 127, 50);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@
     margin: 5% 5% 0 0;
     width: 70vw;
     height: 2rem;
-    background-color: rgba(27, 120, 76, 0.2);
+    background-color: rgba(99, 76, 25, 0.209);
 }
 .resultCard td {
     display: flex;
@@ -31,8 +31,7 @@
     display: flex;
     justify-self: flex-end;
     align-self: flex-start;
-    background-color: rgb(20, 122, 105);
-    /* position: fixed; */
+    background-color: rgb(194, 127, 50);
     margin-left: 5%;
     border: none;
     text-decoration: none;
@@ -44,7 +43,7 @@
 .Container span {
     font-size: 3rem;
     font-weight: bold;
-    color: #fff;
+    color: rgb(72, 50, 105);
 }
 .Container a {
     color: #fff;

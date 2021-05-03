@@ -1,7 +1,7 @@
 .Container {
     width: 90vw;
     height: 80vh;
-    background-color: rgb(20, 122, 105);
+    background-color: rgb(194, 127, 50);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +21,7 @@
     margin: 5% 5% 0 0;
     width: 60vw;
     height: 2rem;
-    background-color: rgba(27, 120, 76, 0.2);
+    background-color: rgba(99, 76, 25, 0.209);
 }
 .Container button {
     display: flex;
