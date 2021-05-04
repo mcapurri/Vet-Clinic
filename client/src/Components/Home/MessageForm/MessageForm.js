@@ -27,7 +27,6 @@ const MessageForm = (props) => {
     const [homeService, setHomeService] = useState(false);
 
     // console.log('userMessage', userMessage);
-    console.log('imageUrl', imageUrl);
 
     const {
         register,

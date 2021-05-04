@@ -57,8 +57,9 @@ function App(props) {
     //     });
     // };
 
-    let isEmployee = false;
-    user.role === 'employee' && (isEmployee = true);
+    // let isEmployee = false;
+    // user.role === 'employee' && (isEmployee = true);
+    let isEmployee = user.role === 'employee';
 
     return (
         <div className="App">
@@ -106,18 +107,18 @@ function App(props) {
                 />
                 <ProtectedRoute
                     exact
+                    path="/users/add"
+                    component={AddUser}
+                    user={user}
+                />
+
+                <ProtectedRoute
+                    exact
                     path="/users/:id"
                     component={UserDetails}
                     user={user}
                     isEmployee={isEmployee}
                     selectedUser={user}
-                />
-
-                <ProtectedRoute
-                    exact
-                    path="/users/add"
-                    component={AddUser}
-                    user={user}
                 />
 
                 <ProtectedRoute

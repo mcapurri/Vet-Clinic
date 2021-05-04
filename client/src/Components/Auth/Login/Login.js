@@ -32,7 +32,7 @@ const Login = (props) => {
         } else {
             if (user.token) {
                 localStorage.setItem('token', user.token);
-                props.setUser(user);
+                props.setUser(user.user);
             }
             props.history.push('/');
         }

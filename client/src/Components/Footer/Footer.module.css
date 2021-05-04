@@ -38,7 +38,7 @@
     width: 100%;
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 860px) {
     .Footer {
         align-items: center;
         height: 15rem;
