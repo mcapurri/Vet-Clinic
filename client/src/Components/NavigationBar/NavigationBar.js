@@ -94,6 +94,7 @@ const NavigationBar = (props) => {
                                             </div>
                                         </>
                                     )}
+                                    {console.log(props.user._id)}
                                     <div className={style.coupleItems}>
                                         <Link
                                             className="nav-link text-white"

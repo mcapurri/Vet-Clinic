@@ -11,7 +11,7 @@ require('./config')(app);
 
 // session configuration
 const session = require('express-session');
-// session store using mongo
+// // session store using mongo
 const MongoStore = require('connect-mongo')(session);
 
 const mongoose = require('mongoose');
@@ -32,31 +32,6 @@ app.use(
     })
 );
 // end of session configuration
-
-// session configuration
-// const session = require('express-session');
-// // // session store using mongo
-// const MongoStore = require('connect-mongo');
-
-// const mongoose = require('mongoose');
-
-// app.use(
-//     session({
-//         secret: process.env.SESSION_SECRET,
-//         cookie: {
-//             sameSite: 'none',
-//             httpOnly: true,
-//             maxAge: 1000 * 60 * 60 * 24,
-//         },
-//         saveUninitialized: false,
-//         resave: true,
-//         store: new MongoStore({
-//             mongooseConnection: mongoose.connection,
-//             mongoUrl: 'mongodb://localhost/Vet-clinic-project',
-//         }),
-//     })
-// );
-// // end of session configuration
 
 // passport configuration
 const User = require('./models/User');

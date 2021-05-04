@@ -7,12 +7,13 @@
     border: 2px solid #eee;
     border-radius: 20px;
     box-sizing: border-box;
-    margin: 10% 0;
+    /* box-shadow: 2px 2px 10px 0 #eee; */
+    margin: 5% 0;
     padding: 5% 0;
     width: 80vw;
-    height: auto;
-    background-color: rgb(194, 127, 50);
-    color: rgb(72, 50, 105);
+    height: 80vh;
+    background-color: rgba(27, 120, 76, 0.2);
+    color: rgb(5, 58, 32);
     padding: 10% 10%;
 }
 
@@ -31,21 +32,21 @@
 }
 .Card button {
     background: none;
-    color: #eee;
+    color: rgb(48, 153, 228);
     border: none;
     cursor: pointer;
 }
 .Card h3 {
     padding: 5% 0;
 }
-/* .Card a {
-    color: rgb(72, 50, 105);
+.Card a {
+    color: rgb(48, 153, 228);
     width: 200px;
 }
 .Card span {
-    color: rgb(72, 50, 105);
+    color: rgb(48, 153, 228);
     cursor: pointer;
-} */
+}
 /* .Card span:nth-child(1) {
     font-size: 3em;
     font-weight: bold;
@@ -56,5 +57,6 @@
     min-height: 20%;
     max-height: 10rem;
     overflow-y: auto;
-    border-bottom: 3px solid rgb(72, 50, 105);
+    border-bottom: 3px solid rgb(5, 58, 32);
+    /* border-right: 1px solid rgb(5, 58, 32); */
 }

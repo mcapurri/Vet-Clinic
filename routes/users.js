@@ -8,7 +8,7 @@ const Pet = require('../models/Pet');
 // @access    Private
 router.get('/users', async (req, res, next) => {
     const users = await User.find().populate('pets');
-    console.log('users', users);
+    // console.log('users', users);
     res.status(200).json(users);
 });
 
@@ -46,7 +46,7 @@ router.get('/users/:id', (req, res, next) => {
             Pet.find({ owner: user._id })
                 .populate('pets')
                 .then((pets) => {
-                    console.log('userDb', user);
+                    // console.log('userDb', user);
 
                     res.status(200).json({ user, pets });
                 })
