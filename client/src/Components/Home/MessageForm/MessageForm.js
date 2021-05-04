@@ -27,7 +27,7 @@ const MessageForm = (props) => {
     const [homeService, setHomeService] = useState(false);
 
     // console.log('userMessage', userMessage);
-    // console.log('imageUrl', imageUrl);
+    console.log('imageUrl', imageUrl);
 
     const {
         register,
@@ -38,7 +38,6 @@ const MessageForm = (props) => {
 
     // console.log('reqAddress', reqAddress);
 
-    console.log(homeService)
     useEffect(() => {
         if (homeService === true && props.requestedAddress.street) {
             setReqAddress({
@@ -121,7 +120,7 @@ const MessageForm = (props) => {
     };
 
     const onSubmit = async (data) => {
-        // console.log('data im sending', data);
+        console.log('data im sending', data);
 
         if (homeService) {
             service
@@ -147,34 +146,12 @@ const MessageForm = (props) => {
                     console.log('Error while adding the thing: ', err);
                 });
         } else {
-
-        service
-            .saveNewThing({
-                imageUrl,
-                id: props.user._id,
-                appointment,
-                homeService,
-                userMessage,
-            })
-            .then((res) => {
-                 setMessage(res.msg);
-                // Reset input values
-                 setUserMessage('');
-                 setImageUrl('');
-                 setHomeService(false);
-                 setReqAddress('');
-            })
-            .catch((err) => {
-                console.log('Error while adding the thing: ', err);
-            });
-
             const newEvent = await addNewEvent({
                 startDate: appointment,
                 endDate: new Date(new Date(appointment).getTime() + 30 * 60000),
                 title: `${props.user.name} ${props.user.lastName} `,
                 notes: `${userMessage}`,
             });
-
 
             newEvent &&
                 listAll().then((data) => {
@@ -186,7 +163,26 @@ const MessageForm = (props) => {
                     });
                     setBooking(events);
                 });
+            imageUrl &&
+                service
+                    .saveNewThing({
+                        imageUrl,
+                        id: props.user._id,
+                        appointment,
+                        homeService,
+                    })
+                    .then(async (res) => {
+                        await setMessage(res.msg);
 
+                        // Reset input values
+                        await setUserMessage('');
+                        await setImageUrl('');
+                        await setHomeService(false);
+                        await setReqAddress('');
+                    })
+                    .catch((err) => {
+                        console.log('Error while adding the thing: ', err);
+                    });
         }
     };
 
@@ -204,143 +200,156 @@ const MessageForm = (props) => {
     }
     // console.log(watch());
     return (
-        <section
-            id="messageForm"
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '5rem',
-            }}
-        >
-            <Form onSubmit={onSubmit} className={style.Form}>
-                <div className={style.Container}>
+        <section className={style.MessageForm}>
+            <Form onSubmit={handleSubmit(onSubmit)} className={style.Form}>
+                <div className={style.LeftContainer}>
                     <div
                         style={{
                             padding: '5% 0',
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                         }}
                     >
-                        <DatePicker
-                            {...register('appointment', { required: true })}
-                            selected={appointment}
-                            onChange={(date) => setAppointment(date)}
-                            showPopperArrow
-                            showTimeSelect
-                            dateFormat="dd/ MMMM/ yyyy HH:mm  "
-                            timeFormat="HH:mm"
-                            // minTime={setHours(setMinutes(new Date(), 0), 10)}
-                            // maxTime={setHours(setMinutes(new Date(), 30), 18)}
-                            minTime={minTime}
-                            maxTime={maxTime}
-                            placeholderText="Select appointment"
-                            minDate={new Date()}
-                            filterDate={(date) =>
-                                date.getDay() !== 6 && date.getDay() !== 0
-                            }
-                            filterTime={filterBookedTime}
-                            isClearable
-                            // timeIntervals={15}
-                            // excludeDates={[new Date(), subDays(new Date(), 1)]}
-                            // excludeTimes={booking}
-                            value={appointment}
-                            disabled={homeService}
-                        />
-                    </div>
-                    <div className={style.AddressContainer}>
-                        <Checkbox
-                            name="homeRequest"
-                            label="Request home service"
-                            checked={homeService}
-                            handleChange={handleChange}
-                            value={homeService}
-                            disabled={!props.user}
-                        />
-                        <Form.Group style={{ width: '100%' }}>
-                            <Form.Label>Street</Form.Label>
-                            <Form.Control
-                                {...register('street', { required: true })}
-                                className={style.addressInput}
-                                type="text"
-                                placeholder="Street"
-                                disabled={!homeService}
-                                value={reqAddress?.street}
-                                onChange={handleChange}
+                        <div style={{ display: 'flex' }}>
+                            <label htmlFor="date-picker">
+                                Book an appointment
+                            </label>
+                            <DatePicker
+                                {...register('appointment', { required: true })}
+                                id={style.DatePicker}
+                                selected={appointment}
+                                name="date-picker"
+                                onChange={(date) => setAppointment(date)}
+                                showPopperArrow
+                                showTimeSelect
+                                dateFormat="dd/ MMMM/ yyyy HH:mm  "
+                                timeFormat="HH:mm"
+                                // minTime={setHours(setMinutes(new Date(), 0), 10)}
+                                // maxTime={setHours(setMinutes(new Date(), 30), 18)}
+                                minTime={minTime}
+                                maxTime={maxTime}
+                                placeholderText="Select appointment"
+                                minDate={new Date()}
+                                filterDate={(date) =>
+                                    date.getDay() !== 6 && date.getDay() !== 0
+                                }
+                                filterTime={filterBookedTime}
+                                isClearable
+                                // timeIntervals={15}
+                                // excludeDates={[new Date(), subDays(new Date(), 1)]}
+                                // excludeTimes={booking}
+                                value={appointment}
+                                disabled={homeService}
                             />
-
-                            <Form.Label>ZIP Code</Form.Label>
-                            <Form.Control
-                                {...register('zipCode', {
-                                    required: true,
-                                    minLength: 5,
-                                    maxLength: 5,
-                                })}
-                                className={style.addressInput}
-                                type="text"
-                                placeholder="ZIP Code"
-                                disabled={!homeService}
-                                value={reqAddress?.zipCode}
-                                onChange={handleChange}
-                            />
-                            <Form.Label>City</Form.Label>
-                            <Form.Control
-                                {...register('city', {
-                                    required: true,
-                                    minLength: 2,
-                                })}
-                                className={style.addressInput}
-                                type="text"
-                                placeholder="City"
-                                disabled={!homeService}
-                                value={reqAddress?.city}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </div>
-                </div>
-
-                <Form.Group className={style.Group}>
-                    <Form.Label className={style.Label} htmlFor="message">
-                        Your message
-                    </Form.Label>
-                    <Form.Control
-                        className={style.Textarea}
-                        id="userMessage"
-                        name="userMessage"
-                        as="textarea"
-                        rows="3"
-                        placeholder="Tell us..."
-                        value={userMessage}
-                        onChange={setUserMessage}
-                    />
-                    <div className={style.Loader}>
-                        <AttachFileIcon style={{ color: '#216ba5' }} />
-                        <label
-                            className="m-0"
-                            htmlFor={style.FileLoader}
-                            style={{ cursor: 'pointer' }}
+                        </div>
+                        <div
+                            style={{
+                                width: '100%',
+                                padding: '0 10%',
+                                display: 'flex',
+                            }}
                         >
-                            Attach photo
-                        </label>
-                        <input
-                            id={style.FileLoader}
-                            type="file"
-                            name="image"
-                            // value={imageUrl ? imageUrl : ''}
-                            onChange={(e) => handleFileUpload(e)}
-                        />
+                            <Checkbox
+                                name="homeRequest"
+                                label="Request home service"
+                                checked={homeService}
+                                handleChange={handleChange}
+                                value={homeService}
+                                disabled={!props.user}
+                            />
+                        </div>
                     </div>
-                    {message && (
-                        <p style={{ color: 'rgb(5, 58, 32)' }}>{message}</p>
-                    )}
-                    <Button
-                        className={style.Button}
-                        variant="primary sm"
-                        type="submit"
-                        disabled={!props.user}
-                    >
-                        Send
-                    </Button>
-                </Form.Group>
+                    {/* <div className={style.AddressContainer}> */}
+                    <Form.Group style={{ width: '100%' }}>
+                        <Form.Label>Street</Form.Label>
+                        <Form.Control
+                            {...register('street', { required: true })}
+                            className={style.addressInput}
+                            type="text"
+                            placeholder="Street"
+                            disabled={!homeService}
+                            value={reqAddress?.street}
+                            onChange={handleChange}
+                        />
+
+                        <Form.Label>ZIP Code</Form.Label>
+                        <Form.Control
+                            {...register('zipCode', {
+                                required: true,
+                                minLength: 5,
+                                maxLength: 5,
+                            })}
+                            className={style.addressInput}
+                            type="text"
+                            placeholder="ZIP Code"
+                            disabled={!homeService}
+                            value={reqAddress?.zipCode}
+                            onChange={handleChange}
+                        />
+                        <Form.Label>City</Form.Label>
+                        <Form.Control
+                            {...register('city', {
+                                required: true,
+                                minLength: 2,
+                            })}
+                            className={style.addressInput}
+                            type="text"
+                            placeholder="City"
+                            disabled={!homeService}
+                            value={reqAddress?.city}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    {/* </div> */}
+                </div>
+                <div className={style.RightContainer}>
+                    <Form.Group className={style.Group}>
+                        <Form.Label className={style.Label} htmlFor="message">
+                            Your message
+                        </Form.Label>
+                        <Form.Control
+                            className={style.Textarea}
+                            id="userMessage"
+                            name="userMessage"
+                            as="textarea"
+                            rows="3"
+                            placeholder="Tell us..."
+                            value={userMessage}
+                            onChange={setUserMessage}
+                        />
+                        <div className={style.Loader}>
+                            <AttachFileIcon style={{ color: '#216ba5' }} />
+                            <label
+                                className="m-0"
+                                htmlFor={style.FileLoader}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Attach photo
+                            </label>
+                            <input
+                                id={style.FileLoader}
+                                type="file"
+                                name="image"
+                                // value={imageUrl ? imageUrl : ''}
+                                onChange={(e) => handleFileUpload(e)}
+                            />
+                        </div>
+                        {message && (
+                            <p style={{ color: 'rgb(5, 58, 32)' }}>{message}</p>
+                        )}
+                        <Button
+                            className={style.Button}
+                            variant="primary sm"
+                            type="submit"
+                            disabled={!props.user}
+                        >
+                            Send
+                        </Button>
+                    </Form.Group>
+                </div>
             </Form>
         </section>
     );

@@ -6,7 +6,6 @@ import MessageForm from './MessageForm/MessageForm';
 import Map from './Map/Map';
 
 const Home = (props) => {
-    // console.log(props)
     const [requestedAddress, setRequestedAddress] = useState({
         street: '',
         city: '',

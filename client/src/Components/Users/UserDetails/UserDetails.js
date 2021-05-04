@@ -22,7 +22,6 @@ const UserDetails = (props) => {
     const token = localStorage.getItem('token');
 
     const fetchData = async () => {
-        {console.log(props.userId)}
         try {
             const user = await axios.get(`/api/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -81,7 +80,6 @@ const UserDetails = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('update');
-        console.log(userId)
         axios
             .put(`/api/users/${userId}`, {
                 firstName,

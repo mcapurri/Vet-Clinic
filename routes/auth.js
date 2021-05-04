@@ -8,7 +8,7 @@ const passport = require('passport');
 // @access    Public
 router.get('/loggedin/:id', async (req, res, next) => {
     const user = await User.findById(req.params.id);
-    // console.log('loggedInUser', user);
+    console.log('loggedInUser', user);
     res.json(user);
 });
 

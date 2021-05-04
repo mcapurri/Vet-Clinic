@@ -57,16 +57,15 @@ router.post(
             address,
         } = req.body;
 
-        console.log(userMessage)
-        // console.log(
-        //     'from /messages',
-        //     userMessage,
-        //     id,
-        //     imageUrl,
-        //     appointment,
-        //     homeService,
-        //     address
-        // );
+        console.log(
+            'from /messages',
+            userMessage,
+            id,
+            imageUrl,
+            appointment,
+            homeService,
+            address
+        );
         homeService
             ? Message.create({
                   userMessage: userMessage,

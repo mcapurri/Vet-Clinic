@@ -9,15 +9,12 @@ import axios from 'axios';
 import { JWT_SECRET } from './utils/config.json';
 
 const token = localStorage.getItem('token');
-
 jwt.verify(token, JWT_SECRET, async (err, decoded) => {
     if (!err) {
         const loggedInUser = await axios.get(
             `/api/auth/loggedin/${decoded._id}`
         );
-
         // console.log('loggeIn', loggedInUser);
-
         ReactDOM.render(
             <BrowserRouter>
                 <App user={{ ...loggedInUser.data, ...decoded }} />

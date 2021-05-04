@@ -22,7 +22,6 @@ export const authenticate = () => {
             console.error('Error signing in', err);
         });
 };
-
 export const loadClient = () => {
     gapi.client.setApiKey(GOOGLE_API_KEY);
     return gapi.client
@@ -131,7 +130,6 @@ export const deleteEvent = (eventId) => {
         });
 };
 
-//This is where you load the modal with google auth, you don't need this, this is for getting someones credentials and use them to log into your app.
-// gapi.load('client:auth2', function () {
-//     gapi.auth2.init({ client_id: GOOGLE_CLIENT_ID });
-// });
+gapi.load('client:auth2', function () {
+    gapi.auth2.init({ client_id: GOOGLE_CLIENT_ID });
+});

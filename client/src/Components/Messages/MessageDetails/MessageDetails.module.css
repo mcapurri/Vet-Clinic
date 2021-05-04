@@ -9,9 +9,8 @@
     margin: 5% 0;
     padding: 10% 10% 5% 10%;
     width: 60vw;
-    min-height: 80vh;
-    background-color: rgba(27, 120, 76, 0.2);
-    color: rgb(5, 58, 32);
+    background-color: rgb(194, 127, 50);
+    color: rgb(72, 50, 105);
     padding: 10% 5%;
 }
 .Infos {
@@ -30,17 +29,8 @@
 }
 .Card button {
     background: none;
-    color: rgb(48, 153, 228);
+    color: #eee;
     border: none;
-    cursor: pointer;
-}
-
-.Card a {
-    color: rgb(48, 153, 228);
-    width: 200px;
-}
-.Card span {
-    color: rgb(48, 153, 228);
     cursor: pointer;
 }
 

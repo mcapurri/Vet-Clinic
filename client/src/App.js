@@ -21,7 +21,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 function App(props) {
     // console.log('props', props.user);
     const [user, setUser] = useState(props.user || '');
-    // console.log('user', user);
+    console.log('user', user);
 
     // Show text in the header if screen > 660px
     const [width, setWidth] = useState(window.innerWidth);
@@ -30,22 +30,35 @@ function App(props) {
     const handleResize = () => {
         setWidth(window.innerWidth);
     };
-
-    const [isEmployee, setIsEmployee] = useState(user.role === 'employee')
-
-
     useEffect(() => {
-        setIsEmployee(user.role === 'employee')
-        setUser(user);
-        console.log(user.role)
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [isEmployee, setIsEmployee, user]);
+    }, []);
 
-    // let isEmployee = false;
-    // user.role === 'employee' && (isEmployee = true);
+    // useEffect(() => {
+    //     jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+    //         if (!err) {
+    //             const loggedInUser = await axios.get(
+    //                 `/api/auth/loggedin/${decoded._id}`
+    //             );
+    //         })
+    // },[user])
+
+    // const fetchUser = (user) => {
+    //     jwt.verify(user.token, JWT_SECRET, async (err, decoded) => {
+    //         if (!err) {
+    //             const loggedInUser = await axios.get(
+    //                 `/api/auth/loggedin/${decoded._id}`
+    //             );
+    //             setUser(loggedInUser);
+    //         }
+    //     });
+    // };
+
+    let isEmployee = false;
+    user.role === 'employee' && (isEmployee = true);
 
     return (
         <div className="App">
@@ -91,14 +104,6 @@ function App(props) {
                     component={UsersList}
                     user={user}
                 />
-
-                <ProtectedRoute
-                    exact
-                    path="/users/add"
-                    component={AddUser}
-                    user={user}
-                />
-
                 <ProtectedRoute
                     exact
                     path="/users/:id"
@@ -106,6 +111,13 @@ function App(props) {
                     user={user}
                     isEmployee={isEmployee}
                     selectedUser={user}
+                />
+
+                <ProtectedRoute
+                    exact
+                    path="/users/add"
+                    component={AddUser}
+                    user={user}
                 />
 
                 <ProtectedRoute

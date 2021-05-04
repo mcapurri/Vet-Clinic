@@ -25,7 +25,7 @@ const AddUser = (props) => {
     const token = localStorage.getItem('token');
 
     const onSubmit = async (data) => {
-        // console.log('data', data);
+        console.log('data', data);
         const user = await axios.post('/api/users/add', data, {
             headers: { Authorization: `Bearer ${token}` },
         });

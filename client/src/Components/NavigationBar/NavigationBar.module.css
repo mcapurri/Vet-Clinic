@@ -18,10 +18,11 @@
 .navItems {
     display: flex;
     justify-content: space-around;
-    width: 60vw;
+    width: auto;
 }
 .coupleItems {
     display: flex;
+    justify-self: flex-end;
 }
 
 .Navbar span {
