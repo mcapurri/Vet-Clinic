@@ -19,6 +19,7 @@ const MessageDetails = (props) => {
             const message = await axios.get(`/api/messages/${messageId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+
             console.log('response from DB', message.data[0]);
             setUserMessage(message.data[0].userMessage);
             setImageUrl(message.data[0].imageUrl);

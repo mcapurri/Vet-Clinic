@@ -1,11 +1,3 @@
-.MessageForm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-    width: 100%;
-}
-
 .Form {
     display: flex;
     align-items: flex-start;
@@ -13,8 +5,10 @@
     /* margin: 0 5%; */
     border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
-    padding: 5% 10%;
-    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 10px 0 #eee;
+    padding: 5% 5%;
+    width: 80vw;
     color: #fff;
     background-color: rgb(194, 127, 50);
 }
@@ -23,10 +17,9 @@
     border-radius: 5px;
 }
 
-.Form #DatePicker {
+.Form input:nth-child(1) {
     border-radius: 5px;
     transform: scale(1.2);
-    width: 70%;
     margin-bottom: 5%;
 }
 
@@ -45,7 +38,7 @@
 
 .Form .Textarea {
     align-self: center;
-    width: 100%;
+    width: 80%;
     height: 10rem;
     max-height: 26rem;
     border-radius: 5px;
@@ -60,16 +53,20 @@
     width: 60%;
     margin-bottom: 5%;
 }
-
-.Form label {
-    font-weight: 600;
+.Form .Label {
     display: flex;
     align-self: flex-start;
-    color: rgb(72, 50, 105);
+    color: rgb(5, 58, 32);
     margin-left: 10%;
+}
+.Form label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: rgb(5, 58, 32);
 }
 .Form label:nth-child(2) {
     font-size: 1rem;
+    margin: 0 0 5% 10%;
 }
 
 .Form .Button {
@@ -90,28 +87,19 @@
     width: 100%;
     padding-bottom: 5%;
 }
-.Form .LeftContainer {
+.Form .Container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 10%;
-    width: 50%;
 }
-.Form .RightContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-}
-/* .Form .AddressContainer {
+.Form .AddressContainer {
     width: 100%;
     margin: 10% 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+}
 .Loader {
     margin-top: 3%;
     display: flex;
@@ -125,13 +113,9 @@
         width: 90vw;
         flex-direction: column;
         align-items: center;
-        padding: 5% 15%;
     }
 
-    .Form .LeftContainer {
-        width: 100%;
-    }
-    .Form .RightContainer {
+    .Form .Container {
         width: 100%;
     }
     .Form .Label {

@@ -25,14 +25,13 @@ const Login = (props) => {
         });
         if (user.msg) {
             setMessage(user.msg);
-
             //Reset input values
             setEmail('');
             setPassword('');
         } else {
             if (user.token) {
                 localStorage.setItem('token', user.token);
-                props.setUser(user);
+                props.setUser(user.user);
             }
             props.history.push('/');
         }

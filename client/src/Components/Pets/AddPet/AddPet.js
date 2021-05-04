@@ -87,7 +87,7 @@ const AddPet = (props) => {
             setTreatment('');
             setOwner('');
         } else {
-            console.log('user added', user);
+            // console.log('user added', user);
             props.history.goBack();
         }
     };

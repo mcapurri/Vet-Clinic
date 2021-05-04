@@ -35,7 +35,7 @@ const ResetPassword = (props) => {
     return (
         <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group style={{ width: '100%' }}>
+                <Form.Group>
                     <label htmlFor="password">Password</label>
                     <FormControl
                         {...register('password', { required: true })}
@@ -46,7 +46,7 @@ const ResetPassword = (props) => {
                         onChange={setPassword}
                     />
                 </Form.Group>
-                <Form.Group style={{ width: '100%' }}>
+                <Form.Group>
                     <label htmlFor="confirm">Confirm Password</label>
                     <FormControl
                         {...register('confirm', { required: true })}
