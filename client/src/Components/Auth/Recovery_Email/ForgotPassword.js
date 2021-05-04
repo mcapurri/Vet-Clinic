@@ -35,7 +35,7 @@ const ForgotPassword = (props) => {
     return (
         <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(sendEmail)}>
-                <Form.Group>
+                <Form.Group style={{ width: '100%' }}>
                     <label htmlFor="email">Email</label>
                     <FormControl
                         {...register('email', { required: true })}

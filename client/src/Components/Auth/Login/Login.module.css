@@ -34,6 +34,8 @@ Form a {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(194, 127, 50);
+    border: none;
 }
 @media only screen and (max-width: 620px) {
     .LoginButton {
