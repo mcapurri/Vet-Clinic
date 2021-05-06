@@ -13,18 +13,33 @@
     width: 70%;
     max-width: 50rem;
     min-height: 80vh;
-    background-color: rgba(27, 120, 76, 0.2);
+    background-color: rgb(194, 127, 50);
+}
+
+.Form input:focus {
+    background-color: transparent;
+    box-shadow: none;
 }
 .Form input {
+    background-color: transparent;
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
+    box-shadow: none;
     width: 45vw;
     max-width: 30rem;
+}
+.Form a {
+    margin-top: 5%;
+    color: #eee;
 }
 
 .Button {
     width: 100px;
     border-radius: 10px;
-    background-color: rgb(69, 191, 165);
+    background-color: rgb(72, 50, 105);
     color: #fff;
+    margin-top: 10%;
 }
 Button:disabled {
     color: #ccc;

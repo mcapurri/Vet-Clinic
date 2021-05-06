@@ -18,7 +18,6 @@ const ForgotPassword = (props) => {
     } = useForm();
 
     const sendEmail = ({ email }) => {
-        // e.preventDefault();
         email !== '' &&
             axios
                 .post('/api/auth/forgotpassword', { email: email })

@@ -14,15 +14,15 @@ const Home = (props) => {
     return (
         <div className={style.Home}>
             <section
-                className={style.CarouselSession}
+                className={style.Session}
                 style={{ backgroundColor: 'rgb(194, 127, 50)' }}
             >
                 <Carousel />
             </section>
-            <section className={style.CarouselSession}>
+            <section className={style.Session}>
                 <GeneralInfos />
             </section>
-            <section>
+            <section className={style.Session}>
                 <MessageForm
                     user={props.user}
                     requestedAddress={requestedAddress}

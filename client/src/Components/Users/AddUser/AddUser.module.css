@@ -12,12 +12,32 @@
     padding: 5% 0;
     width: 80vw;
     min-height: 80vh;
-    background-color: rgba(27, 120, 76, 0.2);
+    background-color: rgb(194, 127, 50);
+}
+
+.Form input,
+#Select {
+    width: 120%;
+    line-height: 2rem;
+    padding-left: 5%;
+    background-color: transparent;
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
+    box-shadow: none;
+}
+
+.Form input:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+.Form option {
+    color: rgb(72, 50, 105);
 }
 
 .Button {
     border-radius: 10px;
-    background-color: rgb(69, 191, 165);
+    background-color: rgb(72, 50, 105);
     color: #fff;
     cursor: pointer;
 }
@@ -25,14 +45,10 @@ Button:disabled {
     color: #ccc;
 }
 
-.Form input {
-    width: 120%;
-    line-height: 2rem;
-    padding-left: 5%;
-}
 .Form button:last-child {
     background: none;
-    color: rgb(48, 153, 228);
+    color: #eee;
     border: none;
     cursor: pointer;
+    margin-top: 5%;
 }

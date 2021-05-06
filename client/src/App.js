@@ -90,15 +90,12 @@ function App(props) {
                     exact
                     path="/forgotpassword"
                     render={(props) => <ForgotPassword {...props} />}
-                    // component={ForgotPassword}
                 />
                 <Route
                     exact
                     path="/resetpassword/:resettoken"
                     render={(props) => <ResetPassword {...props} />}
-                    // component={ResetPassword}
                 />
-                {/* <Route exact path="/users" component={UsersList} /> */}
                 <ProtectedRoute
                     exact
                     path="/users"
@@ -119,6 +116,13 @@ function App(props) {
                     user={user}
                     isEmployee={isEmployee}
                     selectedUser={user}
+                />
+                <ProtectedRoute
+                    exact
+                    path="/users/:id/pet"
+                    component={AddPet}
+                    user={user}
+                    isEmployee={isEmployee}
                 />
 
                 <ProtectedRoute

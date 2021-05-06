@@ -30,6 +30,7 @@ const EditPet = (props) => {
                     name="specie"
                     value={props.specie}
                     onChange={props.handleChange}
+                    className={style.Select}
                 >
                     <option value="">--choose an option--</option>
                     <option value="dog">Dog</option>

@@ -20,8 +20,8 @@ const ResetPassword = (props) => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (event) => {
-        event.preventDefault();
+    const onSubmit = ({ password, confirm }) => {
+        // event.preventDefault();
         axios
             .put(`/api/auth/resetpassword/${token}`, { password, confirm })
             .then((res) => {

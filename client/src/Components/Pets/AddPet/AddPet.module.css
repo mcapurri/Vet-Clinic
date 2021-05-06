@@ -12,17 +12,26 @@
     padding: 5% 0;
     width: 80vw;
     min-height: 80vh;
-    background-color: rgba(27, 120, 76, 0.2);
+    background-color: rgb(194, 127, 50);
 }
 
-.Button {
-    border-radius: 10px;
-    background-color: rgb(69, 191, 165);
-    color: #fff;
-    cursor: pointer;
+.Form input,
+.Select {
+    width: 120%;
+    line-height: 2rem;
+    padding-left: 5%;
+    background-color: transparent;
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
+    box-shadow: none;
 }
-Button:disabled {
-    color: #ccc;
+.Form input:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+.Form option {
+    color: rgb(72, 50, 105);
 }
 
 .Form input {
@@ -33,19 +42,17 @@ Button:disabled {
 .Form span {
     font-size: 3rem;
     font-weight: bold;
-    color: rgb(48, 153, 228);
+    color: rgb(72, 50, 105);
 }
 .Form select {
-    width: 7rem;
+    width: 12rem;
     height: 2rem;
     text-align: center;
 }
-.Form select:nth-child(1) {
-    width: 10rem;
-}
+
 .Form button {
     background: none;
-    color: rgb(48, 153, 228);
+    color: #eee;
     border: none;
     cursor: pointer;
 }

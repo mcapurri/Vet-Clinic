@@ -11,7 +11,7 @@
     align-items: flex-start;
     justify-content: space-around;
     /* margin: 0 5%; */
-    border: 2px solid rgb(69, 191, 165);
+    border: 2px solid rgb(72, 50, 105);
     border-radius: 20px;
     padding: 5% 10%;
     width: 100%;
@@ -21,13 +21,20 @@
 
 .Form input {
     border-radius: 5px;
+    margin-bottom: 5%;
+    background-color: transparent;
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
 }
 
 .Form #DatePicker {
     border-radius: 5px;
     transform: scale(1.2);
-    width: 70%;
+    width: 80%;
     margin-bottom: 5%;
+    display: flex;
+    justify-self: flex-end;
 }
 
 .Form #FileLoader {
@@ -57,8 +64,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
-    margin-bottom: 5%;
+    width: 100%;
+    margin-bottom: 10%;
 }
 
 .Form label {
@@ -66,10 +73,15 @@
     display: flex;
     align-self: flex-start;
     color: rgb(72, 50, 105);
-    margin-left: 10%;
 }
+
 .Form label:nth-child(2) {
-    font-size: 1rem;
+    font-size: 1.2rem;
+}
+.Form p {
+    color: rgb(72, 50, 105);
+    font-size: 1.2rem;
+    margin-top: 5%;
 }
 
 .Form .Button {
@@ -78,7 +90,7 @@
     width: 150px;
     margin-top: 2rem;
     align-self: flex-start;
-    background-color: rgb(5, 58, 32);
+    background-color: rgb(72, 50, 105);
     border: none;
     margin-left: 10%;
 }
@@ -105,13 +117,7 @@
     align-items: center;
     width: 50%;
 }
-/* .Form .AddressContainer {
-    width: 100%;
-    margin: 10% 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-} */
+
 .Loader {
     margin-top: 3%;
     display: flex;
@@ -127,6 +133,10 @@
         align-items: center;
         padding: 5% 15%;
     }
+    .Form .Group {
+        width: 85%;
+        margin-right: 10%;
+    }
 
     .Form .LeftContainer {
         width: 100%;
@@ -137,13 +147,7 @@
     .Form .Label {
         margin-left: -5%;
     }
-    .Form .AddressContainer {
-        transform: scale(1.2);
-        width: 60%;
-    }
-    .Form .AddressContainer label:not(:nth-child(2)) {
-        transform: scale(0.7);
-    }
+
     .Form .Textarea {
         transform: scale(1.2);
         width: 100%;

@@ -1,7 +1,5 @@
 .Container {
     margin: 5% 10%;
-    /* width: 70vw; */
-    min-height: 60vw;
     background-color: rgb(194, 127, 50);
 }
 .CarouselContainer img {
@@ -11,12 +9,8 @@
 
 @media only screen and (max-width: 900px) {
     .Container {
-        /* width: 90vw; */
-        min-height: 47vh;
+        /* min-height: 47vh; */
         margin: 5% 5%;
-    }
-    .CarouselContainer img {
-        height: 35rem;
     }
 }
 .Fade {

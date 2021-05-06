@@ -118,8 +118,9 @@ const MessageForm = (props) => {
         }
     };
 
-    const onSubmit = async (data) => {
-        console.log('data im sending', data);
+    const onSubmit = async (e) => {
+        // console.log('data im sending', data);
+        e.preventDefault();
 
         if (homeService) {
             service
@@ -200,7 +201,7 @@ const MessageForm = (props) => {
     // console.log(watch());
     return (
         <section className={style.MessageForm}>
-            <Form onSubmit={handleSubmit(onSubmit)} className={style.Form}>
+            <Form onSubmit={onSubmit} className={style.Form}>
                 <div className={style.LeftContainer}>
                     <div
                         style={{
@@ -212,9 +213,19 @@ const MessageForm = (props) => {
                             justifyContent: 'center',
                         }}
                     >
-                        <div style={{ display: 'flex' }}>
-                            <label htmlFor="date-picker">
-                                Book an appointment
+                        <div
+                            style={{
+                                display: 'flex',
+                                width: '100%',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <label
+                                style={{ marginLeft: '5%' }}
+                                htmlFor="date-picker"
+                            >
+                                Book an appointment <br />
+                                at our clinic:
                             </label>
                             <DatePicker
                                 {...register('appointment', { required: true })}
@@ -236,7 +247,7 @@ const MessageForm = (props) => {
                                     date.getDay() !== 6 && date.getDay() !== 0
                                 }
                                 filterTime={filterBookedTime}
-                                isClearable
+                                // isClearable
                                 // timeIntervals={15}
                                 // excludeDates={[new Date(), subDays(new Date(), 1)]}
                                 // excludeTimes={booking}
@@ -244,16 +255,19 @@ const MessageForm = (props) => {
                                 disabled={homeService}
                             />
                         </div>
+                        <p>----------- Or -----------</p>
+
                         <div
                             style={{
                                 width: '100%',
                                 padding: '0 10%',
                                 display: 'flex',
+                                marginTop: '5%',
                             }}
                         >
                             <Checkbox
                                 name="homeRequest"
-                                label="Request home service"
+                                label="Request our Vet at home"
                                 checked={homeService}
                                 handleChange={handleChange}
                                 value={homeService}
@@ -261,7 +275,6 @@ const MessageForm = (props) => {
                             />
                         </div>
                     </div>
-                    {/* <div className={style.AddressContainer}> */}
                     <Form.Group style={{ width: '100%' }}>
                         <Form.Label>Street</Form.Label>
                         <Form.Control
@@ -302,7 +315,6 @@ const MessageForm = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    {/* </div> */}
                 </div>
                 <div className={style.RightContainer}>
                     <Form.Group className={style.Group}>

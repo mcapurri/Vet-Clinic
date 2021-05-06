@@ -149,6 +149,7 @@ const AddUser = (props) => {
                     name="role"
                     value={role}
                     onChange={setRole}
+                    id={style.Select}
                 >
                     <option value="">--Choose one--</option>
                     <option value="employee">Employee</option>

@@ -10,8 +10,7 @@
 }
 
 .Footer ul {
-    width: 100%;
-
+    width: 5rem;
     display: flex;
     justify-content: space-evenly;
 }

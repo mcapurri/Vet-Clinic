@@ -10,14 +10,14 @@ const Carousel = () => {
                 indicators={false}
                 controls={false}
             >
-                <CarouselBootstrap.Item className={style.Fade}>
+                {/* <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
                         src="./images/pets.png"
                         alt="Pets"
                         style={{ height: '120%' }}
                     />
-                </CarouselBootstrap.Item>
+                </CarouselBootstrap.Item> */}
                 <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"

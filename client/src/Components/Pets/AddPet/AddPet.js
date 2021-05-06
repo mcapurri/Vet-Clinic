@@ -104,6 +104,7 @@ const AddPet = (props) => {
                         name="specie"
                         value={specie}
                         onChange={setSpecie}
+                        className={style.Select}
                     >
                         <option value="">--Choose one--</option>
                         <option value="dog">Dog</option>
@@ -196,6 +197,7 @@ const AddPet = (props) => {
                                 name="owner"
                                 value={owner}
                                 onChange={setOwner}
+                                className={style.Select}
                             >
                                 <option value="">--Choose one--</option>
                                 {ownersList}

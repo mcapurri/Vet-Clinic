@@ -12,7 +12,6 @@
     padding: 5% 0 5% 5%;
     width: 80vw;
     background-color: rgb(194, 127, 50);
-
     z-index: 1;
 }
 .Form .Group {
@@ -26,14 +25,29 @@
     display: flex;
     align-self: flex-start;
     color: rgb(72, 50, 105);
+    margin-left: -10%;
 }
 .Form h2 {
     color: rgb(72, 50, 105);
 }
-/* .Form input,
-select {
+.Form input,
+.Select {
+    width: 120%;
+    line-height: 2rem;
+    padding-left: 5%;
     background-color: transparent;
-} */
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
+    box-shadow: none;
+}
+.Form input:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+.Form option {
+    color: rgb(72, 50, 105);
+}
 
 Button:disabled {
     color: #ccc;

@@ -21,10 +21,28 @@
     width: 60%;
     margin-bottom: 5%;
 }
+.Form input {
+    width: 120%;
+    line-height: 2rem;
+    padding-left: 5%;
+    background-color: transparent;
+    color: blanchedalmond;
+    border: none;
+    border-bottom: 3px solid #fff;
+    box-shadow: none;
+}
+.Form input:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+.Form option {
+    color: rgb(72, 50, 105);
+}
 .Form .Label {
     display: flex;
     align-self: flex-start;
     color: rgb(72, 50, 105);
+    margin-left: -10%;
 }
 .Form h2 {
     color: rgb(72, 50, 105);
@@ -42,8 +60,8 @@ Button:disabled {
 }
 Form .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-end;
     width: 100%;
-    padding-bottom: 5%;
+    padding: 5% 0;
 }

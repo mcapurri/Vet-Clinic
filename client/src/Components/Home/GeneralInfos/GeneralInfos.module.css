@@ -23,7 +23,7 @@
 .Container article {
     min-height: 60%;
 }
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 770px) {
     .Container {
         flex-direction: column;
         height: auto;
