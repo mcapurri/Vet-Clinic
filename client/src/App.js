@@ -19,7 +19,8 @@ import MessageDetails from './Components/Messages/MessageDetails/MessageDetails'
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 import ProtectedRoute from './utils/ProtectedRoute';
-import getUnreadMessages from './utils/service';
+// import getUnreadMessages from './utils/service';
+import service from './utils/service';
 
 function App(props) {
     // console.log('props', props.user);
@@ -30,13 +31,13 @@ function App(props) {
 
     // Fetch unread Messages
     useEffect(() => {
-        // setInterval(
-        //     () =>
-        getUnreadMessages().then((data) => {
-            setUnreadMessages(data.unread ?? 0);
-        });
-        // 5000
-        // );
+        setInterval(
+            () =>
+                service.getUnreadMessages().then((data) => {
+                    setUnreadMessages(data.unread ?? 0);
+                }),
+            30000
+        );
     }, []);
 
     // Show text in the header if screen > 660px

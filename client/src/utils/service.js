@@ -33,7 +33,7 @@ export default {
 
     getUnreadMessages() {
         return service
-            .get('/api/messages/unread')
+            .get('/messages/unread')
             .then((response) => {
                 return response.data;
             })

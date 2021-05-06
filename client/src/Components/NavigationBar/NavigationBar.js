@@ -3,7 +3,7 @@ import style from './NavigationBar.module.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../utils/auth';
 import Login from '../Auth/Login/Login';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, LinkContainer } from 'react-bootstrap';
 
 const NavigationBar = (props) => {
     const ref = useRef(null);
@@ -27,7 +27,7 @@ const NavigationBar = (props) => {
             style={{ backgroundColor: ' rgb(72, 50, 105)', color: '#fff' }}
         >
             <Navbar
-                // collapseOnSelect
+                collapseOnSelect
                 // toggled
                 className="border-bottom text-white"
                 bg="transparent"
@@ -84,21 +84,33 @@ const NavigationBar = (props) => {
                                                 >
                                                     Scheduler
                                                 </Link>
-
-                                                <Link
-                                                    className="nav-link text-white"
-                                                    to="/messages"
+                                                <div
+                                                    className={
+                                                        style.Notification
+                                                    }
                                                 >
-                                                    Messages
                                                     {props.unreadMessages ? (
                                                         <span
                                                             style={{
                                                                 color: 'red',
                                                                 font: 'bold',
+                                                                marginLeft:
+                                                                    '5%',
+                                                                marginRight:
+                                                                    '-15%',
                                                             }}
-                                                        >{`(${props.unreadMessages} new)`}</span>
+                                                        >{`${props.unreadMessages} new`}</span>
                                                     ) : null}
-                                                </Link>
+                                                    <Link
+                                                        className="nav-link text-white"
+                                                        to="/messages"
+                                                        style={{
+                                                            width: '7rem',
+                                                        }}
+                                                    >
+                                                        Messages
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </>
                                     )}
