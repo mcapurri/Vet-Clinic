@@ -30,4 +30,15 @@ export default {
             .then((res) => res.data)
             .catch(errorHandler);
     },
+
+    getUnreadMessages() {
+        return service
+            .get('/api/messages/unread')
+            .then((response) => {
+                return response.data;
+            })
+            .catch((err) => {
+                return err.response.data;
+            });
+    },
 };

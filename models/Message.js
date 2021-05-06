@@ -12,6 +12,7 @@ const messageSchema = new Schema(
         },
         appointment: Date,
         homeService: Boolean,
+        isNewMessage: Boolean,
     },
     {
         timestamps: true,

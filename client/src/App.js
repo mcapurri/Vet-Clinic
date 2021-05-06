@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import Home from './Components/Home/Home';
 import Signup from './Components/Auth/Signup/Signup';
 import ForgotPassword from './Components/Auth/Recovery_Email/ForgotPassword';
@@ -16,12 +17,27 @@ import PetDetails from './Components/Pets/PetDetails/PetDetails';
 import MessagesList from './Components/Messages/MessagesList/MessagesList';
 import MessageDetails from './Components/Messages/MessageDetails/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
+
 import ProtectedRoute from './utils/ProtectedRoute';
+import getUnreadMessages from './utils/service';
 
 function App(props) {
     // console.log('props', props.user);
     const [user, setUser] = useState(props.user || '');
     console.log('user', user);
+
+    const [unreadMessages, setUnreadMessages] = useState(0);
+
+    // Fetch unread Messages
+    useEffect(() => {
+        // setInterval(
+        //     () =>
+        getUnreadMessages().then((data) => {
+            setUnreadMessages(data.unread ?? 0);
+        });
+        // 5000
+        // );
+    }, []);
 
     // Show text in the header if screen > 660px
     const [width, setWidth] = useState(window.innerWidth);
@@ -70,6 +86,7 @@ function App(props) {
                         isEmployee={isEmployee}
                         setUser={setUser}
                         user={user}
+                        unreadMessages={unreadMessages}
                     />
                 )}
             />

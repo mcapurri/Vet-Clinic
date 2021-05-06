@@ -21,16 +21,31 @@ router.get('/messages', (req, res, next) => {
         });
 });
 
+// @desc      Get count of new messages
+// @route     GET /messages/unread
+// @access    Private
+router.get('/messages/unread', (req, res, next) => {
+    Message.find({ isNewMessage: true })
+        .populate('sender')
+        .then((messages) => {
+            res.status(200).json({ unread: messages.length });
+        })
+        .catch((err) => {
+            console.log(err);
+            next(err);
+        });
+});
+
 // @desc      Get single message
 // @route     GET /messages/:id
 // @access    Private
-router.get('/messages/:id', (req, res, next) => {
+router.get('/messages/:id', async (req, res, next) => {
     const { id } = req.params;
     console.log('id', id);
 
     Message.find({ _id: id })
         .populate('sender')
-        .then((message) => {
+        .then(async (message) => {
             console.log('message', message);
 
             res.status(200).json(message);
@@ -39,6 +54,14 @@ router.get('/messages/:id', (req, res, next) => {
             console.log(err);
             next(err);
         });
+    await Message.updateOne(
+        { _id: id },
+        {
+            $set: {
+                isNewMessage: false,
+            },
+        }
+    );
 });
 
 // @desc      Send req form
@@ -77,6 +100,7 @@ router.post(
                       zipCode: address.zipCode,
                   },
                   homeService,
+                  isNewMessage: true,
               })
                   .then((message) => {
                       console.log('message form sent', message);

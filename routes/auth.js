@@ -160,6 +160,7 @@ router.put('/resetpassword/:resettoken', async function (req, res, next) {
     });
 
     user.getSignedJwtToken(user);
+    res.status(200).json('Password updated');
 });
 
 // @desc      Log out
