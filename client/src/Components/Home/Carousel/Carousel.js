@@ -23,14 +23,15 @@ const Carousel = () => {
                         className="d-block w-100"
                         src="./images/clinic-front.png"
                         alt="Clinic front"
-                        style={{ minHeight: '22.7rem' }}
+                        // style={{ minHeight: '22.7rem' }}
                     />
                 </CarouselBootstrap.Item>
                 <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
-                        src="./images/op-room.jpg"
+                        src="./images/op-room.png"
                         alt="op-room"
+                        style={{ minWidth: '90vw' }}
                     />
                 </CarouselBootstrap.Item>
             </CarouselBootstrap>
