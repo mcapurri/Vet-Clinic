@@ -21,8 +21,9 @@ const Carousel = () => {
                 <CarouselBootstrap.Item className={style.Fade}>
                     <img
                         className="d-block w-100"
-                        src="./images/clinic-front.jpg"
+                        src="./images/clinic-front.png"
                         alt="Clinic front"
+                        style={{ minHeight: '22.7rem' }}
                     />
                 </CarouselBootstrap.Item>
                 <CarouselBootstrap.Item className={style.Fade}>

@@ -26,6 +26,8 @@ const userSchema = new Schema(
                 ref: 'Pet',
             },
         ],
+        resetPasswordToken: String,
+        resetPasswordExpire: Date,
     },
     {
         timestamps: true,
