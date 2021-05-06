@@ -12,7 +12,7 @@ const Map = ({ setRequestedAddress, width }) => {
     const mapContainer = useRef();
     const [berlin, setBerlin] = useState({
         lng: 13.405,
-        lat: 52.52,
+        lat: 52.49,
         zoom: 10,
     });
 
@@ -55,10 +55,12 @@ const Map = ({ setRequestedAddress, width }) => {
         // setting a popup
         const popup = new mapboxgl.Popup({
             closeButton: false,
+            className: 'style.Popup',
         });
         popup
-            .setLngLat([13.455, 52.45])
+            .setLngLat([13.39, 52.49])
             .setHTML('<span>we are here</span>')
+            .setHTML('<span>che cazzo...</span>')
             .setMaxWidth('200px')
             .addTo(map);
 
@@ -101,7 +103,7 @@ const Map = ({ setRequestedAddress, width }) => {
 
     return (
         <Row className={style.Container}>
-            {width > '860' && (
+            {width > '768' && (
                 <Col xs={6} md={4}>
                     <div className={style.Infos}>
                         <address className="address">

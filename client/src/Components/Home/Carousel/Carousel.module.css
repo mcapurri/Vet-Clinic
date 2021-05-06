@@ -1,17 +1,19 @@
-.CarouselContainer {
-    margin: 5% 0;
-    width: 70vw;
-    min-height: 60vh;
+.Container {
+    margin: 5% 10%;
+    /* width: 70vw; */
+    min-height: 60vw;
+    background-color: rgb(194, 127, 50);
 }
 .CarouselContainer img {
-    width: 80%;
+    /* width: 80%; */
     min-height: 30rem;
 }
 
 @media only screen and (max-width: 900px) {
-    .CarouselContainer {
-        width: 90vw;
+    .Container {
+        /* width: 90vw; */
         min-height: 47vh;
+        margin: 5% 5%;
     }
     .CarouselContainer img {
         height: 35rem;

@@ -13,17 +13,28 @@ const Home = (props) => {
     });
     return (
         <div className={style.Home}>
-            <Carousel />
-            <GeneralInfos />
-            <MessageForm
-                user={props.user}
-                requestedAddress={requestedAddress}
-                setRequestedAddress={setRequestedAddress}
-            />
-            <Map
-                setRequestedAddress={setRequestedAddress}
-                width={props.width}
-            />
+            <section
+                className={style.CarouselSession}
+                style={{ backgroundColor: 'rgb(194, 127, 50)' }}
+            >
+                <Carousel />
+            </section>
+            <section className={style.CarouselSession}>
+                <GeneralInfos />
+            </section>
+            <section>
+                <MessageForm
+                    user={props.user}
+                    requestedAddress={requestedAddress}
+                    setRequestedAddress={setRequestedAddress}
+                />
+            </section>
+            <section>
+                <Map
+                    setRequestedAddress={setRequestedAddress}
+                    width={props.width}
+                />
+            </section>
         </div>
     );
 };

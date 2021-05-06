@@ -1,11 +1,11 @@
 .Container {
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     background-color: rgb(72, 50, 105);
     height: 60vh;
     color: rgb(194, 127, 50);
-    width: 100vw;
 }
 
 .Container .Box {
@@ -23,7 +23,7 @@
 .Container article {
     min-height: 60%;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 680px) {
     .Container {
         flex-direction: column;
         height: auto;
@@ -32,7 +32,7 @@
     }
     .Container .Box {
         width: 80%;
-        margin: 5% 0;
+        /* margin: 5% 0; */
     }
     .Container .Box img {
         height: 18rem;
