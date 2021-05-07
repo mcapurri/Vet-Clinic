@@ -35,7 +35,7 @@ export default {
         return service
             .get('/messages/unread')
             .then((response) => {
-                return response.data;
+                return response?.data;
             })
             .catch((err) => {
                 return err.response.data;

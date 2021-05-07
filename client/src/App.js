@@ -29,7 +29,7 @@ function App(props) {
 
     const [unreadMessages, setUnreadMessages] = useState(0);
 
-    // Fetch unread Messages
+    // Fetch unread messages every 30 secs
     useEffect(() => {
         setInterval(
             () =>

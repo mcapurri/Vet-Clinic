@@ -59,3 +59,9 @@
         font-size: 0.8rem;
     }
 }
+
+@media screen and (max-width: 435px) {
+    .Container {
+        font-size: 0.6rem;
+    }
+}
