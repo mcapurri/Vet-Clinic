@@ -30,7 +30,7 @@ const MessageForm = (props) => {
 
     const {
         register,
-        handleSubmit,
+        // handleSubmit,
         // watch,
         formState: { errors },
     } = useForm();
@@ -286,7 +286,7 @@ const MessageForm = (props) => {
                             value={reqAddress?.street}
                             onChange={handleChange}
                         />
-
+                        {errors.street && <span>This field is required</span>}
                         <Form.Label>ZIP Code</Form.Label>
                         <Form.Control
                             {...register('zipCode', {
@@ -301,6 +301,7 @@ const MessageForm = (props) => {
                             value={reqAddress?.zipCode}
                             onChange={handleChange}
                         />
+                        {errors.zipCode && <span>This field is required</span>}
                         <Form.Label>City</Form.Label>
                         <Form.Control
                             {...register('city', {
@@ -314,6 +315,7 @@ const MessageForm = (props) => {
                             value={reqAddress?.city}
                             onChange={handleChange}
                         />
+                        {errors.city && <span>This field is required</span>}
                     </Form.Group>
                 </div>
                 <div className={style.RightContainer}>

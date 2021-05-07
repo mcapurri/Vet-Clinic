@@ -47,6 +47,7 @@ const ResetPassword = (props) => {
                         value={password}
                         onChange={setPassword}
                     />
+                    {errors.password && <span>This field is required</span>}
                 </Form.Group>
                 <Form.Group style={{ width: '100%' }}>
                     <label htmlFor="confirm">Confirm Password</label>
@@ -58,6 +59,7 @@ const ResetPassword = (props) => {
                         value={confirm}
                         onChange={setConfirm}
                     />
+                    {errors.confirm && <span>This field is required</span>}
                 </Form.Group>
                 <p style={{ color: '#fff', fontSize: '1rem' }}>{message}</p>
                 <Button type="submit">Reset Password</Button>

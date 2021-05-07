@@ -44,6 +44,7 @@ const ForgotPassword = (props) => {
                         value={email}
                         onChange={setEmail}
                     />
+                    {errors.email && <span>This field is required</span>}
                 </Form.Group>
                 <Form.Text>
                     {' '}

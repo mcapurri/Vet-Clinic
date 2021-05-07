@@ -3,7 +3,8 @@ import style from './NavigationBar.module.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../utils/auth';
 import Login from '../Auth/Login/Login';
-import { Navbar, Nav, Container, LinkContainer } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const NavigationBar = (props) => {
     const ref = useRef(null);
@@ -63,27 +64,25 @@ const NavigationBar = (props) => {
                                     {props.isEmployee && (
                                         <>
                                             <div className={style.coupleItems}>
-                                                <Link
-                                                    className="nav-link text-white"
-                                                    to="/users"
-                                                >
-                                                    Users
-                                                </Link>
+                                                <LinkContainer to="/users">
+                                                    <Nav.Link className="nav-link text-white">
+                                                        Users
+                                                    </Nav.Link>
+                                                </LinkContainer>
 
-                                                <Link
-                                                    className="nav-link text-white"
-                                                    to="/pets"
-                                                >
-                                                    Patients
-                                                </Link>
+                                                <LinkContainer to="/pets">
+                                                    <Nav.Link className="nav-link text-white">
+                                                        Patients
+                                                    </Nav.Link>
+                                                </LinkContainer>
                                             </div>
+
                                             <div className={style.coupleItems}>
-                                                <Link
-                                                    className="nav-link text-white"
-                                                    to="/scheduler"
-                                                >
-                                                    Scheduler
-                                                </Link>
+                                                <LinkContainer to="/scheduler">
+                                                    <Nav.Link className="nav-link text-white">
+                                                        Scheduler
+                                                    </Nav.Link>
+                                                </LinkContainer>
                                                 <div
                                                     className={
                                                         style.Notification
@@ -94,33 +93,32 @@ const NavigationBar = (props) => {
                                                             style={{
                                                                 color: 'red',
                                                                 font: 'bold',
-                                                                marginLeft:
-                                                                    '5%',
-                                                                marginRight:
-                                                                    '-15%',
+                                                                margin: '0 5%',
                                                             }}
                                                         >{`${props.unreadMessages} new`}</span>
                                                     ) : null}
-                                                    <Link
-                                                        className="nav-link text-white"
-                                                        to="/messages"
-                                                        style={{
-                                                            width: '7rem',
-                                                        }}
-                                                    >
-                                                        Messages
-                                                    </Link>
+                                                    <LinkContainer to="/messages">
+                                                        <Nav.Link
+                                                            className="nav-link text-white"
+                                                            style={{
+                                                                width: '7rem',
+                                                            }}
+                                                        >
+                                                            Messages
+                                                        </Nav.Link>
+                                                    </LinkContainer>
                                                 </div>
                                             </div>
                                         </>
                                     )}
                                     <div className={style.coupleItems}>
-                                        <Link
-                                            className="nav-link text-white"
+                                        <LinkContainer
                                             to={`/users/${props.user._id}`}
                                         >
-                                            Profile
-                                        </Link>
+                                            <Link className="nav-link text-white">
+                                                Profile
+                                            </Link>
+                                        </LinkContainer>
                                         <button
                                             className={style.Button}
                                             onClick={handleLogout}

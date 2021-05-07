@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './UserList.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
