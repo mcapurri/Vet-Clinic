@@ -49,7 +49,9 @@ const Footer = (props) => {
                 </div>
             )}
         </footer>
-    ) : null;
+    ) : (
+        <footer className={style.Footer} style={{ height: '3rem' }}></footer>
+    );
 };
 
 export default Footer;

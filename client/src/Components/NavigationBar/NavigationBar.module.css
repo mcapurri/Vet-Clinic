@@ -21,7 +21,7 @@
 .navItems {
     display: flex;
     justify-content: space-around;
-    width: auto;
+    /* width: auto; */
 }
 .coupleItems {
     display: flex;
@@ -43,16 +43,20 @@
     align-items: center;
 }
 .Notification {
-    min-width: 10rem;
     display: flex;
     align-items: center;
+}
+.Notification span {
+    color: orange;
+    font-weight: bold;
+    font-size: 0.8rem;
+    width: 3rem;
 }
 
 @media screen and (max-width: 760px) {
     .navItems {
         flex-direction: column;
         align-self: flex-end;
-        width: 19%;
     }
     .navItems:last-child {
         justify-self: flex-end;
@@ -63,21 +67,8 @@
     }
     .Notification {
         width: auto;
-        margin-right: -20%;
     }
-}
-@media screen and (max-width: 600px) {
-    .navItems {
-        width: 35%;
-    }
-}
-@media screen and (max-width: 435px) {
-    .navItems {
-        width: 40%;
-    }
-}
-@media screen and (max-width: 360px) {
-    .navItems {
-        width: 44%;
+    .Notification span {
+        margin: 0 3%;
     }
 }
