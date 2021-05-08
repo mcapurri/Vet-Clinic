@@ -12,7 +12,7 @@
     padding: 5% 0;
     width: 80vw;
     min-height: 80vh;
-    background-color: rgb(194, 127, 50);
+    background-color: #96616b;
 }
 
 .Form input,
@@ -32,6 +32,9 @@
 }
 .Form option {
     color: rgb(72, 50, 105);
+}
+.Form ::placeholder {
+    color: #eee;
 }
 
 .Form input {

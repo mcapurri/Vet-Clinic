@@ -1,12 +1,13 @@
 .Container {
     width: 90vw;
     min-height: 70vh;
-    background-color: rgb(194, 127, 50);
+    background-color: #96616b;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #fff;
     margin: 5% 0 5% 0%;
+    border-radius: 10px;
 }
 .resultCard {
     display: flex;
@@ -29,7 +30,7 @@
     display: flex;
     justify-self: flex-end;
     align-self: flex-start;
-    background-color: rgb(194, 127, 50);
+    background-color: #96616b;
     margin-left: 5%;
     border: none;
     text-decoration: none;

@@ -3,9 +3,11 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgb(72, 50, 105);
+    /* background-color: rgb(72, 50, 105); */
+    background-color: #5863f8;
+
     height: 60vh;
-    color: rgb(194, 127, 50);
+    color: '#96616B';
 }
 
 .Container .Box {

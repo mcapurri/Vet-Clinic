@@ -25,7 +25,7 @@ const NavigationBar = (props) => {
             className="p-3"
             fluid={true}
             ref={ref}
-            style={{ backgroundColor: ' rgb(72, 50, 105)', color: '#fff' }}
+            style={{ backgroundColor: ' #5863f8', color: '#fff' }}
         >
             <Navbar
                 collapseOnSelect
@@ -118,9 +118,9 @@ const NavigationBar = (props) => {
                                         <LinkContainer
                                             to={`/users/${props.user._id}`}
                                         >
-                                            <Link className="nav-link text-white">
+                                            <Nav.Link className="nav-link text-white">
                                                 Profile
-                                            </Link>
+                                            </Nav.Link>
                                         </LinkContainer>
                                         <button
                                             className={style.Button}

@@ -9,8 +9,8 @@
     margin: 5% 0;
     padding: 10% 10% 5% 10%;
     width: 60vw;
-    background-color: rgb(194, 127, 50);
-    color: rgb(72, 50, 105);
+    background-color: #96616b;
+    color: #eee;
     padding: 10% 5%;
 }
 .Infos {
@@ -18,6 +18,9 @@
     width: 100%;
     padding-right: 5%;
     height: 30%;
+}
+.Card h4 {
+    color: rgb(45, 45, 212);
 }
 
 .Card .buttons {
