@@ -21,9 +21,9 @@ Form a {
     color: #eee;
 }
 Form a:nth-child(2) {
-    margin-top: -2%;
+    margin-top: -0.3rem;
     margin-bottom: 3%;
-    margin-left: 30%;
+    margin-left: 20%;
 }
 .Form p {
     color: #fff;
@@ -49,5 +49,8 @@ Form a:nth-child(2) {
     }
     .Form input {
         transform: scale(0.9);
+    }
+    Form a:nth-child(2) {
+        margin-left: 30%;
     }
 }

@@ -14,7 +14,7 @@
     border: 2px solid rgb(72, 50, 105);
     border-radius: 20px;
     padding: 5% 10%;
-    width: 100%;
+    width: 90%;
     color: #fff;
     /* background-color: rgb(194, 127, 50); */
     background-color: #96616b;
@@ -128,7 +128,7 @@
 
 @media screen and (max-width: 990px) {
     .Form {
-        width: 90vw;
+        /* width: 90vw; */
         flex-direction: column;
         align-items: center;
         padding: 5% 15%;
