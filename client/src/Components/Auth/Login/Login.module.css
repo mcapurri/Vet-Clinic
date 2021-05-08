@@ -6,12 +6,10 @@
 }
 .Form {
     width: 100%;
-    /* margin: 5% 0 0 5%; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    /* flex-wrap: nowrap; */
 }
 .Form input {
     width: 100%;
@@ -33,13 +31,13 @@ Form a:nth-child(2) {
 
 .LoginButton {
     max-height: 2.4rem;
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
     font-weight: bold;
     width: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #96616b;
+    background-color: rgb(26, 26, 219);
     border: none;
 }
 @media only screen and (max-width: 620px) {

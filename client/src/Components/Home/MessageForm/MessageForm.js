@@ -262,6 +262,8 @@ const MessageForm = (props) => {
                                 width: '100%',
                                 padding: '0 10%',
                                 display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
                                 marginTop: '5%',
                             }}
                         >
@@ -273,6 +275,14 @@ const MessageForm = (props) => {
                                 value={homeService}
                                 disabled={!props.user}
                             />
+                            <p
+                                style={{
+                                    fontSize: '0.8rem',
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                Click on the map or fill the form below!
+                            </p>
                         </div>
                     </div>
                     <Form.Group style={{ width: '100%' }}>
