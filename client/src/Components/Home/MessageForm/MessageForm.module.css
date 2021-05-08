@@ -21,7 +21,6 @@
 }
 
 .Form input {
-    border-radius: 5px;
     margin-bottom: 5%;
     background-color: transparent;
     color: blanchedalmond;
@@ -30,7 +29,6 @@
 }
 
 .Form #DatePicker {
-    border-radius: 5px;
     transform: scale(1.2);
     width: 80%;
     margin-bottom: 5%;

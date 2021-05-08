@@ -39,7 +39,7 @@ const Footer = (props) => {
                 </ul>
                 <h5> Follow Us </h5>
             </div>
-            {props.width < '768' && (
+            {props.width < '860' && (
                 <div className={style.Infos}>
                     <address className="address">
                         Animal Clinic <br /> Buschkrug Allee 206, <br /> 12359
