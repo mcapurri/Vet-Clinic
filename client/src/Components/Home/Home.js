@@ -15,7 +15,7 @@ const Home = (props) => {
         <div className={style.Home}>
             <section
                 className={style.Session}
-                style={{ backgroundColor: '#96616B' }}
+                style={{ backgroundColor: 'rgb(161, 161, 241)' }}
             >
                 <Carousel />
             </section>

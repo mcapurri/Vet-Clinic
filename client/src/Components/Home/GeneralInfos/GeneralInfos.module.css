@@ -3,9 +3,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    /* background-color: rgb(72, 50, 105); */
     background-color: #5863f8;
-
     height: 60vh;
     color: '#96616B';
 }
@@ -33,7 +31,6 @@
     .Container {
         flex-direction: column;
         height: auto;
-        width: 100%;
         padding-top: 10%;
     }
     .Container .Box {

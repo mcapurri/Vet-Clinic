@@ -1,6 +1,6 @@
 .Container {
-    margin: 5% 10%;
-    background-color: #96616b;
+    padding: 5% 10%;
+    /* background-color: rgb(161, 161, 241); */
 }
 .Container img {
     min-width: 60rem;
@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 960px) {
     .Container {
-        margin: 5% 5%;
+        /* margin: 5% 5%; */
     }
     .Container img {
         min-width: 20rem;
