@@ -81,9 +81,9 @@ function App(props) {
     return (
         <div
             className="App"
-            style={{
-                backgroundColor: '#DEE7E7',
-            }}
+            // style={{
+            //     backgroundColor: '#DEE7E7',
+            // }}
         >
             <Route
                 render={(props) => (
