@@ -15,7 +15,7 @@ const AddPet = (props) => {
     const {
         register,
         handleSubmit,
-        watch,
+        // watch,
         formState: { errors },
     } = useForm();
 

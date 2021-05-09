@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Filters from '../../Filters/Filters';
 import Spinner from '../../UI/Spinner/Spinner';
-import { useScrollTrigger } from '@material-ui/core';
 
 const UsersList = (props) => {
     const [usersList, setUsersList] = useState([]);

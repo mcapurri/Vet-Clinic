@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import style from './Home.module.css';
+import LandingSection from './LandingSection/LandingSection';
 import Carousel from './Carousel/Carousel';
 import GeneralInfos from './GeneralInfos/GeneralInfos';
 import MessageForm from './MessageForm/MessageForm';
@@ -17,6 +18,7 @@ const Home = (props) => {
                 className={style.Session}
                 style={{ backgroundColor: 'rgb(161, 161, 241)' }}
             >
+                {/* <LandingSection /> */}
                 <Carousel />
             </section>
             <section className={style.Session}>

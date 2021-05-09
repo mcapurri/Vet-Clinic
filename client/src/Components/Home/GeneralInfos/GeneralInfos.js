@@ -7,7 +7,10 @@ const GeneralInfos = () => {
             <article className={style.Box}>
                 <img src="/images/services.png" alt="services" />
                 <h3> Services </h3>
-                <p className="text"> Check out our at home sevices </p>
+                <p className="text">
+                    {' '}
+                    We offer a varied range of veterinary services for your pet.
+                </p>
                 <a className="link-btn" href="#GeneralInfos">
                     More{' '}
                 </a>
@@ -18,7 +21,7 @@ const GeneralInfos = () => {
                 <h3> Team </h3>
                 <p className="text">
                     {' '}
-                    Find out more about our specialized team.{' '}
+                    Find out more about our talented experts.{' '}
                 </p>
                 <a className="link-btn" href="#More">
                     More{' '}
@@ -28,7 +31,10 @@ const GeneralInfos = () => {
             <article className={style.Box}>
                 <img src="/images/news.png" alt="news" />
                 <h3> News </h3>
-                <p className="text"> All the news about pets. </p>
+                <p className="text">
+                    {' '}
+                    Be always up to date with our latest news & promotions.{' '}
+                </p>
                 <a className="link-btn" href="#More">
                     {' '}
                     More{' '}

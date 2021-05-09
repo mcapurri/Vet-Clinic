@@ -89,16 +89,7 @@ const NavigationBar = (props) => {
                                                     }
                                                 >
                                                     {props.unreadMessages ? (
-                                                        <span
-                                                        // style={{
-                                                        //     color: 'orange',
-                                                        //     font: 'bold',
-                                                        //     margin: '0 2%',
-                                                        //     fontSize:
-                                                        //         '0.8rem',
-                                                        //     width: '3rem',
-                                                        // }}
-                                                        >{`${props.unreadMessages} new`}</span>
+                                                        <span>{`${props.unreadMessages} new`}</span>
                                                     ) : null}
                                                     <LinkContainer to="/messages">
                                                         <Nav.Link

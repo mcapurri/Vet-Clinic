@@ -23,7 +23,11 @@ const MessageForm = (props) => {
     const [userMessage, setUserMessage] = useInput('');
     const [imageUrl, setImageUrl] = useState('');
     const [appointment, setAppointment] = useState('');
-    const [reqAddress, setReqAddress] = useState({});
+    const [reqAddress, setReqAddress] = useState({
+        street: '',
+        zipCode: '',
+        city: '',
+    });
     const [homeService, setHomeService] = useState(false);
 
     // console.log('userMessage', userMessage);
@@ -61,7 +65,7 @@ const MessageForm = (props) => {
                 zipCode: '',
             });
         }
-    }, [homeService, props.requestedAddress, userMessage]);
+    }, [homeService, props.requestedAddress, userMessage, props.user]);
 
     useEffect(() => {
         authenticate()
@@ -356,7 +360,6 @@ const MessageForm = (props) => {
                                 id={style.FileLoader}
                                 type="file"
                                 name="image"
-                                // value={imageUrl ? imageUrl : ''}
                                 onChange={(e) => handleFileUpload(e)}
                             />
                         </div>
