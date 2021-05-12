@@ -83,14 +83,14 @@ userSchema.methods.sendEmail = async (options) => {
 };
 
 // Get token from model, create cookie and send response
-userSchema.methods.sendTokenResponse = (user) => {
-    console.log('sendtokenResponse running');
+// userSchema.methods.sendTokenResponse = (user) => {
+//     console.log('sendtokenResponse running');
 
-    // Create token
-    const token = user.getSignedJwtToken(user);
+//     // Create token
+//     const token = user.getSignedJwtToken(user);
 
-    return token;
-};
+//     return token;
+// };
 
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function (user) {

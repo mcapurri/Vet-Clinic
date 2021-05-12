@@ -3,7 +3,7 @@ import style from './MessageForm.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Checkbox from '../../UI/Checkbox/Checkbox';
-import service from '../../../utils/service';
+import { handleUpload, saveNewThing } from '../../../utils/service';
 import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -105,14 +105,14 @@ const MessageForm = (props) => {
     };
 
     const handleFileUpload = async (e) => {
-        // console.log('The file to be uploaded is: ', e.target.files[0]);
+        console.log('The file to be uploaded is: ', e.target.files[0]);
         try {
             const uploadData = new FormData();
             // imageUrl => this name has to be the same as in the model since I pass
             // req.body to .create() method
             await uploadData.append('imageUrl', e.target.files[0]);
 
-            const response = await service.handleUpload(uploadData);
+            const response = await handleUpload(uploadData);
             console.log('response', response);
             if (response && response.secure_url) {
                 setImageUrl(response.secure_url);
@@ -127,14 +127,13 @@ const MessageForm = (props) => {
         e.preventDefault();
 
         if (homeService) {
-            service
-                .saveNewThing({
-                    userMessage: userMessage,
-                    imageUrl: imageUrl,
-                    id: props.user._id,
-                    address: reqAddress,
-                    homeService: homeService,
-                })
+            saveNewThing({
+                userMessage: userMessage,
+                imageUrl: imageUrl,
+                id: props.user._id,
+                address: reqAddress,
+                homeService: homeService,
+            })
                 .then((res) => {
                     console.log('added: ', res.msg);
 
@@ -168,13 +167,12 @@ const MessageForm = (props) => {
                     setBooking(events);
                 });
             imageUrl &&
-                service
-                    .saveNewThing({
-                        imageUrl,
-                        id: props.user._id,
-                        appointment,
-                        homeService,
-                    })
+                saveNewThing({
+                    imageUrl,
+                    id: props.user._id,
+                    appointment,
+                    homeService,
+                })
                     .then(async (res) => {
                         await setMessage(res.msg);
 

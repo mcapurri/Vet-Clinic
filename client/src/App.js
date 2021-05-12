@@ -20,7 +20,7 @@ import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 
 import ProtectedRoute from './utils/ProtectedRoute';
 // import getUnreadMessages from './utils/service';
-import service from './utils/service';
+import { getUnreadMessages } from './utils/service';
 
 function App(props) {
     // console.log('props', props.user);
@@ -33,7 +33,7 @@ function App(props) {
     useEffect(() => {
         setInterval(
             () =>
-                service.getUnreadMessages().then((data) => {
+                getUnreadMessages().then((data) => {
                     setUnreadMessages(data.unread ?? 0);
                 }),
             30000

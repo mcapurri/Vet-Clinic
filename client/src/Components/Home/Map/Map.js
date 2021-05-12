@@ -4,9 +4,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-
-mapboxgl.accessToken =
-    'pk.eyJ1IjoibWNhcHVycmkiLCJhIjoiY2tsMmR4Z2NmMDgwaDJ1cDEycmEyN3NiaCJ9.Mmr5igenBPR3QkJOKMgG3A';
+import { MAPBOX_ACCESS_TOKEN } from '../../../utils/config.json';
 
 const Map = ({ setRequestedAddress, width }) => {
     const mapContainer = useRef();
@@ -21,7 +19,7 @@ const Map = ({ setRequestedAddress, width }) => {
     let address = async (lngLat) => {
         try {
             const address = await axios.get(
-                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${MAPBOX_ACCESS_TOKEN}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
             );
             setRequestedAddress({
                 street:
@@ -42,6 +40,7 @@ const Map = ({ setRequestedAddress, width }) => {
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [berlin.lng, berlin.lat],
             zoom: berlin.zoom,
+            accessToken: MAPBOX_ACCESS_TOKEN,
         });
         map.addControl(
             new mapboxgl.GeolocateControl({
@@ -64,13 +63,6 @@ const Map = ({ setRequestedAddress, width }) => {
             .setMaxWidth('200px')
             .addTo(map);
 
-        // Geocoder
-        // map.addControl(
-        //     new MapboxGeocoder({
-        //         accessToken: mapboxgl.accessToken,
-        //         mapboxgl: mapboxgl,
-        //     })
-        // );
         map.on('move', () => {
             setBerlin({
                 lng: map.getCenter().lng.toFixed(4),
@@ -78,6 +70,8 @@ const Map = ({ setRequestedAddress, width }) => {
                 zoom: map.getZoom().toFixed(2),
             });
         });
+
+        // set Marker
         const marker = new mapboxgl.Marker({
             scale: 1,
             color: 'red',
