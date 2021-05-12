@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import style from './Home.module.css';
 import LandingSection from './LandingSection/LandingSection';
-import Carousel from './Carousel/Carousel';
 import GeneralInfos from './GeneralInfos/GeneralInfos';
 import MessageForm from './MessageForm/MessageForm';
 import Map from './Map/Map';
@@ -14,12 +13,8 @@ const Home = (props) => {
     });
     return (
         <div className={style.Home}>
-            <section
-                className={style.Session}
-                style={{ backgroundColor: 'rgb(161, 161, 241)' }}
-            >
-                {/* <LandingSection /> */}
-                <Carousel />
+            <section className={style.Session}>
+                <LandingSection />
             </section>
             <section className={style.Session}>
                 <GeneralInfos />

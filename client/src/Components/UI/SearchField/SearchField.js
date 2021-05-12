@@ -10,7 +10,7 @@ const SearchField = (props) => {
                 id="search"
                 placeholder="Search..."
                 onChange={props.handleChange}
-                style={{ width: '20rem' }}
+                // style={{ width: '20rem' }}
             />
         </div>
     );
