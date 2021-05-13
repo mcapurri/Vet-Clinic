@@ -4,8 +4,8 @@ import { Container, Jumbotron } from 'react-bootstrap';
 const LandingSection = () => {
     return (
         <div className={style.Container}>
-            <Jumbotron fluid>
-                <Container className={style.JumboContainer}>
+            <Jumbotron fluid className={style.JumboContainer}>
+                <Container>
                     <div className={style.Title}>
                         <h1>
                             <b>Your Vet Clinic.</b>{' '}
@@ -17,7 +17,7 @@ const LandingSection = () => {
                         </p>
                     </div>
                     <div className={style.ImgContainer}>
-                        <img src="./images/medicine.svg" alt="vets-img" />
+                        <img src="./images/vets.svg" alt="vets-img" />
                     </div>
                 </Container>
             </Jumbotron>
