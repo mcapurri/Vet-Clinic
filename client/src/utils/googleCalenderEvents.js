@@ -66,6 +66,7 @@ export const listAll = () => {
 
 export const updateEvent = (event) => {
     console.log('Update object ', event);
+
     return gapi.client.calendar.events
         .update({
             calendarId: CALENDAR_ID,
@@ -91,6 +92,7 @@ export const updateEvent = (event) => {
 
 export const addNewEvent = (event) => {
     console.log('addEvent', event);
+
     return gapi.client.calendar.events
         .insert({
             calendarId: CALENDAR_ID,

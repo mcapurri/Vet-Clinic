@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { loginCheck } = require('../middlewares/loginCheck');
 const User = require('../models/User');
 const Pet = require('../models/Pet');
 
