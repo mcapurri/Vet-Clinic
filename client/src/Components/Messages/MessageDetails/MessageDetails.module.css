@@ -15,7 +15,7 @@
     box-sizing: border-box;
     margin: 5% 0;
     /* padding: 10% 10% 5% 10%; */
-    width: 70vw;
+    width: 80vw;
     max-width: 50rem;
     background-color: #96616b;
     color: #eee;
@@ -37,9 +37,11 @@
 }
 .Card button {
     color: rgb(92, 41, 168);
+    font-weight: 800;
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: 15%;
 }
 
 .InnerContainer {
@@ -73,7 +75,7 @@
         padding: 10% 5%;
     }
 }
-@media only screen and (max-width: 770px) {
+/* @media only screen and (max-width: 770px) {
     .Infos {
         flex-direction: column;
         margin-left: 10%;
@@ -81,4 +83,4 @@
     .InnerContainer {
         margin-left: 10%;
     }
-}
+} */

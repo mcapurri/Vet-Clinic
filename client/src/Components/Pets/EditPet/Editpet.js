@@ -3,8 +3,6 @@ import style from './EditPet.module.css';
 import { Form } from 'react-bootstrap';
 
 const EditPet = (props) => {
-    // console.log('props editPet', props);
-
     return (
         <Form className={style.Form} onSubmit={props.handleSubmit}>
             <Form.Group className={style.Group}>

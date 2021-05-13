@@ -71,11 +71,13 @@ const MessagesList = () => {
     if (!messagesList) return <Spinner />;
     return (
         <div className={style.Container}>
-            <Filters handleChange={handleChange} />
+            <div className={style.Card}>
+                <Filters handleChange={handleChange} />
 
-            <table style={{ margin: '0 0 10% 5%' }}>
-                <tbody>{displayMessages}</tbody>
-            </table>
+                <table style={{ margin: '0 0 10% 5%' }}>
+                    <tbody>{displayMessages}</tbody>
+                </table>
+            </div>
         </div>
     );
 };
