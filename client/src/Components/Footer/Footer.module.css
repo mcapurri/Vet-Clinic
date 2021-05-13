@@ -18,8 +18,8 @@
 .Footer ul li {
     list-style-type: none;
     text-align: center;
-    border: 2px solid blue;
-    border-radius: 5px;
+    border: 1px solid blue;
+    border-radius: 6px;
 }
 
 .Footer h5 {

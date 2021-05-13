@@ -111,7 +111,7 @@ const PetDetails = (props) => {
 
     if (!owner) return <Spinner />;
     return (
-        <>
+        <div className={style.Container}>
             {editForm ? (
                 <EditPet
                     toggleEditForm={toggleEditForm}
@@ -248,7 +248,7 @@ const PetDetails = (props) => {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

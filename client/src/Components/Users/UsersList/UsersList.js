@@ -157,18 +157,20 @@ const UsersList = (props) => {
     if (!usersList) return <Spinner />;
     return (
         <div className={style.Container}>
-            <Filters
-                handleChange={handleChange}
-                userRoleOptions={userRoleOptions}
-            />
-            <button className={style.Button}>
-                <Link to={'/users/add'}>
-                    <span>+</span>
-                </Link>
-            </button>
-            <table style={{ margin: '0 0 10% 5%' }}>
-                <tbody>{displayUsers}</tbody>
-            </table>
+            <div className={style.Card}>
+                <Filters
+                    handleChange={handleChange}
+                    userRoleOptions={userRoleOptions}
+                />
+                <button className={style.Button}>
+                    <Link to={'/users/add'}>
+                        <span>+</span>
+                    </Link>
+                </button>
+                <table>
+                    <tbody>{displayUsers}</tbody>
+                </table>
+            </div>
         </div>
     );
 };

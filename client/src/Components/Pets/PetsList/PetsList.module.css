@@ -1,6 +1,13 @@
 .Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Card {
     width: 90vw;
-    min-height: 80vh;
+    min-height: 60vh;
     background-color: #96616b;
     display: flex;
     flex-direction: column;
@@ -28,7 +35,7 @@
     justify-content: center;
     width: 30%;
 }
-.Container button {
+.Card button {
     display: flex;
     justify-self: flex-end;
     align-self: flex-start;
@@ -38,15 +45,15 @@
     text-decoration: none;
 }
 
-.Container tbody {
+.Card tbody {
     height: 60vh;
 }
-.Container span {
+.Card span {
     font-size: 3rem;
     font-weight: bold;
     color: #eee;
 }
-.Container a {
+.Card a {
     color: #fff;
 }
 
@@ -56,13 +63,13 @@
     /* position: absolute; */
 }
 @media screen and (max-width: 770px) {
-    .Container {
+    .Card {
         font-size: 0.8rem;
     }
 }
 
 @media screen and (max-width: 435px) {
-    .Container {
+    .Card {
         font-size: 0.6rem;
     }
 }

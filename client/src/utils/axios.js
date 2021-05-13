@@ -20,7 +20,6 @@ if (token) {
 instance.interceptors.request.use(
     (req) => {
         if (axios.defaults.headers.common['Authorization']) return req;
-        throw { message: 'the token is not available' };
     },
     (error) => {
         return Promise.reject(error);

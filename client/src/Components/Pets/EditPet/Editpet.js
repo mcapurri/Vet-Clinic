@@ -7,7 +7,6 @@ const EditPet = (props) => {
 
     return (
         <Form className={style.Form} onSubmit={props.handleSubmit}>
-            <h2>Edit </h2>
             <Form.Group className={style.Group}>
                 <Form.Label className={style.Label} htmlFor="name">
                     Name: &nbsp;

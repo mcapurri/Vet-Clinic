@@ -90,7 +90,7 @@ const Login = (props) => {
                     <div style={{ width: '100%' }}>
                         <p>
                             Haven't you registered yet?&nbsp;
-                            <Link to={'/signup'} className={style.Button}>
+                            <Link to={'/signup'} className={style.Link}>
                                 Sign up
                             </Link>
                             &nbsp;here

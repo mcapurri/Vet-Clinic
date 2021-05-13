@@ -118,7 +118,7 @@ const UserDetails = (props) => {
 
     if (!lastName) return <Spinner />;
     return (
-        <>
+        <div className={style.Container}>
             {editForm ? (
                 <EditUser
                     toggleEditForm={toggleEditForm}
@@ -257,7 +257,7 @@ const UserDetails = (props) => {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

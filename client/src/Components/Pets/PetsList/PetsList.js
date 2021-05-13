@@ -87,23 +87,25 @@ const PetsList = (props) => {
     if (!petsList) return <Spinner />;
     return (
         <div className={style.Container}>
-            <Filters
-                handleChange={handleChange}
-                isDog={isDog}
-                isCat={isCat}
-                isBird={isBird}
-                isRodent={isRodent}
-                isReptile={isReptile}
-                isOther={isOther}
-            />
-            <button className={style.Button}>
-                <Link to={'/pets/add'}>
-                    <span>+</span>
-                </Link>
-            </button>
-            <table style={{ margin: '0 0 10% 5%' }}>
-                <tbody>{displayPets}</tbody>
-            </table>
+            <div className={style.Card}>
+                <Filters
+                    handleChange={handleChange}
+                    isDog={isDog}
+                    isCat={isCat}
+                    isBird={isBird}
+                    isRodent={isRodent}
+                    isReptile={isReptile}
+                    isOther={isOther}
+                />
+                <button className={style.Button}>
+                    <Link to={'/pets/add'}>
+                        <span>+</span>
+                    </Link>
+                </button>
+                <table>
+                    <tbody>{displayPets}</tbody>
+                </table>
+            </div>
         </div>
     );
 };

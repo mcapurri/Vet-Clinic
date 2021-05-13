@@ -1,3 +1,10 @@
+.Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .Card {
     display: flex;
     flex-direction: column;
@@ -13,8 +20,11 @@
     height: auto;
     background-color: #96616b;
 
-    color: rgb(72, 50, 105);
+    color: #eee;
     padding: 10% 10%;
+}
+.Container b {
+    color: rgb(72, 50, 105);
 }
 
 .Infos {
@@ -35,6 +45,8 @@
     color: #eee;
     border: none;
     cursor: pointer;
+    color: rgb(105, 36, 210);
+    font-weight: 600;
 }
 .Card h3 {
     padding: 5% 0;

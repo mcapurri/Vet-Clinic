@@ -54,39 +54,46 @@ const MessageDetails = (props) => {
     if (!createdAt) return <Spinner />;
 
     return (
-        <div className={style.Card}>
-            <h4 style={{ paddingBottom: '5%' }}>New message</h4>
-            <div className={style.Infos}>
-                <div style={{ width: '50%', height: '100%' }}>
-                    <p>
-                        <b>from: </b>
-                        {sender.name} {sender.lastName}
-                    </p>
-                    <p>
-                        <img
-                            src="../../../../images/email-logo.png"
-                            alt="phone-logo"
-                            style={{
-                                width: '1.2rem',
-                                marginRight: '5%',
-                            }}
-                        />
-                        {sender.email}
-                    </p>
-                    <p>
-                        <img
-                            src="../../../../images/phone-logo.png"
-                            alt="phone-logo"
-                            style={{
-                                width: '1.2rem',
-                                marginRight: '7%',
-                            }}
-                        />{' '}
-                        {sender.phoneNumber}
-                    </p>
-                    <p>
-                        <b>Received on: </b>
-                        {/* {new Intl.DateTimeFormat('en-US', {
+        <div className={style.Container}>
+            <div className={style.Card}>
+                <h4 style={{ paddingBottom: '5%', color: 'rgb(92, 41, 168)' }}>
+                    New message
+                </h4>
+                <div className={style.Infos}>
+                    <div style={{ width: '50%', height: '100%' }}>
+                        <p>
+                            <b style={{ color: 'rgb(92, 41, 168)' }}>from: </b>
+                            {sender.name} {sender.lastName}
+                        </p>
+                        <p>
+                            <img
+                                src="../../../../images/email-logo.png"
+                                alt="phone-logo"
+                                style={{
+                                    width: '1.2rem',
+                                    marginRight: '5%',
+                                    color: 'rgb(92, 41, 168)',
+                                }}
+                            />
+                            {sender.email}
+                        </p>
+                        <p>
+                            <img
+                                src="../../../../images/phone-logo.png"
+                                alt="phone-logo"
+                                style={{
+                                    width: '1.2rem',
+                                    marginRight: '7%',
+                                    color: 'rgb(92, 41, 168)',
+                                }}
+                            />{' '}
+                            {sender.phoneNumber}
+                        </p>
+                        <p>
+                            <b style={{ color: 'rgb(92, 41, 168)' }}>
+                                Received on:{' '}
+                            </b>
+                            {/* {new Intl.DateTimeFormat('en-US', {
                             year: 'numeric',
                             month: '2-digit',
                             day: '2-digit',
@@ -94,82 +101,101 @@ const MessageDetails = (props) => {
                             minute: '2-digit',
                             second: '2-digit',
                         }).format(createdAt)} */}
-                        {createdAt.substring(0, 10)}
-                    </p>
-                    {appointment && (
-                        <p>
-                            <b>Appointment: </b>
-                            {appointment.substring(0, 10)}
-                            {/* {parseISOString(appointment)} */}
+                            {createdAt.substring(0, 10)}
                         </p>
-                    )}
-                </div>
-                <div
-                    style={{
-                        width: '50%',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                    }}
-                >
-                    {reqAddress && (
-                        <>
-                            <p style={{ alignSelf: 'flex-start' }}>
-                                <b>Requested service at: </b>
-                            </p>
+                        {appointment && (
                             <p>
-                                &nbsp;<b>Street: </b>
-                                {reqAddress.street}
+                                <b style={{ color: 'rgb(92, 41, 168)' }}>
+                                    Appointment:{' '}
+                                </b>
+                                {appointment.substring(0, 10)}
                             </p>
-                            <p>
-                                &nbsp; <b>City: </b> {reqAddress.city}
-                            </p>
-                            <p>
-                                &nbsp; <b>Zip Code: </b>
-                                {reqAddress.zipCode}
-                            </p>
-                        </>
-                    )}
-                </div>
-            </div>
-            <div className={style.Container}>
-                {userMessage ? userMessage : 'No message'}
-            </div>
-            <hr />
-
-            <div className={style.Container}>
-                <p>
-                    <b>Attached:</b>
-                </p>
-                {imageUrl ? (
-                    <div className={style.ImgContainer}>
-                        <img src={imageUrl} alt="pet-pic" />
+                        )}
                     </div>
-                ) : (
-                    <p>No picture attached</p>
-                )}
-            </div>
-
-            {message && (
-                <p style={{ color: 'rgb(5, 58, 32)', padding: '0' }}>
-                    {message}
-                </p>
-            )}
-
-            <div className={style.buttons}>
-                <div>
-                    <button onClick={() => props.history.goBack()}>Back</button>
+                    <div
+                        style={{
+                            width: '50%',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-end',
+                        }}
+                    >
+                        {reqAddress && (
+                            <>
+                                <p
+                                    style={{
+                                        alignSelf: 'flex-start',
+                                        color: 'rgb(92, 41, 168)',
+                                    }}
+                                >
+                                    <b>Requested service at: </b>
+                                </p>
+                                <p>
+                                    &nbsp;
+                                    <b style={{ color: 'rgb(92, 41, 168)' }}>
+                                        Street:{' '}
+                                    </b>
+                                    {reqAddress.street}
+                                </p>
+                                <p>
+                                    &nbsp;{' '}
+                                    <b style={{ color: 'rgb(92, 41, 168)' }}>
+                                        City:{' '}
+                                    </b>{' '}
+                                    {reqAddress.city}
+                                </p>
+                                <p>
+                                    &nbsp;{' '}
+                                    <b style={{ color: 'rgb(92, 41, 168)' }}>
+                                        Zip Code:{' '}
+                                    </b>
+                                    {reqAddress.zipCode}
+                                </p>
+                            </>
+                        )}
+                    </div>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        marginRight: '5%',
-                        justifyContent: 'space-around',
-                        width: '200px',
-                    }}
-                >
-                    <button onClick={deleteMessage}>Delete</button>
+                <div className={style.InnerContainer}>
+                    {userMessage ? userMessage : 'No message'}
+                </div>
+                <hr />
+
+                <div className={style.InnerContainer}>
+                    <p>
+                        <b style={{ color: 'rgb(92, 41, 168)' }}>Attached:</b>
+                    </p>
+                    {imageUrl ? (
+                        <div className={style.ImgContainer}>
+                            <img src={imageUrl} alt="pet-pic" />
+                        </div>
+                    ) : (
+                        <p>No picture attached</p>
+                    )}
+                </div>
+
+                {message && (
+                    <p style={{ color: 'rgb(5, 58, 32)', padding: '0' }}>
+                        {message}
+                    </p>
+                )}
+
+                <div className={style.buttons}>
+                    <div>
+                        <button onClick={() => props.history.goBack()}>
+                            Back
+                        </button>
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            marginRight: '5%',
+                            justifyContent: 'space-around',
+                            width: '200px',
+                        }}
+                    >
+                        <button onClick={deleteMessage}>Delete</button>
+                    </div>
                 </div>
             </div>
         </div>

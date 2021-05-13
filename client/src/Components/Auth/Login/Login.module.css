@@ -1,4 +1,4 @@
-.Button {
+.Link {
     background: none;
     color: rgb(26, 26, 219);
     border: none;
@@ -32,15 +32,19 @@ Form a:nth-child(2) {
 
 .LoginButton {
     max-height: 2.4rem;
-    /* font-size: 0.9rem; */
     font-weight: bold;
     width: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(26, 26, 219);
+    background-color: rgb(92, 41, 168);
     border: none;
 }
+.LoginButton:hover {
+    background-color: rgb(92, 41, 168);
+    box-shadow: none;
+}
+
 @media only screen and (max-width: 620px) {
     .LoginButton {
         font-size: 0.7rem;

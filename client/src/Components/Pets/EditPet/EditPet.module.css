@@ -58,10 +58,12 @@ Button:disabled {
     color: #eee;
     border: none;
     cursor: pointer;
+    color: rgb(105, 36, 210);
+    font-weight: 600;
 }
 Form .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-end;
     width: 100%;
     padding: 5% 0;
