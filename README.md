@@ -13,7 +13,7 @@ They can add, edit and delete the clients, as well as other employees, their pet
 🔷 JWT Authentication and Authorization
 
 ## Technologies used:
-Express, React, Bootstrap, Passport, JWT, Mongoose, Cloudinary, Mapbox GL, Google API
+Node.js, Express.js, React, Bootstrap, Passport, JWT, Mongoose, Cloudinary, Mapbox GL, Google API
 
 ## Author
 
