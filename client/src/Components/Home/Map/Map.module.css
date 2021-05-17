@@ -2,7 +2,6 @@
     padding: 5% 0;
     background-color: #96616b;
     width: 100vw;
-    color: #fff;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -21,8 +20,7 @@
     margin: 5% 0 5% 0;
 }
 
-.Popup .mapboxgl-popup-content {
+.Popup {
+    color: #a33247;
     font-family: 'Pacifico', cursive;
-    color: #eee;
-    background-color: '#96616B';
 }

@@ -54,12 +54,11 @@ const Map = ({ setRequestedAddress, width }) => {
         // setting a popup
         const popup = new mapboxgl.Popup({
             closeButton: false,
-            className: 'style.Popup',
+            className: style.Popup,
         });
         popup
             .setLngLat([13.39, 52.49])
             .setHTML('<span>we are here</span>')
-            .setHTML('<span>che cazzo...</span>')
             .setMaxWidth('200px')
             .addTo(map);
 

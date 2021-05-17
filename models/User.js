@@ -10,7 +10,6 @@ const userSchema = new Schema(
             street: String,
             zipCode: String,
             city: String,
-            // state: String,
         },
 
         phoneNumber: String,
@@ -82,17 +81,6 @@ userSchema.methods.sendEmail = async (options) => {
     console.log('Message sent: %s', info.messageId);
 };
 
-// Get token from model, create cookie and send response
-// userSchema.methods.sendTokenResponse = (user) => {
-//     console.log('sendtokenResponse running');
-
-//     // Create token
-//     const token = user.getSignedJwtToken(user);
-
-//     return token;
-// };
-
-// Sign JWT and return
 userSchema.methods.getSignedJwtToken = function (user) {
     let temp = user || this;
     console.log('getSignedToken running');

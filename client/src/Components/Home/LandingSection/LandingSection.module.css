@@ -30,6 +30,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 5%;
 }
 .ImgContainer {
     max-height: 20rem;
@@ -41,10 +42,15 @@
 
 @media screen and (max-width: 580px) {
     .JumboContainer {
-        transform: scale(0.7);
+        transform: scale(0.9);
     }
     .Title {
         margin-left: 15%;
+        margin-top: 20%;
+        font-size: 1.1rem;
+    }
+    .Container h1 {
+        font-size: 1.8rem;
     }
 }
 @media screen and (max-width: 360px) {
