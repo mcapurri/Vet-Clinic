@@ -93,7 +93,7 @@ const AddPet = (props) => {
     };
 
     return (
-        <div>
+        <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
                 <h3>Add pet</h3>
 
