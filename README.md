@@ -1,5 +1,5 @@
 ## Vet-Clinic
-Booking manager of a vet clinic through the implemented Google Calendar.<br/>
+Booking manager of a vet clinic powered by Google Calendar.<br/>
 
 🔷 Functionalities according to the user's role<br/>
 &nbsp;&nbsp;🔺 "client" users, can manage their profile, can book an appointment at the clinic for their pet,
