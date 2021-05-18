@@ -14,13 +14,13 @@
     border: 2px solid #eee;
     border-radius: 20px;
     box-sizing: border-box;
-    margin: 10% 0;
+    margin: 5% 0;
     width: 80vw;
     max-width: 45rem;
     height: 80%;
     background-color: #96616b;
     border-radius: 10px;
-    padding: 10% 5%;
+    padding: 5%;
     color: #eee;
 }
 .Container b,
