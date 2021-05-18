@@ -23,8 +23,8 @@ const Login = (props) => {
             email,
             password,
         });
-        if (user.msg) {
-            setMessage(user.msg);
+        if (user.message) {
+            setMessage(user.message);
 
             //Reset input values
             setEmail('');
@@ -85,7 +85,9 @@ const Login = (props) => {
 
             <div style={{ display: 'flex' }}>
                 {message ? (
-                    <p style={{ color: 'red' }}>{message}</p>
+                    <p style={{ color: 'blue', fontSize: '1.2rem' }}>
+                        {message}
+                    </p>
                 ) : (
                     <div style={{ width: '100%' }}>
                         <p>

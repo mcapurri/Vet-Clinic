@@ -25,6 +25,13 @@
 a:hover {
     text-decoration: none;
 }
+.mapboxgl-popup-content {
+    background-color: #96616b !important;
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: #96616b !important ;
+}
 
 @keyframes App-logo-spin {
     from {

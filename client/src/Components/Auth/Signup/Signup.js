@@ -174,7 +174,9 @@ const Signup = (props) => {
                     Sign up
                 </button>
                 {message && (
-                    <p style={{ color: 'red', padding: '0' }}>{message}</p>
+                    <p style={{ color: 'blue', fontSize: '1.2rem' }}>
+                        {message}
+                    </p>
                 )}
 
                 <Link to="/">Back</Link>

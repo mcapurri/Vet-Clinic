@@ -1,6 +1,6 @@
 .Container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
     box-sizing: border-box;
     padding: 5% 0 5% 5%;
     width: 80vw;
-    height: 95vh;
+    /* height: 95vh; */
     max-width: 45rem;
     background-color: #96616b;
 }

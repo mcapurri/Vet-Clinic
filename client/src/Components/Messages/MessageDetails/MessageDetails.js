@@ -23,9 +23,24 @@ const MessageDetails = (props) => {
             setUserMessage(message.data[0].userMessage);
             setImageUrl(message.data[0].imageUrl);
             setSender(message.data[0].sender);
-            setAppointment(message.data[0].appointment);
+            let AppointmentDate = new Date(message.data[0].appointment);
+            setAppointment(
+                AppointmentDate.toLocaleDateString() +
+                    ' at ' +
+                    AppointmentDate.getHours() +
+                    ':' +
+                    AppointmentDate.getMinutes()
+            );
+            // setAppointment(message.data[0].appointment);
             setReqAddress(message.data[0].address);
-            setCreatedAt(message.data[0].createdAt);
+            let date = new Date(message.data[0].createdAt);
+            setCreatedAt(
+                date.toLocaleDateString() +
+                    ' at ' +
+                    date.getHours() +
+                    ':' +
+                    date.getMinutes()
+            );
         } catch (err) {
             console.log(err);
             if (err.response?.status === 404) {
@@ -93,14 +108,14 @@ const MessageDetails = (props) => {
                             <b style={{ color: 'rgb(92, 41, 168)' }}>
                                 Received on:{' '}
                             </b>
-                            {createdAt.substring(0, 10)}
+                            {createdAt}
                         </p>
                         {appointment && (
                             <p>
                                 <b style={{ color: 'rgb(92, 41, 168)' }}>
                                     Appointment:{' '}
                                 </b>
-                                {appointment.substring(0, 10)}
+                                {appointment}
                             </p>
                         )}
                     </div>

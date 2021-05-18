@@ -162,7 +162,11 @@ const AddUser = (props) => {
                     {errors.role && <span>This field is required</span>}
                 </Form.Group>
 
-                {message && <p style={{ color: 'red' }}>{message}</p>}
+                {message && (
+                    <p style={{ color: 'blue', fontSize: '1.2rem' }}>
+                        {message}
+                    </p>
+                )}
 
                 <button className={style.Button} type="submit">
                     <h1 style={{ fontWeight: 'bold' }}>+</h1>

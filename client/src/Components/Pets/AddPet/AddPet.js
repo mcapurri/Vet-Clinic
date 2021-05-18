@@ -215,7 +215,11 @@ const AddPet = (props) => {
                 </button>
                 <button onClick={() => props.history.goBack()}>Back</button>
 
-                {message && <p style={{ color: 'red' }}>{message}</p>}
+                {message && (
+                    <p style={{ color: 'blue', fontSize: '1.2rem' }}>
+                        {message}
+                    </p>
+                )}
             </Form>
         </div>
     );
