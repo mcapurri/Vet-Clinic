@@ -11,7 +11,7 @@ const Map = ({ setRequestedAddress, width }) => {
     const [berlin, setBerlin] = useState({
         lng: 13.405,
         lat: 52.49,
-        zoom: 10,
+        zoom: 13,
     });
 
     let lngLat;
