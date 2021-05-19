@@ -175,8 +175,6 @@ app.use('/api', messages);
 
 // app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-// Error handling
-require('./error-handling')(app);
 
 // Serve static
 const path = require('path');
@@ -185,5 +183,9 @@ app.use((req, res) => {
     // If no routes match, send them the React HTML.
     res.sendFile(__dirname + '/client/build/index.html');
 });
+
+// Error handling
+require('./error-handling')(app);
+
 
 module.exports = app;
