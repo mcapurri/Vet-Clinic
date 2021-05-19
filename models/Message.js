@@ -18,6 +18,6 @@ const messageSchema = new Schema(
         timestamps: true,
     }
 );
-const Message = model('Contact', messageSchema);
+const Message = model('Message', messageSchema);
 
 module.exports = Message;

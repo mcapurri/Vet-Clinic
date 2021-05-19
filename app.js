@@ -175,8 +175,7 @@ app.use('/api', messages);
 
 // app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-
-// Serve static
+// Serve static in production
 const path = require('path');
 app.use(express.static(path.join(__dirname, '/client/build')));
 app.use((req, res) => {
@@ -186,6 +185,5 @@ app.use((req, res) => {
 
 // Error handling
 require('./error-handling')(app);
-
 
 module.exports = app;
