@@ -172,8 +172,7 @@ router.put(
 // @access    Private
 router.post('/users/:id/pet', (req, res, next) => {
     const { name, specie, breed, age, owner } = req.body;
-    console.log('req.user.id', req.user.id);
-    console.log('req.params.id', req.params.id);
+
     Pet.create({
         name,
         specie,

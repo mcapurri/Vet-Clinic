@@ -49,10 +49,13 @@
     line-height: 2rem;
     padding-left: 5%;
 }
-.Form span {
-    font-size: 3rem;
+.Form h1,
+span {
     font-weight: bold;
     color: rgb(72, 50, 105);
+}
+.Form h1 {
+    font-size: 3rem;
 }
 .Form select {
     width: 12rem;
@@ -62,7 +65,8 @@
 
 .Form button {
     background: none;
-    color: #eee;
+    color: rgb(72, 50, 105);
+    font-weight: 800;
     border: none;
     cursor: pointer;
 }

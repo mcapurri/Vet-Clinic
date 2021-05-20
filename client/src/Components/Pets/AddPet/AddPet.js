@@ -56,7 +56,6 @@ const AddPet = (props) => {
     //Set dinamically url according to role and history url
     let url;
     let profileOwner;
-
     props.location.pathname !== '/pets/add'
         ? (url = `/api/users/${props.location.pathname
               .split('/')[2]
@@ -95,7 +94,7 @@ const AddPet = (props) => {
     return (
         <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-                <h3>Add pet</h3>
+                <h3 style={{ marginBottom: '5%' }}>Your pet details</h3>
 
                 <Form.Group>
                     <FormControl
@@ -173,7 +172,6 @@ const AddPet = (props) => {
                                 <span>This field is required</span>
                             )}
                         </Form.Group>
-
                         <Form.Group>
                             <FormControl
                                 {...register('treatment', { required: true })}
@@ -187,31 +185,32 @@ const AddPet = (props) => {
                                 <span>This field is required</span>
                             )}
                         </Form.Group>
-
-                        <Form.Group>
-                            <FormControl
-                                as="select"
-                                {...register('owner', {
-                                    required: true,
-                                })}
-                                name="owner"
-                                value={owner}
-                                onChange={setOwner}
-                                className={style.Select}
-                            >
-                                <option value="">--Choose one--</option>
-                                {ownersList}
-                            </FormControl>
-                            {errors.owner && (
-                                <span>This field is required</span>
-                            )}
-                        </Form.Group>
+                        {!profileOwner && (
+                            <Form.Group>
+                                <FormControl
+                                    as="select"
+                                    {...register('owner', {
+                                        required: false,
+                                    })}
+                                    name="owner"
+                                    value={owner}
+                                    onChange={setOwner}
+                                    className={style.Select}
+                                >
+                                    <option value="">--Choose one--</option>
+                                    {ownersList}
+                                </FormControl>
+                                {errors.owner && (
+                                    <span>This field is required</span>
+                                )}
+                            </Form.Group>
+                        )}
                     </>
                 )}
 
-                {message && <p style={{ color: 'red' }}>{message}</p>}
+                {message && <p style={{ color: 'blue' }}>{message}</p>}
                 <button className={style.Button} type="submit">
-                    <span>+</span>
+                    <h1>+</h1>
                 </button>
                 <button onClick={() => props.history.goBack()}>Back</button>
 

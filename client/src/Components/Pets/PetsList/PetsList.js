@@ -71,6 +71,7 @@ const PetsList = (props) => {
     });
 
     const displayPets = filteredSearch.map((pet) => {
+        console.log('pet', pet);
         return (
             <tr key={pet._id} className={style.resultCard}>
                 <td>
