@@ -8,6 +8,8 @@ import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import useInput from '../../../utils/useInput';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import {
     authenticate,
@@ -127,66 +129,181 @@ const MessageForm = (props) => {
         e.preventDefault();
 
         if (homeService) {
-            saveNewThing({
-                userMessage: userMessage,
-                imageUrl: imageUrl,
-                id: props.user._id,
-                address: reqAddress,
-                homeService: homeService,
-            })
-                .then((res) => {
-                    console.log('added: ', res.msg);
+            confirmAlert({
+                title: 'Confirm request?',
+                message: 'Confirm to submit',
+                buttons: [
+                    {
+                        label: 'Yes',
+                        onClick: () => {
+                            saveNewThing({
+                                userMessage: userMessage,
+                                imageUrl: imageUrl,
+                                id: props.user._id,
+                                address: reqAddress,
+                                homeService: homeService,
+                            })
+                                .then((res) => {
+                                    console.log('added: ', res.msg);
 
-                    setMessage(res.msg);
+                                    setMessage(res.msg);
 
-                    // Reset input values
-                    setUserMessage('');
-                    setImageUrl('');
-                    setHomeService(false);
-                    setReqAddress('');
-                })
-                .catch((err) => {
-                    console.log('Error while adding the thing: ', err);
-                });
-        } else {
-            const newEvent = await addNewEvent({
-                startDate: appointment,
-                endDate: new Date(new Date(appointment).getTime() + 30 * 60000),
-                title: `${props.user.name} ${props.user.lastName} `,
-                notes: `${userMessage}`,
+                                    // Reset input values
+                                    setUserMessage('');
+                                    setImageUrl('');
+                                    setHomeService(false);
+                                    setReqAddress('');
+                                })
+                                .catch((err) => {
+                                    console.log(
+                                        'Error while adding the thing: ',
+                                        err
+                                    );
+                                });
+                        },
+                    },
+                    {
+                        label: 'No',
+                        onClick: () => {
+                            // Reset input values
+                            setUserMessage('');
+                            setImageUrl('');
+                            setHomeService(false);
+                            setReqAddress('');
+                        },
+                    },
+                ],
             });
+        } else {
+            confirmAlert({
+                title: `Confirm appointment on ${appointment}?`,
+                message: 'Confirm to submit',
+                buttons: [
+                    {
+                        label: 'Yes',
+                        onClick: async () => {
+                            const newEvent = await addNewEvent({
+                                startDate: appointment,
+                                endDate: new Date(
+                                    new Date(appointment).getTime() + 30 * 60000
+                                ),
+                                title: `${props.user.name} ${props.user.lastName} `,
+                                notes: `${userMessage}`,
+                            });
 
-            newEvent &&
-                listAll().then((data) => {
-                    const events = data.map((event) => {
-                        return {
-                            end: new Date(event.endDate),
-                            start: new Date(event.startDate),
-                        };
-                    });
-                    setBooking(events);
-                });
-            imageUrl &&
-                saveNewThing({
-                    imageUrl,
-                    id: props.user._id,
-                    appointment: appointment || new Date(),
-                    homeService,
-                })
-                    .then(async (res) => {
-                        await setMessage(res.msg);
+                            newEvent &&
+                                listAll().then((data) => {
+                                    const events = data.map((event) => {
+                                        return {
+                                            end: new Date(event.endDate),
+                                            start: new Date(event.startDate),
+                                        };
+                                    });
+                                    setBooking(events);
+                                });
+                            imageUrl &&
+                                saveNewThing({
+                                    imageUrl,
+                                    id: props.user._id,
+                                    appointment: appointment || new Date(),
+                                    homeService,
+                                })
+                                    .then(async (res) => {
+                                        await setMessage(res.msg);
 
-                        // Reset input values
-                        await setUserMessage('');
-                        await setImageUrl('');
-                        await setHomeService(false);
-                        await setReqAddress('');
-                    })
-                    .catch((err) => {
-                        console.log('Error while adding the thing: ', err);
-                    });
+                                        // Reset input values
+                                        await setUserMessage('');
+                                        await setImageUrl('');
+                                        await setHomeService(false);
+                                        await setReqAddress('');
+                                    })
+                                    .catch((err) => {
+                                        console.log(
+                                            'Error while adding the thing: ',
+                                            err
+                                        );
+                                    });
+                        },
+                    },
+                    {
+                        label: 'No',
+                        onClick: () => {
+                            // Reset input values
+                            setUserMessage('');
+                            setImageUrl('');
+                            setHomeService(false);
+                            setReqAddress('');
+                        },
+                    },
+                ],
+            });
         }
     };
+    // const onSubmit = async (e) => {
+    //     // console.log('data im sending', data);
+    //     e.preventDefault();
+
+    //     if (homeService) {
+    //         saveNewThing({
+    //             userMessage: userMessage,
+    //             imageUrl: imageUrl,
+    //             id: props.user._id,
+    //             address: reqAddress,
+    //             homeService: homeService,
+    //         })
+    //             .then((res) => {
+    //                 console.log('added: ', res.msg);
+
+    //                 setMessage(res.msg);
+
+    //                 // Reset input values
+    //                 setUserMessage('');
+    //                 setImageUrl('');
+    //                 setHomeService(false);
+    //                 setReqAddress('');
+    //             })
+    //             .catch((err) => {
+    //                 console.log('Error while adding the thing: ', err);
+    //             });
+    //     } else {
+    //         const newEvent = await addNewEvent({
+    //             startDate: appointment,
+    //             endDate: new Date(new Date(appointment).getTime() + 30 * 60000),
+    //             title: `${props.user.name} ${props.user.lastName} `,
+    //             notes: `${userMessage}`,
+    //         });
+
+    //         newEvent &&
+    //             listAll().then((data) => {
+    //                 const events = data.map((event) => {
+    //                     return {
+    //                         end: new Date(event.endDate),
+    //                         start: new Date(event.startDate),
+    //                     };
+    //                 });
+    //                 setBooking(events);
+    //             });
+    //         imageUrl &&
+    //             saveNewThing({
+    //                 imageUrl,
+    //                 id: props.user._id,
+    //                 appointment: appointment || new Date(),
+    //                 homeService,
+    //             })
+    //                 .then(async (res) => {
+    //                     await setMessage(res.msg);
+
+    //                     // Reset input values
+    //                     await setUserMessage('');
+    //                     await setImageUrl('');
+    //                     await setHomeService(false);
+    //                     await setReqAddress('');
+    //                 })
+    //                 .catch((err) => {
+    //                     console.log('Error while adding the thing: ', err);
+    //                 });
+    //     }
+    // };
 
     /// <DatePicker>
     let minTime = new Date();
@@ -200,7 +317,7 @@ const MessageForm = (props) => {
     if (!props.requestedAddress && !props.user) {
         return null;
     }
-    let disabled = !props.user || (!appointment && !homeService);
+    let buttonDisabled = !props.user || (!appointment && !homeService);
 
     // console.log(watch());
     return (
@@ -370,7 +487,7 @@ const MessageForm = (props) => {
                             className={style.Button}
                             variant="primary sm"
                             type="submit"
-                            disabled={disabled}
+                            disabled={buttonDisabled}
                         >
                             Send
                         </Button>
