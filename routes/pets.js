@@ -45,20 +45,9 @@ router.post(
     '/pets/add',
 
     (req, res, next) => {
-        let {
-            name,
-            specie,
-            breed,
-            age,
-            diagnosis,
-            treatment,
-            owner,
-        } = req.body;
+        let { name, specie, breed, age, diagnosis, treatment, owner } =
+            req.body;
 
-        if (req.user.role == 'client') {
-            owner = req.user.id;
-        }
-        console.log('owner pets/add', owner);
         Pet.create({
             name,
             specie,

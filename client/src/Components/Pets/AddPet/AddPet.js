@@ -94,7 +94,7 @@ const AddPet = (props) => {
     return (
         <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-                <h3 style={{ marginBottom: '5%' }}>Your pet details</h3>
+                <h3 style={{ marginBottom: '5%' }}>Pet Details</h3>
 
                 <Form.Group>
                     <FormControl
@@ -185,7 +185,7 @@ const AddPet = (props) => {
                                 <span>This field is required</span>
                             )}
                         </Form.Group>
-                        {!profileOwner && (
+                        {props.location.pathname === '/pets/add' && (
                             <Form.Group>
                                 <FormControl
                                     as="select"
