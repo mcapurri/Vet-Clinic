@@ -49,13 +49,17 @@ export const listAll = () => {
             // Handle the results here (response.result has the parsed body).
             // console.log('Response', response);
             const { items } = response?.result;
-            const events = items.map((item) => ({
-                title: item.summary,
-                startDate: Date.parse(item?.start?.dateTime),
-                endDate: Date.parse(item?.end?.dateTime),
-                id: item.id,
-                location: item.location,
-            }));
+            const events = items.map((item) =>
+                // console.log('item', item),
+                ({
+                    title: item.summary,
+                    startDate: Date.parse(item?.start?.dateTime),
+                    endDate: Date.parse(item?.end?.dateTime),
+                    id: item.id,
+                    location: item.location,
+                    notes: item.notes,
+                })
+            );
             // console.log('events ', events);
             return events;
         })
@@ -80,6 +84,7 @@ export const updateEvent = (event) => {
                 },
                 location: event.location,
                 summary: event.title,
+                notes: event.notes,
             },
         })
         .then((response) => {
@@ -105,6 +110,7 @@ export const addNewEvent = (event) => {
                 },
                 location: event.location,
                 summary: event.title,
+                notes: event.notes,
             },
         })
         .then((response) => {

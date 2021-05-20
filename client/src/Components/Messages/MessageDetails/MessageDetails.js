@@ -23,23 +23,21 @@ const MessageDetails = (props) => {
             setUserMessage(message.data[0].userMessage);
             setImageUrl(message.data[0].imageUrl);
             setSender(message.data[0].sender);
-            let AppointmentDate = new Date(message.data[0].appointment);
-            setAppointment(
-                AppointmentDate.toLocaleDateString() +
-                    ' at ' +
-                    AppointmentDate.getHours() +
-                    ':' +
-                    AppointmentDate.getMinutes()
-            );
-            // setAppointment(message.data[0].appointment);
+            let appointmentDate = new Date(message.data[0].appointment);
+            console.log('appDate', appointmentDate);
+            message.data[0].appointment &&
+                setAppointment(
+                    appointmentDate.toLocaleDateString() +
+                        ' at ' +
+                        appointmentDate.toLocaleTimeString()
+                );
             setReqAddress(message.data[0].address);
             let date = new Date(message.data[0].createdAt);
             setCreatedAt(
-                date.toLocaleDateString() +
-                    ' at ' +
-                    date.getHours() +
-                    ':' +
-                    date.getMinutes()
+                date.toLocaleDateString() + ' at ' + date.toLocaleTimeString()
+                // date.getHours() +
+                // ':' +
+                // date.getMinutes()
             );
         } catch (err) {
             console.log(err);
@@ -72,7 +70,7 @@ const MessageDetails = (props) => {
         <div className={style.Container}>
             <div className={style.Card}>
                 <h4 style={{ paddingBottom: '5%', color: 'rgb(92, 41, 168)' }}>
-                    New message
+                    {appointment ? 'New message' : 'New request'}
                 </h4>
                 <div className={style.Infos}>
                     <div style={{ width: '50%', height: '100%' }}>
