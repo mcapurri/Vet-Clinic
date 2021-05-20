@@ -170,7 +170,7 @@ const MessageForm = (props) => {
                 saveNewThing({
                     imageUrl,
                     id: props.user._id,
-                    appointment,
+                    appointment: appointment || new Date(),
                     homeService,
                 })
                     .then(async (res) => {
@@ -200,6 +200,8 @@ const MessageForm = (props) => {
     if (!props.requestedAddress && !props.user) {
         return null;
     }
+    let disabled = !props.user || (!appointment && !homeService);
+
     // console.log(watch());
     return (
         <section className={style.MessageForm}>
@@ -254,7 +256,7 @@ const MessageForm = (props) => {
                                 // excludeDates={[new Date(), subDays(new Date(), 1)]}
                                 // excludeTimes={booking}
                                 value={appointment}
-                                disabled={homeService}
+                                disabled={!props.user || homeService}
                             />
                         </div>
                         <p>----------- Or -----------</p>
@@ -368,7 +370,7 @@ const MessageForm = (props) => {
                             className={style.Button}
                             variant="primary sm"
                             type="submit"
-                            disabled={!props.user}
+                            disabled={disabled}
                         >
                             Send
                         </Button>
