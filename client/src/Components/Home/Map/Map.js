@@ -38,7 +38,7 @@ const Map = ({ setRequestedAddress, width }) => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             baseApiUrl: 'https://api.mapbox.com',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v9',
             center: [berlin.lng, berlin.lat],
             zoom: berlin.zoom,
             accessToken: MAPBOX_ACCESS_TOKEN,
