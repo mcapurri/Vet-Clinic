@@ -105,7 +105,7 @@ router.post('/forgotpassword', (req, res, next) => {
         .then(async (user) => {
             console.log('userDb', user);
             if (!user) {
-                res.status(403).json({ msg: "User doesn't exist" });
+                res.status(403).json({ message: "User doesn't exist" });
             } else {
                 // Get reset token
                 const resetToken = await user.getResetPasswordToken(user);
@@ -123,7 +123,7 @@ router.post('/forgotpassword', (req, res, next) => {
             }
         })
         .then(() => {
-            res.status(200).json('Reset link successfully sent');
+            res.status(200).json({ message: 'Reset link successfully sent' });
         })
         .catch((err) => next(err));
 });

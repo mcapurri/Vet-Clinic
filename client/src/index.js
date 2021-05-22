@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
+import axios from './utils/axios';
 import { JWT_SECRET } from './utils/config.json';
 
 const token = localStorage.getItem('token');

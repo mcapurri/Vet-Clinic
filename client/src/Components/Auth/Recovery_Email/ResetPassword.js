@@ -36,40 +36,42 @@ const ResetPassword = (props) => {
 
     return (
         <div className={style.Container}>
-            <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group style={{ width: '100%' }}>
-                    <label htmlFor="password">Password</label>
-                    <FormControl
-                        {...register('password', { required: true })}
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={setPassword}
-                    />
-                    {errors.password && <span>This field is required</span>}
-                </Form.Group>
-                <Form.Group style={{ width: '100%' }}>
-                    <label htmlFor="confirm">Confirm Password</label>
-                    <FormControl
-                        {...register('confirm', { required: true })}
-                        name="confirm"
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirm}
-                        onChange={setConfirm}
-                    />
-                    {errors.confirm && <span>This field is required</span>}
-                </Form.Group>
-                <p style={{ color: '#fff', fontSize: '1rem' }}>{message}</p>
-                <Button type="submit">Reset Password</Button>
-            </Form>
+            <div className={style.Card}>
+                <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
+                    <Form.Group style={{ width: '100%' }}>
+                        <label htmlFor="password">Password</label>
+                        <FormControl
+                            {...register('password', { required: true })}
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={setPassword}
+                        />
+                        {errors.password && <span>This field is required</span>}
+                    </Form.Group>
+                    <Form.Group style={{ width: '100%' }}>
+                        <label htmlFor="confirm">Confirm Password</label>
+                        <FormControl
+                            {...register('confirm', { required: true })}
+                            name="confirm"
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirm}
+                            onChange={setConfirm}
+                        />
+                        {errors.confirm && <span>This field is required</span>}
+                    </Form.Group>
+                    <p style={{ color: '#fff', fontSize: '1rem' }}>{message}</p>
+                    <Button type="submit">Reset Password</Button>
+                </Form>
 
-            <Link to="/">
-                {' '}
-                {/* <BackArrow style={{ fontSize: '2rem' }} /> */}
-                Back
-            </Link>
+                <Link to="/">
+                    {' '}
+                    {/* <BackArrow style={{ fontSize: '2rem' }} /> */}
+                    Back
+                </Link>
+            </div>
         </div>
     );
 };

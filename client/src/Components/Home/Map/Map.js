@@ -7,7 +7,8 @@ import axios from 'axios';
 import { MAPBOX_ACCESS_TOKEN } from '../../../utils/config.json';
 
 const Map = ({ setRequestedAddress, width }) => {
-    const mapContainer = useRef();
+    const mapContainer = useRef(null);
+    const map = useRef(null);
     const [berlin, setBerlin] = useState({
         lng: 13.405,
         lat: 52.49,
@@ -34,11 +35,37 @@ const Map = ({ setRequestedAddress, width }) => {
             console.log(err);
         }
     };
+    // useEffect(() => {
+    //     if (map.current) return; // initialize map only once
+    //     map.current = new mapboxgl.Map({
+    //         container: mapContainer.current,
+    //         style: 'mapbox://styles/mapbox/streets-v11',
+    //         center: [berlin.lng, berlin.lat],
+    //         zoom: berlin.zoom,
+    //         accessToken: MAPBOX_ACCESS_TOKEN,
+    //     });
+    // });
+
+    // useEffect(() => {
+    //     if (!map.current) return; // wait for map to initialize
+    //     map.current.on('move', () => {
+    //         setBerlin({
+    //             ...berlin,
+    //             lng: map.current.getCenter().lng.toFixed(4),
+    //         });
+    //         setBerlin({
+    //             ...berlin,
+    //             lat: map.current.getCenter().lat.toFixed(4),
+    //         });
+    //         setBerlin({ ...berlin, zoom: map.current.getZoom().toFixed(2) });
+    //     });
+    // });
+
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             baseApiUrl: 'https://api.mapbox.com',
-            style: 'mapbox://styles/mapbox/streets-v9',
+            style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
             center: [berlin.lng, berlin.lat],
             zoom: berlin.zoom,
             accessToken: MAPBOX_ACCESS_TOKEN,

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const token = localStorage.getItem('token');
+console.log('origin', process.env.ORIGIN);
+
 const instance = axios.create({
     baseURL: `${process.env.ORIGIN}/api`,
     headers: { Authorization: `Bearer ${token}` },
