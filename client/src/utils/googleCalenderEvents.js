@@ -141,7 +141,7 @@ export const deleteEvent = (eventId) => {
 gapi.load('client:auth2', function () {
     gapi.auth2.init({
         client_id: GOOGLE_CLIENT_ID,
-        ux_mode: 'redirect',
-        redirect_uri: process.env.ORIGIN,
+        // ux_mode: 'redirect',
+        // redirect_uri: process.env.ORIGIN,
     });
 });

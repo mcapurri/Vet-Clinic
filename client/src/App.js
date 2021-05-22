@@ -52,28 +52,6 @@ function App(props) {
         };
     }, []);
 
-    // useEffect(() => {
-    //     jwt.verify(token, JWT_SECRET, async (err, decoded) => {
-    //         if (!err) {
-    //             const loggedInUser = await axios.get(
-    //                 `/api/auth/loggedin/${decoded._id}`
-    //             );
-    //         })
-    // },[user])
-
-    // const fetchUser = (user) => {
-    //     jwt.verify(user.token, JWT_SECRET, async (err, decoded) => {
-    //         if (!err) {
-    //             const loggedInUser = await axios.get(
-    //                 `/api/auth/loggedin/${decoded._id}`
-    //             );
-    //             setUser(loggedInUser);
-    //         }
-    //     });
-    // };
-
-    // let isEmployee = false;
-    // user.role === 'employee' && (isEmployee = true);
     let isEmployee = user.role === 'employee';
 
     return (
