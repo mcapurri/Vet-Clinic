@@ -5,6 +5,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { MAPBOX_ACCESS_TOKEN } from '../../../utils/config.json';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map = ({ setRequestedAddress, width }) => {
     const mapContainer = useRef(null);
