@@ -18,17 +18,7 @@ import MessagesList from './Components/Messages/MessagesList/MessagesList';
 import MessageDetails from './Components/Messages/MessageDetails/MessageDetails';
 import GoogleScheduler from './Components/Scheduler/GoogleScheduler';
 import ProtectedRoute from './utils/ProtectedRoute';
-// import getUnreadMessages from './utils/service';
 import { getUnreadMessages } from './utils/service';
-
-import {
-    GOOGLE_API_KEY,
-    GOOGLE_CLIENT_ID,
-    // DISCOVERY_DOCS,
-    SCOPE,
-    CALENDAR_ID,
-} from './utils/config.json';
-const gapi = window.gapi;
 
 function App(props) {
     // console.log('props', props.user);
@@ -37,15 +27,6 @@ function App(props) {
 
     const [unreadMessages, setUnreadMessages] = useState(0);
 
-    useEffect(() => {
-        gapi.load('client:auth2', function () {
-            gapi.auth2.init({
-                client_id: GOOGLE_CLIENT_ID,
-                ux_mode: 'redirect',
-                redirect_uri: process.env.ORIGIN,
-            });
-        });
-    });
     // Fetch unread messages every 30 secs
     useEffect(() => {
         setInterval(
