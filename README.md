@@ -10,7 +10,7 @@ They can add, edit and delete the clients, as well as other employees, their pet
 
 🔷 Responsive Design
 
-🔷 JWT Authentication and Authorization
+🔷 JWT Authentication
 
 ## Technologies used:
 Node.js, Express.js, React, Bootstrap, Passport, JWT, Mongoose, Cloudinary, Mapbox GL, Google API
