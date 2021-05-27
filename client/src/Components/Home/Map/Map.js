@@ -37,31 +37,6 @@ const Map = ({ setRequestedAddress, width }) => {
             console.log(err);
         }
     };
-    // useEffect(() => {
-    //     if (map.current) return; // initialize map only once
-    //     map.current = new mapboxgl.Map({
-    //         container: mapContainer.current,
-    //         style: 'mapbox://styles/mapbox/streets-v11',
-    //         center: [berlin.lng, berlin.lat],
-    //         zoom: berlin.zoom,
-    //         accessToken: MAPBOX_ACCESS_TOKEN,
-    //     });
-    // });
-
-    // useEffect(() => {
-    //     if (!map.current) return; // wait for map to initialize
-    //     map.current.on('move', () => {
-    //         setBerlin({
-    //             ...berlin,
-    //             lng: map.current.getCenter().lng.toFixed(4),
-    //         });
-    //         setBerlin({
-    //             ...berlin,
-    //             lat: map.current.getCenter().lat.toFixed(4),
-    //         });
-    //         setBerlin({ ...berlin, zoom: map.current.getZoom().toFixed(2) });
-    //     });
-    // });
 
     useEffect(() => {
         const map = new mapboxgl.Map({
