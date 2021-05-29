@@ -16,7 +16,7 @@ They can add, edit and delete the clients, as well as other employees, their pet
 Node.js, Express.js, React, Bootstrap, Passport, JWT, Mongoose, Cloudinary, Mapbox GL, Google API
 
 ## How to use:
-If you don't want to go through the whole authentication process use the following credentials:
+If you don't want to go through the whole authentication process use the following credentials to login:<br/>
 ◽  braden@gmail.com   ◽123
 
 ## Author
