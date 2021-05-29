@@ -1,7 +1,7 @@
 {
     "GOOGLE_CLIENT_ID": "831613379131-7crlosojs4m5qqrf21q6c35daf0lfme2.apps.googleusercontent.com",
     "GOOGLE_API_KEY": "AIzaSyDWyADXuAY7wYIaOOMOAki6gtOhTr8evvI",
-    "SCOPE": "https://www.googleapis.com/auth/calendar",
+    "SCOPE": "https://www.googleapis.com/auth/calendar.events",
     "DISCOVERY_DOCS": [
         "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
     ],

@@ -143,8 +143,8 @@ gapi.load('client:auth2', function () {
         client_id: GOOGLE_CLIENT_ID,
         // discoveryDocs: DISCOVERY_DOCS,
         // scope: SCOPE,
-        ux_mode: 'redirect',
-        redirect_uri: process.env.ORIGIN,
+        // ux_mode: 'redirect',
+        // redirect_uri: process.env.ORIGIN,
         // immediate: true,
         // cookiepolicy: 'single_host_origin',
     });
