@@ -40,14 +40,7 @@ const Login = (props) => {
 
     return (
         <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-            <div
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    maxWidth: '40rem',
-                    justifyContent: 'space-around',
-                }}
-            >
+            <div id={style.InputsContainer}>
                 <Form.Group>
                     <FormControl
                         {...register('email', {

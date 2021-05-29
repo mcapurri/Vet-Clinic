@@ -11,8 +11,15 @@
     justify-content: flex-start;
     align-items: center;
 }
-.Form input {
+#InputsContainer {
+    display: flex;
     width: 100%;
+    max-width: 50rem;
+    justify-content: space-around;
+}
+
+.Form input {
+    width: 30vh;
     padding-right: 5%;
 }
 Form a {
@@ -44,7 +51,12 @@ Form a:nth-child(2) {
     background-color: rgb(72, 50, 105);
     box-shadow: none;
 }
-
+@media only screen and (min-width: 860px) {
+    .Form input {
+        transform: scale(1.1);
+        width: 15rem;
+    }
+}
 @media only screen and (max-width: 620px) {
     .LoginButton {
         font-size: 0.7rem;
@@ -53,7 +65,15 @@ Form a:nth-child(2) {
     .Form input {
         transform: scale(0.9);
     }
+    #InputsContainer {
+        transform: scale(0.9);
+    }
     Form a:nth-child(2) {
         margin-left: 30%;
+    }
+}
+@media only screen and (max-width: 435px) {
+    #InputsContainer {
+        transform: scale(0.8);
     }
 }
