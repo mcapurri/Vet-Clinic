@@ -109,7 +109,7 @@ const UserDetails = (props) => {
                 console.log(
                     `${firstName} ${lastName} was successfully removed`
                 );
-                props.history.push('/users');
+                props.history.goBack();
             })
             .catch((err) => {
                 console.log(err);

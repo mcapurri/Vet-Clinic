@@ -58,7 +58,7 @@ const MessageDetails = (props) => {
             );
             console.log('message', message.data.msg);
             setMessage(message.data.msg);
-            props.history.push('/');
+            props.history.goBack();
         } catch (err) {
             console.log(err.response);
         }

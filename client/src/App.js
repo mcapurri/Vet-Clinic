@@ -55,12 +55,7 @@ function App(props) {
     let isEmployee = user.role === 'employee';
 
     return (
-        <div
-            className="App"
-            // style={{
-            //     backgroundColor: '#DEE7E7',
-            // }}
-        >
+        <div className="App">
             <Route
                 render={(props) => (
                     <NavigationBar
