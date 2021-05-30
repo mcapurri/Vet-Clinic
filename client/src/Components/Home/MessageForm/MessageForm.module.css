@@ -33,6 +33,7 @@
     width: 80%;
     margin-bottom: 5%;
     display: flex;
+    justify-content: center;
     justify-self: flex-end;
 }
 
