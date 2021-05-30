@@ -1,11 +1,3 @@
-import {
-    GOOGLE_API_KEY,
-    GOOGLE_CLIENT_ID,
-    DISCOVERY_DOCS,
-    SCOPE,
-    CALENDAR_ID,
-} from '../utils/config.json';
-
 const gapi = window.gapi;
 // console.log('gapi', gapi);
 
@@ -13,7 +5,7 @@ export const authenticate = () => {
     return gapi.auth2
         ?.getAuthInstance()
         ?.signIn({
-            scope: SCOPE,
+            scope: process.env.REACT_APP_SCOPE,
         })
         .then(function () {
             console.log('Sign-in successful');
@@ -23,7 +15,7 @@ export const authenticate = () => {
         });
 };
 export const loadClient = () => {
-    gapi.client.setApiKey(GOOGLE_API_KEY);
+    gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
     return gapi.client
         .load(
             'https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest'
@@ -39,7 +31,7 @@ export const loadClient = () => {
 export const listAll = () => {
     return gapi.client.calendar.events
         .list({
-            calendarId: CALENDAR_ID,
+            calendarId: process.env.REACT_APP_CALENDAR_ID,
             showDeleted: false,
             singleEvents: true,
             // maxResults: 10,
@@ -73,7 +65,7 @@ export const updateEvent = (event) => {
 
     return gapi.client.calendar.events
         .update({
-            calendarId: CALENDAR_ID,
+            calendarId: process.env.REACT_APP_CALENDAR_ID,
             eventId: event.id,
             resource: {
                 end: {
@@ -100,7 +92,7 @@ export const addNewEvent = (event) => {
 
     return gapi.client.calendar.events
         .insert({
-            calendarId: CALENDAR_ID,
+            calendarId: process.env.REACT_APP_CALENDAR_ID,
             resource: {
                 end: {
                     dateTime: new Date(event.endDate).toISOString(),
@@ -124,7 +116,7 @@ export const addNewEvent = (event) => {
 export const deleteEvent = (eventId) => {
     return gapi.client.calendar.events
         .delete({
-            calendarId: CALENDAR_ID,
+            calendarId: process.env.REACT_APP_CALENDAR_ID,
             eventId: eventId,
             sendNotifications: true,
             sendUpdates: 'all',
@@ -140,11 +132,11 @@ export const deleteEvent = (eventId) => {
 
 gapi.load('client:auth2', function () {
     gapi.auth2.init({
-        client_id: GOOGLE_CLIENT_ID,
-        // discoveryDocs: DISCOVERY_DOCS,
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        // discoveryDocs: REACT_APP_DISCOVERY_DOCS,
         // scope: SCOPE,
         // ux_mode: 'redirect',
-        // redirect_uri: process.env.ORIGIN,
+        // redirect_uri: process.env.REACT_APP_ORIGIN,
         // immediate: true,
         // cookiepolicy: 'single_host_origin',
     });

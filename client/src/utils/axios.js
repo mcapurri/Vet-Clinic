@@ -1,7 +1,7 @@
 import axios from 'axios';
 const token = localStorage.getItem('token');
 const instance = axios.create({
-    baseUrl: `${process.env.ORIGIN}`,
+    baseUrl: `${process.env.REACT_APP_ORIGIN}`,
     headers: {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ if (token) {
 // axios.interceptors.request.use(
 //     (config) => {
 //         const { origin } = new URL(config.url);
-//         const allowedOrigins = ['http://localhost:3000'];
+//         const allowedOrigins = [`${process.env.REACT_APP_ORIGIN}`];
 //         const token = localStorage.getItem('token');
 //         if (allowedOrigins.includes(origin)) {
 //             config.headers.authorization = `Bearer ${token}`;
@@ -43,7 +43,7 @@ if (token) {
 //     }
 // );
 
-//on successful response
+// //on successful response
 // instance.interceptors.response.use(
 //     (response) => response,
 //     (error) => {

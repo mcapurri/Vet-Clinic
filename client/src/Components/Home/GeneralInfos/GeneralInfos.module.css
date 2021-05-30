@@ -7,7 +7,9 @@
     min-height: 60vh;
     padding: 5% 0;
 }
-
+.Container .Box:nth-child(2) {
+    margin-bottom: 7%;
+}
 .Container .Box {
     display: flex;
     flex-direction: column;
@@ -43,5 +45,15 @@
     }
     .Container .Box img {
         height: 18rem;
+    }
+}
+@media screen and (min-width: 920px) {
+    .Container .Box:nth-child(2) {
+        margin-bottom: 5%;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .Container .Box:nth-child(2) {
+        margin-bottom: 7%;
     }
 }

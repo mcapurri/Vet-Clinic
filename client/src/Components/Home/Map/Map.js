@@ -4,7 +4,6 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import { MAPBOX_ACCESS_TOKEN } from '../../../utils/config.json';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
@@ -22,7 +21,7 @@ const Map = ({ setRequestedAddress, width }) => {
     let address = async (lngLat) => {
         try {
             const address = await axios.get(
-                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${MAPBOX_ACCESS_TOKEN}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}&cachebuster=1616347496121&autocomplete=true&types=address&types=place&`
             );
             setRequestedAddress({
                 street:
@@ -45,7 +44,7 @@ const Map = ({ setRequestedAddress, width }) => {
             style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
             center: [berlin.lng, berlin.lat],
             zoom: berlin.zoom,
-            accessToken: MAPBOX_ACCESS_TOKEN,
+            accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
         });
         map.addControl(
             new mapboxgl.GeolocateControl({

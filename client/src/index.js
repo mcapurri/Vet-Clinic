@@ -6,10 +6,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from './utils/axios';
-import { JWT_SECRET } from './utils/config.json';
+import { JSO } from 'jso';
+
+// let clinicCalendar = new JSO({
+//     providerID: 'google',
+//     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+//     ux_mode: 'redirect',
+//     redirect_uri: process.env.REACT_APP_ORIGIN, // The URL where you is redirected back, and where you perform run the callback() function.
+//     authorization: 'https://accounts.google.com/o/oauth2/v2/auth',
+//     scopes: { request: [process.env.REACT_APP_SCOPE] },
+//     default_lifetime: false,
+// });
+// clinicCalendar.callback();
+
+// clinicCalendar.getToken().then((token) => {
+//     console.log('I got the token: ', token);
+// });
 
 const token = localStorage.getItem('token');
-jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+jwt.verify(token, process.env.REACT_APP_JWT_SECRET, async (err, decoded) => {
     if (!err) {
         const loggedInUser = await axios.get(
             `/api/auth/loggedin/${decoded._id}`
