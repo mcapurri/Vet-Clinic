@@ -239,71 +239,6 @@ const MessageForm = (props) => {
             });
         }
     };
-    // const onSubmit = async (e) => {
-    //     // console.log('data im sending', data);
-    //     e.preventDefault();
-
-    //     if (homeService) {
-    //         saveNewThing({
-    //             userMessage: userMessage,
-    //             imageUrl: imageUrl,
-    //             id: props.user._id,
-    //             address: reqAddress,
-    //             homeService: homeService,
-    //         })
-    //             .then((res) => {
-    //                 console.log('added: ', res.msg);
-
-    //                 setMessage(res.msg);
-
-    //                 // Reset input values
-    //                 setUserMessage('');
-    //                 setImageUrl('');
-    //                 setHomeService(false);
-    //                 setReqAddress('');
-    //             })
-    //             .catch((err) => {
-    //                 console.log('Error while adding the thing: ', err);
-    //             });
-    //     } else {
-    //         const newEvent = await addNewEvent({
-    //             startDate: appointment,
-    //             endDate: new Date(new Date(appointment).getTime() + 30 * 60000),
-    //             title: `${props.user.name} ${props.user.lastName} `,
-    //             notes: `${userMessage}`,
-    //         });
-
-    //         newEvent &&
-    //             listAll().then((data) => {
-    //                 const events = data.map((event) => {
-    //                     return {
-    //                         end: new Date(event.endDate),
-    //                         start: new Date(event.startDate),
-    //                     };
-    //                 });
-    //                 setBooking(events);
-    //             });
-    //         imageUrl &&
-    //             saveNewThing({
-    //                 imageUrl,
-    //                 id: props.user._id,
-    //                 appointment: appointment || new Date(),
-    //                 homeService,
-    //             })
-    //                 .then(async (res) => {
-    //                     await setMessage(res.msg);
-
-    //                     // Reset input values
-    //                     await setUserMessage('');
-    //                     await setImageUrl('');
-    //                     await setHomeService(false);
-    //                     await setReqAddress('');
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log('Error while adding the thing: ', err);
-    //                 });
-    //     }
-    // };
 
     /// <DatePicker>
     let minTime = new Date();
@@ -362,7 +297,7 @@ const MessageForm = (props) => {
                                 // maxTime={setHours(setMinutes(new Date(), 30), 18)}
                                 minTime={minTime}
                                 maxTime={maxTime}
-                                placeholderText="Select appointment"
+                                placeholderText="Select date"
                                 minDate={new Date()}
                                 filterDate={(date) =>
                                     date.getDay() !== 6 && date.getDay() !== 0

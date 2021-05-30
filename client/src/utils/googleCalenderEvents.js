@@ -17,9 +17,7 @@ export const authenticate = () => {
 export const loadClient = () => {
     gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
     return gapi.client
-        .load(
-            'https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest'
-        )
+        .load(`${process.env.REACT_APP_DISCOVERY_DOCS}`)
         .then(function () {
             console.log('GAPI client loaded');
         })
