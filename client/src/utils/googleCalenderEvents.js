@@ -15,7 +15,7 @@ export const authenticate = () => {
         });
 };
 export const loadClient = () => {
-    gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+    // gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
     return gapi.client
         .load(`${process.env.REACT_APP_DISCOVERY_DOCS}`)
         .then(function () {
@@ -130,15 +130,14 @@ export const deleteEvent = (eventId) => {
 
 gapi.load('client:auth2', function () {
     gapi.auth2.init({
+        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        scope: process.env.REACT_APP_SCOPE,
         // discoveryDocs: REACT_APP_DISCOVERY_DOCS,
-        // scope: SCOPE,
+        // scope: REACT_APP_SCOPE,
         // ux_mode: 'redirect',
         // redirect_uri: process.env.REACT_APP_ORIGIN,
         // immediate: true,
         // cookiepolicy: 'single_host_origin',
     });
-    // .then(() => {
-    //     console.log('getInstance', window.gapi.auth2.getAuthInstance());
-    // });
 });
