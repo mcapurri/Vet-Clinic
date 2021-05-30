@@ -33,7 +33,7 @@ Form a:nth-child(2) {
 }
 .Form p {
     color: #fff;
-    width: 50vw;
+    /* width: 50vw; */
     margin-left: 3%;
 }
 
@@ -51,6 +51,13 @@ Form a:nth-child(2) {
     background-color: rgb(72, 50, 105);
     box-shadow: none;
 }
+.NoSignUp {
+    width: 90vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30%;
+}
+
 @media only screen and (min-width: 860px) {
     .Form input {
         transform: scale(1.1);
@@ -71,9 +78,16 @@ Form a:nth-child(2) {
     Form a:nth-child(2) {
         margin-left: 30%;
     }
+    .NoSignUp {
+        font-size: 0.9rem;
+        margin-right: 15%;
+    }
 }
 @media only screen and (max-width: 435px) {
     #InputsContainer {
         transform: scale(0.8);
+    }
+    .NoSignUp {
+        margin-right: 5%;
     }
 }

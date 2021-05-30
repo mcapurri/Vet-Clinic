@@ -82,7 +82,7 @@ const Login = (props) => {
                         {message}
                     </p>
                 ) : (
-                    <div style={{ width: '100%' }}>
+                    <div className={style.NoSignUp}>
                         <p>
                             Haven't you registered yet?&nbsp;
                             <Link to={'/signup'} className={style.Link}>

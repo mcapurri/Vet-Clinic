@@ -2,22 +2,24 @@ const gapi = window.gapi;
 // console.log('gapi', gapi);
 
 export const authenticate = () => {
-    return gapi.auth2
+    gapi.auth2
         ?.getAuthInstance()
-        ?.signIn({
-            scope: process.env.REACT_APP_SCOPE,
-        })
-        .then(function () {
+        ?.signIn({ scope: process.env.REACT_APP_SCOPE })
+        .then((response) => {
+            // console.log('OauthResponse', response);
+            let authToken = response.qc.access_token;
+            console.log('authToken', authToken);
             console.log('Sign-in successful');
+            return authToken;
         })
         .catch((err) => {
             console.error('Error signing in', err);
         });
 };
 export const loadClient = () => {
-    // gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+    gapi.client.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
     return gapi.client
-        .load(`${process.env.REACT_APP_DISCOVERY_DOCS}`)
+        .load(process.env.REACT_APP_DISCOVERY_DOCS)
         .then(function () {
             console.log('GAPI client loaded');
         })
@@ -130,11 +132,9 @@ export const deleteEvent = (eventId) => {
 
 gapi.load('client:auth2', function () {
     gapi.auth2.init({
-        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        // apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         scope: process.env.REACT_APP_SCOPE,
-        // discoveryDocs: REACT_APP_DISCOVERY_DOCS,
-        // scope: REACT_APP_SCOPE,
         // ux_mode: 'redirect',
         // redirect_uri: process.env.REACT_APP_ORIGIN,
         // immediate: true,
