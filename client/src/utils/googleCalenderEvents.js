@@ -4,13 +4,14 @@ const gapi = window.gapi;
 export const authenticate = () => {
     gapi.auth2
         ?.getAuthInstance()
-        ?.signIn({ scope: process.env.REACT_APP_SCOPE })
-        .then((response) => {
-            // console.log('OauthResponse', response);
-            let authToken = response.qc.access_token;
-            console.log('authToken', authToken);
+        .grantOfflineAccess({ prompt: 'none' })
+        .then((res) => {
+            console.log('authCode', res.code);
+        })
+        .then(function () {
+            console.log('token', gapi.client.getToken());
             console.log('Sign-in successful');
-            return authToken;
+            return;
         })
         .catch((err) => {
             console.error('Error signing in', err);
