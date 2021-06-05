@@ -1,19 +1,49 @@
+import axios from 'axios';
 const gapi = window.gapi;
+
 // console.log('gapi', gapi);
 
 export const authenticate = () => {
+    let code;
     return (
         gapi.auth2
             ?.getAuthInstance()
-            // .grantOfflineAccess({ prompt: 'none' })
-            //     // .then((res) => {
-            //     //     console.log('authCode', res.code);
-            //     // })
-            ?.signIn({
-                scope: process.env.REACT_APP_SCOPE,
+            .grantOfflineAccess({ prompt: 'none' })
+            .then((res) => {
+                console.log('authCode', res.code);
+                code = res.code;
             })
+            // ?.signIn({
+            //     scope: process.env.REACT_APP_SCOPE,
+            // })
             .then(function () {
                 console.log('token', gapi.client.getToken());
+                var options = {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded',
+                    },
+                    data: {
+                        grant_type: 'authorization_code',
+                        client_id: process.env.REACT_APP_CLIENT_ID,
+                        client_secret:
+                            process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+                        code: code,
+                    },
+                };
+
+                axios
+                    .post(
+                        `http//${process.env.REACT_APP_ORIGIN}/oauth/token`,
+                        options
+                    )
+                    .then(function (response) {
+                        console.log(response);
+                        return response.data;
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+
                 console.log('Sign-in successful');
             })
             .catch((err) => {
@@ -141,6 +171,9 @@ gapi.load('client:auth2', function () {
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         scope: process.env.REACT_APP_SCOPE,
         redirect_uri: process.env.REACT_APP_ORIGIN,
+        response_type: 'code',
+        grant_type: 'authorization_code',
+        access_type: 'offline',
         // ux_mode: 'redirect',
         // immediate: true,
         // cookiepolicy: 'single_host_origin',
