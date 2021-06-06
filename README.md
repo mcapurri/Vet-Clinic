@@ -2,7 +2,7 @@
 Booking manager of a vet clinic powered by Google Calendar.<br/>
 
 🔷 Functionalities according to the user's role<br/>
-&nbsp;&nbsp;🔺 "client" users, can manage their profile, can book an appointment at the clinic for their &nbsp;&nbsp;&nbsp;pet,
+&nbsp;&nbsp;🔺 "client" users, can manage their profile, can book an appointment at the clinic for their pet,
 or can request home service, from the home page's form.<br/>
 &nbsp;&nbsp;🔺 The requested address is set by default to the client's address. Clicking on a point on the map below, will set up a draggable marker and the address in the form.<br/>
 &nbsp;&nbsp;🔺 'employee' users have access to the full CRUD operations over both database and Google scheduler.<br/>
