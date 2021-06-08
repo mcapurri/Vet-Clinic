@@ -4,18 +4,18 @@ const gapi = window.gapi;
 // console.log('gapi', gapi);
 
 export const authenticate = () => {
-    // let code;
+    let code;
     return (
         gapi.auth2
             ?.getAuthInstance()
-            //     .grantOfflineAccess({ prompt: 'consent' })
-            //     .then((res) => {
-            //         console.log('authCode', res.code);
-            //         code = res.code;
-            //     })
-            ?.signIn({
-                scope: process.env.REACT_APP_SCOPE,
+            .grantOfflineAccess({ prompt: 'none' })
+            .then((res) => {
+                console.log('authCode', res.code);
+                code = res.code;
             })
+            // ?.signIn({
+            //     scope: process.env.REACT_APP_SCOPE,
+            // })
             .then(function () {
                 console.log('token', gapi.client.getToken());
                 // var options = {
