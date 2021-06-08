@@ -11,12 +11,7 @@ import useInput from '../../../utils/useInput';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-import {
-    authenticate,
-    loadClient,
-    listAll,
-    addNewEvent,
-} from '../../../utils/googleCalenderEvents';
+import { listAll, addNewEvent } from '../../../utils/googleCalenderEvents';
 
 const MessageForm = (props) => {
     const [message, setMessage] = useState('');
@@ -36,8 +31,7 @@ const MessageForm = (props) => {
 
     const {
         register,
-        // handleSubmit,
-        // watch,
+      
         formState: { errors },
     } = useForm();
 
@@ -70,18 +64,18 @@ const MessageForm = (props) => {
     }, [homeService, props.requestedAddress, userMessage, props.user]);
 
     useEffect(() => {
-        authenticate()
-            ?.then(loadClient)
-            .then(() => listAll())
-            .then((data) => {
-                const events = data.map((event) => {
-                    return {
-                        end: new Date(event.endDate),
-                        start: new Date(event.startDate),
-                    };
-                });
-                setBooking(events);
+        // authenticate()
+        //     ?.then(loadClient)
+        //     .then(() => listAll())
+        listAll().then((data) => {
+            const events = data.map((event) => {
+                return {
+                    end: new Date(event.endDate),
+                    start: new Date(event.startDate),
+                };
             });
+            setBooking(events);
+        });
     }, [props.user]);
 
     const filterBookedTime = (time) => {

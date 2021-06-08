@@ -29,8 +29,8 @@ import AddIcon from '@material-ui/icons/Add';
 // import axios from 'axios';
 
 import {
-    authenticate,
-    loadClient,
+    // authenticate,
+    // loadClient,
     listAll,
     updateEvent,
     addNewEvent,
@@ -174,10 +174,10 @@ const GoogleScheduler = (props) => {
 
     useEffect(() => {
         appointmentForm.update();
-        authenticate()
-            ?.then(loadClient)
-            .then(() => listAll())
-            .then((data) => setData(data));
+        // authenticate()
+        //     ?.then(loadClient)
+        //     .then(() => listAll())
+        listAll().then((data) => setData(data));
     }, []);
 
     return (

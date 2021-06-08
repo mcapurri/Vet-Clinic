@@ -6,6 +6,12 @@ const express = require('express');
 
 const app = express();
 
+// parse application/json
+app.use(express.json());
+
+const calendar = require('./routes/calendar');
+app.use('/api', calendar);
+
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require('./config')(app);
 
