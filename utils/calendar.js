@@ -5,7 +5,7 @@ const got = require('got');
 const client_id = process.env.GOOGLE_CLIENT_ID;
 const client_secret = process.env.GOOGLE_CLIENT_SECRET;
 
-const calendarId = process.env.GOOGLE_CALENDAR_ID || 'primary';
+const calendarId = process.env.GOOGLE_CALENDAR_ID;
 
 const redirect_uri = 'http://localhost:5000/api/calendar/auth-code/';
 

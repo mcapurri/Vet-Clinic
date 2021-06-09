@@ -10,7 +10,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
     box-sizing: border-box;
     margin: 5% 0;
@@ -18,7 +17,12 @@
     width: 80vw;
     height: 95%;
     max-width: 45rem;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
 }
 .Form .Group {
     display: flex;

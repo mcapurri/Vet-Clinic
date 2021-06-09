@@ -135,7 +135,7 @@ const UserDetails = (props) => {
             ) : (
                 // <>
                 <div className={style.Card}>
-                    <h3>
+                    <h3 style={{ fontWeight: 'bold' }}>
                         {firstName} {lastName}
                     </h3>
                     <div className={style.AddButton}>

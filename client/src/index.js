@@ -6,38 +6,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from './utils/axios';
-import { JSO } from 'jso';
-
-// const config = {
-//     providerID: 'google',
-//     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-//     client_secret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
-//     ux_mode: 'redirect',
-//     redirect_uri: process.env.REACT_APP_ORIGIN, // The URL where you is redirected back, and where you perform run the callback() function.
-//     authorization: 'https://accounts.google.com/o/oauth2/v2/auth',
-//     token: 'https://oauth2.googleapis.com/token',
-//     scopes: process.env.REACT_APP_SCOPE,
-//     default_lifetime: false,
-// };
-
-// let clinicCalendar = new JSO(config);
-// clinicCalendar.callback();
-
-// const gapi = window.gapi;
-
-// clinicCalendar.setLoader(
-//     gapi.auth2.init({
-//         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-//     })
-// );
-
-// let opts = {
-//     response_type: 'id_token token',
-// };
-
-// clinicCalendar.getToken(opts).then((token) => {
-//     console.log('I got the token: ', token);
-// });
 
 const token = localStorage.getItem('token');
 jwt.verify(token, process.env.REACT_APP_JWT_SECRET, async (err, decoded) => {

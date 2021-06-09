@@ -94,7 +94,9 @@ const AddPet = (props) => {
     return (
         <div className={style.Container}>
             <Form className={style.Form} onSubmit={handleSubmit(onSubmit)}>
-                <h3 style={{ marginBottom: '5%' }}>Pet Details</h3>
+                <h3 style={{ marginBottom: '5%', fontWeight: 'bold' }}>
+                    Add new Pet
+                </h3>
 
                 <Form.Group>
                     <FormControl

@@ -8,7 +8,12 @@
 
 .Card {
     width: 90vw;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
     display: flex;
     flex-direction: column;
     align-items: center;

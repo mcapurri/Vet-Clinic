@@ -11,7 +11,6 @@
     align-items: center;
     justify-content: space-around;
     font-size: 1em;
-    border: 2px solid rgb(69, 191, 165);
     border-radius: 20px;
     box-sizing: border-box;
     box-shadow: 2px 2px 10px 0 #eee;
@@ -19,12 +18,17 @@
     padding: 5% 0;
     width: 80vw;
     min-height: 80vh;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
 }
 
 .Form input,
 .Select {
-    width: 120%;
+    width: 60vw;
     line-height: 2rem;
     padding-left: 5%;
     background-color: transparent;
@@ -69,4 +73,24 @@ span {
     font-weight: 800;
     border: none;
     cursor: pointer;
+}
+.Button {
+    border-radius: 10px;
+    background-color: #a6b0b8;
+    color: #fff;
+    cursor: pointer;
+    width: 3rem;
+    margin-top: 5%;
+}
+Button:disabled {
+    color: #ccc;
+}
+
+.Form button:last-child {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 5%;
+    color: rgb(105, 36, 210);
+    font-weight: 600;
 }

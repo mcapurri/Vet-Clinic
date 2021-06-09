@@ -26,11 +26,16 @@ a:hover {
     text-decoration: none;
 }
 .mapboxgl-popup-content {
-    background-color: #96616b !important;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #bdd4e7 0%,
+        #8693ab 74%
+    ) !important;
 }
 
 .mapboxgl-popup-tip {
-    border-top-color: #96616b !important ;
+    border-top-color: #8693ab !important ;
 }
 
 @keyframes App-logo-spin {

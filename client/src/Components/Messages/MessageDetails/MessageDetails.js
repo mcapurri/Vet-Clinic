@@ -69,7 +69,13 @@ const MessageDetails = (props) => {
     return (
         <div className={style.Container}>
             <div className={style.Card}>
-                <h4 style={{ paddingBottom: '5%', color: 'rgb(92, 41, 168)' }}>
+                <h4
+                    style={{
+                        paddingBottom: '5%',
+                        color: 'rgb(92, 41, 168)',
+                        fontWeight: 'bold',
+                    }}
+                >
                     {appointment ? 'New message' : 'New request'}
                 </h4>
                 <div className={style.Infos}>

@@ -17,9 +17,13 @@
     box-sizing: border-box;
     padding: 5% 0 5% 5%;
     width: 80vw;
-    /* height: 95vh; */
     max-width: 45rem;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
 }
 .Form .Group {
     display: flex;

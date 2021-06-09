@@ -8,11 +8,16 @@
 .Card {
     width: 90vw;
     min-height: 60vh;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #fff;
+    color: rgb(72, 50, 105);
     margin: 5% 0;
     border-radius: 10px;
     padding-bottom: 5%;
@@ -40,7 +45,12 @@
     display: flex;
     justify-self: flex-end;
     align-self: flex-start;
-    background-color: #96616b;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(
+        315deg,
+        #acc0d1 0%,
+        #8693ab 0%
+    ) !important;
     margin-left: 5%;
     border: none;
     text-decoration: none;
@@ -55,7 +65,7 @@
     color: #eee;
 }
 .Card a {
-    color: #fff;
+    color: rgb(105, 36, 210);
 }
 
 .Button {
