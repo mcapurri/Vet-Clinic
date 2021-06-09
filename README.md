@@ -12,7 +12,7 @@ They can add, edit and delete the clients, as well as other employees, their pet
 
 🔷 JWT Authentication
 
-🔷 Notications alert every incoming messages
+🔷 Notifications alert every incoming messages
 
 ## Technologies used:
 Node.js, Express.js, React, Bootstrap, Passport, JWT, Mongoose, Cloudinary, Mapbox GL, Google API
